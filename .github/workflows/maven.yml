@@ -1,0 +1,36 @@
+name: Java CI
+
+on:
+  pull_request:
+    branches: 
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Run tests (mvn test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '13'
+      - name: Run all tests with Maven
+        run: mvn test
+  coverage:
+    needs: [test]
+    name: Code coverage and package JAR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '13'
+      - name: Generate JaCoCo report (mvn clean verify)
+        run: mvn clean package sonar:sonar -Dsonar.login=$SONAR_TOKEN
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
