@@ -10,6 +10,6 @@ In order to compile the program you need to have [Maven](https://maven.apache.or
 
 `mvn package --file pom.xml`
 
-### How do I run the game?
+### How do I run the program?
 `java -jar /path/to/program.jar`
 
