@@ -3,7 +3,7 @@
 .idea/
 
 # Java class files
-*.java
+*.class
 
 # Single files
 .classpath

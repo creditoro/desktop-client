@@ -9,10 +9,14 @@
     -fx-pref-width: 500px;
     -fx-max-width: 600px;
 }
-.login-form-text {
+.login-form-inputfield {
     -fx-pref-width: 500px;
 	-fx-background-color: #FFFFFF;
 	-fx-background-radius: 10px;
+}
+
+.login-form-text {
+	-fx-text-fill: #FFFFFF;
 }
 
 .login-form-button {
