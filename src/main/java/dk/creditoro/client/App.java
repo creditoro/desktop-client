@@ -16,7 +16,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("LoginPage"));
+        scene = new Scene(loadFXML("SearchChannels"));
         stage.setScene(scene);
         stage.show();
     }
@@ -30,8 +30,8 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
-		System.out.println("hello World" );
+    public static void launchFX(String[] args) {
+        //System.out.println("hello World" );
         launch();
     }
 
