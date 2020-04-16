@@ -3,7 +3,6 @@ package dk.creditoro.clientrest;
 import dk.creditoro.exceptions.HttpStatusException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
-import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
