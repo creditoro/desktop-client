@@ -1,17 +1,34 @@
 package dk.creditoro.client;
 
+import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 public class SearchChannels {
-    public void handleLblSearch(MouseEvent mouseEvent) {
+
+    public GridPane channelGrid;
+    
+    public void handleImgAddChannel(MouseEvent mouseEvent) {
     }
 
-    public void handleLblChannels(MouseEvent mouseEvent) {
+    public void handleChannelSearch(ActionEvent actionEvent) {
     }
 
-    public void handleLblPrograms(MouseEvent mouseEvent) {
+    public void handleSearchBar(ActionEvent actionEvent) {
     }
 
-    public void handleLblEmail(MouseEvent mouseEvent) {
+    public void handleBtnAccount(ActionEvent actionEvent) {
+    }
+
+    public void handleBtnSearch(MouseEvent mouseEvent) {
+    }
+
+    public void handleBtnChannels(ActionEvent actionEvent) {
+    }
+
+    public void handleBtnPrograms(ActionEvent actionEvent) {
+    }
+
+    public void handleLblStartMenu(MouseEvent mouseEvent) {
     }
 }
