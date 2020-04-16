@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dk.creditoro.exceptions.HttpStatusException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +34,14 @@ public class MainController implements Initializable {
 		String email = txt_username.getText();
 		String password = txt_password.getText();
 
-		App.login.signIn(email, password);
+		try {
+			App.login.signIn(email, password);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (HttpStatusException e) {
+			e.printStackTrace();
+			// TODO handle login
+		}
 
 		//Change scene
 		try {
