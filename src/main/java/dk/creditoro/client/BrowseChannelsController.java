@@ -1,5 +1,6 @@
 package dk.creditoro.client;
 
+import dk.creditoro.exceptions.HttpStatusException;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -30,7 +31,7 @@ public class BrowseChannelsController implements Initializable {
 		App.channels.getChannels(q);
 	}
 
-	public void postChannel(String name) throws IOException {
+	public void postChannel(String name) throws IOException, HttpStatusException {
 		App.channels.postChannel(name, App.login.getToken());
 	}
 
