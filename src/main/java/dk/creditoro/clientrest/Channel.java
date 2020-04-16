@@ -5,12 +5,28 @@ import java.util.UUID;
 public class Channel {
 
     private String name;
-    private UUID uuid;
+    private String id;
 
 
-    public UUID getUUID()
+    public Channel(String id, String name)
     {
-        return uuid;
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+    public String getName()
+    {
+        return name;
+    }
+
+
+    public String toString()
+    {
+        return "identifier: " + id + "\nname: " + name + "\n";
     }
 
 }

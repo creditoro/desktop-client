@@ -1,5 +1,7 @@
 package dk.creditoro.client;
 
+import dk.creditoro.clientrest.Channels;
+import dk.creditoro.clientrest.Login;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +15,12 @@ import java.io.IOException;
  */
 public class App extends Application {
     private static Scene scene;
+    public static Login login = new Login();
+    public static Channels channels = new Channels();
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("SearchChannels"));
+        scene = new Scene(loadFXML("LoginPage"));
         stage.setScene(scene);
         stage.show();
     }

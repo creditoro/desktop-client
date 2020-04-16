@@ -15,7 +15,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <TextField prefHeight="40.0" prefWidth="160.0" promptText="Username" styleClass="login-form-inputfield">
+                  <TextField fx:id="txt_username" prefHeight="40.0" prefWidth="160.0" promptText="Username" styleClass="login-form-inputfield">
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
@@ -26,7 +26,7 @@
                         <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField prefHeight="40.0" prefWidth="160.0" promptText="Password" styleClass="login-form-inputfield">
+                  <TextField fx:id="txt_password" prefHeight="40.0" prefWidth="160.0" promptText="Password" styleClass="login-form-inputfield">
                      <VBox.margin>
                         <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                      </VBox.margin>
@@ -38,7 +38,7 @@
                      </font>
                   </TextField>
                   <Label styleClass="login-form-text" text="Glemt din kode? Klik her" />
-                  <Button graphicTextGap="0.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="186.0" styleClass="login-form-button" text="SIGN IN" textFill="WHITE">
+                  <Button fx:id="btn_SignIn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#SignIn" prefHeight="40.0" prefWidth="186.0" styleClass="login-form-button" text="SIGN IN" textFill="WHITE">
                      <font>
                         <Font size="29.0" />
                      </font>
