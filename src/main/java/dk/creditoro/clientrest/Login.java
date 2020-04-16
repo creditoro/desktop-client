@@ -24,10 +24,9 @@ public class Login {
     public boolean SignIn(String mail, String password)
     {
         String info = "{\n" + " \"email\": \"" + mail + "\",\n" + " \"password\": \"" + password + "\"\n" + "}";
-
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        
         CloseableHttpResponse response = null;
-        try {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpHost host = new HttpHost("api.creditoro.nymann.dev", 443, "https");
 
             //Specify get request
