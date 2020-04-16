@@ -1,5 +1,6 @@
 package dk.creditoro.clientrest;
 
+import dk.creditoro.exceptions.HttpStatusException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public class Channels {
 
-    public boolean postChannel(String name, String token) throws IOException {
+    public boolean postChannel(String name, String token) throws IOException, HttpStatusException {
         //Create HttpManager
         HttpManager httpManager = new HttpManager("api.creditoro.nymann.dev", 443, "https");
 
