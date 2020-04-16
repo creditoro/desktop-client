@@ -1,8 +1,9 @@
 # credits
 
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=projektgruppe_credits&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=projektgruppe_credits)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=projektgruppe_credits&metric=coverage)](https://sonarcloud.io/dashboard?id=projektgruppe_credits)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=projektgruppe_credits&metric=alert_status)](https://sonarcloud.io/dashboard?id=projektgruppe_credits)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=creditoro_desktop&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=creditoro_desktop-client)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=creditoro_desktop&metric=coverage)](https://sonarcloud.io/dashboard?id=creditoro_desktop-client)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=creditoro_desktop-client&metric=alert_status)](https://sonarcloud.io/dashboard?id=creditoro_desktop-client)
+
 
 
 ### How do I compile?
