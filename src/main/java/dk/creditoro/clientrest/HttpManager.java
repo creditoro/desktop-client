@@ -34,7 +34,8 @@ public class HttpManager {
 
     public String get(String path, String query) throws IOException
     {
-        try (CloseableHttpClient httpClient = HttpClients.createDefault(); CloseableHttpResponse response = null){
+        CloseableHttpResponse response = null;
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()){
             HttpHost host = new HttpHost(hostURL, port, scheme);
 
             //Specify get request
@@ -49,7 +50,9 @@ public class HttpManager {
 
         } finally{
             try {
-                response.close();
+                if (response != null) {
+                    response.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
