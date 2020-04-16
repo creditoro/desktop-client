@@ -1,7 +1,6 @@
 # IDE settings
 .vscode/
 .idea/
-*.iml
 
 # Java class files
 *.class
