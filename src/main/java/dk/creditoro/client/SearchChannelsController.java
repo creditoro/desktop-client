@@ -12,7 +12,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 
 public class SearchChannelsController implements Initializable {
@@ -31,7 +33,7 @@ public class SearchChannelsController implements Initializable {
 	//Call with "" - string for all channels
 	public void getChannel(String q)
 	{
-		DefaultHttpClient httpClient = new DefaultHttpClient();
+		CloseableHttpClient httpClient = HttpClients.createDefault();
 		Scanner scanner = null;
 		try {
 			HttpHost host = new HttpHost("api.creditoro.nymann.dev", 443, "https");
@@ -59,7 +61,6 @@ public class SearchChannelsController implements Initializable {
 			e.printStackTrace();
 		} finally{
 			scanner.close();
-			httpClient.getConnectionManager().shutdown();
 		}
 	}
 
@@ -67,7 +68,7 @@ public class SearchChannelsController implements Initializable {
 	{
 		final String postParams = "{\"name\":\"" + name +  "\" }";
 
-		DefaultHttpClient httpClient = new DefaultHttpClient();
+		CloseableHttpClient httpclient = HttpClients.createDefault();
 		Scanner scanner = null;
 		try {
 			HttpHost host = new HttpHost("api.creditoro.nymann.dev", 443, "https");
@@ -85,7 +86,7 @@ public class SearchChannelsController implements Initializable {
 			System.out.println(Arrays.toString(post.getAllHeaders()));
 
 			//Response
-			HttpResponse response = httpClient.execute(host, post);
+			HttpResponse response = httpclient.execute(host, post);
 			HttpEntity entity = response.getEntity();
 
 			if(entity == null)
@@ -112,7 +113,6 @@ public class SearchChannelsController implements Initializable {
 			e.printStackTrace();
 		} finally{
 			scanner.close();
-			httpClient.getConnectionManager().shutdown();
 		}
 	}
 }
