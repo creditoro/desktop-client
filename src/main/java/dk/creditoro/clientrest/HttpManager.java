@@ -1,7 +1,9 @@
 package dk.creditoro.clientrest;
 
+import dk.creditoro.exceptions.HttpStatusException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -32,9 +34,7 @@ public class HttpManager {
 
     public String get(String path, String query) throws IOException
     {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        CloseableHttpResponse response = null;
-        try {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault(); CloseableHttpResponse response = null){
             HttpHost host = new HttpHost(hostURL, port, scheme);
 
             //Specify get request
@@ -50,7 +50,6 @@ public class HttpManager {
         } finally{
             try {
                 response.close();
-                httpClient.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -59,9 +58,8 @@ public class HttpManager {
 
     public String get(String path, String query, String token) throws IOException
     {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
-        try {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpHost host = new HttpHost(hostURL, port, scheme);
 
             //Specify get request
@@ -79,19 +77,18 @@ public class HttpManager {
 
         } finally{
             try {
-                response.close();
-                httpClient.close();
+                if (response != null) {
+                    response.close();
+                }
             } catch (IOException e) {
-                e.printStackTrace();
+                // use logger here TODO
             }
         }
     }
 
-    public String post(String path, JSONObject json, String token) throws IOException
-    {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
+    public String post(String path, JSONObject json, String token) throws IOException, HttpStatusException {
         CloseableHttpResponse response = null;
-        try {
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()){
             HttpHost host = new HttpHost(hostURL, port, scheme);
 
             //Specify post request
@@ -104,8 +101,6 @@ public class HttpManager {
             StringEntity postEntity = new StringEntity(json.toString(), ContentType.APPLICATION_JSON);
             post.setEntity(postEntity);
 
-            //System.out.println(Arrays.toString(post.getAllHeaders()));
-
             //Response
             response = httpclient.execute(host, post);
             HttpEntity entity = response.getEntity();
@@ -115,25 +110,25 @@ public class HttpManager {
 
             if(statusCode != 201)
             {
-                throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+                throw new HttpStatusException("Failed with HTTP error code : " + statusCode);
             }
 
             return streamToString(entity);
 
         } finally{
             try {
-                response.close();
-                httpclient.close();
+                if (response != null) {
+                    response.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public String post(String path, JSONObject json) throws IOException {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
+    public String post(String path, JSONObject json) throws IOException, HttpStatusException {
         CloseableHttpResponse response = null;
-        try {
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()){
             HttpHost host = new HttpHost(hostURL, port, scheme);
 
             //Specify post request
@@ -143,8 +138,6 @@ public class HttpManager {
             StringEntity postEntity = new StringEntity(json.toString(), ContentType.APPLICATION_JSON);
             post.setEntity(postEntity);
 
-            //System.out.println(Arrays.toString(post.getAllHeaders()));
-
             //Response
             response = httpclient.execute(host, post);
             HttpEntity entity = response.getEntity();
@@ -154,17 +147,18 @@ public class HttpManager {
 
             if(statusCode != 201)
             {
-                throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+                throw new HttpStatusException("Failed with HTTP error code : " + statusCode);
             }
 
             return streamToString(entity);
 
         } finally{
             try {
-                response.close();
-                httpclient.close();
+                if (response != null) {
+                    response.close();
+                }
             } catch (IOException e) {
-                e.printStackTrace();
+                // use logger here TODO
             }
         }
     }
@@ -173,10 +167,9 @@ public class HttpManager {
 
     public String streamToString(HttpEntity response) {
         try {
-            String content = new BufferedReader(new InputStreamReader(response.getContent())).lines().collect(Collectors.joining("\n"));
-            return content;
+            return new BufferedReader(new InputStreamReader(response.getContent())).lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
-            e.printStackTrace();
+            // use logger here TODO
             return null;
         }
     }

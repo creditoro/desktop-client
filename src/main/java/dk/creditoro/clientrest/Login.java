@@ -54,7 +54,10 @@ public class Login {
             return false;
         } finally{
             try {
-                response.close();
+                if (response != null) {
+                    response.close();
+                }
+                httpClient.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -69,8 +72,7 @@ public class Login {
 
     public String streamToString(HttpEntity response) {
         try {
-            String content = new BufferedReader(new InputStreamReader(response.getContent())).lines().collect(Collectors.joining("\n"));
-            return content;
+            return new BufferedReader(new InputStreamReader(response.getContent())).lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
