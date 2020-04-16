@@ -4,19 +4,7 @@ import javafx.fxml.Initializable;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-
-import org.apache.http.*;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
 
 public class SearchChannelsController implements Initializable {
 
@@ -28,15 +16,28 @@ public class SearchChannelsController implements Initializable {
 	@Override
     public void initialize(URL url, ResourceBundle resourceBundle)
 	{
-		getChannel("");
+		try {
+			getChannel("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	//Call with "" - string for all channels
-	public void getChannel(String q) {
+	public void getChannel(String q) throws IOException {
 		App.channels.getChannels(q);
+
+		//Display channels
+
 	}
 
-	public void postChannel(String name) {
+	public void postChannel(String name) throws IOException {
 		App.channels.postChannel(name, App.login.getToken());
+	}
+
+
+	public void displayChannels()
+	{
+
 	}
 }
