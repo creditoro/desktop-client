@@ -1,14 +1,16 @@
 package dk.creditoro.client;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SearchChannelsController implements Initializable {
+public class BrowseChannelsController implements Initializable {
 
-	public SearchChannelsController()
+	public BrowseChannelsController()
 	{
 
 	}
@@ -26,17 +28,21 @@ public class SearchChannelsController implements Initializable {
 	//Call with "" - string for all channels
 	public void getChannel(String q) throws IOException {
 		App.channels.getChannels(q);
-
-		//Display channels
-
 	}
 
 	public void postChannel(String name) throws IOException {
 		App.channels.postChannel(name, App.login.getToken());
 	}
 
+	public void handleSearchBar(ActionEvent actionEvent)
+	{
 
-	public void displayChannels()
+	}
+	public void handleBtnAccount(ActionEvent actionEvent)
+	{
+
+	}
+	public void handleBtnSearch(MouseEvent mouseEvent)
 	{
 
 	}
