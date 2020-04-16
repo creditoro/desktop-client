@@ -33,7 +33,7 @@ public class MainController implements Initializable {
 		String email = txt_username.getText();
 		String password = txt_password.getText();
 
-		App.login.SignIn(email, password);
+		App.login.signIn(email, password);
 
 		//Change scene
 		try {

@@ -148,7 +148,7 @@ public class HttpManager {
             int statusCode = response.getStatusLine().getStatusCode();
             System.out.println("Status code: " + statusCode);
 
-            if(statusCode != 201)
+            if(statusCode < 200 || statusCode > 299)
             {
                 throw new HttpStatusException("Failed with HTTP error code : " + statusCode);
             }
