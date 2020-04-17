@@ -1,7 +1,7 @@
 package dk.creditoro.client;
 
-import dk.creditoro.clientrest.Channels;
-import dk.creditoro.clientrest.Login;
+import dk.creditoro.rest_client.Channels;
+import dk.creditoro.rest_client.Login;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
