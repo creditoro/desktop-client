@@ -13,40 +13,35 @@ import javafx.scene.control.TextField;
 
 public class MainController implements Initializable {
 
-	@FXML public TextField txt_username;
-	@FXML public TextField txt_password;
-	@FXML public Button btn_SignIn;
+	@FXML public TextField txtUsername;
+	@FXML public TextField txtPassword;
+	@FXML public Button btnSignIn;
 
-	public MainController()
-	{
-
-	}
 
 	@Override
     public void initialize(URL url, ResourceBundle resourceBundle)
 	{
-
+		//TODO Setup code here
 	}
 
 	@FXML
 	public void SignIn(ActionEvent actionEvent)
 	{
-		String email = txt_username.getText();
-		String password = txt_password.getText();
+		String email = txtUsername.getText();
+		String password = txtPassword.getText();
 
 		try {
 			App.login.signIn(email, password);
-		} catch (IOException e) {
+		} catch (IOException | HttpStatusException e) {
+			//TODO Add Logger
 			e.printStackTrace();
-		} catch (HttpStatusException e) {
-			e.printStackTrace();
-			// TODO handle login
 		}
 
 		//Change scene
 		try {
 			App.setRoot("SearchChannels");
 		} catch (IOException e) {
+			//TODO Add Logger
 			e.printStackTrace();
 		}
 	}

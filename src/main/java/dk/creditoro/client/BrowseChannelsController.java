@@ -11,40 +11,24 @@ import java.util.ResourceBundle;
 
 public class BrowseChannelsController implements Initializable {
 
-	public BrowseChannelsController()
-	{
-
-	}
 
 	@Override
     public void initialize(URL url, ResourceBundle resourceBundle)
 	{
-		try {
-			getChannel("");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//TODO Setup code here
 	}
 
-	//Call with "" - string for all channels
-	public void getChannel(String q) throws IOException {
-		App.channels.getChannels(q);
-	}
-
-	public void postChannel(String name) throws IOException, HttpStatusException {
-		App.channels.postChannel(name, App.login.getToken());
-	}
 
 	public void handleSearchBar(ActionEvent actionEvent)
 	{
-
+		throw new UnsupportedOperationException("Invalid operation");
 	}
 	public void handleBtnAccount(ActionEvent actionEvent)
 	{
-
+		throw new UnsupportedOperationException("Invalid operation");
 	}
 	public void handleBtnSearch(MouseEvent mouseEvent)
 	{
-
+		throw new UnsupportedOperationException("Invalid operation");
 	}
 }
