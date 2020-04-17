@@ -11,15 +11,16 @@ public class Login {
 
     // TODO exceptionhandling
     public boolean signIn(String mail, String password) throws IOException, HttpStatusException {
-        HttpManager httpManager = new HttpManager("api.credito.nymann.dev",443,"https");
+        HttpManager httpManager = new HttpManager("api.creditoro.nymann.dev",443,"https");
         JSONObject userLogin = new JSONObject();
         userLogin.put("email",mail);
         userLogin.put("password",password);
-        token = httpManager.post("/user/login",userLogin);
+        String response = httpManager.post("/users/login",userLogin);
+		token = convertResponseToTokenString(response);
         return true;
     }
 
-    public String getJSON(String response)
+    public String convertResponseToTokenString(String response)
     {
         JSONObject tokenString = new JSONObject(response);
         return tokenString.getString("token");
