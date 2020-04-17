@@ -15,12 +15,11 @@
 			<artifactId>json</artifactId>
 			<version>20190722</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.12</version>
-		</dependency>
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.7.02</version>
+        </dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
@@ -86,7 +85,7 @@
                     <finalName>desktop-client</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>dk.creditoro.client.App</mainClass>
+                            <mainClass>dk.creditoro.client.CreditoroApp</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

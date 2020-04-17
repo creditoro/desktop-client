@@ -1,9 +1,11 @@
 package dk.creditoro.client;
 
+import javafx.application.Application;
+
 /**
  * The type Main.
  */
-public class Main {
+public class RunCreditoroApp {
 
     /**
      * The entry point of application.
@@ -11,6 +13,6 @@ public class Main {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        App.launchFX(args);
+        Application.launch(CreditoroApp.class);
     }
 }
