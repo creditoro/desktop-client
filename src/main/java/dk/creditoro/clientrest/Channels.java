@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Channels {
+	HttpManager httpManager;
 
-    public boolean postChannel(String name, String token) throws IOException, HttpStatusException {
+	public Channels (){
         //Create HttpManager
-        HttpManager httpManager = new HttpManager("api.creditoro.nymann.dev", 443, "https");
-
+        httpManager = new HttpManager("api.creditoro.nymann.dev", 443, "https");
+	}
+    public boolean postChannel(String name, String token) throws IOException, HttpStatusException {
         //Funktionalitet
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -25,10 +27,9 @@ public class Channels {
         }
     }
 
+	//TODO NEED REFATOR to return some thing GOOD. not just print the result
+	//TODO make these to method on single thing? - Kevin
     public void getChannels(String q) throws IOException {
-        //Connect to httpManager
-        HttpManager httpManager = new HttpManager("api.creditoro.nymann.dev", 443, "https");
-
         //Funktionalitet
         ArrayList<Channel> channelList = getList(httpManager.get("/channels/", q));
         System.out.println(channelList);
@@ -36,7 +37,7 @@ public class Channels {
 
 
 
-    public ArrayList<Channel> getList(String response)
+    private ArrayList<Channel> getList(String response)
     {
         JSONArray channels = new JSONArray(response);
         ArrayList<Channel> temp = new ArrayList<Channel>();
