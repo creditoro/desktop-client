@@ -35,8 +35,7 @@ public class App extends Application {
     }
 
     public static void launchFX(String[] args) {
-        //System.out.println("hello World" );
-        launch();
+        launch(args);
     }
 
 }
