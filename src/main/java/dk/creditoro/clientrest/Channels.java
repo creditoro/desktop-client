@@ -1,11 +1,10 @@
 package dk.creditoro.clientrest;
 
-import dk.creditoro.exceptions.HttpStatusException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Channels {
 	HttpManager httpManager;
@@ -14,33 +13,34 @@ public class Channels {
         //Create HttpManager
         httpManager = new HttpManager("api.creditoro.nymann.dev", 443, "https");
 	}
-    public boolean postChannel(String name, String token) throws IOException, HttpStatusException {
+    public boolean postChannel(String name, String token) {
         //Funktionalitet
         JSONObject json = new JSONObject();
         json.put("name", name);
 
-        if(httpManager.post("/channels/", json, token) != null)
-        {
-            return true;
-        } else {
-            return false;
-        }
+		//Return true if httpMangerPost it not null
+        return (httpManager.post("/channels/", json, token) != null);
     }
 
 	//TODO NEED REFATOR to return some thing GOOD. not just print the result
 	//TODO make these to method on single thing? - Kevin
-    public void getChannels(String q) throws IOException {
+    public void getChannels() {
         //Funktionalitet
-        ArrayList<Channel> channelList = getList(httpManager.get("/channels/", q));
+        List<Channel> channelList = getList(httpManager.get("/channels/", ""));
+        System.out.println(channelList);
+    }
+    public void getChannel(String quarry) {
+        //Funktionalitet
+        List<Channel> channelList = getList(httpManager.get("/channels/", "?=" + quarry));
         System.out.println(channelList);
     }
 
 
 
-    private ArrayList<Channel> getList(String response)
+    private List<Channel> getList(String response)
     {
         JSONArray channels = new JSONArray(response);
-        ArrayList<Channel> temp = new ArrayList<Channel>();
+        List<Channel> temp = new ArrayList<>();
 
         for(int i = 0; i < channels.length(); i++)
         {
