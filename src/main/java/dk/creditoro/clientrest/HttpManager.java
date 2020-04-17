@@ -2,11 +2,9 @@ package dk.creditoro.clientrest;
 
 import dk.creditoro.exceptions.HttpStatusException;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -30,21 +28,19 @@ public class HttpManager {
         host = new HttpHost(hostname, port, scheme);
     }
 
-    public String get(String path, String query) throws IOException
+    public String get(String path, String query) 
     {
 		//Specify get request
-		// TODO need to refactor this line, so there is not "?=" in the query
-		HttpGet request = new HttpGet(path + "?=" + query);
+		HttpGet request = new HttpGet(path + query);
 
 		// execute the Http request and return the string value from the httpEntity
 		return ExecuteHttp(request);
     }
 
-    public String get(String path, String query, String token) throws IOException
+    public String get(String path, String query, String token) 
 	{
 		//Specify get request
-		// TODO need to refactor this line, so there is not "?=" in the query
-		HttpGet get  = new HttpGet(path + "?=" + query);
+		HttpGet get  = new HttpGet(path + query);
 
 		//Add Token
 		get.addHeader(new BasicHeader("Authorization", token));
@@ -53,7 +49,7 @@ public class HttpManager {
 		return ExecuteHttp(get);
 	}
 
-    public String post(String path, JSONObject json, String token) throws IOException, HttpStatusException 
+    public String post(String path, JSONObject json, String token) 
 	{
 		//Specify post request
 		HttpPost request = new HttpPost(path);
@@ -68,7 +64,7 @@ public class HttpManager {
 		return ExecuteHttp(request);
     }
 
-    public String post(String path, JSONObject json) throws IOException, HttpStatusException
+    public String post(String path, JSONObject json) 
 	{
 		//Specify post request
 		HttpPost request = new HttpPost(path);
@@ -87,24 +83,19 @@ public class HttpManager {
 	// Executes the request
 	public String ExecuteHttp(HttpUriRequest request)
 	{
-		try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+		try (CloseableHttpClient httpclient = HttpClients.createDefault(); CloseableHttpResponse response = httpclient.execute(host, request)) {
 			// Execute Http
-			try (CloseableHttpResponse response = httpclient.execute(host, request)) {
 				int statusCode = response.getStatusLine().getStatusCode();
-				System.out.println(statusCode);
+				// LOG statusCode
 				if(statusCode < 200 || statusCode > 299) {
 					throw new HttpStatusException("Failed with HTTP error code : " + statusCode);
 				}
-
 				return streamToString(response.getEntity());
-			} catch (HttpStatusException e) {
-				//TODO add LOGGER
-			}
-			return "";
-		} catch (IOException e) {
+
+		} catch (IOException | HttpStatusException  e) {
 			//TODO add LOGGER
 		}
-		return "";
+		return null;
 	}
 
     public String streamToString(HttpEntity response)
