@@ -19,18 +19,11 @@ public class TestingStuffFoolAround {
 		}
 		Channels channels = new Channels();
 
-	try {
-		String name = "DR999";
+		String name = "DR998";
 		System.out.println("New Channel name: " + name);
 		System.out.println(channels.postChannel(name, login.getToken()));
-		channels.getChannels("");
-	} catch (IOException e) {
-		System.out.println("IO error: " + e);
-	} catch (HttpStatusException e){
-		System.out.println("Http error: " + e);
+		channels.getChannels();
 	}
-	
-}
 
 }
 
