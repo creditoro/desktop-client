@@ -4,8 +4,16 @@ import dk.creditoro.exceptions.HttpStatusException;
 
 import java.io.IOException;
 
+/**
+ * The type Testing stuff fool around.
+ */
 public class TestingStuffFoolAround {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         Login login = new Login();
         try {

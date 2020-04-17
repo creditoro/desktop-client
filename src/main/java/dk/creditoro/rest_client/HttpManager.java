@@ -19,13 +19,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+/**
+ * The type Http manager.
+ */
 public class HttpManager {
     private final HttpHost host;
 
+    /**
+     * Instantiates a new Http manager.
+     *
+     * @param hostname the hostname
+     * @param port     the port
+     * @param scheme   the scheme
+     */
     public HttpManager(String hostname, int port, String scheme) {
         host = new HttpHost(hostname, port, scheme);
     }
 
+    /**
+     * Get string.
+     *
+     * @param path  the path
+     * @param query the query
+     * @return the string
+     */
     public String get(String path, String query) {
         //Specify get request
         HttpGet request = new HttpGet(path + query);
@@ -34,6 +51,14 @@ public class HttpManager {
         return ExecuteHttp(request);
     }
 
+    /**
+     * Get string.
+     *
+     * @param path  the path
+     * @param query the query
+     * @param token the token
+     * @return the string
+     */
     public String get(String path, String query, String token) {
         //Specify get request
         HttpGet get = new HttpGet(path + query);
@@ -45,6 +70,14 @@ public class HttpManager {
         return ExecuteHttp(get);
     }
 
+    /**
+     * Post string.
+     *
+     * @param path  the path
+     * @param json  the json
+     * @param token the token
+     * @return the string
+     */
     public String post(String path, JSONObject json, String token) {
         //Specify post request
         HttpPost request = new HttpPost(path);
@@ -59,6 +92,13 @@ public class HttpManager {
         return ExecuteHttp(request);
     }
 
+    /**
+     * Post string.
+     *
+     * @param path the path
+     * @param json the json
+     * @return the string
+     */
     public String post(String path, JSONObject json) {
         //Specify post request
         HttpPost request = new HttpPost(path);
@@ -74,7 +114,12 @@ public class HttpManager {
     }
 
 
-    // Executes the request
+    /**
+     * Execute http string.
+     *
+     * @param request the request
+     * @return the string
+     */
     public String ExecuteHttp(HttpUriRequest request) {
         try (CloseableHttpClient httpclient = HttpClients.createDefault(); CloseableHttpResponse response = httpclient.execute(host, request)) {
             // Execute Http
@@ -91,6 +136,12 @@ public class HttpManager {
         return null;
     }
 
+    /**
+     * Stream to string string.
+     *
+     * @param response the response
+     * @return the string
+     */
     public String streamToString(HttpEntity response) {
         try {
             return new BufferedReader(new InputStreamReader(response.getContent())).lines().collect(Collectors.joining("\n"));

@@ -5,36 +5,58 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+/**
+ * The type Channels.
+ */
 public class Channels {
+    /**
+     * The Http manager.
+     */
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private final static String PATH = "/channels/";
     HttpManager httpManager;
 
+    /**
+     * Instantiates a new Channels.
+     */
     public Channels() {
         //Create HttpManager
         httpManager = new HttpManager("api.creditoro.nymann.dev", 443, "https");
     }
 
+    /**
+     * Post channel boolean.
+     *
+     * @param name  the name
+     * @param token the token
+     * @return the boolean
+     */
     public boolean postChannel(String name, String token) {
-        //Funktionalitet
         JSONObject json = new JSONObject();
         json.put("name", name);
 
         //Return true if httpMangerPost it not null
-        return (httpManager.post("/channels/", json, token) != null);
+        return (httpManager.post(PATH, json, token) != null);
     }
 
-    //TODO NEED REFATOR to return some thing GOOD. not just print the result
-    //TODO make these to method on single thing? - Kevin
+    /**
+     * Gets channels.
+     */
     public void getChannels() {
-        //Funktionalitet
-        List<Channel> channelList = getList(httpManager.get("/channels/", ""));
-        System.out.println(channelList);
+        List<Channel> channelList = getList(httpManager.get(PATH, ""));
+        LOGGER.info(channelList.toString());
     }
 
+    /**
+     * Gets channel.
+     *
+     * @param quarry the quarry
+     */
     public void getChannel(String quarry) {
-        //Funktionalitet
-        List<Channel> channelList = getList(httpManager.get("/channels/", "?=" + quarry));
-        System.out.println(channelList);
+        List<Channel> channelList = getList(httpManager.get(PATH, "?=" + quarry));
+        LOGGER.info(channelList.toString());
     }
 
 

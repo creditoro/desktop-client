@@ -11,12 +11,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The type Main controller.
+ */
 public class MainController implements Initializable {
 
+    /**
+     * The Txt username.
+     */
     @FXML
     public TextField txtUsername;
+    /**
+     * The Txt password.
+     */
     @FXML
     public TextField txtPassword;
+    /**
+     * The Btn sign in.
+     */
     @FXML
     public Button btnSignIn;
 
@@ -26,6 +38,11 @@ public class MainController implements Initializable {
         //TODO Setup code here
     }
 
+    /**
+     * Sign in.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void SignIn(ActionEvent actionEvent) {
         String email = txtUsername.getText();
