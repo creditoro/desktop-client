@@ -14,9 +14,10 @@ public class Channels {
     /**
      * The Http manager.
      */
-    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private final static String PATH = "/channels/";
+
     HttpManager httpManager;
+    private static final String PATH = "/channels/";
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Instantiates a new Channels.

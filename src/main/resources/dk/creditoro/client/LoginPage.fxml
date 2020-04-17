@@ -38,7 +38,7 @@
                             </font>
                         </TextField>
                         <Label styleClass="login-form-text" text="Glemt din kode? Klik her"/>
-                        <Button fx:id="btnSignIn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#SignIn"
+                        <Button fx:id="btnSignIn" graphicTextGap="0.0" mnemonicParsing="false" onAction="#signIn"
                                 prefHeight="40.0" prefWidth="186.0" styleClass="login-form-button" text="SIGN IN"
                                 textFill="WHITE">
                             <font>

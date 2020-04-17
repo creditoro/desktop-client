@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  */
 public class HttpManager {
     private final HttpHost host;
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Instantiates a new Http manager.
@@ -48,7 +50,7 @@ public class HttpManager {
         HttpGet request = new HttpGet(path + query);
 
         // execute the Http request and return the string value from the httpEntity
-        return ExecuteHttp(request);
+        return executeHttp(request);
     }
 
     /**
@@ -67,7 +69,7 @@ public class HttpManager {
         get.addHeader(new BasicHeader("Authorization", token));
 
         // execute the Http request and return the string value from the httpEntity
-        return ExecuteHttp(get);
+        return executeHttp(get);
     }
 
     /**
@@ -89,7 +91,7 @@ public class HttpManager {
         request.setEntity(postEntity);
 
         // execute the Http request and return the string value from the httpEntity
-        return ExecuteHttp(request);
+        return executeHttp(request);
     }
 
     /**
@@ -110,7 +112,7 @@ public class HttpManager {
         request.setEntity(postEntity);
 
         // execute the Http request and return the string value from the httpEntity
-        return ExecuteHttp(request);
+        return executeHttp(request);
     }
 
 
@@ -120,7 +122,7 @@ public class HttpManager {
      * @param request the request
      * @return the string
      */
-    public String ExecuteHttp(HttpUriRequest request) {
+    public String executeHttp(HttpUriRequest request) {
         try (CloseableHttpClient httpclient = HttpClients.createDefault(); CloseableHttpResponse response = httpclient.execute(host, request)) {
             // Execute Http
             int statusCode = response.getStatusLine().getStatusCode();
@@ -131,7 +133,7 @@ public class HttpManager {
             return streamToString(response.getEntity());
 
         } catch (IOException | HttpStatusException e) {
-            //TODO add LOGGER
+            LOGGER.info(String.format("error: %s", e));
         }
         return null;
     }
@@ -146,7 +148,7 @@ public class HttpManager {
         try {
             return new BufferedReader(new InputStreamReader(response.getContent())).lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
-            // TODO use logger here
+            LOGGER.info(String.format("error: %s", e));
             return null;
         }
     }

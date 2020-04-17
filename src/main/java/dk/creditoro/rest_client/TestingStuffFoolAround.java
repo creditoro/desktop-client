@@ -3,11 +3,13 @@ package dk.creditoro.rest_client;
 import dk.creditoro.exceptions.HttpStatusException;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * The type Testing stuff fool around.
  */
 public class TestingStuffFoolAround {
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * The entry point of application.
@@ -17,18 +19,23 @@ public class TestingStuffFoolAround {
     public static void main(String[] args) {
         Login login = new Login();
         try {
-            System.out.println(login.signIn("string@string.dk", "string"));
-            System.out.println("token:" + login.getToken());
+            var signedIn = login.signIn("string@string.dk", "string");
+            if (signedIn) {
+                LOGGER.info("User signed in successfully");
+                LOGGER.info(String.format("token: %s", login.getToken()));
+            } else {
+                LOGGER.info("Wrong email/password");
+            }
         } catch (IOException e) {
-            System.out.println("IO error: " + e);
+            LOGGER.info("IO error: " + e);
         } catch (HttpStatusException e) {
-            System.out.println("Http error: " + e);
+            LOGGER.info("Http error: " + e);
         }
         Channels channels = new Channels();
 
-        String name = "DR998";
-        System.out.println("New Channel name: " + name);
-        System.out.println(channels.postChannel(name, login.getToken()));
+        if (channels.postChannel("DR998", login.getToken())) {
+            LOGGER.info("Updated channel name.");
+        }
         channels.getChannels();
     }
 

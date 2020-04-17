@@ -10,11 +10,13 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 /**
  * The type Main controller.
  */
 public class MainController implements Initializable {
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * The Txt username.
@@ -44,23 +46,21 @@ public class MainController implements Initializable {
      * @param actionEvent the action event
      */
     @FXML
-    public void SignIn(ActionEvent actionEvent) {
+    public void signIn(ActionEvent actionEvent) {
         String email = txtUsername.getText();
         String password = txtPassword.getText();
 
         try {
             App.login.signIn(email, password);
         } catch (IOException | HttpStatusException e) {
-            //TODO Add Logger
-            e.printStackTrace();
+            LOGGER.info(String.format("error: %s", e));
         }
 
         //Change scene
         try {
             App.setRoot("SearchChannels");
         } catch (IOException e) {
-            //TODO Add Logger
-            e.printStackTrace();
+            LOGGER.info(String.format("error: %s", e));
         }
     }
 }
