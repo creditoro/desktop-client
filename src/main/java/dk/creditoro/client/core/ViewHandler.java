@@ -1,12 +1,15 @@
 package dk.creditoro.client.core;
 
+import dk.creditoro.client.view.IViewController;
 import dk.creditoro.client.view.login_page.LoginController;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +20,8 @@ public class ViewHandler {
     private ViewModelFactory mvViewModel;
 
     private static final Map<String, String> FXML_MAP = Map.of("LoginPage", "login_page/LoginPage.fxml");
+    private Map<String, Scene> SCENE_MAP = new HashMap<>();
+    private Stage root;
 
     /**
      * Instantiates a new View handler.
@@ -25,6 +30,7 @@ public class ViewHandler {
      */
     public ViewHandler(ViewModelFactory mvViewModel) {
         this.mvViewModel = mvViewModel;
+        root = new Stage();
     }
 
     /**
@@ -34,6 +40,7 @@ public class ViewHandler {
      */
     public void start() throws IOException {
         openView("LoginPage");
+        root.show();
     }
 
     /**
@@ -43,27 +50,32 @@ public class ViewHandler {
      * @throws IOException the io exception
      */
     public void openView(String viewToOpen) throws IOException {
+
         FXMLLoader loader = new FXMLLoader();
-        Stage tmpStage = new Stage();
+        Scene scene = getScene(viewToOpen, loader);
+
+        root.setTitle(viewToOpen);
+        root.setScene(scene);
+    }
+
+    private Scene getScene(String viewToOpen, FXMLLoader loader) throws IOException {
+        // check if we scene is present in SCENE_MAP
+        Scene scene = SCENE_MAP.get(viewToOpen);
+        if (scene != null) {
+            return scene;
+        }
         var fxmlPath = FXML_MAP.get(viewToOpen);
         if (fxmlPath == null) {
             throw new IOException(String.format("View (%s) not found", viewToOpen));
         }
+
         loader.setLocation(getClass().getResource(String.format("../view/%s", fxmlPath)));
-        Parent root = loader.load();
-
-        switch (viewToOpen) {
-            case "LoginPage":
-                LoginController controller = loader.getController();
-                controller.init(mvViewModel.getLoginViewModel());
-                break;
-            default:
-                // TODO handle default case.
-        }
-
-        tmpStage.setTitle(viewToOpen);
-        Scene scene = new Scene(root);
-        tmpStage.setScene(scene);
-        tmpStage.show();
+        Parent parent = loader.load();
+        scene = new Scene(parent);
+        IViewController controller = loader.getController();
+        controller.init(mvViewModel, this);
+        SCENE_MAP.put(viewToOpen, scene);
+        return scene;
     }
+
 }
