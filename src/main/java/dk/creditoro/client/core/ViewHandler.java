@@ -16,10 +16,9 @@ import java.util.logging.Logger;
  */
 public class ViewHandler {
 
-    private final ViewModelFactory mvViewModel;
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
     private static final Map<String, String> FXML_MAP = Map.of("LoginPage", "login/LoginPage.fxml");
+    private final ViewModelFactory mvViewModel;
     private final Map<String, Scene> sceneMap = new HashMap<>();
     private final Stage root;
 

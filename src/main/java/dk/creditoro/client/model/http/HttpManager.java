@@ -17,11 +17,11 @@ public class HttpManager implements IHttpManager {
     private static final String AUTH_HEADER = "Authorization";
     private static final String IDENTIFIER = "identifier";
     private static final String PATH = "/%s/{%s}";
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     /**
      * The Token.
      */
-    public String token;
-    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private String token;
 
 
     /**
@@ -88,5 +88,9 @@ public class HttpManager implements IHttpManager {
                 .routeParam(IDENTIFIER, identifier)
                 .header(AUTH_HEADER, token)
                 .asJson();
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

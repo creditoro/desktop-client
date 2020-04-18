@@ -10,7 +10,20 @@ import java.beans.PropertyChangeEvent;
  * The type Login view model.
  */
 public class LoginViewModel {
+    private final StringProperty email = new SimpleStringProperty();
+    private final StringProperty password = new SimpleStringProperty();
+    private final StringProperty loginResult = new SimpleStringProperty();
+    private final ILoginModel loginModel;
     private String token;
+    /**
+     * Instantiates a new Login view model.
+     *
+     * @param loginModel the model
+     */
+    public LoginViewModel(ILoginModel loginModel) {
+        this.loginModel = loginModel;
+        this.loginModel.addListener("LoginResult", this::onLoginResult);
+    }
 
     /**
      * Username property string property.
@@ -37,23 +50,6 @@ public class LoginViewModel {
      */
     public StringProperty loginResultProperty() {
         return loginResult;
-    }
-
-    private final StringProperty email = new SimpleStringProperty();
-    private final StringProperty password = new SimpleStringProperty();
-    private final StringProperty loginResult = new SimpleStringProperty();
-
-    private final ILoginModel loginModel;
-
-
-    /**
-     * Instantiates a new Login view model.
-     *
-     * @param loginModel the model
-     */
-    public LoginViewModel(ILoginModel loginModel) {
-        this.loginModel = loginModel;
-        this.loginModel.addListener("LoginResult", this::onLoginResult);
     }
 
     private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {

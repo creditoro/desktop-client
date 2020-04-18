@@ -6,10 +6,13 @@ import dk.creditoro.client.core.ViewModelFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.logging.Logger;
+
 /**
  * The type Creditoro app.
  */
 public class CreditoroApp extends Application {
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -21,6 +24,6 @@ public class CreditoroApp extends Application {
 
     @Override
     public void stop() throws Exception {
-
+        LOGGER.info("Program stopped");
     }
 }

@@ -9,15 +9,6 @@ import dk.creditoro.client.view.login.LoginViewModel;
 public class ViewModelFactory {
 
 
-    /**
-     * Gets login view model.
-     *
-     * @return the login view model
-     */
-    public LoginViewModel getLoginViewModel() {
-        return loginViewModel;
-    }
-
     private final LoginViewModel loginViewModel;
 
     /**
@@ -27,5 +18,14 @@ public class ViewModelFactory {
      */
     public ViewModelFactory(ModelFactory mf) {
         loginViewModel = new LoginViewModel(mf.getLoginModel());
+    }
+
+    /**
+     * Gets login view model.
+     *
+     * @return the login view model
+     */
+    public LoginViewModel getLoginViewModel() {
+        return loginViewModel;
     }
 }

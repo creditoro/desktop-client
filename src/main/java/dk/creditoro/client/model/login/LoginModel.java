@@ -18,7 +18,7 @@ public class LoginModel implements ILoginModel {
     private static final IHttpManager httpManager = new HttpManager();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    private String checkLoginCredentials(String email, String password) {
+    private String checkCredentials(String email, String password) {
         JSONObject a = new JSONObject(Map.of("email", email, "password", password));
         var response = httpManager.post("users/login", a);
         var status = response.getStatus();
@@ -46,7 +46,7 @@ public class LoginModel implements ILoginModel {
 
     @Override
     public boolean validateLogin(String username, String password) {
-        String result = checkLoginCredentials(username, password);
+        String result = checkCredentials(username, password);
         support.firePropertyChange("LoginResult", "", result);
         return result.equals("OK");
     }
