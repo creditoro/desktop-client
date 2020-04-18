@@ -4,9 +4,11 @@ package dk.creditoro.client.model.http;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+import kong.unirest.UnirestConfigException;
 import kong.unirest.json.JSONObject;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * The type Http manager.
@@ -19,17 +21,23 @@ public class HttpManager implements IHttpManager {
      * The Token.
      */
     public String token;
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
 
     /**
      * Instantiates a new Http manager.
      */
     public HttpManager() {
-        Unirest.config()
-                .setDefaultHeader("Accept", "application/json")
-                .setDefaultHeader("Content-Type", "application/json")
-                .followRedirects(true)
-                .enableCookieManagement(false)
-                .defaultBaseUrl("https://api.creditoro.nymann.dev");
+        try {
+            Unirest.config()
+                    .setDefaultHeader("Accept", "application/json")
+                    .setDefaultHeader("Content-Type", "application/json")
+                    .followRedirects(true)
+                    .enableCookieManagement(false)
+                    .defaultBaseUrl("https://api.creditoro.nymann.dev");
+        } catch (UnirestConfigException e) {
+            LOGGER.info("Unirest is already configured, skipping.");
+        }
     }
 
 

@@ -26,6 +26,6 @@ public class ViewModelFactory {
      * @param mf the mf
      */
     public ViewModelFactory(ModelFactory mf) {
-        loginViewModel = new LoginViewModel(mf.getModel());
+        loginViewModel = new LoginViewModel(mf.getUserModel());
     }
 }

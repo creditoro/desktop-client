@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
  * The type Login view model.
  */
 public class LoginViewModel {
+    private String token;
 
     /**
      * Username property string property.
@@ -47,12 +48,14 @@ public class LoginViewModel {
     /**
      * Sign in.
      *
-     * @param email the username
+     * @param email    the username
      * @param password the password
      */
     public void signIn(String email, String password) {
-        var response = model.login(email, password);
-        System.out.println(response);
+        token = model.login(email, password);
     }
 
+    public String getToken() {
+        return token;
+    }
 }
