@@ -12,12 +12,12 @@ public class LoginController {
      * The Txt email.
      */
     @FXML
-    public TextField txtEmail;
+    public TextField txtmail;
     /**
      * The Txt password.
      */
     @FXML
-    public TextField txtPassword;
+    public TextField txtpassword;
     /**
      * The Btn sign in.
      */
@@ -33,14 +33,15 @@ public class LoginController {
      */
     public void init(LoginViewModel vm) {
         viewModel = vm;
-        txtEmail.textProperty().bindBidirectional(vm.emailProperty());
-        txtPassword.textProperty().bindBidirectional(vm.passwordProperty());
+        txtmail.textProperty().bindBidirectional(vm.emailProperty());
+        txtpassword.textProperty().bindBidirectional(vm.passwordProperty());
     }
 
     /**
      * On sign in button.
      */
-    public void onSignInButton() {
-        viewModel.signIn(txtEmail.getText(), txtPassword.getText());
+    public void signIn() {
+        viewModel.signIn(txtmail.getText(), txtpassword.getText());
     }
+
 }
