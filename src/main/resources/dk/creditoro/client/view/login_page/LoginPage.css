@@ -22,8 +22,13 @@
 
 .login-form-button {
     -fx-pref-width: 500px;
-    -fx-background-color: #70A5C5;
+    -fx-background-color: #31C5EC;
     -fx-background-radius: 10px;
+}
+
+.lock-icon {
+    -fx-background-color: #ABABAB;
+    -fx-background-radius: 30px;
 }
 
 /* -fx-padding: 10 20 10 20; */

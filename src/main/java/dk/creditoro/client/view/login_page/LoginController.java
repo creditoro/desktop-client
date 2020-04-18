@@ -3,6 +3,7 @@ package dk.creditoro.client.view.login_page;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 /**
  * The type Login controller.
@@ -12,12 +13,12 @@ public class LoginController {
      * The Txt email.
      */
     @FXML
-    public TextField txtEmail;
+    public TextField txt_mail;
     /**
      * The Txt password.
      */
     @FXML
-    public TextField txtPassword;
+    public TextField txt_password;
     /**
      * The Btn sign in.
      */
@@ -33,14 +34,15 @@ public class LoginController {
      */
     public void init(LoginViewModel vm) {
         viewModel = vm;
-        txtEmail.textProperty().bindBidirectional(vm.emailProperty());
-        txtPassword.textProperty().bindBidirectional(vm.passwordProperty());
+        txt_mail.textProperty().bindBidirectional(vm.emailProperty());
+        txt_password.textProperty().bindBidirectional(vm.passwordProperty());
     }
 
     /**
      * On sign in button.
      */
-    public void onSignInButton() {
-        viewModel.signIn(txtEmail.getText(), txtPassword.getText());
+    public void SignIn() {
+        viewModel.signIn(txt_mail.getText(), txt_password.getText());
     }
+
 }
