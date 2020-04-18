@@ -1,22 +1,23 @@
 package dk.creditoro.client.core;
 
-import dk.creditoro.client.model.User;
-import dk.creditoro.client.model.IUser;
+import dk.creditoro.client.model.UserModel;
+import dk.creditoro.client.model.IUserModel;
 
 /**
- * The type Model factory.
+ * The type Model factory is responsible for creating and providing the Data Model classes.
+ * Pattern: Factory method - https://en.wikipedia.org/wiki/Factory_method_pattern
  */
 public class ModelFactory {
-    private IUser model;
+    private IUserModel model;
 
     /**
      * Gets model.
      *
      * @return the model
      */
-    public IUser getModel() {
-        if(model == null) {
-            model = new User();
+    public IUserModel getModel() {
+        if (model == null) {
+            model = new UserModel();
         }
         return model;
     }

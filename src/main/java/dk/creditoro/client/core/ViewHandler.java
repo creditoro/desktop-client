@@ -10,15 +10,13 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * The type View handler.
+ * The type View handler creates the views, loads the Fxml files and initializes the View Controllers.
  */
 public class ViewHandler {
 
     private ViewModelFactory mvViewModel;
 
-    private static final Map<String, String> FXML_MAP = Map.of(
-            "LoginPage", "login_page/LoginPage.fxml"
-    );
+    private static final Map<String, String> FXML_MAP = Map.of("LoginPage", "login_page/LoginPage.fxml");
 
     /**
      * Instantiates a new View handler.

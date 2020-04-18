@@ -3,7 +3,8 @@ package dk.creditoro.client.core;
 import dk.creditoro.client.view.login_page.LoginViewModel;
 
 /**
- * The type View model factory.
+ * The type View model factory is responsible for creating and making the View Model available.
+ * Pattern: Factory method - https://en.wikipedia.org/wiki/Factory_method_pattern
  */
 public class ViewModelFactory {
 

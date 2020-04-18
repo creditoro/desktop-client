@@ -1,6 +1,6 @@
 package dk.creditoro.client.view.login_page;
 
-import dk.creditoro.client.model.IUser;
+import dk.creditoro.client.model.IUserModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -14,8 +14,8 @@ public class LoginViewModel {
      *
      * @return the string property
      */
-    public StringProperty usernameProperty() {
-        return username;
+    public StringProperty emailProperty() {
+        return email;
     }
 
     /**
@@ -27,10 +27,10 @@ public class LoginViewModel {
         return password;
     }
 
-    private StringProperty username;
+    private StringProperty email;
     private StringProperty password;
 
-    private IUser model;
+    private IUserModel model;
 
 
     /**
@@ -38,20 +38,21 @@ public class LoginViewModel {
      *
      * @param model the model
      */
-    public LoginViewModel(IUser model) {
+    public LoginViewModel(IUserModel model) {
         this.model = model;
-        username = new SimpleStringProperty();
+        email = new SimpleStringProperty();
         password = new SimpleStringProperty();
     }
 
     /**
      * Sign in.
      *
-     * @param username the username
+     * @param email the username
      * @param password the password
      */
-    public void signIn(String username, String password) {
-        System.out.println(String.format("username: %s, password: %s", username, password));
+    public void signIn(String email, String password) {
+        var response = model.login(email, password);
+        System.out.println(response);
     }
 
 }

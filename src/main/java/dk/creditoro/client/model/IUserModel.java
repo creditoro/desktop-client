@@ -5,13 +5,13 @@ import dk.creditoro.client.model.http.IHttpManager;
 /**
  * The interface Model.
  */
-public interface IUser extends IHttpManager {
+public interface IUserModel extends IHttpManager {
 
     /**
      * Login.
-     *  @param username the username
+     *  @param email the username
      * @param password the password
      * @return
      */
-    String login(String username, String password);
+    String login(String email, String password);
 }

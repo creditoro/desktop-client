@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * The type User.
  */
-public class User extends HttpManager implements IUser {
+public class UserModel extends HttpManager implements IUserModel {
 
     private String identifier;
     private String phone;
@@ -16,15 +16,16 @@ public class User extends HttpManager implements IUser {
     private String name;
     private String role;
 
-    public User() {
+    public UserModel() {
 
     }
 
     @Override
-    public String login(String username, String password) {
-        var response = this.post("users", Map.of("username", username, "password", password));
+    public String login(String email, String password) {
+        var response = this.post("users/", Map.of("email", email, "password", password));
         var status = response.getStatus();
         if(status != 200) {
+            System.out.println(status);
             return "";
         }
         return response.getBody().getObject().getString("token");

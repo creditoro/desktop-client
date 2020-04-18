@@ -9,10 +9,10 @@ import javafx.scene.control.TextField;
  */
 public class LoginController {
     /**
-     * The Txt username.
+     * The Txt email.
      */
     @FXML
-    public TextField txtUsername;
+    public TextField txtEmail;
     /**
      * The Txt password.
      */
@@ -33,7 +33,7 @@ public class LoginController {
      */
     public void init(LoginViewModel vm) {
         viewModel = vm;
-        txtUsername.textProperty().bindBidirectional(vm.usernameProperty());
+        txtEmail.textProperty().bindBidirectional(vm.emailProperty());
         txtPassword.textProperty().bindBidirectional(vm.passwordProperty());
     }
 
@@ -41,6 +41,6 @@ public class LoginController {
      * On sign in button.
      */
     public void onSignInButton() {
-        viewModel.signIn(txtUsername.getText(), txtPassword.getText());
+        viewModel.signIn(txtEmail.getText(), txtPassword.getText());
     }
 }
