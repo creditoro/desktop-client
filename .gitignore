@@ -1,6 +1,7 @@
 # IDE settings
 .vscode/
 .idea/
+desktop-client.iml
 
 # Java class files
 *.class
@@ -15,5 +16,3 @@ target/
 
 # Bin folder
 bin/
-
-
