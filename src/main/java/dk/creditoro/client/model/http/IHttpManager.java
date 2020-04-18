@@ -2,6 +2,7 @@ package dk.creditoro.client.model.http;
 
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
+import kong.unirest.json.JSONObject;
 
 import java.util.Map;
 
@@ -32,20 +33,20 @@ public interface IHttpManager {
      *
      * @param route      the route
      * @param identifier the identifier
-     * @param json       the json
+     * @param body       the body
      * @return the string
      */
-    HttpResponse<JsonNode> put(String route, String identifier, Map<String, Object> json);
+    HttpResponse<JsonNode> put(String route, String identifier, JSONObject body);
 
     /**
      * Patch.
      *
      * @param route      the route
      * @param identifier the identifier
-     * @param json       the json
+     * @param fields     the fields
      * @return the string
      */
-    HttpResponse<JsonNode> patch(String route, String identifier, Map<String, Object> json);
+    HttpResponse<JsonNode> patch(String route, String identifier, Map<String, Object> fields);
 
     /**
      * Post.
@@ -54,7 +55,7 @@ public interface IHttpManager {
      * @param json  the json
      * @return the string
      */
-    HttpResponse<JsonNode> post(String route, Map<String, Object> json);
+    HttpResponse<JsonNode> post(String route, JSONObject json);
 
     /**
      * Delete.

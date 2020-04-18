@@ -1,15 +1,14 @@
 package dk.creditoro.client.model;
 
-import dk.creditoro.client.model.http.IHttpManager;
-
 /**
  * The interface Model.
  */
-public interface IUserModel extends IHttpManager {
+public interface IUserModel {
 
     /**
      * Login.
-     *  @param email the username
+     *
+     * @param email    the username
      * @param password the password
      * @return
      */

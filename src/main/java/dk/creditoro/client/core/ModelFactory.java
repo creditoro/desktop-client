@@ -8,17 +8,17 @@ import dk.creditoro.client.model.IUserModel;
  * Pattern: Factory method - https://en.wikipedia.org/wiki/Factory_method_pattern
  */
 public class ModelFactory {
-    private IUserModel model;
+    private IUserModel userModel;
 
     /**
      * Gets model.
      *
      * @return the model
      */
-    public IUserModel getModel() {
-        if (model == null) {
-            model = new UserModel();
+    public IUserModel getUserModel() {
+        if (userModel == null) {
+            userModel = new UserModel();
         }
-        return model;
+        return userModel;
     }
 }
