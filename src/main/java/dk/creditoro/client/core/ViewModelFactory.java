@@ -1,6 +1,6 @@
 package dk.creditoro.client.core;
 
-import dk.creditoro.client.view.login_page.LoginViewModel;
+import dk.creditoro.client.view.login.LoginViewModel;
 
 /**
  * The type View model factory is responsible for creating and making the View Model available.
@@ -26,6 +26,6 @@ public class ViewModelFactory {
      * @param mf the mf
      */
     public ViewModelFactory(ModelFactory mf) {
-        loginViewModel = new LoginViewModel(mf.getUserModel());
+        loginViewModel = new LoginViewModel(mf.getLoginModel());
     }
 }

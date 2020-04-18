@@ -1,65 +1,53 @@
-package dk.creditoro.client.view.login_page;
+package dk.creditoro.client.view.login;
 
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.view.IViewController;
+import javafx.beans.Observable;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
  * The type Login controller.
  */
 public class LoginController implements IViewController {
-    /**
-     * The Txt email.
-     */
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     @FXML
-    public TextField txtEmail;
-    /**
-     * The Txt password.
-     */
+    private TextField txtEmail;
+
     @FXML
-    public TextField txtPassword;
-    /**
-     * The Btn sign in.
-     */
+    private TextField txtPassword;
+
     @FXML
-    public Button btnSignIn;
+    private Label lblResult;
 
     private LoginViewModel viewModel;
     private ViewHandler viewHandler;
 
-    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-
-    /**
-     * Init.
-     *
-     * @param vm the vm
-     */
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         viewModel = viewModelFactory.getLoginViewModel();
         this.viewHandler = viewHandler;
 
         txtEmail.textProperty().bindBidirectional(viewModel.emailProperty());
         txtPassword.textProperty().bindBidirectional(viewModel.passwordProperty());
-
+        lblResult.textProperty().bindBidirectional(viewModel.loginResultProperty());
+        lblResult.textProperty().addListener(this::onLoginResult);
     }
 
-    /**
-     * On sign in button.
-     */
-    public void signIn() {
-        viewModel.signIn(txtEmail.getText(), txtPassword.getText());
-        try {
-            viewHandler.openView("Channels");
-        } catch (IOException e) {
-            LOGGER.info("Couldn't find channels view.");
+    private void onLoginResult(Observable observable, String old, String newVal) {
+        if (newVal.equals("OK")) {
+            LOGGER.info("Logged in");
+            viewHandler.openView("LoginPage");
         }
+    }
+
+    public void onLoginButton() {
+        viewModel.validateLogin();
     }
 }
