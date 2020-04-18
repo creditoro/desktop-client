@@ -48,12 +48,13 @@ public class LoginController implements IViewController {
 
         txtEmail.textProperty().bindBidirectional(viewModel.emailProperty());
         txtPassword.textProperty().bindBidirectional(viewModel.passwordProperty());
+
     }
 
     /**
      * On sign in button.
      */
-    public void onSignInButton() {
+    public void signIn() {
         viewModel.signIn(txtEmail.getText(), txtPassword.getText());
         try {
             viewHandler.openView("Channels");
