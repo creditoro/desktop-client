@@ -24,21 +24,12 @@ public class ChannelModel implements IChannelModel {
     public ChannelModel(IClient client) {
         this.client = client;
         propertyChangeSupport = new PropertyChangeSupport(this);
-        this.client.addListener("LoginResult", this::onLoginResult);
+        //this.client.addListener("LoginResult", this::onLoginResult);
     }
 
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.addPropertyChangeListener(name, propertyChangeListener);
-    }
-
-    private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
-        String loginResult = (String) propertyChangeEvent.getNewValue();
-        if (loginResult.isEmpty()) {
-            LOGGER.info("Couldn't log in.");
-        }
-
-        propertyChangeSupport.firePropertyChange("LoginResult", null, loginResult);
     }
 
     @Override
