@@ -94,7 +94,7 @@
                         <finalName>desktop-client</finalName>
                         <archive>
                             <manifest>
-                                <mainClass>dk.creditoro.client.CreditoroApp</mainClass>
+                                <mainClass>dk.creditoro.client.core.CreditoroApp</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>

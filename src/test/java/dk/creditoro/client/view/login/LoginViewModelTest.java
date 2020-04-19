@@ -1,5 +1,6 @@
 package dk.creditoro.client.view.login;
 
+import dk.creditoro.client.core.ClientFactory;
 import dk.creditoro.client.core.ModelFactory;
 import dk.creditoro.client.core.ViewModelFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,8 @@ class LoginViewModelTest {
      * Instantiates a new Login view model test.
      */
     public LoginViewModelTest() {
-        var modelFactory = new ModelFactory();
+        var clientFactory = new ClientFactory();
+        var modelFactory = new ModelFactory(clientFactory);
         var viewModelFactory = new ViewModelFactory(modelFactory);
         loginViewModel = viewModelFactory.getLoginViewModel();
     }
@@ -41,7 +43,7 @@ class LoginViewModelTest {
 
     @Test
     void loginResultProperty() {
-        assertNull(loginViewModel.loginResultProperty().get());
+        assertNull(loginViewModel.loginResponseProperty().get());
     }
 
     @Test

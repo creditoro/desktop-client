@@ -1,7 +1,5 @@
 package dk.creditoro.client.core;
 
-import dk.creditoro.client.model.login.ILoginModel;
-import dk.creditoro.client.model.login.LoginModel;
 import dk.creditoro.client.model.user.IUserModel;
 import dk.creditoro.client.model.user.UserModel;
 
@@ -10,8 +8,12 @@ import dk.creditoro.client.model.user.UserModel;
  * Pattern: Factory method - https://en.wikipedia.org/wiki/Factory_method_pattern
  */
 public class ModelFactory {
+    private final ClientFactory clientFactory;
     private IUserModel userModel;
-    private ILoginModel loginModel;
+
+    public ModelFactory(ClientFactory clientFactory) {
+        this.clientFactory = clientFactory;
+    }
 
     /**
      * Gets model.
@@ -20,20 +22,8 @@ public class ModelFactory {
      */
     public IUserModel getUserModel() {
         if (userModel == null) {
-            userModel = new UserModel();
+            userModel = new UserModel(clientFactory.getClient());
         }
         return userModel;
-    }
-
-    /**
-     * Gets login model.
-     *
-     * @return the login model
-     */
-    public ILoginModel getLoginModel() {
-        if (loginModel == null) {
-            loginModel = new LoginModel();
-        }
-        return loginModel;
     }
 }

@@ -1,32 +1,17 @@
-package dk.creditoro.client.model.http;
+package dk.creditoro.client.networking.rest_client.endpoints;
 
-
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.Unirest;
-import kong.unirest.UnirestConfigException;
+import kong.unirest.*;
 import kong.unirest.json.JSONObject;
 
 import java.util.Map;
 import java.util.logging.Logger;
 
-/**
- * The type Http manager.
- */
-public class HttpManager implements IHttpManager {
+public class HttpManager {
     private static final String AUTH_HEADER = "Authorization";
     private static final String IDENTIFIER = "identifier";
     private static final String PATH = "/%s/{%s}";
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    /**
-     * The Token.
-     */
-    private String token;
 
-
-    /**
-     * Instantiates a new Http manager.
-     */
     public HttpManager() {
         try {
             Unirest.config()
@@ -41,56 +26,40 @@ public class HttpManager implements IHttpManager {
     }
 
 
-    @Override
-    public HttpResponse<JsonNode> get(String route, String identifier) {
+    public GetRequest get(String route, String identifier, String token) {
         return Unirest.get(String.format(PATH, route, IDENTIFIER))
                 .routeParam(IDENTIFIER, identifier)
-                .header(AUTH_HEADER, token)
-                .asJson();
+                .header(AUTH_HEADER, token);
     }
 
-    @Override
-    public HttpResponse<JsonNode> getList(String route, String q) {
+    public GetRequest getList(String route, String q, String token) {
         return Unirest.get(String.format("/%s", route))
                 .queryString("q", q)
-                .header(AUTH_HEADER, token)
-                .asJson();
+                .header(AUTH_HEADER, token);
     }
 
-    @Override
-    public HttpResponse<JsonNode> put(String route, String identifier, JSONObject body) {
+    public RequestBodyEntity put(String route, String identifier, JSONObject body, String token) {
         return Unirest.put(String.format(PATH, route, IDENTIFIER))
                 .routeParam(IDENTIFIER, identifier)
                 .body(body)
-                .header(AUTH_HEADER, token)
-                .asJson();
+                .header(AUTH_HEADER, token);
     }
 
-    @Override
-    public HttpResponse<JsonNode> patch(String route, String identifier, Map<String, Object> fields) {
+    public MultipartBody patch(String route, String identifier, Map<String, Object> fields, String token) {
         return Unirest.patch(String.format(PATH, route, IDENTIFIER))
                 .routeParam(IDENTIFIER, identifier)
                 .fields(fields)
-                .header(AUTH_HEADER, token)
-                .asJson();
+                .header(AUTH_HEADER, token);
     }
 
-    @Override
-    public HttpResponse<JsonNode> post(String route, JSONObject body) {
+    public RequestBodyEntity post(String route, JSONObject body) {
         return Unirest.post(String.format("/%s", route))
-                .body(body)
-                .asJson();
+                .body(body);
     }
 
-    @Override
-    public HttpResponse<JsonNode> delete(String route, String identifier) {
+    public HttpRequestWithBody delete(String route, String identifier, String token) {
         return Unirest.delete(String.format(PATH, route, IDENTIFIER))
                 .routeParam(IDENTIFIER, identifier)
-                .header(AUTH_HEADER, token)
-                .asJson();
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+                .header(AUTH_HEADER, token);
     }
 }

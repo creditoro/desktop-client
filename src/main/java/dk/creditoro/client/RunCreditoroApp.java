@@ -1,5 +1,6 @@
 package dk.creditoro.client;
 
+import dk.creditoro.client.core.CreditoroApp;
 import javafx.application.Application;
 
 /**

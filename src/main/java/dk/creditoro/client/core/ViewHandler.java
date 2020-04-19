@@ -17,28 +17,26 @@ import java.util.logging.Logger;
 public class ViewHandler {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private static final Map<String, String> FXML_MAP = Map.of("LoginPage", "login/LoginPage.fxml");
-    private final ViewModelFactory mvViewModel;
+    private static final Map<String, String> FXML_MAP = Map.of("Login", "login/Login.fxml");
+    private final ViewModelFactory viewModelFactory;
     private final Map<String, Scene> sceneMap = new HashMap<>();
     private final Stage root;
 
     /**
      * Instantiates a new View handler.
      *
-     * @param mvViewModel the mv view model
+     * @param viewModelFactory the mv view model
      */
-    public ViewHandler(ViewModelFactory mvViewModel) {
-        this.mvViewModel = mvViewModel;
+    public ViewHandler(ViewModelFactory viewModelFactory) {
+        this.viewModelFactory = viewModelFactory;
         root = new Stage();
     }
 
     /**
      * Start.
-     *
-     * @throws IOException the io exception
      */
-    public void start() throws IOException {
-        openView("LoginPage");
+    public void start() {
+        openView("Login");
         root.show();
     }
 
@@ -73,7 +71,7 @@ public class ViewHandler {
         loader.setLocation(getClass().getResource(String.format("/dk/creditoro/client/view/%s", fxmlPath)));
         Parent parent = loader.load();
         IViewController controller = loader.getController();
-        controller.init(mvViewModel, this);
+        controller.init(viewModelFactory, this);
         scene = new Scene(parent);
         sceneMap.put(viewToOpen, scene);
         return scene;

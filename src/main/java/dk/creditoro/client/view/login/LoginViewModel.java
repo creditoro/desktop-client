@@ -1,28 +1,33 @@
 package dk.creditoro.client.view.login;
 
-import dk.creditoro.client.model.login.ILoginModel;
+import dk.creditoro.client.model.user.IUserModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.beans.PropertyChangeEvent;
+import java.util.logging.Logger;
 
 /**
  * The type Login view model.
  */
 public class LoginViewModel {
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final StringProperty email = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
-    private final StringProperty loginResult = new SimpleStringProperty();
-    private final ILoginModel loginModel;
+    private final StringProperty loginResponse = new SimpleStringProperty();
+    private final IUserModel userModel;
     private String token;
+
     /**
      * Instantiates a new Login view model.
      *
-     * @param loginModel the model
+     * @param userModel the user model
      */
-    public LoginViewModel(ILoginModel loginModel) {
-        this.loginModel = loginModel;
-        this.loginModel.addListener("LoginResult", this::onLoginResult);
+    public LoginViewModel(IUserModel userModel) {
+        this.userModel = userModel;
+        this.userModel.addListener("LoginResult", this::onLoginResponse);
+        LOGGER.info("Added listener.");
     }
 
     /**
@@ -48,18 +53,19 @@ public class LoginViewModel {
      *
      * @return the string property
      */
-    public StringProperty loginResultProperty() {
-        return loginResult;
+    public StringProperty loginResponseProperty() {
+        return loginResponse;
     }
 
-    private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
+    private void onLoginResponse(PropertyChangeEvent propertyChangeEvent) {
+        LOGGER.info("On login response called.");
         String result = (String) propertyChangeEvent.getNewValue();
-        if (result.equals("OK")) {
-            clearFields();
-        }
-        loginResult.setValue(result);
+        Platform.runLater(() -> loginResponse.setValue(result));
     }
 
+    /**
+     * Clear fields.
+     */
     public void clearFields() {
         email.setValue("");
         password.setValue("");
@@ -76,9 +82,9 @@ public class LoginViewModel {
     }
 
     /**
-     * Validate login.
+     * Login.
      */
-    public void validateLogin() {
-        loginModel.validateLogin(email.getValue(), password.getValue());
+    public void login() {
+        userModel.login(email.get(), password.get());
     }
 }

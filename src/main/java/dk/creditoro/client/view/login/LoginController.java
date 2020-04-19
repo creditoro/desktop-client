@@ -3,7 +3,6 @@ package dk.creditoro.client.view.login;
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.view.IViewController;
-import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,28 +24,28 @@ public class LoginController implements IViewController {
     @FXML
     private Label lblResult;
 
-    private LoginViewModel viewModel;
+    private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
 
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
-        viewModel = viewModelFactory.getLoginViewModel();
+        loginViewModel = viewModelFactory.getLoginViewModel();
         this.viewHandler = viewHandler;
 
-        txtEmail.textProperty().bindBidirectional(viewModel.emailProperty());
-        txtPassword.textProperty().bindBidirectional(viewModel.passwordProperty());
-        lblResult.textProperty().bindBidirectional(viewModel.loginResultProperty());
-        lblResult.textProperty().addListener(this::onLoginResult);
+        txtEmail.textProperty().bindBidirectional(loginViewModel.emailProperty());
+        txtPassword.textProperty().bindBidirectional(loginViewModel.passwordProperty());
+        lblResult.textProperty().bindBidirectional(loginViewModel.loginResponseProperty());
+        loginViewModel.loginResponseProperty().addListener((observableValue, oldValue, newValue) -> onLoginResult(newValue));
     }
 
-    private void onLoginResult(Observable observable, String old, String newVal) {
-        if (newVal.equals("OK")) {
-            LOGGER.info("Logged in");
-            viewHandler.openView("LoginPage");
+    private void onLoginResult(String response) {
+        if (!response.isEmpty()) {
+            LOGGER.info("Logged in, switching view");
+            viewHandler.openView("Login");
         }
     }
 
     public void onLoginButton() {
-        viewModel.validateLogin();
+        loginViewModel.login();
     }
 }

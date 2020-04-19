@@ -11,13 +11,9 @@ public class ViewModelFactory {
 
     private final LoginViewModel loginViewModel;
 
-    /**
-     * Instantiates a new View model factory.
-     *
-     * @param mf the mf
-     */
-    public ViewModelFactory(ModelFactory mf) {
-        loginViewModel = new LoginViewModel(mf.getLoginModel());
+
+    public ViewModelFactory(ModelFactory modelFactory) {
+        loginViewModel = new LoginViewModel(modelFactory.getUserModel());
     }
 
     /**
