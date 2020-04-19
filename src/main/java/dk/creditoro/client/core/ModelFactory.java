@@ -1,5 +1,7 @@
 package dk.creditoro.client.core;
 
+import dk.creditoro.client.model.channel.ChannelModel;
+import dk.creditoro.client.model.channel.IChannelModel;
 import dk.creditoro.client.model.user.IUserModel;
 import dk.creditoro.client.model.user.UserModel;
 
@@ -10,6 +12,7 @@ import dk.creditoro.client.model.user.UserModel;
 public class ModelFactory {
     private final ClientFactory clientFactory;
     private IUserModel userModel;
+    private IChannelModel channelModel;
 
     public ModelFactory(ClientFactory clientFactory) {
         this.clientFactory = clientFactory;
@@ -25,5 +28,12 @@ public class ModelFactory {
             userModel = new UserModel(clientFactory.getClient());
         }
         return userModel;
+    }
+
+    public IChannelModel getChannelModel() {
+        if (channelModel == null) {
+            channelModel = new ChannelModel(clientFactory.getClient());
+        }
+        return channelModel;
     }
 }

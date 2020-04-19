@@ -1,5 +1,6 @@
 package dk.creditoro.client.core;
 
+import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
 import dk.creditoro.client.view.login.LoginViewModel;
 
 /**
@@ -10,10 +11,12 @@ public class ViewModelFactory {
 
 
     private final LoginViewModel loginViewModel;
+    private final BrowseChannelsViewModel browseChannelsViewModel;
 
 
     public ViewModelFactory(ModelFactory modelFactory) {
         loginViewModel = new LoginViewModel(modelFactory.getUserModel());
+        browseChannelsViewModel = new BrowseChannelsViewModel(modelFactory.getChannelModel());
     }
 
     /**
@@ -23,5 +26,9 @@ public class ViewModelFactory {
      */
     public LoginViewModel getLoginViewModel() {
         return loginViewModel;
+    }
+
+    public BrowseChannelsViewModel getBrowseChannelsViewModel() {
+        return browseChannelsViewModel;
     }
 }

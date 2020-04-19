@@ -17,7 +17,9 @@ import java.util.logging.Logger;
 public class ViewHandler {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private static final Map<String, String> FXML_MAP = Map.of("Login", "login/Login.fxml");
+    private static final Map<String, String> FXML_MAP = Map.of(
+            "Login", "login/Login.fxml",
+            "BrowseChannels", "browse_channels/BrowseChannels.fxml");
     private final ViewModelFactory viewModelFactory;
     private final Map<String, Scene> sceneMap = new HashMap<>();
     private final Stage root;
