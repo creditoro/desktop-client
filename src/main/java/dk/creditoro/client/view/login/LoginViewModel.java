@@ -17,7 +17,6 @@ public class LoginViewModel {
     private final StringProperty password = new SimpleStringProperty();
     private final StringProperty loginResponse = new SimpleStringProperty();
     private final IUserModel userModel;
-    private String token;
 
     /**
      * Instantiates a new Login view model.
@@ -71,15 +70,6 @@ public class LoginViewModel {
         password.setValue("");
     }
 
-
-    /**
-     * Gets token.
-     *
-     * @return the token
-     */
-    public String getToken() {
-        return token;
-    }
 
     /**
      * Login.

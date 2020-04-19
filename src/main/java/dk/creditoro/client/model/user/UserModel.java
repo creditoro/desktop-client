@@ -31,7 +31,7 @@ public class UserModel implements IUserModel {
     @Override
     public void login(String email, String password) {
         token = client.login(email, password);
-        var message = String.format("%s logged in, and now has token: '%s'", email, password);
+        var message = String.format("%s logged in, and now has token: '%s'", email, token);
         LOGGER.info(message);
     }
 

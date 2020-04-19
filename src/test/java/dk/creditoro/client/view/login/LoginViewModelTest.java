@@ -52,9 +52,4 @@ class LoginViewModelTest {
         assertEquals("", loginViewModel.emailProperty().get());
         assertEquals("", loginViewModel.passwordProperty().get());
     }
-
-    @Test
-    void getToken() {
-        assertNull(loginViewModel.getToken());
-    }
 }

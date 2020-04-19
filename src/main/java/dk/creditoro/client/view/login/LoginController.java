@@ -41,6 +41,7 @@ public class LoginController implements IViewController {
     private void onLoginResult(String response) {
         if (!response.isEmpty()) {
             LOGGER.info("Logged in, switching view");
+            loginViewModel.clearFields();
             viewHandler.openView("Login");
         }
     }
