@@ -25,7 +25,7 @@
                             <children>
                                 <AnchorPane prefHeight="81.0" prefWidth="1446.0">
                                     <children>
-                                        <TextField fx:id="channelSearch" alignment="CENTER" layoutX="558.0" layoutY="23.0" onAction="#OnSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter kanal" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="558.0" AnchorPane.rightAnchor="320.0">
+                                        <TextField fx:id="channelSearch" alignment="CENTER" layoutX="558.0" layoutY="23.0" onAction="#onSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter kanal" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="558.0" AnchorPane.rightAnchor="320.0">
                                             <font>
                                                 <Font size="16.0" />
                                             </font>
