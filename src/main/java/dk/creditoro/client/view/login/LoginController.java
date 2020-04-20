@@ -2,6 +2,7 @@ package dk.creditoro.client.view.login;
 
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
+import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -43,7 +44,7 @@ public class LoginController implements IViewController {
         if (!response.isEmpty() && !response.equals(incorrectLoginMsg)) {
             LOGGER.info("Logged in, switching view");
             loginViewModel.clearFields();
-            viewHandler.openView("BrowseChannels");
+            viewHandler.openView(Views.BROWSE_CHANNELS);
         } else {lblResult.setText(incorrectLoginMsg);}
     }
 

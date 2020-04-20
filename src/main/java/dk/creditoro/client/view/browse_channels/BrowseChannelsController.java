@@ -3,6 +3,7 @@ package dk.creditoro.client.view.browse_channels;
 
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
+import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.view.IViewController;
 import javafx.collections.ObservableList;
@@ -48,7 +49,7 @@ public class BrowseChannelsController implements IViewController {
      *
      */
     public void btnAccount() {
-        viewHandler.openView("Login");
+        viewHandler.openView(Views.LOGIN);
     }
 
     /**
