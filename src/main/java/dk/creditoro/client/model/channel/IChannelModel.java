@@ -1,7 +1,5 @@
 package dk.creditoro.client.model.channel;
 
-import dk.creditoro.client.model.crud.Channel;
-
 import java.beans.PropertyChangeListener;
 
 /**
