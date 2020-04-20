@@ -40,11 +40,12 @@ public class LoginController implements IViewController {
     }
 
     private void onLoginResult(String response) {
-        if (!response.isEmpty()) {
+        var incorrectLoginMsg = "Incorrect Login credentials try again";
+        if (!response.isEmpty() && !response.equals(incorrectLoginMsg)) {
             LOGGER.info("Logged in, switching view");
             loginViewModel.clearFields();
             viewHandler.openView("BrowseChannels");
-        }
+        } else {lblResult.setText(incorrectLoginMsg);}
     }
 
     /**
