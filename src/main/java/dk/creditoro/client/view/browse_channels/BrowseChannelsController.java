@@ -123,7 +123,7 @@ public class BrowseChannelsController implements IViewController {
         updateGrid();
     }
 
-    public void onSearch() {
+    public void OnSearch() {
         browseChannelsViewModel.search();
     }
 }
