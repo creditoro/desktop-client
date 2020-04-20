@@ -30,7 +30,6 @@ public class BrowseChannelsController implements IViewController {
 
     /**
      * Btn new channel.
-     *
      */
     public void btnNewChannel() {
         LOGGER.info("Open popup box");
@@ -38,7 +37,6 @@ public class BrowseChannelsController implements IViewController {
 
     /**
      * Handle search bar.
-     *
      */
     public void handleSearchBar() {
         LOGGER.info("Handle search bar.");
@@ -46,7 +44,6 @@ public class BrowseChannelsController implements IViewController {
 
     /**
      * Btn account.
-     *
      */
     public void btnAccount() {
         viewHandler.openView(Views.LOGIN);
@@ -86,12 +83,15 @@ public class BrowseChannelsController implements IViewController {
         int count = 0;
         int availableSlots = maxColumns * maxRows;
         for (Channel channel : channels) {
-            if (count > availableSlots) {
+            if (count >= availableSlots) {
                 return;
             }
-            var image = new ImageView("https://epg-images.tv2.dk/channellogos/icon/1.png");
+            var image = new ImageView(channel.getIconUrl());
             image.setPickOnBounds(true);
             image.setId(channel.getIdentifier());
+            image.setPreserveRatio(true);
+            image.setFitWidth(80);
+            image.setSmooth(true);
             //Set Actions
             image.setOnMouseClicked(mouseEvent -> {
                 var img = (ImageView) mouseEvent.getSource();
