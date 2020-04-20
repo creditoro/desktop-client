@@ -1,5 +1,6 @@
 package dk.creditoro.client.model.channel;
 
+import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.networking.IClient;
 
@@ -25,7 +26,7 @@ public class ChannelModel implements IChannelModel {
     public ChannelModel(IClient client) {
         this.client = client;
         propertyChangeSupport = new PropertyChangeSupport(this);
-        this.client.addListener("onSearchChannelsResult", this::onSearchChannelsResult);
+        this.client.addListener(EventNames.ON_SEARCH_CHANNELS_RESULT.toString(), this::onSearchChannelsResult);
     }
 
     @Override

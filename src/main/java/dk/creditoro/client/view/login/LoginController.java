@@ -2,6 +2,7 @@ package dk.creditoro.client.view.login;
 
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
+import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,7 +46,7 @@ public class LoginController implements IViewController {
         if (response.equals("OK")) {
             LOGGER.info("Logged in, switching view");
             loginViewModel.clearFields();
-            viewHandler.openView("BrowseChannels");
+            viewHandler.openView(Views.BROWSE_CHANNELS);
         } else {
             createPopup("Incorrect Login", "Wrong credentials has been entered", 5, Pos.BASELINE_CENTER);
         }

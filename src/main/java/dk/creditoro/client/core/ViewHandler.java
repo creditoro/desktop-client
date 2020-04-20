@@ -17,11 +17,11 @@ import java.util.logging.Logger;
 public class ViewHandler {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private static final Map<String, String> FXML_MAP = Map.of(
-            "Login", "login/Login.fxml",
-            "BrowseChannels", "browse_channels/BrowseChannels.fxml");
+    private static final Map<Views, String> FXML_MAP = Map.of(
+            Views.LOGIN, "login/Login.fxml",
+            Views.BROWSE_CHANNELS, "browse_channels/BrowseChannels.fxml");
     private final ViewModelFactory viewModelFactory;
-    private final Map<String, Scene> sceneMap = new HashMap<>();
+    private final Map<Views, Scene> sceneMap = new HashMap<>();
     private final Stage root;
 
     /**
@@ -38,7 +38,7 @@ public class ViewHandler {
      * Start.
      */
     public void start() {
-        openView("Login");
+        openView(Views.LOGIN);
         root.show();
     }
 
@@ -48,7 +48,7 @@ public class ViewHandler {
      * @param viewToOpen the view to open
      * @return the boolean if False.
      */
-    public boolean openView(String viewToOpen) {
+    public boolean openView(Views viewToOpen) {
         FXMLLoader loader = new FXMLLoader();
         Scene scene;
         try {
@@ -62,7 +62,7 @@ public class ViewHandler {
         return true;
     }
 
-    private Scene getScene(String viewToOpen, FXMLLoader loader) throws IOException {
+    private Scene getScene(Views viewToOpen, FXMLLoader loader) throws IOException {
         // check if we scene is present in sceneMap
         Scene scene = sceneMap.get(viewToOpen);
         if (scene != null) {

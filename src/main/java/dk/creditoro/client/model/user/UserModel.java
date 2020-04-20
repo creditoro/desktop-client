@@ -1,12 +1,12 @@
 package dk.creditoro.client.model.user;
 
+import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.User;
 import dk.creditoro.client.networking.IClient;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Random;
 import java.util.logging.Logger;
 
 /**
@@ -26,7 +26,7 @@ public class UserModel implements IUserModel {
     public UserModel(IClient client) {
         this.client = client;
         propertyChangeSupport = new PropertyChangeSupport(this);
-        this.client.addListener("LoginResult", this::onLoginResult);
+        this.client.addListener(EventNames.LOGIN_RESULT.toString(), this::onLoginResult);
     }
 
     @Override
@@ -58,10 +58,10 @@ public class UserModel implements IUserModel {
         String loginResult = (String) propertyChangeEvent.getNewValue();
         if (loginResult == null) {
             LOGGER.info("Couldn't log in.");
-            propertyChangeSupport.firePropertyChange("LoginResult", null, Long.toString(System.currentTimeMillis()));
+            propertyChangeSupport.firePropertyChange(EventNames.LOGIN_RESULT.toString(), null, Long.toString(System.currentTimeMillis()));
         } else {
             currentUser.setToken(loginResult);
-            propertyChangeSupport.firePropertyChange("LoginResult", null, "OK");
+            propertyChangeSupport.firePropertyChange(EventNames.LOGIN_RESULT.toString(), null, "OK");
         }
     }
 }
