@@ -1,6 +1,7 @@
 package dk.creditoro.client.networking.rest_client;
 
 
+import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.User;
 import dk.creditoro.client.networking.IClient;
@@ -31,7 +32,7 @@ public class RestClient implements IClient {
     @Override
     public String login(String email, String password) {
         var result = usersEndpoint.postLogin(email, password);
-        propertyChangeSupport.firePropertyChange("LoginResult", null, result);
+        propertyChangeSupport.firePropertyChange(EventNames.LOGIN_RESULT.toString(), null, result);
         return result;
     }
 
@@ -43,7 +44,7 @@ public class RestClient implements IClient {
     @Override
     public Channel[] searchChannels(String q, String token) {
         var result = channelsEndpoint.getChannels(q, token);
-        propertyChangeSupport.firePropertyChange("onSearchChannelsResult", null, result);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_CHANNELS_RESULT.toString(), null, result);
         LOGGER.info("Fired property change event.");
         return result;
     }

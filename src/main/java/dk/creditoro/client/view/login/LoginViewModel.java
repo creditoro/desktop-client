@@ -1,5 +1,6 @@
 package dk.creditoro.client.view.login;
 
+import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.user.IUserModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,7 +27,7 @@ public class LoginViewModel {
     public LoginViewModel(IUserModel userModel) {
         this.userModel = userModel;
         // "LoginResult", should be an enum instead of a magic string.
-        this.userModel.addListener("LoginResult", (this::onLoginResponse));
+        this.userModel.addListener(EventNames.LOGIN_RESULT.toString(), (this::onLoginResponse));
         LOGGER.info("Added listener.");
     }
 
