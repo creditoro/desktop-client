@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -21,6 +23,10 @@ public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseChannelsViewModel browseChannelsViewModel;
     private ViewHandler viewHandler;
+
+    private Map<String, ImageView> cachedImages;
+
+
     @FXML
     private GridPane channelGrid;
 
@@ -63,6 +69,7 @@ public class BrowseChannelsController implements IViewController {
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         browseChannelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
         this.viewHandler = viewHandler;
+        this.cachedImages = new HashMap<>();
 
         //Add listener to channelSearch text area
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
@@ -87,17 +94,22 @@ public class BrowseChannelsController implements IViewController {
             if (count >= availableSlots) {
                 return;
             }
-            var image = new ImageView(channel.getIconUrl());
-            image.setPickOnBounds(true);
-            image.setId(channel.getIdentifier());
-            image.setPreserveRatio(true);
-            image.setFitWidth(80);
-            image.setSmooth(true);
-            //Set Actions
-            image.setOnMouseClicked(mouseEvent -> {
-                var img = (ImageView) mouseEvent.getSource();
-                switchView(img.getId());
-            });
+            var image = cachedImages.get(channel.getIdentifier());
+            if (image == null) {
+                image = new ImageView(channel.getIconUrl());
+                image.setPickOnBounds(true);
+                image.setId(channel.getIdentifier());
+                image.setPreserveRatio(true);
+                image.setFitWidth(80);
+                image.setSmooth(true);
+                //Set Actions
+                image.setOnMouseClicked(mouseEvent -> {
+                    var img = (ImageView) mouseEvent.getSource();
+                    switchView(img.getId());
+                });
+            }
+            cachedImages.put(channel.getIdentifier(), image);
+
             channelGrid.add(image, column, row);
             column = (column + 1) % maxColumns;
             if (column == 0) {
