@@ -67,6 +67,7 @@ public class BrowseChannelsController implements IViewController {
         //Add listener to channelSearch text area
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
         browseChannelsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> updateGrid(newValue));
+        onSearch();
     }
 
 
