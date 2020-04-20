@@ -55,11 +55,13 @@ public class UserModel implements IUserModel {
 
     private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
         String loginResult = (String) propertyChangeEvent.getNewValue();
-        if (loginResult.isEmpty()) {
+        if (loginResult == null) {
             LOGGER.info("Couldn't log in.");
+            propertyChangeSupport.firePropertyChange("LoginResult", null, "Incorrect Login credentials try again");
+        } else {
+            currentUser.setToken(loginResult);
+            var message = String.format("token: '%s'", currentUser);
+            propertyChangeSupport.firePropertyChange("LoginResult", null, message);
         }
-        currentUser.setToken(loginResult);
-        var message = String.format("token: '%s'", currentUser);
-        propertyChangeSupport.firePropertyChange("LoginResult", null, message);
     }
 }

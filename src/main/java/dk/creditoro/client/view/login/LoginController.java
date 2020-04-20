@@ -34,8 +34,7 @@ public class LoginController implements IViewController {
 
         txtEmail.textProperty().bindBidirectional(loginViewModel.emailProperty());
         txtPassword.textProperty().bindBidirectional(loginViewModel.passwordProperty());
-
-        lblResult.textProperty().bindBidirectional(loginViewModel.loginResponseProperty());
+        
         loginViewModel.loginResponseProperty().addListener((observableValue, oldValue, newValue) -> onLoginResult(newValue));
     }
 
