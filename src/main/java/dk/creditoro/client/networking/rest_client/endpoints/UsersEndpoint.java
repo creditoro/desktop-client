@@ -39,8 +39,12 @@ public class UsersEndpoint {
     }
 
     public String postLogin(String email, String password) {
-        var body = new JSONObject(Map.of("email", email, "password", password));
-        var response = httpManager.post("/users/login", body);
-        return response.asJson().getBody().getObject().getString("token");
+        try {
+            var body = new JSONObject(Map.of("email", email, "password", password));
+            var response = httpManager.post("/users/login", body);
+            return response.asJson().getBody().getObject().getString("token");
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 }
