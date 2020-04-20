@@ -22,4 +22,5 @@ public interface IChannelModel {
      * @param propertyChangeListener the property change listener
      */
     void addListener(String name, PropertyChangeListener propertyChangeListener);
+
 }
