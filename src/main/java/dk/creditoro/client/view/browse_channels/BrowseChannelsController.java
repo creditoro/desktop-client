@@ -29,22 +29,24 @@ public class BrowseChannelsController implements IViewController {
     private ViewHandler viewHandler;
 
     @FXML
-    private TextField channelSearch;
-    public ImageView imgAddChannel;
-    public GridPane channelGrid;
+    private ImageView imgAddChannel;
 
-    public void BtnNewChannel(MouseEvent mouseEvent)
-    {
+    @FXML
+    private GridPane channelGrid;
+
+
+    @FXML
+    private TextField channelSearch;
+
+    public void BtnNewChannel(MouseEvent mouseEvent) {
         //Popup box
     }
 
-    public void handleSearchBar(ActionEvent actionEvent)
-    {
+    public void handleSearchBar(ActionEvent actionEvent) {
         //GetChannels (searchBar.getText());
     }
 
-    public void btnAccount(ActionEvent actionEvent)
-    {
+    public void btnAccount(ActionEvent actionEvent) {
 
     }
 
@@ -121,7 +123,7 @@ public class BrowseChannelsController implements IViewController {
         updateGrid();
     }
 
-    public void OnSearch() {
+    public void onSearch() {
         browseChannelsViewModel.search();
     }
 }
