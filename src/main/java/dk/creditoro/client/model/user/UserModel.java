@@ -6,6 +6,7 @@ import dk.creditoro.client.networking.IClient;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Random;
 import java.util.logging.Logger;
 
 /**
@@ -57,11 +58,10 @@ public class UserModel implements IUserModel {
         String loginResult = (String) propertyChangeEvent.getNewValue();
         if (loginResult == null) {
             LOGGER.info("Couldn't log in.");
-            propertyChangeSupport.firePropertyChange("LoginResult", null, "Incorrect Login credentials try again");
+            propertyChangeSupport.firePropertyChange("LoginResult", null, Long.toString(System.currentTimeMillis()));
         } else {
             currentUser.setToken(loginResult);
-            var message = String.format("token: '%s'", currentUser);
-            propertyChangeSupport.firePropertyChange("LoginResult", null, message);
+            propertyChangeSupport.firePropertyChange("LoginResult", null, "OK");
         }
     }
 }

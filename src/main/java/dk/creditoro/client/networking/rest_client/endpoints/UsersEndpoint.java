@@ -39,6 +39,9 @@ public class UsersEndpoint {
     }
 
     public String postLogin(String email, String password) {
+        if (email == null || password == null) {
+            return null;
+        }
         var body = new JSONObject(Map.of("email", email, "password", password));
         var responseJson = httpManager.post("/users/login", body).asJson();
         var getBody = responseJson.getBody();
