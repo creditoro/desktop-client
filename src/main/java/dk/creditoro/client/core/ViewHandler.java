@@ -57,7 +57,7 @@ public class ViewHandler {
             LOGGER.info(String.format("Coudn't find FXML file with name: %s", viewToOpen));
             return false;
         }
-        root.setTitle(viewToOpen);
+        root.setTitle("Creditoro");
         root.setScene(scene);
         return true;
     }
