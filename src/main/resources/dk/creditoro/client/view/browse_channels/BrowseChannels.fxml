@@ -50,7 +50,7 @@
                                 <Image url="@../../res/add.png"/>
                             </image>
                         </ImageView>
-                        <GridPane fx:id="channelGrid" alignment="CENTER" gridLinesVisible="true" layoutX="348.0"
+                        <GridPane fx:id="channelGrid" alignment="CENTER" layoutX="348.0"
                                   layoutY="222.0" prefHeight="475.0" prefWidth="983.0">
                             <columnConstraints>
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"

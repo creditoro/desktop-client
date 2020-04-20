@@ -1,9 +1,8 @@
 package dk.creditoro.client;
 
+import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory;
 import dk.creditoro.client.core.CreditoroApp;
 import javafx.application.Application;
-
-import java.util.ArrayList;
 
 /**
  * The type Main.
@@ -16,6 +15,7 @@ public class RunCreditoroApp {
      * @param args the input arguments
      */
     public static void main(String[] args) {
+        SvgImageLoaderFactory.install();
         Application.launch(CreditoroApp.class);
     }
 }
