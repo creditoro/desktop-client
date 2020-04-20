@@ -23,5 +23,9 @@ public interface IUserModel {
      */
     void register(User user);
 
+    User getCurrentUser();
+
+    String getToken();
+
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }

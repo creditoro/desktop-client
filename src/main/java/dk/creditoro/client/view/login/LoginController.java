@@ -27,7 +27,7 @@ public class LoginController implements IViewController {
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
-
+    @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         loginViewModel = viewModelFactory.getLoginViewModel();
         this.viewHandler = viewHandler;
@@ -47,6 +47,9 @@ public class LoginController implements IViewController {
         }
     }
 
+    /**
+     * On login button.
+     */
     public void onLoginButton() {
         loginViewModel.login();
     }

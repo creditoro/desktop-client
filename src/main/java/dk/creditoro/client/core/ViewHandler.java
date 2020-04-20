@@ -50,7 +50,7 @@ public class ViewHandler {
      */
     public boolean openView(String viewToOpen) {
         FXMLLoader loader = new FXMLLoader();
-        Scene scene = null;
+        Scene scene;
         try {
             scene = getScene(viewToOpen, loader);
         } catch (IOException e) {

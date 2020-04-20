@@ -2,12 +2,17 @@ package dk.creditoro.client.view.browse_channels;
 
 
 import dk.creditoro.client.model.channel.IChannelModel;
+import dk.creditoro.client.model.crud.Channel;
+import dk.creditoro.client.model.user.IUserModel;
+import javafx.application.Platform;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
+import java.beans.PropertyChangeEvent;
 import java.util.logging.Logger;
 
 /**
@@ -17,19 +22,21 @@ public class BrowseChannelsViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final StringProperty queryParam = new SimpleStringProperty();
     private final IChannelModel channelModel;
+    private final IUserModel userModel;
 
+    private final ObservableList<Channel> channelsList = FXCollections.observableArrayList();
+    private final ListProperty<Channel> listProperty = new SimpleListProperty<>(channelsList);
 
-    private ArrayList<String> channelList = new ArrayList();
-    private ArrayList<String> searchList = new ArrayList();
-    //public ObservableList<String> searchList = FXCollections.observableArrayList();
 
     /**
      * Instantiates a new Login view model.
      *
      * @param channelModel the channel model
      */
-    public BrowseChannelsViewModel(IChannelModel channelModel) {
+    public BrowseChannelsViewModel(IChannelModel channelModel, IUserModel userModel) {
         this.channelModel = channelModel;
+        this.userModel = userModel;
+        this.channelModel.addListener("kek", (this::onSearchChannelsResult));
     }
 
     public StringProperty queryParamProperty() {
@@ -37,43 +44,23 @@ public class BrowseChannelsViewModel {
     }
 
     public void search() {
-        //channelModel.search(queryParamProperty().get());
-
-        if(queryParam.getValue() == null)
-        {
-            searchList = channelList;
-            return;
-        }
-
-        //searchList = FXCollections.observableArrayList();
-        searchList = new ArrayList();
-        //search through channelList
-        for(int i = 0; i < channelList.size(); i++)
-        {
-            if(channelList.get(i).toLowerCase().contains(queryParam.getValue().toLowerCase()))
-            {
-                //Add channel to searchList
-                searchList.add(channelList.get(i));
-            }
-        }
+        var token = userModel.getToken();
+        var q = queryParam.get();
+        var message = String.format("Called search, q: '%s', token is: '%s.'", q, token);
+        LOGGER.info(message);
+        channelModel.search(q, token);
     }
 
-    public ArrayList<String> getList()
-    {
-        //Return searchList to be used when updating grid
-        return searchList;
+    private void onSearchChannelsResult(PropertyChangeEvent propertyChangeEvent) {
+        LOGGER.info("On search channels result called.");
+        var channels = (Channel[]) propertyChangeEvent.getNewValue();
+        Platform.runLater(() -> {
+            listProperty.clear();
+            listProperty.addAll(channels);
+        });
     }
 
-    //Add channels from API to channelList
-    public void getChannels()
-    {
-        //Get list from rest API
-        channelList.add("TV2");
-        channelList.add("DR1");
-        channelList.add("TV2 Play");
-        channelList.add("Netflix");
-        channelList.add("ViaPlay");
-
-        searchList = channelList;
+    public ListProperty<Channel> listPropertyProperty() {
+        return listProperty;
     }
 }

@@ -13,7 +13,9 @@ public interface IChannelModel {
      *
      * @param q the q
      */
-    void search(String q);
+    void search(String q, String token);
+
+
 
     /**
      * Add listener.
