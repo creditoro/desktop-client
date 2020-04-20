@@ -1,8 +1,10 @@
 package dk.creditoro.client.networking.rest_client;
 
 
+import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.User;
 import dk.creditoro.client.networking.IClient;
+import dk.creditoro.client.networking.rest_client.endpoints.ChannelsEndpoint;
 import dk.creditoro.client.networking.rest_client.endpoints.HttpManager;
 import dk.creditoro.client.networking.rest_client.endpoints.UsersEndpoint;
 
@@ -17,10 +19,13 @@ public class RestClient implements IClient {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final PropertyChangeSupport propertyChangeSupport;
     private final UsersEndpoint usersEndpoint;
+    private final ChannelsEndpoint channelsEndpoint;
 
     public RestClient() {
         propertyChangeSupport = new PropertyChangeSupport(this);
-        usersEndpoint = new UsersEndpoint(new HttpManager());
+        var httpManager = new HttpManager();
+        usersEndpoint = new UsersEndpoint(httpManager);
+        channelsEndpoint = new ChannelsEndpoint(httpManager);
     }
 
     @Override
@@ -33,6 +38,14 @@ public class RestClient implements IClient {
     @Override
     public void register(User user) {
         LOGGER.info("Called register.");
+    }
+
+    @Override
+    public Channel[] searchChannels(String q, String token) {
+        var result = channelsEndpoint.getChannels(q, token);
+        propertyChangeSupport.firePropertyChange("onSearchChannelsResult", null, result);
+        LOGGER.info("Fired property change event.");
+        return result;
     }
 
     @Override

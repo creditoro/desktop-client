@@ -33,7 +33,7 @@ public class HttpManager {
     }
 
     public GetRequest getList(String route, String q, String token) {
-        return Unirest.get(String.format("/%s", route))
+        return Unirest.get(route)
                 .queryString("q", q)
                 .header(AUTH_HEADER, token);
     }

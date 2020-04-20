@@ -25,7 +25,8 @@ public class LoginViewModel {
      */
     public LoginViewModel(IUserModel userModel) {
         this.userModel = userModel;
-        this.userModel.addListener("LoginResult", this::onLoginResponse);
+        // "LoginResult", should be an enum instead of a magic string.
+        this.userModel.addListener("LoginResult", (this::onLoginResponse));
         LOGGER.info("Added listener.");
     }
 

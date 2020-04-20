@@ -15,7 +15,7 @@ public class UserModel implements IUserModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final IClient client;
     private final PropertyChangeSupport propertyChangeSupport;
-    private String token;
+    private User currentUser;
 
     /**
      * Instantiates a new User model.
@@ -29,15 +29,18 @@ public class UserModel implements IUserModel {
     }
 
     @Override
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public String getToken() {
+        return currentUser.getToken();
+    }
+
+    @Override
     public void login(String email, String password) {
-        token = client.login(email, password);
-        if (!token.isEmpty()) {
-            var message = String.format("%s logged in, and now has token: '%s'", email, token);
-            LOGGER.info(message);
-        } else {
-            var message = String.format("%s tried to login, but either email or password is wrong",email);
-            LOGGER.info(message);
-        }
+        currentUser = new User(email, password);
+        client.login(email, password);
     }
 
     @Override
@@ -52,10 +55,13 @@ public class UserModel implements IUserModel {
 
     private void onLoginResult(PropertyChangeEvent propertyChangeEvent) {
         String loginResult = (String) propertyChangeEvent.getNewValue();
-        if (loginResult.isEmpty()) {
+        if (loginResult == null) {
             LOGGER.info("Couldn't log in.");
+            propertyChangeSupport.firePropertyChange("LoginResult", null, "Incorrect Login credentials try again");
+        } else {
+            currentUser.setToken(loginResult);
+            var message = String.format("token: '%s'", currentUser);
+            propertyChangeSupport.firePropertyChange("LoginResult", null, message);
         }
-
-        propertyChangeSupport.firePropertyChange("LoginResult", null, loginResult);
     }
 }

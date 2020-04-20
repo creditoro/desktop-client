@@ -111,12 +111,12 @@
                     <Circle fill="WHITE" layoutX="99.0" layoutY="518.0" opacity="0.08" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
                 </Group>
                 <AnchorPane prefHeight="290.0" prefWidth="500.0" style="-fx-background-color: #5C5C5C;" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="200.0">
-                    <TextField fx:id="txtEmail" prefHeight="50.0" promptText="Indtast e-mail" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
+                    <TextField fx:id="txtEmail" onAction="#onLoginButton" prefHeight="50.0" promptText="Indtast e-mail" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
                         <font>
                             <Font size="25.0" />
                         </font>
                     </TextField>
-                    <PasswordField fx:id="txtPassword" prefHeight="50.0" promptText="Indtast kodeord" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="110.0">
+                    <PasswordField fx:id="txtPassword" onAction="#onLoginButton" prefHeight="50.0" promptText="Indtast kodeord" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="110.0">
                         <font>
                             <Font size="25.0" />
                         </font>
@@ -126,10 +126,7 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <Label fx:id="lblResult" alignment="CENTER" layoutX="90.0" layoutY="14.0" prefHeight="17.0" prefWidth="300.0" text="Login result" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                  <font>
-                     <Font size="18.0" />
-                  </font></Label>
+                    <Label fx:id="lblResult" alignment="CENTER" prefHeight="17.0" prefWidth="300.0" text="Login result" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     <Button mnemonicParsing="false" onAction="#onLoginButton" prefHeight="50.0" style="-fx-background-color: #31C5EC;" text="Sign In" textFill="WHITE" underline="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0">
                         <font>
                             <Font size="24.0" />

@@ -25,14 +25,14 @@ public class ModelFactory {
      */
     public IUserModel getUserModel() {
         if (userModel == null) {
-            userModel = new UserModel(clientFactory.getClient());
+            userModel = new UserModel(clientFactory.getRestClient());
         }
         return userModel;
     }
 
     public IChannelModel getChannelModel() {
         if (channelModel == null) {
-            channelModel = new ChannelModel(clientFactory.getClient());
+            channelModel = new ChannelModel(clientFactory.getRestClient());
         }
         return channelModel;
     }

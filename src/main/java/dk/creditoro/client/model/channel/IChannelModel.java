@@ -13,7 +13,9 @@ public interface IChannelModel {
      *
      * @param q the q
      */
-    void search(String q);
+    void search(String q, String token);
+
+
 
     /**
      * Add listener.
@@ -22,4 +24,5 @@ public interface IChannelModel {
      * @param propertyChangeListener the property change listener
      */
     void addListener(String name, PropertyChangeListener propertyChangeListener);
+
 }

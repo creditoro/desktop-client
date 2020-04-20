@@ -3,6 +3,8 @@ package dk.creditoro.client;
 import dk.creditoro.client.core.CreditoroApp;
 import javafx.application.Application;
 
+import java.util.ArrayList;
+
 /**
  * The type Main.
  */

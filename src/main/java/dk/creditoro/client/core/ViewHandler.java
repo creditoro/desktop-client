@@ -46,17 +46,20 @@ public class ViewHandler {
      * Open view.
      *
      * @param viewToOpen the view to open
+     * @return the boolean if False.
      */
-    public void openView(String viewToOpen) {
+    public boolean openView(String viewToOpen) {
         FXMLLoader loader = new FXMLLoader();
-        Scene scene = null;
+        Scene scene;
         try {
             scene = getScene(viewToOpen, loader);
         } catch (IOException e) {
             LOGGER.info(String.format("Coudn't find FXML file with name: %s", viewToOpen));
+            return false;
         }
         root.setTitle(viewToOpen);
         root.setScene(scene);
+        return true;
     }
 
     private Scene getScene(String viewToOpen, FXMLLoader loader) throws IOException {

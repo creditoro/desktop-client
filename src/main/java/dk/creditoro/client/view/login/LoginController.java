@@ -27,15 +27,14 @@ public class LoginController implements IViewController {
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
-
+    @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         loginViewModel = viewModelFactory.getLoginViewModel();
         this.viewHandler = viewHandler;
 
         txtEmail.textProperty().bindBidirectional(loginViewModel.emailProperty());
         txtPassword.textProperty().bindBidirectional(loginViewModel.passwordProperty());
-
-        lblResult.textProperty().bindBidirectional(loginViewModel.loginResponseProperty());
+        
         loginViewModel.loginResponseProperty().addListener((observableValue, oldValue, newValue) -> onLoginResult(newValue));
     }
 
@@ -48,6 +47,9 @@ public class LoginController implements IViewController {
         } else {lblResult.setText(incorrectLoginMsg);}
     }
 
+    /**
+     * On login button.
+     */
     public void onLoginButton() {
         loginViewModel.login();
     }
