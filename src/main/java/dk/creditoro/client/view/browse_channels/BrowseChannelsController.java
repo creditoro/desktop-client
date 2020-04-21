@@ -9,16 +9,10 @@ import dk.creditoro.client.view.IViewController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
-
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
