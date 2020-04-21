@@ -1,13 +1,16 @@
-.scroll-bar:vertical{
-    -fx-background-color:transparent;
-}
-
-.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
-    visibility: invisible;
+.scroll-bar:vertical {
     -fx-background-color: transparent;
 }
 
-.scroll-bar:vertical .track{
+.scroll-bar:vertical .increment-button{
+     -fx-opacity: 0;
+}
+
+.scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0;
+}
+
+.scroll-bar:vertical .track {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0em;
@@ -19,7 +22,7 @@
     -fx-background-radius: 5em;
 }
 
-.scroll-pane:hover .scroll-bar:vertical .thumb{
+.scroll-pane:hover .scroll-bar:vertical .thumb {
     -fx-background-color: transparent;
-    -fx-background-color:  #202020;
+    -fx-background-color: #202020;
 }
