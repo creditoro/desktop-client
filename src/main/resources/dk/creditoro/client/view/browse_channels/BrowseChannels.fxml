@@ -6,76 +6,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.browse_channels.BrowseChannelsController">
-    <children>
-        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <center>
-                <AnchorPane prefHeight="53.0" prefWidth="1569.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Line endX="354.6666564941406" endY="234.66665649414062" layoutX="-10.0" layoutY="-52.0" startX="1342.6666259765625" startY="234.66665649414062" AnchorPane.leftAnchor="344.1666564941406" AnchorPane.rightAnchor="106.83334350585938" AnchorPane.topAnchor="182.16665649414062" />
-                        <HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane prefHeight="81.0" prefWidth="1446.0">
-                                    <children>
-                                        <TextField fx:id="channelSearch" alignment="CENTER" layoutX="558.0" layoutY="23.0" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter kanal" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="558.0" AnchorPane.rightAnchor="320.0">
-                                            <font>
-                                                <Font size="16.0" />
-                                            </font>
-                                        </TextField>
-                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="573.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../res/search.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </HBox>
-                        <ImageView fx:id="imgAddChannel" fitHeight="62.0" fitWidth="77.0" layoutX="346.0" layoutY="104.0" onMouseClicked="#btnNewChannel" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="346.0">
-                            <image>
-                                <Image url="@../../res/add.png" />
-                            </image>
-                        </ImageView>
-                        <GridPane fx:id="channelGrid" alignment="CENTER" layoutX="348.0" layoutY="222.0" prefHeight="475.0" prefWidth="983.0">
-                            <columnConstraints>
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                        </GridPane>
-                    </children>
-                </AnchorPane>
-            </center>
-            <top>
-                <AnchorPane prefHeight="53.0" prefWidth="1569.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <HBox alignment="CENTER" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane prefHeight="53.0" prefWidth="1440.0" style="-fx-background-color: #31C5EC;" />
-                            </children>
-                        </HBox>
-                        <Button fx:id="btnAccount" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
-                            <graphic>
-                                <ImageView fitHeight="46.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../res/acc_icon.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                    </children>
-                </AnchorPane>
-            </top>
-        </BorderPane>
-        <AnchorPane prefHeight="1027.0" prefWidth="274.0" style="-fx-background-color: #202020;">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.browse_channels.BrowseChannelsController">
+   <left>
+        <AnchorPane minWidth="200.0" style="-fx-background-color: #202020;">
             <children>
                 <GridPane layoutX="13.0" layoutY="125.0" prefHeight="183.0" prefWidth="268.0">
                     <columnConstraints>
@@ -125,19 +58,88 @@
                         </Button>
                     </children>
                 </GridPane>
+              <Label fx:id="lblStartMenu" alignment="CENTER" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
+                  <font>
+                      <Font name="System Bold" size="36.0" />
+                  </font>
+                  <graphic>
+                      <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../res/Creditoro.png" />
+                          </image>
+                      </ImageView>
+                  </graphic>
+              </Label>
             </children>
         </AnchorPane>
-        <Label fx:id="lblStartMenu" alignment="CENTER" layoutY="5.0" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="36.0" />
-            </font>
-            <graphic>
-                <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../res/Creditoro.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Label>
-    </children>
-</AnchorPane>
+   </left>
+   <center>
+      <BorderPane prefHeight="1024.0" prefWidth="1304.0">
+         <top>
+                <AnchorPane prefHeight="53.0">
+                    <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <AnchorPane prefHeight="53.0" prefWidth="1440.0" style="-fx-background-color: #31C5EC;" />
+                            </children>
+                        </HBox>
+                        <Button fx:id="btnAccount" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+                            <graphic>
+                                <ImageView fitHeight="46.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/acc_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+         </top>
+         <center>
+                <AnchorPane prefHeight="53.0" prefWidth="1569.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Line endX="354.6666564941406" endY="234.66665649414062" layoutX="-129.0" layoutY="-52.0" startX="1342.6666259765625" startY="234.66665649414062" AnchorPane.leftAnchor="225.16665649414062" AnchorPane.rightAnchor="225.83334350585938" AnchorPane.topAnchor="182.16665649414062" />
+                        <HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <AnchorPane prefHeight="81.0" prefWidth="1446.0">
+                                    <children>
+                                        <TextField fx:id="channelSearch" alignment="CENTER" layoutX="439.0" layoutY="22.0" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter kanal" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="439.0" AnchorPane.rightAnchor="439.0">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                          </TextField>
+                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="573.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../res/search.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                        <ImageView fx:id="imgAddChannel" fitHeight="62.0" fitWidth="77.0" layoutX="225.0" layoutY="106.0" onMouseClicked="#btnNewChannel" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0">
+                            <image>
+                                <Image url="@../../res/add.png" />
+                            </image>
+                        </ImageView>
+                        <GridPane fx:id="channelGrid" alignment="CENTER" layoutX="228.0" layoutY="220.0" prefHeight="475.0" prefWidth="983.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+         </center>
+      </BorderPane>
+   </center>
+  </BorderPane>
