@@ -107,6 +107,9 @@ public class BrowseChannelsController implements IViewController {
                     var img = (ImageView) mouseEvent.getSource();
                     switchView(img.getId());
                 });
+            } else {
+                var message = String.format("Image %s loaded from cache.", channel.getName());
+                LOGGER.info(message);
             }
             cachedImages.put(channel.getIdentifier(), image);
 
