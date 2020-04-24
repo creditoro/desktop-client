@@ -8,10 +8,17 @@ import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.view.IViewController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.text.Text;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -28,7 +35,7 @@ public class BrowseChannelsController implements IViewController {
 
 
     @FXML
-    private GridPane channelGrid;
+    private ScrollPane channelPane;
 
 
     @FXML
@@ -82,18 +89,15 @@ public class BrowseChannelsController implements IViewController {
         LOGGER.info("Update grid called.");
 
         //Remove all children from Grid
-        channelGrid.getChildren().clear();
+        TilePane tilePane = new TilePane();
+        tilePane.setPadding(new Insets(15, 15, 15, 15));
+        tilePane.setHgap(15);
+        tilePane.prefWidthProperty().bind(channelPane.widthProperty());
 
-        int maxColumns = channelGrid.getColumnCount();
-        int maxRows = channelGrid.getRowCount();
+        int maxColumns = 5;
         int column = 0;
         int row = 0;
-        int count = 0;
-        int availableSlots = maxColumns * maxRows;
         for (Channel channel : channels) {
-            if (count >= availableSlots) {
-                return;
-            }
             var image = cachedImages.get(channel.getIdentifier());
             if (image == null) {
                 try {
@@ -117,14 +121,13 @@ public class BrowseChannelsController implements IViewController {
                 LOGGER.info(message);
             }
             cachedImages.put(channel.getIdentifier(), image);
-
-            channelGrid.add(image, column, row);
+            tilePane.getChildren().addAll(image);
             column = (column + 1) % maxColumns;
             if (column == 0) {
-                row = (row + 1) % maxRows;
+                row = row + 1;
             }
-            count++;
         }
+        channelPane.setContent(tilePane);
     }
 
 
