@@ -76,7 +76,7 @@
    <center>
       <BorderPane prefHeight="1024.0" prefWidth="1304.0">
          <top>
-                <AnchorPane prefHeight="53.0">
+               <AnchorPane prefHeight="53.0">
                     <children>
                         <HBox alignment="CENTER" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>

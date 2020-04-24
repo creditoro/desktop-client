@@ -96,7 +96,12 @@ public class BrowseChannelsController implements IViewController {
             }
             var image = cachedImages.get(channel.getIdentifier());
             if (image == null) {
-                image = new ImageView(channel.getIconUrl());
+                try {
+                    image = new ImageView(channel.getIconUrl());
+                } catch (IllegalArgumentException e) {
+                    LOGGER.info(e.getMessage());
+                    continue;
+                }
                 image.setPickOnBounds(true);
                 image.setId(channel.getIdentifier());
                 image.setPreserveRatio(true);
