@@ -110,6 +110,7 @@ public class BrowseChannelsController implements IViewController {
                 image.setId(channel.getIdentifier());
                 image.setPreserveRatio(true);
                 image.setFitWidth(80);
+                image.setFitHeight(80);
                 image.setSmooth(true);
                 //Set Actions
                 image.setOnMouseClicked(mouseEvent -> {
