@@ -11,17 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
 
-import javax.swing.*;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,9 +93,6 @@ public class BrowseChannelsController implements IViewController {
         tilePane.setHgap(15);
         tilePane.prefWidthProperty().bind(channelPane.widthProperty());
 
-        int maxColumns = 5;
-        int column = 0;
-        int row = 0;
         for (Channel channel : channels) {
             var image = cachedImages.get(channel.getIdentifier());
             if (image == null) {
@@ -150,14 +141,15 @@ public class BrowseChannelsController implements IViewController {
             public int compare(Node o1, Node o2) {
                 try {
                     return channelName(o1.getId()).compareTo(channelName(o2.getId()));
-                } catch (NullPointerException ex){
+                } catch (NullPointerException ex) {
                     LOGGER.info("Channel dont exist");
                 }
                 return 0;
             }
-            public String channelName(String identifier){
-                for (Channel channel : channels){
-                    if (channel.getIdentifier().equals(identifier)){
+
+            public String channelName(String identifier) {
+                for (Channel channel : channels) {
+                    if (channel.getIdentifier().equals(identifier)) {
                         LOGGER.info(channel.getName());
                         return channel.getName();
                     }
