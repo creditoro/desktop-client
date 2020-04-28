@@ -11,7 +11,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.layout.TilePane;
+
 import java.beans.PropertyChangeEvent;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
@@ -61,5 +65,31 @@ public class BrowseChannelsViewModel {
 
     public ListProperty<Channel> listPropertyProperty() {
         return listProperty;
+    }
+
+    public ObservableList<Node> sortedList(TilePane tilePane) {
+        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
+        workingCollection.sort(new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                try {
+                    return channelName(o1.getId()).compareTo(channelName(o2.getId()));
+                } catch (NullPointerException ex) {
+                    LOGGER.info("Channel dont exist");
+                }
+                return 0;
+            }
+
+            public String channelName(String identifier) {
+                for (Channel channel : listProperty) {
+                    if (channel.getIdentifier().equals(identifier)) {
+                        LOGGER.info(channel.getName());
+                        return channel.getName();
+                    }
+                }
+                return "";
+            }
+        });
+        return workingCollection;
     }
 }

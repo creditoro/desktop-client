@@ -6,16 +6,14 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.view.IViewController;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import java.util.Comparator;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -27,7 +25,6 @@ public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseChannelsViewModel browseChannelsViewModel;
     private ViewHandler viewHandler;
-    private ObservableList<Channel> channels;
 
     private Map<String, ImageView> cachedImages;
 
@@ -120,7 +117,6 @@ public class BrowseChannelsController implements IViewController {
             cachedImages.put(channel.getIdentifier(), image);
             tilePane.getChildren().addAll(image);
         }
-        this.channels = channels;
         channelPane.setContent(tilePane);
     }
 
@@ -134,28 +130,6 @@ public class BrowseChannelsController implements IViewController {
 
     public void sorted() {
         TilePane tilePane = (TilePane) channelPane.getContent();
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort(new Comparator<Node>() {
-            @Override
-            public int compare(Node o1, Node o2) {
-                try {
-                    return channelName(o1.getId()).compareTo(channelName(o2.getId()));
-                } catch (NullPointerException ex) {
-                    LOGGER.info("Channel dont exist");
-                }
-                return 0;
-            }
-
-            public String channelName(String identifier) {
-                for (Channel channel : channels) {
-                    if (channel.getIdentifier().equals(identifier)) {
-                        LOGGER.info(channel.getName());
-                        return channel.getName();
-                    }
-                }
-                return "";
-            }
-        });
-        tilePane.getChildren().setAll(workingCollection);
+        tilePane.getChildren().setAll(browseChannelsViewModel.sortedList(tilePane));
     }
 }
