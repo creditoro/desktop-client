@@ -15,7 +15,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,7 +153,7 @@ public class BrowseChannelsController implements IViewController {
                         return channel.getName();
                     }
                 }
-                return null;
+                return "";
             }
         });
         tilePane.getChildren().setAll(workingCollection);
