@@ -25,7 +25,6 @@ public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseChannelsViewModel browseChannelsViewModel;
     private ViewHandler viewHandler;
-    private ObservableList<Channel> channels;
 
     private Map<String, ImageView> cachedImages;
 
@@ -116,7 +115,7 @@ public class BrowseChannelsController implements IViewController {
                 LOGGER.info(message);
             }
             cachedImages.put(channel.getIdentifier(), image);
-            tilePane.getChildren().addAll(image);
+            tilePane.getChildren().addAll(image);   
         }
         this.channels = channels;
         channelPane.setContent(tilePane);
