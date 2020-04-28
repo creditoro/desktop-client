@@ -3,7 +3,7 @@ package dk.creditoro.client.model.crud;
 public class Production {
     private String identifier;
     private String title;
-    private String[] producers;
+    private String producer;
     private String[] channels;
 
     public Production(String identifier, String title, String[] producers, String[] channels) {
