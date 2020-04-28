@@ -115,9 +115,8 @@ public class BrowseChannelsController implements IViewController {
                 LOGGER.info(message);
             }
             cachedImages.put(channel.getIdentifier(), image);
-            tilePane.getChildren().addAll(image);   
+            tilePane.getChildren().addAll(image);
         }
-        this.channels = channels;
         channelPane.setContent(tilePane);
     }
 
