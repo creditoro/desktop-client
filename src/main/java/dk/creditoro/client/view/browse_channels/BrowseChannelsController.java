@@ -134,28 +134,6 @@ public class BrowseChannelsController implements IViewController {
 
     public void sorted() {
         TilePane tilePane = (TilePane) channelPane.getContent();
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort(new Comparator<Node>() {
-            @Override
-            public int compare(Node o1, Node o2) {
-                try {
-                    return channelName(o1.getId()).compareTo(channelName(o2.getId()));
-                } catch (NullPointerException ex) {
-                    LOGGER.info("Channel dont exist");
-                }
-                return 0;
-            }
-
-            public String channelName(String identifier) {
-                for (Channel channel : channels) {
-                    if (channel.getIdentifier().equals(identifier)) {
-                        LOGGER.info(channel.getName());
-                        return channel.getName();
-                    }
-                }
-                return "";
-            }
-        });
-        tilePane.getChildren().setAll(workingCollection);
+        tilePane.getChildren().setAll(browseChannelsViewModel.sortedList(tilePane));
     }
 }
