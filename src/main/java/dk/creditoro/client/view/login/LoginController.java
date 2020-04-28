@@ -65,4 +65,10 @@ public class LoginController implements IViewController {
                 .onAction(actionEvent -> LOGGER.info("Pressed popup"));
         notificationBuilder.show();
     }
+
+    public void debugLogin() {
+        txtEmail.setText("string@string.dk");
+        txtPassword.setText("string");
+        loginViewModel.login();
+    }
 }
