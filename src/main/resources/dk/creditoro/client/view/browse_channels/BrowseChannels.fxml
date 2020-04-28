@@ -85,7 +85,7 @@
    <center>
       <BorderPane prefHeight="1024.0" prefWidth="1304.0">
          <top>
-                <AnchorPane prefHeight="53.0">
+               <AnchorPane prefHeight="53.0">
                     <children>
                         <HBox alignment="CENTER" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
@@ -131,6 +131,11 @@
                                 <Image url="@../../res/add.png" />
                             </image>
                         </ImageView>
+                  <ImageView fitHeight="62.0" fitWidth="77.0" layoutX="966.0" layoutY="106.0" onMouseClicked="#sorted" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../res/add.png" />
+                     </image>
+                  </ImageView>
                   <ScrollPane fx:id="channelPane" hbarPolicy="NEVER" layoutX="228.0" layoutY="221.0" prefHeight="600.0" prefWidth="986.0" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" vbarPolicy="ALWAYS" />
                     </children>
                 </AnchorPane>

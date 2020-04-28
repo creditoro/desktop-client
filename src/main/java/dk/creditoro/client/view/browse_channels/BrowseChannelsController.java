@@ -6,13 +6,16 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.view.IViewController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -24,6 +27,7 @@ public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseChannelsViewModel browseChannelsViewModel;
     private ViewHandler viewHandler;
+    private ObservableList<Channel> channels;
 
     private Map<String, ImageView> cachedImages;
 
@@ -88,22 +92,26 @@ public class BrowseChannelsController implements IViewController {
         tilePane.setHgap(15);
         tilePane.prefWidthProperty().bind(channelPane.widthProperty());
 
-        int maxColumns = 5;
-        int column = 0;
-        int row = 0;
         for (Channel channel : channels) {
             var image = cachedImages.get(channel.getIdentifier());
             if (image == null) {
-                image = new ImageView(channel.getIconUrl());
+                try {
+                    image = new ImageView(channel.getIconUrl());
+                } catch (IllegalArgumentException e) {
+                    LOGGER.info(e.getMessage());
+                    continue;
+                }
                 image.setPickOnBounds(true);
                 image.setId(channel.getIdentifier());
                 image.setPreserveRatio(true);
                 image.setFitWidth(80);
+                image.setFitHeight(80);
                 image.setSmooth(true);
                 //Set Actions
                 image.setOnMouseClicked(mouseEvent -> {
                     var img = (ImageView) mouseEvent.getSource();
                     switchView(img.getId());
+                    LOGGER.info(channel.getName());
                 });
             } else {
                 var message = String.format("Image %s loaded from cache.", channel.getName());
@@ -111,11 +119,8 @@ public class BrowseChannelsController implements IViewController {
             }
             cachedImages.put(channel.getIdentifier(), image);
             tilePane.getChildren().addAll(image);
-            column = (column + 1) % maxColumns;
-            if (column == 0) {
-                row = row + 1;
-            }
         }
+        this.channels = channels;
         channelPane.setContent(tilePane);
     }
 
@@ -125,5 +130,32 @@ public class BrowseChannelsController implements IViewController {
      */
     public void onSearch() {
         browseChannelsViewModel.search();
+    }
+
+    public void sorted() {
+        TilePane tilePane = (TilePane) channelPane.getContent();
+        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
+        workingCollection.sort(new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                try {
+                    return channelName(o1.getId()).compareTo(channelName(o2.getId()));
+                } catch (NullPointerException ex) {
+                    LOGGER.info("Channel dont exist");
+                }
+                return 0;
+            }
+
+            public String channelName(String identifier) {
+                for (Channel channel : channels) {
+                    if (channel.getIdentifier().equals(identifier)) {
+                        LOGGER.info(channel.getName());
+                        return channel.getName();
+                    }
+                }
+                return null;
+            }
+        });
+        tilePane.getChildren().setAll(workingCollection);
     }
 }

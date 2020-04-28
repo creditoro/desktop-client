@@ -15,7 +15,6 @@ public class RunCreditoroApp {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        SvgImageLoaderFactory.install();
         Application.launch(CreditoroApp.class);
     }
 }
