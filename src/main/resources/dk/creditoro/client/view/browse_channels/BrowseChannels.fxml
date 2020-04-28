@@ -137,6 +137,25 @@
                      </image>
                   </ImageView>
                   <ScrollPane fx:id="channelPane" hbarPolicy="NEVER" layoutX="228.0" layoutY="221.0" prefHeight="600.0" prefWidth="986.0" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" vbarPolicy="ALWAYS" />
+                  <HBox fx:id="alphabet" layoutX="348.0" layoutY="81.0" prefHeight="100.0" prefWidth="612.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#sortByCharacter" text="a" />
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="b" />
+                        <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="c" />
+                        <Button layoutX="114.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="d" />
+                        <Button layoutX="79.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="e" />
+                        <Button layoutX="103.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="f" />
+                        <Button layoutX="127.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="g" />
+                        <Button layoutX="151.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="h" />
+                        <Button layoutX="175.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="i" />
+                        <Button layoutX="199.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="j" />
+                        <Button layoutX="223.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="k" />
+                        <Button layoutX="247.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="l" />
+                        <Button layoutX="271.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="m" />
+                        <Button layoutX="295.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="n" />
+                        <Button layoutX="319.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" text="o" />
+                     </children>
+                  </HBox>
                     </children>
                 </AnchorPane>
          </center>

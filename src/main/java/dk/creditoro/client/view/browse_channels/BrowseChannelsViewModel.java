@@ -11,7 +11,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
@@ -79,17 +81,33 @@ public class BrowseChannelsViewModel {
                 }
                 return 0;
             }
-
-            public String channelName(String identifier) {
-                for (Channel channel : listProperty) {
-                    if (channel.getIdentifier().equals(identifier)) {
-                        LOGGER.info(channel.getName());
-                        return channel.getName();
-                    }
-                }
-                return "";
-            }
         });
         return workingCollection;
+    }
+
+    public String channelName(String identifier) {
+        for (Channel channel : listProperty) {
+            if (channel.getIdentifier().equals(identifier)) {
+                LOGGER.info(channel.getName());
+                return channel.getName();
+            }
+        }
+        return "";
+    }
+
+    public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
+        String character = "";
+        var i = 65;
+        for (Node node : alphabet.getChildren()) {
+            if (node == actionEvent.getSource()) {
+                character = String.valueOf((char) i);
+            }
+            i++;
+        }
+        ObservableList<Node> observableList = FXCollections.observableArrayList(list);
+        LOGGER.info("character is:" + character);
+        String finalCharacter = character;
+        observableList.removeIf(node -> !channelName(node.getId()).toUpperCase().startsWith(finalCharacter));
+        return observableList;
     }
 }
