@@ -6,10 +6,10 @@ public class Production {
     private String producer;
     private String[] channels;
 
-    public Production(String identifier, String title, String[] producers, String[] channels) {
+    public Production(String identifier, String title, String producer, String[] channels) {
         this.identifier = identifier;
         this.title = title;
-        this.producers = producers;
+        this.producer = producer;
         this.channels = channels;
     }
 
@@ -21,8 +21,8 @@ public class Production {
         return title;
     }
 
-    public String[] getProducers() {
-        return producers;
+    public String getProducer() {
+        return producer;
     }
 
     public String[] getChannels() {
