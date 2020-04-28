@@ -1,6 +1,5 @@
 package dk.creditoro.client.networking.rest_client.endpoints;
 
-import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Production;
 import kong.unirest.json.JSONObject;
 
