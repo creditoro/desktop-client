@@ -1,6 +1,7 @@
 package dk.creditoro.client.networking;
 
 import dk.creditoro.client.model.crud.Channel;
+import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.crud.User;
 
 import java.beans.PropertyChangeListener;
@@ -13,6 +14,8 @@ public interface IClient {
     void register(User user);
 
     Channel[] searchChannels(String q, String token);
+
+    Production[] searchProductions(String q, String token);
 
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }
