@@ -6,16 +6,14 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.view.IViewController;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import java.util.Comparator;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
