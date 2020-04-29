@@ -105,7 +105,6 @@ public class BrowseChannelsViewModel {
             i++;
         }
         ObservableList<Node> observableList = FXCollections.observableArrayList(list);
-        LOGGER.info("character is:" + character);
         String finalCharacter = character;
         observableList.removeIf(node -> !channelName(node.getId()).toUpperCase().startsWith(finalCharacter));
         return observableList;
