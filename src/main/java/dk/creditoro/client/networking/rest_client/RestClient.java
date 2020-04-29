@@ -3,10 +3,12 @@ package dk.creditoro.client.networking.rest_client;
 
 import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.Channel;
+import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.crud.User;
 import dk.creditoro.client.networking.IClient;
 import dk.creditoro.client.networking.rest_client.endpoints.ChannelsEndpoint;
 import dk.creditoro.client.networking.rest_client.endpoints.HttpManager;
+import dk.creditoro.client.networking.rest_client.endpoints.ProductionsEndpoint;
 import dk.creditoro.client.networking.rest_client.endpoints.UsersEndpoint;
 
 import java.beans.PropertyChangeListener;
@@ -21,12 +23,14 @@ public class RestClient implements IClient {
     private final PropertyChangeSupport propertyChangeSupport;
     private final UsersEndpoint usersEndpoint;
     private final ChannelsEndpoint channelsEndpoint;
+    private final ProductionsEndpoint productionsEndpoint;
 
     public RestClient() {
         propertyChangeSupport = new PropertyChangeSupport(this);
         var httpManager = new HttpManager();
         usersEndpoint = new UsersEndpoint(httpManager);
         channelsEndpoint = new ChannelsEndpoint(httpManager);
+        productionsEndpoint = new ProductionsEndpoint(httpManager);
     }
 
     @Override
@@ -45,6 +49,14 @@ public class RestClient implements IClient {
     public Channel[] searchChannels(String q, String token) {
         var result = channelsEndpoint.getChannels(q, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_CHANNELS_RESULT.toString(), null, result);
+        LOGGER.info("Fired property change event.");
+        return result;
+    }
+
+    @Override
+    public Production[] searchProductions(String q, String token) {
+        var result = productionsEndpoint.getProductions(q,token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PRODUCTIONS_RESULT.toString(),null,result);
         LOGGER.info("Fired property change event.");
         return result;
     }

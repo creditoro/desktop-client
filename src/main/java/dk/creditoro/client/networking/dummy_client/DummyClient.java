@@ -1,6 +1,7 @@
 package dk.creditoro.client.networking.dummy_client;
 
 import dk.creditoro.client.model.crud.Channel;
+import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.crud.User;
 import dk.creditoro.client.networking.IClient;
 
@@ -22,6 +23,10 @@ public class DummyClient implements IClient {
         return new Channel[0];
     }
 
+    @Override
+    public Production[] searchProductions(String q, String token) {
+        return new Production[0];
+    }
 
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
