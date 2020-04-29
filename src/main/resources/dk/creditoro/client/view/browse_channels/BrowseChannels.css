@@ -36,3 +36,7 @@
     -fx-font-family: "Roboto";
     -fx-font-size: 24;
 }
+
+.bold {
+    -fx-font-weight: bold;
+}

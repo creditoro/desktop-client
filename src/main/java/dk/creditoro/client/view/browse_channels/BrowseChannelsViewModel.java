@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
@@ -30,6 +31,7 @@ public class BrowseChannelsViewModel {
 
     private final ObservableList<Channel> channelsList = FXCollections.observableArrayList();
     private final ListProperty<Channel> listProperty = new SimpleListProperty<>(channelsList);
+    private char currentCharacter;
 
 
     /**
@@ -92,17 +94,29 @@ public class BrowseChannelsViewModel {
     }
 
     public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
-        String character = "";
+        char character = 0;
         var i = 65;
+        ObservableList<Node> observableList = FXCollections.observableArrayList(list);
         for (Node node : alphabet.getChildren()) {
             if (node == actionEvent.getSource()) {
-                character = String.valueOf((char) i);
+                character = (char) i;
+                Button button = (Button) actionEvent.getSource();
+                var styleClass = button.getStyleClass();
+                if (currentCharacter == character) {
+                    styleClass.remove("bold");
+                    currentCharacter = 0;
+                    return observableList;
+                } else {
+                    currentCharacter = character;
+                    styleClass.add("bold");
+                }
             }
             i++;
         }
-        ObservableList<Node> observableList = FXCollections.observableArrayList(list);
-        String finalCharacter = character;
-        observableList.removeIf(node -> !channelName(node.getId()).toUpperCase().startsWith(finalCharacter));
+        char finalCharacter = character;
+        if (character != 0) {
+            observableList.removeIf(node -> !channelName(node.getId()).toUpperCase().startsWith(String.valueOf(finalCharacter)));
+        }
         return observableList;
     }
 }
