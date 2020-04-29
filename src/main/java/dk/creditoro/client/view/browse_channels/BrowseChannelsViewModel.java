@@ -17,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
