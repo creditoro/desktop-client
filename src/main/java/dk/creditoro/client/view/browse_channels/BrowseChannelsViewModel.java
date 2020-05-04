@@ -110,6 +110,10 @@ public class BrowseChannelsViewModel {
                     currentCharacter = character;
                     styleClass.add("bold");
                 }
+            } else {
+                Button button = (Button) node;
+                var styleClass = button.getStyleClass();
+                styleClass.remove("bold");
             }
             i++;
         }
