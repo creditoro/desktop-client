@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
@@ -72,14 +73,7 @@ public class BrowseChannelsViewModel {
 
     public ObservableList<Node> sortedList(TilePane tilePane) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort((o1, o2) -> {
-            try {
-                return channelName(o1.getId()).compareTo(channelName(o2.getId()));
-            } catch (NullPointerException ex) {
-                LOGGER.info("Channel dont exist");
-            }
-            return 0;
-        });
+        workingCollection.sort(Comparator.comparing(o -> channelName(o.getId())));
         return workingCollection;
     }
 

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
@@ -37,4 +38,23 @@ class BrowseChannelsViewModelTest {
     public void listPropertyProperty(){
         Assertions.assertFalse(browseChannelsViewModel.listPropertyProperty().isEmpty());
     }
+
+    @Test
+    public void channelName(){
+        Assertions.assertEquals("",browseChannelsViewModel.channelName(""));
+        Assertions.assertEquals("TV 2 DANMARK",browseChannelsViewModel.channelName("04bdd23d-75d5-4381-af97-628b7e531e0d"));
+    }
+
+    @Test
+    public void sortedByCharacter(FxRobot robot){
+        robot.clickOn("#buttonA");
+        robot.clickOn("#buttonA");
+    }
+
+    @Test
+    public void sortedList(FxRobot robot){
+        robot.clickOn("#buttonSort");
+    }
+
+
 }
