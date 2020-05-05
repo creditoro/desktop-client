@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class ChannelsEndpoint {
 
+	private final static String CHANNELS = "/channels/";
     private final HttpManager httpManager;
 
 
@@ -28,17 +29,17 @@ public class ChannelsEndpoint {
     }
 
     public Channel[] getChannels(String q, String token) {
-        var response = httpManager.getList("/channels/", q, token);
+        var response = httpManager.getList(CHANNELS, q, token);
         return response.asObject(Channel[].class).getBody();
     }
 
 	// This is never gonna work as it is setup now? - kevin 06-05-2020
     public Channel postChannel(JSONObject body) {
-        var response = httpManager.post("/channels/", body);
+        var response = httpManager.post(CHANNELS, body);
         return response.asObject(Channel.class).getBody();
     }
     public Channel postChannel(JSONObject body, String token) {
-        var response = httpManager.post("/channels/", token, body);
+        var response = httpManager.post(CHANNELS, token, body);
         return response.asObject(Channel.class).getBody();
     }
 
