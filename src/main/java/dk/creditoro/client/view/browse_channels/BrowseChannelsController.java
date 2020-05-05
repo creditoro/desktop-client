@@ -6,12 +6,16 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.view.IViewController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.util.HashMap;
@@ -25,6 +29,7 @@ public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseChannelsViewModel browseChannelsViewModel;
     private ViewHandler viewHandler;
+    private ObservableList<Node> channelList;
 
     private Map<String, ImageView> cachedImages;
 
@@ -35,6 +40,11 @@ public class BrowseChannelsController implements IViewController {
 
     @FXML
     private TextField channelSearch;
+
+    @FXML
+    private HBox alphabet;
+
+
 
     /**
      * Btn new channel.
@@ -118,6 +128,7 @@ public class BrowseChannelsController implements IViewController {
             tilePane.getChildren().addAll(image);
         }
         channelPane.setContent(tilePane);
+        channelList = FXCollections.observableArrayList(tilePane.getChildren());
     }
 
 
@@ -131,5 +142,11 @@ public class BrowseChannelsController implements IViewController {
     public void sorted() {
         TilePane tilePane = (TilePane) channelPane.getContent();
         tilePane.getChildren().setAll(browseChannelsViewModel.sortedList(tilePane));
+    }
+
+    @FXML
+    public void sortByCharacter(ActionEvent actionEvent)  {
+        TilePane tilePane = (TilePane) channelPane.getContent();
+        tilePane.getChildren().setAll(browseChannelsViewModel.sortedByCharacter(channelList,actionEvent,alphabet));
     }
 }

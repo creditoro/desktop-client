@@ -131,12 +131,46 @@
                                 <Image url="@../../res/add.png" />
                             </image>
                         </ImageView>
-                  <ImageView fitHeight="62.0" fitWidth="77.0" layoutX="966.0" layoutY="106.0" onMouseClicked="#sorted" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="62.0" fitWidth="77.0" layoutX="1156.0" layoutY="106.0" onMouseClicked="#sorted" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../res/add.png" />
                      </image>
                   </ImageView>
                   <ScrollPane fx:id="channelPane" hbarPolicy="NEVER" layoutX="228.0" layoutY="221.0" prefHeight="600.0" prefWidth="986.0" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" vbarPolicy="ALWAYS" />
+                  <HBox fx:id="alphabet" layoutX="272.0" layoutY="183.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="A" />
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="B" />
+                        <Button layoutX="50.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="C" />
+                        <Button layoutX="90.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="D" />
+                        <Button layoutX="130.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="E" />
+                        <Button layoutX="170.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="F" />
+                        <Button layoutX="210.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="G" />
+                        <Button layoutX="250.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="H" />
+                        <Button layoutX="290.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="I" />
+                        <Button layoutX="330.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="J" />
+                        <Button layoutX="370.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="K" />
+                        <Button layoutX="410.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="L" />
+                        <Button layoutX="450.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="M" />
+                        <Button layoutX="490.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="N" />
+                        <Button layoutX="530.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="O" />
+                        <Button layoutX="570.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="P" />
+                        <Button layoutX="581.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="Q" />
+                        <Button layoutX="618.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="R" />
+                        <Button layoutX="655.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="S" />
+                        <Button layoutX="700.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="T" />
+                        <Button layoutX="736.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="U" />
+                        <Button layoutX="772.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="V" />
+                        <Button layoutX="808.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="W" />
+                        <Button layoutX="851.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="X" />
+                        <Button layoutX="901.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="Y" />
+                        <Button layoutX="951.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="Z" />
+                        <Button layoutX="1001.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="Æ" />
+                        <Button layoutX="1051.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="Ø" />
+                        <Button layoutX="1101.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="Å" />
+                     </children>
+                  </HBox>
+                  <Line endX="358.0" endY="232.0" layoutX="-129.0" layoutY="-11.0" startX="1338.0" startY="232.0" />
                     </children>
                 </AnchorPane>
          </center>
