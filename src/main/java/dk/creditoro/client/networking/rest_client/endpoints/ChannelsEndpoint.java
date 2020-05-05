@@ -33,7 +33,9 @@ public class ChannelsEndpoint {
     }
 
     public Channel postChannel(JSONObject body) {
-        var response = httpManager.post("/users", body);
+        var response = httpManager.post("/channels/", body);
         return response.asObject(Channel.class).getBody();
     }
+
+	//TODO Maybe add deleteChannel?
 }
