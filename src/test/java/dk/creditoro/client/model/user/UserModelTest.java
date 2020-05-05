@@ -17,7 +17,7 @@ public class UserModelTest {
 		userModel = new UserModel(new ClientFactory().getRestClient());
 	}
 
-	@BeforeEach void loggin(){
+	@BeforeEach @Test void loggin(){
 		assertDoesNotThrow(()-> userModel.login("string@string.dk", password));
 	}
 
