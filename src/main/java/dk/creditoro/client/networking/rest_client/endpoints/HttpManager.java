@@ -57,6 +57,12 @@ public class HttpManager {
                 .body(body);
     }
 
+    public RequestBodyEntity post(String route, String token, JSONObject body) {
+        return Unirest.post(String.format("/%s", route))
+                .header(AUTH_HEADER, token)
+                .body(body);
+    }
+
     public HttpRequestWithBody delete(String route, String identifier, String token) {
         return Unirest.delete(String.format(PATH, route, IDENTIFIER))
                 .routeParam(IDENTIFIER, identifier)
