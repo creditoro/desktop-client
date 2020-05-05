@@ -30,8 +30,11 @@ public class HttpManagerTest {
 
 	@Test
 	void getObjects(){
-		var response = httpManager.getList("/channels" , "", "");
+		var response = httpManager.getList("/channels/" , "", "");
 		var channels = response.asObject(Channel[].class).getBody();
+		for (Channel channel : channels) {
+			System.out.println(channel);	
+		}
 		assertNotNull(channels[0].getName());	
 	}
 }
