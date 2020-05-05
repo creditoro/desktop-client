@@ -26,4 +26,10 @@ public class Channel {
     public String getIconUrl() {
         return iconUrl;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Channel (name=%s)", this.name);
+    }
 }
