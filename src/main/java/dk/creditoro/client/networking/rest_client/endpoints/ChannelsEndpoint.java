@@ -32,10 +32,19 @@ public class ChannelsEndpoint {
         return response.asObject(Channel[].class).getBody();
     }
 
+	// This is never gonna work as it is setup now? - kevin 06-05-2020
     public Channel postChannel(JSONObject body) {
         var response = httpManager.post("/channels/", body);
         return response.asObject(Channel.class).getBody();
     }
+    public Channel postChannel(JSONObject body, String token) {
+        var response = httpManager.post("/channels/", token, body);
+        return response.asObject(Channel.class).getBody();
+    }
 
-	//TODO Maybe add deleteChannel?
+	public boolean deleteChannel(String identifier, String token){
+		var response = httpManager.delete("channels", identifier, token);
+		return response.asEmpty().isSuccess();
+	}
+
 }
