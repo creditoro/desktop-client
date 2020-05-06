@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ChannelsEndpoint {
 
-	private final static String CHANNELS = "/channels/";
+	private static final String CHANNELS = "/channels/";
     private final HttpManager httpManager;
 
 
