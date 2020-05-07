@@ -33,7 +33,7 @@ class UsersEndpointTest {
     @Test
     void postLogin() {
         var token = usersEndpoint.postLogin("string@string.dk", "string");
-        assertNotEquals(null, token);
+        assertNotNull(token);
         token = usersEndpoint.postLogin("wronglogin@string.dk", "string");
         assertNull(token);
     }

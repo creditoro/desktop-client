@@ -36,8 +36,14 @@ public class ProductionsEndpointTest {
 		assertNotNull(productions);
 	}
 
-	// TODO add this test back then productions works @Test
+	//@Test
 	void getProduction(){
+				assertNull(productionsEndpoint.getProduction(productions[0]
+					.getIdentifier()).getIdentifier(),
+				"Check if we can get the same productions");
+	}
+
+	void getTheSameProduction(){
 		assertEquals(productions[0].getIdentifier(), 
 				productionsEndpoint.getProduction(productions[0]
 					.getIdentifier()).getIdentifier(),
@@ -57,9 +63,15 @@ public class ProductionsEndpointTest {
 	}
 
 	@Test
+	void postProductionWithToken(){
+        var body = new JSONObject(Map.of("title", "Ringes Herrer", "producer_id", "pro10-10", "channel_id", "chan10-10"));
+		assertNotNull(productionsEndpoint.postProduction(body, token), 
+				"Fix this then productions works in the API");
+	}
+	@Test
 	void postProduction(){
         var body = new JSONObject(Map.of("title", "Ringes Herrer", "producer_id", "pro10-10", "channel_id", "chan10-10"));
-		assertTrue(productionsEndpoint.postProduction(body) == null, 
+		assertNull(productionsEndpoint.postProduction(body), 
 				"Fix this then productions works in the API");
 	}
 }
