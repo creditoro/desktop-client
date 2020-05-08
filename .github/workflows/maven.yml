@@ -18,11 +18,11 @@ jobs:
         with:
           java-version: '13'
       - name: Run all tests with Maven
-        uses: GabrielBB/xvfb-action@v1.2
-        with:
-          run: |
-            mvn clean install
-            mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
+      - run: |
+          sudo apt-install xvfb
+          mvn clean install
+          mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
         env:
+          DISPLAY: ':1'
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
