@@ -48,11 +48,10 @@ public class BrowseProductionsViewModel {
     }
 
     public void search() {
-        var token = userModel.getToken();
         var q = queryParam.get();
-        var message = String.format("Called search, q: '%s', token is: '%s.'", q, token);
+        var message = String.format("Called search, q: '%s'", q);
         LOGGER.info(message);
-        productionModel.search(q, token);
+        productionModel.search(q);
     }
 
     private void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
