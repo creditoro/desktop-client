@@ -46,7 +46,6 @@ class BrowseChannelsViewModelTest {
         //needs own test later
         robot.clickOn("#buttonA");
         robot.clickOn("#buttonA");
-        robot.clickOn("#sortButton");
     }
 
 }
