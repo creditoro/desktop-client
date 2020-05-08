@@ -21,17 +21,18 @@ import java.util.List;
  * The type Browse channels controller.
  */
 public class ProductionController implements IViewController {
-    private ProductionViewModel productionViewModel = new ProductionViewModel();
+    private ProductionViewModel productionViewModel;
     private ViewHandler viewHandler;
 
     @FXML public TextField channelSearch;
     @FXML public VBox creditList;
-    @FXML public ChoiceBox choiceSeason;
-    @FXML public ChoiceBox choiceEpisode;
+    @FXML public ChoiceBox<?> choiceSeason;
+    @FXML public ChoiceBox<?> choiceEpisode;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
+        productionViewModel = new ProductionViewModel();
 
         //Update list
         updateList();
