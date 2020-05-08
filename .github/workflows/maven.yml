@@ -19,8 +19,11 @@ jobs:
           java-version: '13'
       - name: Run all tests with Maven
         run: |
+          sudo apt-install Xvfb
+          Xvfb :1 &
           mvn clean install
           mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
+          sudo pkill -9 Xvfb
         env:
           DISPLAY: ':1'
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
