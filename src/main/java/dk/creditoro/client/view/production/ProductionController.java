@@ -3,6 +3,7 @@ package dk.creditoro.client.view.production;
 
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
+import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,11 +15,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.util.List;
+
 /**
  * The type Browse channels controller.
  */
 public class ProductionController implements IViewController {
-    private ProductionViewModel productionViewModel;
+    private ProductionViewModel productionViewModel = new ProductionViewModel();
     private ViewHandler viewHandler;
 
     @FXML public TextField channelSearch;
@@ -28,14 +31,16 @@ public class ProductionController implements IViewController {
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
+        this.viewHandler = viewHandler;
+
         //Update list
         updateList();
     }
 
     public void updateList() {
         //Get list of credits
-        //****TEMP****
-        String[] list = {"Episode 1", "Episode 2", "Episode 3", "Episode 4", "Episode 5", "Episode 6", "Episode 7"};
+        List<String> list = productionViewModel.getList();
+
         choiceEpisode.getItems().add("All");
         choiceSeason.getItems().add("Season 1");
 
@@ -83,16 +88,18 @@ public class ProductionController implements IViewController {
         choiceEpisode.getSelectionModel().selectFirst();
     }
 
-
+    @FXML
     public void btnAccount(ActionEvent actionEvent) {
         //Code
     }
 
+    @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
         //Code
     }
 
+    @FXML
     public void btnChangeProduction(ActionEvent actionEvent) {
-        //Code
+        viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 }

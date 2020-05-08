@@ -144,7 +144,7 @@
                         </Group>
                         <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="50.0" layoutY="225.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="225.0">
                            <content>
-                              <VBox fx:id="creditList" prefHeight="420.0" prefWidth="700.0" spacing="20.0">
+                              <VBox fx:id="creditList" prefHeight="420.0" prefWidth="700.0" spacing="10.0">
                                  <padding>
                                     <Insets left="10.0" right="10.0" top="10.0" />
                                  </padding>
