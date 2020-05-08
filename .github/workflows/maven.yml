@@ -2,7 +2,7 @@ name: Java CI
 
 on:
   pull_request:
-    branches:
+    branches: 
       - master
   push:
     branches:
@@ -15,7 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-java@v1
-      - uses: GabrielBB/xvfb-action@v1.2
         with:
           java-version: '13'
       - name: Run all tests with Maven

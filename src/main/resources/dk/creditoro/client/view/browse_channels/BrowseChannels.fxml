@@ -131,7 +131,7 @@
                                 <Image url="@../../res/add.png" />
                             </image>
                         </ImageView>
-                  <ImageView fx:id="sortButton" fitHeight="62.0" fitWidth="77.0" layoutX="1156.0" layoutY="106.0" onMouseClicked="#sorted" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="62.0" fitWidth="77.0" layoutX="1156.0" layoutY="106.0" onMouseClicked="#sorted" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../res/add.png" />
                      </image>
@@ -139,7 +139,7 @@
                   <ScrollPane fx:id="channelPane" hbarPolicy="NEVER" layoutX="228.0" layoutY="221.0" prefHeight="600.0" prefWidth="986.0" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" vbarPolicy="ALWAYS" />
                   <HBox fx:id="alphabet" layoutX="272.0" layoutY="183.0">
                      <children>
-                        <Button fx:id="buttonA" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="A" />
+                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="A" />
                         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="B" />
                         <Button layoutX="50.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="C" />
                         <Button layoutX="90.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" text="D" />
