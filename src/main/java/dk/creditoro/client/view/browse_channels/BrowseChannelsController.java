@@ -68,6 +68,13 @@ public class BrowseChannelsController implements IViewController {
     }
 
     /**
+     * Btn account.
+     */
+    public void btnProductions() {
+        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+    }
+
+    /**
      * Switch view.
      *
      * @param viewToOpen the view to open
@@ -149,4 +156,6 @@ public class BrowseChannelsController implements IViewController {
         TilePane tilePane = (TilePane) channelPane.getContent();
         tilePane.getChildren().setAll(browseChannelsViewModel.sortedByCharacter(channelList,actionEvent,alphabet));
     }
+
+
 }
