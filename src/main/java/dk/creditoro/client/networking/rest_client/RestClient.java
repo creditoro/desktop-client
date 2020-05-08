@@ -22,10 +22,6 @@ public class RestClient implements IClient {
     private final ChannelsEndpoint channelsEndpoint;
     private final ProductionsEndpoint productionsEndpoint;
 
-    public String getToken() {
-        return token;
-    }
-
     private String token;
 
     public RestClient() {
@@ -35,6 +31,7 @@ public class RestClient implements IClient {
         channelsEndpoint = new ChannelsEndpoint(httpManager);
         productionsEndpoint = new ProductionsEndpoint(httpManager);
     }
+
     @Override
     public User login(String email, String password) {
         var result = usersEndpoint.postLogin(email, password);
@@ -59,8 +56,8 @@ public class RestClient implements IClient {
 
     @Override
     public Production[] searchProductions(String q) {
-        var result = productionsEndpoint.getProductions(q,token);
-        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PRODUCTIONS_RESULT.toString(),null,result);
+        var result = productionsEndpoint.getProductions(q, token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PRODUCTIONS_RESULT.toString(), null, result);
         LOGGER.info("Fired property change event.");
         updateToken(result);
         return result.getT();
