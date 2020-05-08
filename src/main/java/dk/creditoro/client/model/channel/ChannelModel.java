@@ -3,6 +3,7 @@ package dk.creditoro.client.model.channel;
 import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.networking.IClient;
+import dk.creditoro.client.networking.rest_client.TokenResponse;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -35,15 +36,17 @@ public class ChannelModel implements IChannelModel {
     }
 
     @Override
-    public void search(String q, String token) {
-        Channel[] channels = client.searchChannels(q, token);
+    public void search(String q) {
+        Channel[] channels = client.searchChannels(q);
         var message = String.format("channels found: %d", channels.length);
         LOGGER.info(message);
     }
 
+    @SuppressWarnings("unchecked")
     public void onSearchChannelsResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search channels result called.");
-        var channels = (Channel[]) propertyChangeEvent.getNewValue();
+        var response = (TokenResponse<Channel[]>) propertyChangeEvent.getNewValue();
+        var channels = response.getT();
         propertyChangeSupport.firePropertyChange("kek", null, channels);
     }
 }

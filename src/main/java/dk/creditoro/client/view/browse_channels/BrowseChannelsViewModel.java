@@ -50,11 +50,10 @@ public class BrowseChannelsViewModel {
     }
 
     public void search() {
-        var token = userModel.getToken();
         var q = queryParam.get();
-        var message = String.format("Called search, q: '%s', token is: '%s.'", q, token);
+        var message = String.format("Called search, q: '%s'", q);
         LOGGER.info(message);
-        channelModel.search(q, token);
+        channelModel.search(q);
     }
 
     private void onSearchChannelsResult(PropertyChangeEvent propertyChangeEvent) {

@@ -1,43 +1,35 @@
 package dk.creditoro.client.model.user;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.*;
-
 import dk.creditoro.client.core.ClientFactory;
 import dk.creditoro.client.model.crud.User;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
-* UserModelTest
-*/
+ * UserModelTest
+ */
 public class UserModelTest {
-	UserModel userModel;
-	String password = "string";
-	
-	public UserModelTest(){
-		userModel = new UserModel(new ClientFactory().getRestClient());
-	}
+    UserModel userModel;
+    String password = "string";
 
-	@BeforeEach @Test void loggin(){
-		assertDoesNotThrow(()-> userModel.login("string@string.dk", password));
-	}
+    public UserModelTest() {
+        userModel = new UserModel(new ClientFactory().getRestClient());
+        assertDoesNotThrow(() -> userModel.login("string@string.dk", password));
+    }
 
-	@Test void getCurrentUser(){
-		assertNotNull(userModel.getCurrentUser(),
-				"Should be able to get the new user aflogin");
-	}
+    @Test
+    void getCurrentUser() {
+        assertNotNull(userModel.getCurrentUser(),
+                "Should be able to get the new user from login");
+    }
 
-	@Test void getCurrentUserPassword(){
-		assertEquals(password, userModel.getCurrentUser().getPassword(),
-				"Could not get the current UserPassword");
-	}
-
-	@Test void getToken(){
-		assertNotNull(userModel.getToken());
-	}
-
-	@Test void register(){
-		assertDoesNotThrow(()-> userModel.register(new User("some@mail.dk", "somePassword")) ,
-				"Updated this test after you implement register USER ;) ");
-	}
+    @Test
+    void register() {
+        var testUser = new User("+45 88 88 88 88", "peter@leasy.dk", "Peter", "Chef");
+        assertDoesNotThrow(() -> userModel.register(testUser, "string"),
+                "Updated this test after you implement register USER ;) ");
+    }
 
 }

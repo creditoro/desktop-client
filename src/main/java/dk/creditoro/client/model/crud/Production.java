@@ -1,10 +1,11 @@
 package dk.creditoro.client.model.crud;
 
 public class Production {
-    private String identifier;
-    private String title;
-    private User producer;
-    private Channel channel;
+
+    private final String identifier;
+    private final String title;
+    private final User producer;
+    private final Channel channel;
 
     public Production(String identifier, String title, User producer, Channel channel) {
         this.identifier = identifier;

@@ -9,27 +9,26 @@ import java.beans.PropertyChangeListener;
 
 public class DummyClient implements IClient {
     @Override
-    public String login(String email, String password) {
+    public User login(String email, String password) {
         return null;
     }
 
     @Override
     public void register(User user) {
-
+        return;
     }
 
     @Override
-    public Channel[] searchChannels(String q, String token) {
+    public Channel[] searchChannels(String q) {
         return new Channel[0];
     }
 
     @Override
-    public Production[] searchProductions(String q, String token) {
+    public Production[] searchProductions(String q) {
         return new Production[0];
     }
 
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
-
     }
 }
