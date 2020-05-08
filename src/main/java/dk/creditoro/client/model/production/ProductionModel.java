@@ -3,6 +3,7 @@ package dk.creditoro.client.model.production;
 import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.networking.IClient;
+import dk.creditoro.client.networking.rest_client.TokenResponse;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -22,21 +23,22 @@ public class ProductionModel implements IProductionModel {
     }
 
     @Override
-    public void search(String q, String token) {
-        Production[] productions = client.searchProductions(q,token);
+    public void search(String q) {
+        Production[] productions = client.searchProductions(q);
         var message = String.format("productions found: %d", productions.length);
         LOGGER.info(message);
     }
 
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
-        propertyChangeSupport.addPropertyChangeListener(name,propertyChangeListener);
-
+        propertyChangeSupport.addPropertyChangeListener(name, propertyChangeListener);
     }
 
-    public void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent){
+    @SuppressWarnings("unchecked")
+    public void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search productions result called.");
-        var productions = (Production[]) propertyChangeEvent.getNewValue();
-        propertyChangeSupport.firePropertyChange("kek",null,productions);
+        var response = (TokenResponse<Production[]>) propertyChangeEvent.getNewValue();
+        var productions = response.getT();
+        propertyChangeSupport.firePropertyChange("kek", null, productions);
     }
 }
