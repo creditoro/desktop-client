@@ -19,13 +19,23 @@ public interface IUserModel {
     /**
      * Register.
      *
-     * @param user the user
+     * @param user     the user
+     * @param password the password
      */
-    void register(User user);
+    void register(User user, String password);
 
+    /**
+     * Gets current user.
+     *
+     * @return the current user
+     */
     User getCurrentUser();
 
-    String getToken();
-
+    /**
+     * Add listener.
+     *
+     * @param name                   the name
+     * @param propertyChangeListener the property change listener
+     */
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }

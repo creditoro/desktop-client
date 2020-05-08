@@ -32,7 +32,6 @@ public class ProductionModel implements IProductionModel {
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.addPropertyChangeListener(name, propertyChangeListener);
-
     }
 
     @SuppressWarnings("unchecked")

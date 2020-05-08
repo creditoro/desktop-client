@@ -8,7 +8,6 @@ import dk.creditoro.client.networking.rest_client.TokenResponse;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.net.http.HttpResponse;
 import java.util.logging.Logger;
 
 /**
@@ -36,18 +35,13 @@ public class UserModel implements IUserModel {
         return currentUser;
     }
 
-    public String getToken() {
-        return currentUser.getToken();
-    }
-
     @Override
     public void login(String email, String password) {
-        currentUser = new User(email, password); // TODO: remake to returned user.
-        client.login(email, password);
+        currentUser = client.login(email, password);
     }
 
     @Override
-    public void register(User user) {
+    public void register(User user, String password) {
         LOGGER.info("called register.");
     }
 
@@ -63,7 +57,8 @@ public class UserModel implements IUserModel {
             LOGGER.info("Couldn't log in.");
             propertyChangeSupport.firePropertyChange(EventNames.LOGIN_RESULT.toString(), null, Long.toString(System.currentTimeMillis()));
         } else {
-            LOGGER.info(String.format("%s logged in successfully.", currentUser.getName()));
+            var message = String.format("%s logged in successfully.", response.getT().getName());
+            LOGGER.info(message);
             propertyChangeSupport.firePropertyChange(EventNames.LOGIN_RESULT.toString(), null, "OK");
         }
     }
