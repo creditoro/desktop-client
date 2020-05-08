@@ -26,8 +26,8 @@ public class ProductionController implements IViewController {
 
     @FXML public TextField channelSearch;
     @FXML public VBox creditList;
-    @FXML public ChoiceBox<?> choiceSeason;
-    @FXML public ChoiceBox<?> choiceEpisode;
+    @FXML public ChoiceBox<String> choiceSeason;
+    @FXML public ChoiceBox<String> choiceEpisode;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
