@@ -1,21 +1,6 @@
 package dk.creditoro.client.view.browse_channels;
 
-import dk.creditoro.client.core.ClientFactory;
-import dk.creditoro.client.core.ModelFactory;
-import dk.creditoro.client.core.ViewHandler;
-import dk.creditoro.client.core.ViewModelFactory;
-import dk.creditoro.client.view.login.LoginViewModel;
-import javafx.stage.Stage;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.api.FxRobot;
-import org.testfx.framework.junit5.ApplicationExtension;
-import org.testfx.framework.junit5.Start;
-
-@ExtendWith(ApplicationExtension.class)
 class BrowseChannelsViewModelTest {
-
     BrowseChannelsViewModel browseChannelsViewModel;
 
     @Start
@@ -47,5 +32,4 @@ class BrowseChannelsViewModelTest {
         robot.clickOn("#buttonA");
         robot.clickOn("#buttonA");
     }
-
 }
