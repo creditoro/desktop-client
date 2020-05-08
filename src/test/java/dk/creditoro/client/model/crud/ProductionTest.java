@@ -12,8 +12,8 @@ public class ProductionTest {
 	String message = "Maybe production changed?";
 
 	public ProductionTest(){
-		production = new Production("10-10-10", "Hornbœk langt ude", "TV2 Hornbœk",
-				new String[]{"TV2 ØST", "TV2 Charlie", "TV2"});
+		production = new Production("10-10-10", "Hornbœk langt ude", new User("madeUpIdentifier","phone","email","password","producer","producer", "none"),
+				new Channel("madeUpIdentifier","TV2 ØST","iconUrl"));
 	}
 
 	@Test void getIdentifier(){
@@ -25,13 +25,10 @@ public class ProductionTest {
 	}
 
 	@Test void getProducer(){
-		assertEquals("TV2 Hornbœk", production.getProducer(), message);
+		assertEquals("producer", production.getProducer().getName(), message);
 	}
 	
-	@Test void getChannels(){
-		assertEquals("TV2 ØST", production.getChannels()[0], message);
-		assertEquals("TV2 Charlie", production.getChannels()[1], message);
-		assertEquals("TV2", production.getChannels()[2], message);
-
+	@Test void getChannel(){
+		assertEquals("TV2 ØST", production.getChannel().getName(),message);
 	}
 }
