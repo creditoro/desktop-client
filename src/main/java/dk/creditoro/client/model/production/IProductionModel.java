@@ -8,7 +8,7 @@ public interface IProductionModel {
      *
      * @param q the q
      */
-    void search(String q, String token);
+    void search(String q);
 
     /**
      * Add listener.

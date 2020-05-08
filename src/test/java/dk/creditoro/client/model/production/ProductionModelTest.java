@@ -2,6 +2,7 @@ package dk.creditoro.client.model.production;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import dk.creditoro.client.model.crud.User;
 import org.junit.jupiter.api.Test;
 
 import dk.creditoro.client.core.ClientFactory;
@@ -13,15 +14,15 @@ import dk.creditoro.client.networking.IClient;
 public class ProductionModelTest {
 	ProductionModel productionModel;
 	IClient client;
-	String token;
+	User currentUser;
 	
 	public ProductionModelTest(){
 		client = new ClientFactory().getRestClient();
 		productionModel = new ProductionModel(client);
-		token = client.login("string@string.dk", "string");
+		currentUser = client.login("string@string.dk", "string");
 	}
 
 	@Test void search(){
-	assertDoesNotThrow(()-> productionModel.search("", token));
+	assertDoesNotThrow(()-> productionModel.search(""));
 	}
 }

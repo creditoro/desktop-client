@@ -27,11 +27,11 @@ public class DummyClientTest {
 	}
 
 	@Test void searchChannels(){
-		assertNotNull(dummyClient.searchChannels("", "token"));
+		assertNotNull(dummyClient.searchChannels(""));
 	}
 	
 	@Test void searchProductions(){
-		assertNotNull(dummyClient.searchProductions("", "token"));
+		assertNotNull(dummyClient.searchProductions(""));
 	}
 
 }
