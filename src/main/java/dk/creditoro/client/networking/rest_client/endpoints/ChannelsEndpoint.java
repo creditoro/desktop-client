@@ -1,6 +1,7 @@
 package dk.creditoro.client.networking.rest_client.endpoints;
 
 import dk.creditoro.client.model.crud.Channel;
+import dk.creditoro.client.networking.rest_client.TokenResponse;
 import kong.unirest.json.JSONObject;
 
 import java.util.Map;
@@ -15,32 +16,33 @@ public class ChannelsEndpoint {
         this.httpManager = httpManager;
     }
 
-    public Channel getChannel(String identifier) {
+    public TokenResponse<Channel> getChannel(String identifier) {
         var response = httpManager.get("/channels", identifier, null);
-        return response.asObject(Channel.class).getBody();
+        return new TokenResponse<>(response.asObject(Channel.class));
     }
 
-    public Channel putChannel(String identifier, JSONObject body) {
+    public TokenResponse<Channel> putChannel(String identifier, JSONObject body) {
         return null;
     }
 
-    public Channel patchChannel(String identifier, Map<String, Object> fields) {
+    public TokenResponse<Channel> patchChannel(String identifier, Map<String, Object> fields) {
         return null;
     }
 
-    public Channel[] getChannels(String q, String token) {
+    public TokenResponse<Channel[]> getChannels(String q, String token) {
         var response = httpManager.getList(CHANNELS, q, token);
-        return response.asObject(Channel[].class).getBody();
+        return new TokenResponse<>(response.asObject(Channel[].class));
     }
 
 	// This is never gonna work as it is setup now? - kevin 06-05-2020
-    public Channel postChannel(JSONObject body) {
+    public TokenResponse<Channel> postChannel(JSONObject body) {
         var response = httpManager.post(CHANNELS, body);
-        return response.asObject(Channel.class).getBody();
+        return new TokenResponse<>(response.asObject(Channel.class));
+
     }
-    public Channel postChannel(JSONObject body, String token) {
+    public TokenResponse<Channel> postChannel(JSONObject body, String token) {
         var response = httpManager.post(CHANNELS, token, body);
-        return response.asObject(Channel.class).getBody();
+        return new TokenResponse<>(response.asObject(Channel.class));
     }
 
 	public boolean deleteChannel(String identifier, String token){

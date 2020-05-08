@@ -10,12 +10,12 @@ import java.beans.PropertyChangeListener;
  * The interface Http manager.
  */
 public interface IClient {
-    String login(String email, String password);
+    User login(String email, String password);
     void register(User user);
 
-    Channel[] searchChannels(String q, String token);
+    Channel[] searchChannels(String q);
 
-    Production[] searchProductions(String q, String token);
+    Production[] searchProductions(String q);
 
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }
