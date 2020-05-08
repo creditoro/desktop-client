@@ -3,14 +3,14 @@ package dk.creditoro.client.model.crud;
 public class Production {
     private String identifier;
     private String title;
-    private String producer;
-    private String[] channels;
+    private User producer;
+    private Channel channel;
 
-    public Production(String identifier, String title, String producer, String[] channels) {
+    public Production(String identifier, String title, User producer, Channel channel) {
         this.identifier = identifier;
         this.title = title;
         this.producer = producer;
-        this.channels = channels;
+        this.channel = channel;
     }
 
     public String getIdentifier() {
@@ -21,11 +21,11 @@ public class Production {
         return title;
     }
 
-    public String getProducer() {
+    public User getProducer() {
         return producer;
     }
 
-    public String[] getChannels() {
-        return channels;
+    public Channel getChannel() {
+        return channel;
     }
 }
