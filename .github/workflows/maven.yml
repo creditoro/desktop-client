@@ -20,9 +20,8 @@ jobs:
       - name: Run all tests with Maven
       - uses: GabrielBB/xvfb-action@v1.2
         with:
-          run: |
-            mvn clean install
-            mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
-          env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: mvn clean install
+        run: mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
