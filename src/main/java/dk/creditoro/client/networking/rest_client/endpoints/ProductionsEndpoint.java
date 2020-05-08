@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class ProductionsEndpoint {
 
+	private static final String PRODUCTIONS = "/productions/";
     private final HttpManager httpManager;
 
 
@@ -15,7 +16,7 @@ public class ProductionsEndpoint {
     }
 
     public Production getProduction(String identifier) {
-        var response = httpManager.get("/productions", identifier, null);
+        var response = httpManager.get(PRODUCTIONS, identifier, null);
         return response.asObject(Production.class).getBody();
     }
 
@@ -28,12 +29,17 @@ public class ProductionsEndpoint {
     }
 
     public Production[] getProductions(String q, String token) {
-        var response = httpManager.getList("/productions/", q, token);
+        var response = httpManager.getList(PRODUCTIONS, q, token);
         return response.asObject(Production[].class).getBody();
     }
 
     public Production postProduction(JSONObject body) {
-        var response = httpManager.post("/users", body);
+        var response = httpManager.post(PRODUCTIONS, body);
+        return response.asObject(Production.class).getBody();
+    }
+
+    public Production postProduction(JSONObject body, String token) {
+        var response = httpManager.post(PRODUCTIONS, token, body);
         return response.asObject(Production.class).getBody();
     }
 }
