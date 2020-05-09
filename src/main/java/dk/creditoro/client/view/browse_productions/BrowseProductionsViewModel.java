@@ -71,7 +71,7 @@ public class BrowseProductionsViewModel {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
         workingCollection.sort((o1, o2) -> {
             try {
-                return productionName(o1.getId()).compareTo(productionName(o2.getId()));
+                return productionTitle(o1.getId()).compareTo(productionTitle(o2.getId()));
             } catch (NullPointerException ex) {
                 LOGGER.info("Production does not exist");
             }
@@ -80,7 +80,7 @@ public class BrowseProductionsViewModel {
         return workingCollection;
     }
 
-    public String productionName(String identifier) {
+    public String productionTitle(String identifier) {
         for (Production production : listProperty) {
             if (production.getIdentifier().equals(identifier)) {
                 LOGGER.info(production.getTitle());
@@ -116,7 +116,7 @@ public class BrowseProductionsViewModel {
         }
         char finalCharacter = character;
         if (character != 0) {
-            observableList.removeIf(node -> !productionName(node.getId()).toUpperCase().startsWith(String.valueOf(finalCharacter)));
+            observableList.removeIf(node -> !productionTitle(node.getId()).toUpperCase().startsWith(String.valueOf(finalCharacter)));
         }
         return observableList;
     }

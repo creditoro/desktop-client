@@ -108,7 +108,7 @@
                                                 <Font size="16.0" />
                                             </font>
                                         </TextField>
-                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="573.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="449.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../res/search.png" />
                                             </image>
@@ -118,11 +118,6 @@
                             </children>
                         </HBox>
                         <ImageView fx:id="imgAddChannel" fitHeight="62.0" fitWidth="77.0" layoutX="225.0" layoutY="106.0" onMouseClicked="#btnNewChannel" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0">
-                            <image>
-                                <Image url="@../../res/add.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="62.0" fitWidth="77.0" layoutX="1156.0" layoutY="106.0" onMouseClicked="#sorted" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../res/add.png" />
                             </image>
