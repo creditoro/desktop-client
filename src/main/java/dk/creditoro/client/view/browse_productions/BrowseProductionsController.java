@@ -95,11 +95,12 @@ public class BrowseProductionsController implements IViewController {
     private void updateGrid(ObservableList<Production> productions) {
         LOGGER.info("Update grid called.");
 
-        //Remove all children from Grid
+        // Create TilePane for productions
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 0, 0, 0));
         tilePane.prefWidthProperty().bind(productionPane.widthProperty());
 
+        // Create VBox for each production and add title and description
         for (Production production : productions) {
             VBox vBox = new VBox();
             vBox.prefWidthProperty().bind(tilePane.widthProperty());
@@ -119,6 +120,7 @@ public class BrowseProductionsController implements IViewController {
             description.setPadding(new Insets(0, 0, 10, 0));
             description.setWrapText(true);
 
+            // Make the VBox clickable, so it refers to given production page
             vBox.setOnMouseClicked(mouseEvent -> {
                 var box = (VBox) mouseEvent.getSource();
                 switchView(box.getId());
@@ -126,9 +128,11 @@ public class BrowseProductionsController implements IViewController {
             });
 
             vBox.getChildren().addAll(title, description);
-            tilePane.getChildren().addAll(vBox);
+            TilePane.setMargin(vBox, new Insets(0, 0, 15, 0));
+            tilePane.getChildren().add(vBox);
         }
         productionPane.setContent(tilePane);
+        // Make VBox searchable, by inserting it into an observable ArrayList
         productionsList = FXCollections.observableArrayList(tilePane.getChildren());
     }
 
