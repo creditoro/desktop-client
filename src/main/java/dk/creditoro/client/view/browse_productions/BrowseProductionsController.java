@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -97,10 +98,15 @@ public class BrowseProductionsController implements IViewController {
 
         //Remove all children from Grid
         TilePane tilePane = new TilePane();
-        tilePane.setPadding(new Insets(15, 15, 15, 15));
+        tilePane.setPadding(new Insets(15, 0, 0, 0));
         tilePane.prefWidthProperty().bind(productionPane.widthProperty());
 
         for (Production production : productions) {
+            Pane pane = new Pane();
+            pane.setMinHeight(160);
+            pane.prefWidthProperty().bind(tilePane.widthProperty());
+            pane.setStyle("-fx-background-color: transparent;");
+
             VBox vBox = new VBox();
             vBox.prefWidthProperty().bind(tilePane.widthProperty());
             vBox.setPadding(new Insets(15, 15, 15, 15));
@@ -126,7 +132,8 @@ public class BrowseProductionsController implements IViewController {
             });
 
             vBox.getChildren().addAll(title, description);
-            tilePane.getChildren().addAll(vBox);
+            pane.getChildren().addAll(vBox);
+            tilePane.getChildren().addAll(pane);
         }
         productionPane.setContent(tilePane);
         productionsList = FXCollections.observableArrayList(tilePane.getChildren());
