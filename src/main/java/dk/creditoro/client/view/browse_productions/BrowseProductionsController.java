@@ -111,10 +111,7 @@ public class BrowseProductionsController implements IViewController {
             Label title = new Label(production.getTitle());
             title.setFont(new Font(30));
 
-            Label description = new Label("Ipsa et quod in voluptatum dolorem. Numquam occaecati distinctio " +
-                    "praesentium nam nihil ullam. Quas veniam voluptatem qui repellendus numquam ut tenetur et. Ut est " +
-                    "voluptatibus ipsum beatae facere cumque molestiae. A aliquid minus veritatis eos omnis dolore unde. " +
-                    "Voluptatum reprehenderit voluptatem aut culpa ad autem.");
+            Label description = new Label(production.getDescription());
 
             description.setFont(new Font(14));
             description.setPadding(new Insets(0, 0, 10, 0));
