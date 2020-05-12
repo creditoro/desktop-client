@@ -127,18 +127,20 @@ public class BrowseChannelsController implements IViewController {
                 } catch (IllegalArgumentException e) {
                     LOGGER.info(e.getMessage());
                 }
-                imageView.setPickOnBounds(true);
-                imageView.setId(channel.getIdentifier());
-                imageView.setPreserveRatio(true);
-                imageView.setFitWidth(80);
-                imageView.setFitHeight(80);
-                imageView.setSmooth(true);
-                //Set Actions
-                imageView.setOnMouseClicked(mouseEvent -> {
-                    var img = (ImageView) mouseEvent.getSource();
-                    switchView(img.getId());
-                    LOGGER.info(channel.getName());
-                });
+                if (imageView != null) {
+                    imageView.setPickOnBounds(true);
+                    imageView.setId(channel.getIdentifier());
+                    imageView.setPreserveRatio(true);
+                    imageView.setFitWidth(80);
+                    imageView.setFitHeight(80);
+                    imageView.setSmooth(true);
+                    //Set Actions
+                    imageView.setOnMouseClicked(mouseEvent -> {
+                        var img = (ImageView) mouseEvent.getSource();
+                        switchView(img.getId());
+                        LOGGER.info(channel.getName());
+                    });
+                }
             } else {
                 var message = String.format("Image %s loaded from cache.", channel.getName());
                 LOGGER.info(message);
