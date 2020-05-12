@@ -14,7 +14,7 @@ public class ProductionTest {
     public ProductionTest() {
         var producer = new User("madeUpIdentifier", "phone", "email", "producer", "producer");
         var channel = new Channel("madeUpIdentifier", "TV2 ØST", "iconUrl");
-        production = new Production("10-10-10", "Hornbœk langt ude", producer, channel);
+        production = new Production("10-10-10", "Hornbœk langt ude","Og det var Hornbæk der var langt ude", producer, channel);
     }
 
     @Test
