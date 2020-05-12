@@ -4,6 +4,7 @@ package dk.creditoro.client.view.browse_channels;
 import dk.creditoro.client.model.channel.IChannelModel;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.user.IUserModel;
+import dk.creditoro.client.view.shared_viewmodel_func.FindCharacter;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -13,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
@@ -33,7 +33,6 @@ public class BrowseChannelsViewModel {
     private final ListProperty<Channel> listProperty = new SimpleListProperty<>(channelsList);
     private char currentCharacter;
 
-
     /**
      * Instantiates a new Login view model.
      *
@@ -50,11 +49,10 @@ public class BrowseChannelsViewModel {
     }
 
     public void search() {
-        var token = userModel.getToken();
         var q = queryParam.get();
-        var message = String.format("Called search, q: '%s', token is: '%s.'", q, token);
+        var message = String.format("Called search, q: '%s'", q);
         LOGGER.info(message);
-        channelModel.search(q, token);
+        channelModel.search(q);
     }
 
     private void onSearchChannelsResult(PropertyChangeEvent propertyChangeEvent) {
@@ -94,32 +92,15 @@ public class BrowseChannelsViewModel {
     }
 
     public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
-        char character = 0;
-        var i = 65;
+        FindCharacter findCharacter = new FindCharacter();
         ObservableList<Node> observableList = FXCollections.observableArrayList(list);
-        for (Node node : alphabet.getChildren()) {
-            if (node == actionEvent.getSource()) {
-                character = (char) i;
-                Button button = (Button) actionEvent.getSource();
-                var styleClass = button.getStyleClass();
-                if (currentCharacter == character) {
-                    styleClass.remove("bold");
-                    currentCharacter = 0;
-                    return observableList;
-                } else {
-                    currentCharacter = character;
-                    styleClass.add("bold");
-                }
-            } else {
-                Button button = (Button) node;
-                var styleClass = button.getStyleClass();
-                styleClass.remove("bold");
-            }
-            i++;
-        }
-        char finalCharacter = character;
+        char character = findCharacter.getCharacter(actionEvent, alphabet, currentCharacter);
+        currentCharacter = character;
+
         if (character != 0) {
-            observableList.removeIf(node -> !channelName(node.getId()).toUpperCase().startsWith(String.valueOf(finalCharacter)));
+            observableList.removeIf(node -> !channelName(node.getId()).toUpperCase().startsWith(String.valueOf(character)));
+        } else {
+            return observableList;
         }
         return observableList;
     }

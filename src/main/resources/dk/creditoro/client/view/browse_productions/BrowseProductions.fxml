@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.browse_productions.BrowseProductionsController">
+    <left>
+        <AnchorPane minWidth="200.0" style="-fx-background-color: #202020;">
+            <children>
+                <GridPane layoutX="13.0" layoutY="125.0" prefHeight="183.0" prefWidth="268.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="Search" mnemonicParsing="false" onAction="#handleSearchBar" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/Search_white.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="Channels" mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/triangle_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="Productions" mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/programs_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </GridPane>
+                <Label fx:id="lblStartMenu" alignment="CENTER" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../res/Creditoro.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+            </children>
+        </AnchorPane>
+    </left>
+    <center>
+        <BorderPane prefHeight="1024.0" prefWidth="1304.0">
+            <top>
+                <AnchorPane prefHeight="53.0">
+                    <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <AnchorPane prefHeight="53.0" prefWidth="1440.0" style="-fx-background-color: #31C5EC;" />
+                            </children>
+                        </HBox>
+                        <Button fx:id="btnAccount" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+                            <graphic>
+                                <ImageView fitHeight="46.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/acc_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </top>
+            <center>
+                <AnchorPane prefHeight="53.0" prefWidth="1569.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Line endX="354.6666564941406" endY="234.66665649414062" layoutX="-129.0" layoutY="-52.0" startX="1342.6666259765625" startY="234.66665649414062" AnchorPane.leftAnchor="225.16665649414062" AnchorPane.rightAnchor="225.83334350585938" AnchorPane.topAnchor="182.16665649414062" />
+                        <HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <AnchorPane prefHeight="81.0" prefWidth="1446.0">
+                                    <children>
+                                        <TextField fx:id="productionSearch" alignment="CENTER" layoutX="439.0" layoutY="22.0" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter produktion" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="439.0" AnchorPane.rightAnchor="439.0">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                        </TextField>
+                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="449.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../res/search.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                        <ImageView fx:id="imgAddProduction" fitHeight="62.0" fitWidth="77.0" layoutX="225.0" layoutY="106.0" onMouseClicked="#btnNewProduction" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0">
+                            <image>
+                                <Image url="@../../res/add.png" />
+                            </image>
+                        </ImageView>
+                        <ScrollPane fx:id="productionPane" hbarPolicy="NEVER" layoutX="228.0" layoutY="221.0" prefHeight="600.0" prefWidth="986.0" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" vbarPolicy="ALWAYS" />
+                        <HBox fx:id="alphabet" layoutX="272.0" layoutY="183.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="A" />
+                                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="B" />
+                                <Button layoutX="50.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="C" />
+                                <Button layoutX="90.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="D" />
+                                <Button layoutX="130.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="E" />
+                                <Button layoutX="170.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="F" />
+                                <Button layoutX="210.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="G" />
+                                <Button layoutX="250.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="H" />
+                                <Button layoutX="290.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="I" />
+                                <Button layoutX="330.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="J" />
+                                <Button layoutX="370.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="K" />
+                                <Button layoutX="410.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="L" />
+                                <Button layoutX="450.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="M" />
+                                <Button layoutX="490.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="N" />
+                                <Button layoutX="530.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="O" />
+                                <Button layoutX="570.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="P" />
+                                <Button layoutX="581.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="Q" />
+                                <Button layoutX="618.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="R" />
+                                <Button layoutX="655.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="S" />
+                                <Button layoutX="700.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="T" />
+                                <Button layoutX="736.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="U" />
+                                <Button layoutX="772.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="V" />
+                                <Button layoutX="808.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="W" />
+                                <Button layoutX="851.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="X" />
+                                <Button layoutX="901.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="Y" />
+                                <Button layoutX="951.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="Z" />
+                                <Button layoutX="1001.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="Æ" />
+                                <Button layoutX="1051.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="Ø" />
+                                <Button layoutX="1101.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@BrowseProductions.css" text="Å" />
+                            </children>
+                        </HBox>
+                        <Line endX="358.0" endY="232.0" layoutX="-129.0" layoutY="-11.0" startX="1338.0" startY="232.0" />
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>

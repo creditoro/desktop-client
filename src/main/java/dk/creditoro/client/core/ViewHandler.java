@@ -20,7 +20,7 @@ public class ViewHandler {
     private static final Map<Views, String> FXML_MAP = Map.of(
             Views.LOGIN, "login/Login.fxml",
             Views.BROWSE_CHANNELS, "browse_channels/BrowseChannels.fxml",
-            Views.PRODUCTION, "production/production.fxml");
+            Views.BROWSE_PRODUCTIONS, "browse_productions/BrowseProductions.fxml");
     private final ViewModelFactory viewModelFactory;
     private final Map<Views, Scene> sceneMap = new HashMap<>();
     private final Stage root;
