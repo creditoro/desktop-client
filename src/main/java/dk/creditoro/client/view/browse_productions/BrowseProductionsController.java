@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.logging.Logger;
 
@@ -41,24 +42,24 @@ public class BrowseProductionsController implements IViewController {
     private Button btnAccount;
 
     /**
-     * Btn new channel.
+     * Btn new production.
      */
-    public void btnNewChannel() {
-        LOGGER.info("Open popup box");
+    public void btnNewProduction() {
+        LOGGER.info("Create production button pressed");
     }
 
     /**
      * Handle search bar.
      */
     public void handleSearchBar() {
-        LOGGER.info("Handle search bar.");
+        LOGGER.info("Search button pressed");
     }
 
     /**
      * Btn account.
      */
     public void btnAccount() {
-        viewHandler.openView(Views.LOGIN);
+        LOGGER.info("Account button pressed.");
     }
 
     /**
@@ -66,6 +67,15 @@ public class BrowseProductionsController implements IViewController {
      */
     public void btnChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
+
+    /**
+     * Btn productions.
+     *
+     * @param actionEvent the action event
+     */
+    public void btnProductions(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
     /**
@@ -77,22 +87,26 @@ public class BrowseProductionsController implements IViewController {
         LOGGER.info(viewToOpen);
     }
 
-
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         this.viewHandler = viewHandler;
 
-        //Add listener to channelSearch text area
+        //Add listener to productionSearch text area
         productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
-        browseProductionsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> updateGrid(newValue));
+        browseProductionsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> updateList(newValue));
         onSearch();
 
         // set user email
         btnAccount.setText("user.getEmail()");
     }
 
-    private void updateGrid(ObservableList<Production> productions) {
+    /**
+     * Updates list of productions
+     *
+     * @param productions
+     */
+    private void updateList(ObservableList<Production> productions) {
         LOGGER.info("Update grid called.");
 
         // Create TilePane for productions
@@ -102,35 +116,82 @@ public class BrowseProductionsController implements IViewController {
 
         // Create VBox for each production and add title and description
         for (Production production : productions) {
-            VBox vBox = new VBox();
-            vBox.prefWidthProperty().bind(tilePane.widthProperty());
-            vBox.setPadding(new Insets(15, 15, 15, 15));
-            vBox.setStyle("-fx-background-color: #EEEEEE;");
-            vBox.setId(production.getIdentifier());
-
-            Label title = new Label(production.getTitle());
-            title.setFont(new Font(30));
-
-            Label description = new Label(production.getDescription());
-
-            description.setFont(new Font(14));
-            description.setPadding(new Insets(0, 0, 10, 0));
-            description.setWrapText(true);
+            VBox vBox = createVBox(tilePane, production);
+            Label title = getTitle(production);
+            Text description = getDescription(production);
 
             // Make the VBox clickable, so it refers to given production page
-            vBox.setOnMouseClicked(mouseEvent -> {
-                var box = (VBox) mouseEvent.getSource();
-                switchView(box.getId());
-                LOGGER.info(production.getTitle());
-            });
+            setOnMouseClicked(production, vBox);
 
             vBox.getChildren().addAll(title, description);
             TilePane.setMargin(vBox, new Insets(0, 0, 15, 0));
             tilePane.getChildren().add(vBox);
         }
         productionPane.setContent(tilePane);
-        // Make VBox searchable, by inserting it into an observable ArrayList
         productionsList = FXCollections.observableArrayList(tilePane.getChildren());
+    }
+
+    /**
+     * Get title from production
+     *
+     * @param production
+     * @return
+     */
+    private Label getTitle(Production production) {
+        Label title = new Label(production.getTitle());
+        title.setFont(new Font(30));
+        return title;
+    }
+
+    /**
+     * Get description from production
+     *
+     * @param production
+     * @return
+     */
+    private Text getDescription(Production production) {
+        var numberOfCharacters = 300;
+        var desc = production.getDescription().substring(0, Math.min(numberOfCharacters, production.getDescription().length()));
+
+        Text description = new Text();
+        if (production.getDescription().length() > numberOfCharacters) {
+            description.setText(desc + "...");
+        } else {
+            description.setText(desc);
+        }
+        description.setFont(new Font(14));
+        description.setWrappingWidth(productionPane.getWidth() - 50);
+        return description;
+    }
+
+    /**
+     * Set logic for when production vBox is clicked
+     *
+     * @param production
+     * @param vBox
+     */
+    private void setOnMouseClicked(Production production, VBox vBox) {
+        vBox.setOnMouseClicked(mouseEvent -> {
+            var box = (VBox) mouseEvent.getSource();
+            switchView(box.getId());
+            LOGGER.info(production.getTitle());
+        });
+    }
+
+    /**
+     * Create VBox for productions
+     *
+     * @param tilePane
+     * @param production
+     * @return
+     */
+    private VBox createVBox(TilePane tilePane, Production production) {
+        VBox vBox = new VBox();
+        vBox.prefWidthProperty().bind(tilePane.widthProperty());
+        vBox.setPadding(new Insets(15, 15, 15, 15));
+        vBox.setStyle("-fx-background-color: #EEEEEE;");
+        vBox.setId(production.getIdentifier());
+        return vBox;
     }
 
     /**

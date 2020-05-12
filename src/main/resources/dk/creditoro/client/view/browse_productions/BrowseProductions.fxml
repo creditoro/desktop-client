@@ -44,7 +44,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="Productions" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
+                        <Button fx:id="Productions" mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -117,7 +117,7 @@
                                 </AnchorPane>
                             </children>
                         </HBox>
-                        <ImageView fx:id="imgAddChannel" fitHeight="62.0" fitWidth="77.0" layoutX="225.0" layoutY="106.0" onMouseClicked="#btnNewChannel" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0">
+                        <ImageView fx:id="imgAddProduction" fitHeight="62.0" fitWidth="77.0" layoutX="225.0" layoutY="106.0" onMouseClicked="#btnNewProduction" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0">
                             <image>
                                 <Image url="@../../res/add.png" />
                             </image>
