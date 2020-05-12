@@ -9,7 +9,6 @@ import dk.creditoro.client.view.IViewController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -107,9 +106,7 @@ public class BrowseChannelsController implements IViewController {
         })).start();
 
 
-        new Thread(() -> {
-            updateGrid(channels);
-        }).start();
+        new Thread(() -> updateGrid(channels)).start();
     }
 
     private void updateGrid(ObservableList<Channel> channels) {
