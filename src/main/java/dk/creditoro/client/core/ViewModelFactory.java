@@ -3,6 +3,7 @@ package dk.creditoro.client.core;
 import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
 import dk.creditoro.client.view.browse_productions.BrowseProductionsViewModel;
 import dk.creditoro.client.view.login.LoginViewModel;
+import dk.creditoro.client.view.production.ProductionViewModel;
 
 /**
  * The type View model factory is responsible for creating and making the View Model available.
@@ -14,12 +15,13 @@ public class ViewModelFactory {
     private final LoginViewModel loginViewModel;
     private final BrowseChannelsViewModel browseChannelsViewModel;
     private final BrowseProductionsViewModel browseProductionsViewModel;
-
+    private final ProductionViewModel productionViewModel;
 
     public ViewModelFactory(ModelFactory modelFactory) {
         loginViewModel = new LoginViewModel(modelFactory.getUserModel());
         browseChannelsViewModel = new BrowseChannelsViewModel(modelFactory.getChannelModel(), modelFactory.getUserModel());
         browseProductionsViewModel = new BrowseProductionsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
+        productionViewModel = new ProductionViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
     }
 
     /**
@@ -37,5 +39,10 @@ public class ViewModelFactory {
 
     public BrowseProductionsViewModel getBrowseProductionsViewModel() {
         return browseProductionsViewModel;
+    }
+
+    public ProductionViewModel getProductionViewModel()
+    {
+        return productionViewModel;
     }
 }

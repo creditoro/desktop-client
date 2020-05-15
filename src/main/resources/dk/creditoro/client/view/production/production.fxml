@@ -35,7 +35,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="Search" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#btnSearch" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -47,7 +47,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="Channels" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
+                        <Button mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -59,7 +59,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="Productions" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
+                        <Button mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -103,7 +103,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#btnChangeProduction" style="-fx-background-color: transparent;" text="Skift Produktion" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                        <Button mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Skift Produktion" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -130,7 +130,7 @@
                         <Line endX="350.0" layoutX="400.0" layoutY="200.0" startX="-350.0" AnchorPane.leftAnchor="49.5" AnchorPane.rightAnchor="49.5" AnchorPane.topAnchor="199.5" />
                         <Group layoutX="150.0" layoutY="110.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="110.0">
                            <children>
-                              <TextField fx:id="channelSearch" alignment="CENTER" prefHeight="37.0" prefWidth="500.0" promptText="Søg efter kreditering" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;">
+                              <TextField fx:id="search" alignment="CENTER" prefHeight="37.0" prefWidth="500.0" promptText="Søg efter kreditering" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

@@ -4,7 +4,9 @@ package dk.creditoro.client.view.production;
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
+import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.view.IViewController;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -15,8 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.util.List;
-
 /**
  * The type Browse channels controller.
  */
@@ -24,7 +24,8 @@ public class ProductionController implements IViewController {
     private ProductionViewModel productionViewModel;
     private ViewHandler viewHandler;
 
-    @FXML public TextField channelSearch;
+    @FXML public Label lblStartMenu;
+    @FXML public TextField search;
     @FXML public VBox creditList;
     @FXML public ChoiceBox<String> choiceSeason;
     @FXML public ChoiceBox<String> choiceEpisode;
@@ -32,21 +33,25 @@ public class ProductionController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-        productionViewModel = new ProductionViewModel();
+        productionViewModel = viewModelFactory.getProductionViewModel();
 
-        //Update list
-        updateList();
+        //Add Listener to search area
+        search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
+        productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
+
+        onSearch();
     }
 
-    public void updateList() {
-        //Get list of credits
-        List<String> list = productionViewModel.getList();
+    private void onSearch() {
+        productionViewModel.search();
+    }
 
+    public void updateList(ObservableList<Credit> list) {
         choiceEpisode.getItems().add("All");
         choiceSeason.getItems().add("Season 1");
 
         //Foreach credit, create clickable node
-        for (String l : list) {
+        for (Credit c : list) {
             //Create Pane
             Pane pane = new Pane();
             pane.setPrefHeight(100);
@@ -60,12 +65,12 @@ public class ProductionController implements IViewController {
             vbox.setSpacing(5);
 
             //Create title
-            Label title = new Label(l);
+            Label title = new Label(c.getTitle());
             title.setFont(new Font(30));
             title.setPadding(new Insets(0, 0, 0, 5));
 
             //Create description
-            Label description = new Label("Beskrivelse");
+            Label description = new Label(c.getDescription());
             description.setWrapText(true);
             description.setFont(new Font(18));
             description.prefHeight(70);
@@ -75,7 +80,7 @@ public class ProductionController implements IViewController {
             description.setAlignment(Pos.TOP_LEFT);
 
             //Choice boxes
-            choiceEpisode.getItems().add(l);
+            choiceEpisode.getItems().add(c.getTitle());
 
             //Add children
             vbox.getChildren().add(title);
@@ -100,7 +105,16 @@ public class ProductionController implements IViewController {
     }
 
     @FXML
-    public void btnChangeProduction(ActionEvent actionEvent) {
+    public void btnProductions(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+    }
+
+    public void btnSearch(ActionEvent actionEvent) {
+        //Do something
+    }
+
+    @FXML
+    public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 }
