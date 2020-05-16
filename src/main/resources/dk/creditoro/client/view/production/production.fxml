@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -15,9 +13,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.production.ProductionController">
    <children>
@@ -144,15 +142,27 @@
                         </Group>
                         <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="50.0" layoutY="225.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="225.0">
                            <content>
-                              <VBox fx:id="creditList" prefHeight="420.0" prefWidth="700.0" spacing="10.0">
-                                 <padding>
-                                    <Insets left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                              </VBox>
+                              <Group>
+                                 <children>
+                                    <Text fx:id="cast" layoutY="40.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="345.0">
+                                       <font>
+                                          <Font name="System Italic" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="credit" layoutX="355.0" layoutY="40.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="345.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Label alignment="CENTER" prefHeight="30.0" prefWidth="700.0" text="Cast" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="23.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Group>
                            </content>
                         </ScrollPane>
-                        <ChoiceBox fx:id="choiceSeason" layoutX="118.0" layoutY="164.0" prefWidth="150.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="164.0" />
-                        <ChoiceBox fx:id="choiceEpisode" layoutX="313.0" layoutY="165.0" prefWidth="150.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="164.0" />
                      </children>
                   </AnchorPane>
                </children>

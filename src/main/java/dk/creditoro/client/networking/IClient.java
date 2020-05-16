@@ -1,6 +1,7 @@
 package dk.creditoro.client.networking;
 
 import dk.creditoro.client.model.crud.Channel;
+import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.crud.User;
 
@@ -16,6 +17,8 @@ public interface IClient {
     Channel[] searchChannels(String q);
 
     Production[] searchProductions(String q);
+
+    Credit[] searchCredits(String q);
 
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }

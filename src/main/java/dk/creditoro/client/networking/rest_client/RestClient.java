@@ -3,13 +3,11 @@ package dk.creditoro.client.networking.rest_client;
 
 import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.Channel;
+import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.crud.User;
 import dk.creditoro.client.networking.IClient;
-import dk.creditoro.client.networking.rest_client.endpoints.ChannelsEndpoint;
-import dk.creditoro.client.networking.rest_client.endpoints.HttpManager;
-import dk.creditoro.client.networking.rest_client.endpoints.ProductionsEndpoint;
-import dk.creditoro.client.networking.rest_client.endpoints.UsersEndpoint;
+import dk.creditoro.client.networking.rest_client.endpoints.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -21,6 +19,7 @@ public class RestClient implements IClient {
     private final UsersEndpoint usersEndpoint;
     private final ChannelsEndpoint channelsEndpoint;
     private final ProductionsEndpoint productionsEndpoint;
+    private final CreditsEndpoint creditsEndpoint;
 
     private String token;
 
@@ -30,6 +29,7 @@ public class RestClient implements IClient {
         usersEndpoint = new UsersEndpoint(httpManager);
         channelsEndpoint = new ChannelsEndpoint(httpManager);
         productionsEndpoint = new ProductionsEndpoint(httpManager);
+        creditsEndpoint = new CreditsEndpoint(httpManager);
     }
 
     @Override
@@ -58,6 +58,15 @@ public class RestClient implements IClient {
     public Production[] searchProductions(String q) {
         var result = productionsEndpoint.getProductions(q, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PRODUCTIONS_RESULT.toString(), null, result);
+        LOGGER.info("Fired property change event.");
+        updateToken(result);
+        return result.getT();
+    }
+
+    @Override
+    public Credit[] searchCredits(String q) {
+        var result = creditsEndpoint.getCredits(q, token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_CREDITS_RESULT.toString(), null, result);
         LOGGER.info("Fired property change event.");
         updateToken(result);
         return result.getT();

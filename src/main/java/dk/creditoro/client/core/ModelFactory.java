@@ -2,6 +2,8 @@ package dk.creditoro.client.core;
 
 import dk.creditoro.client.model.channel.ChannelModel;
 import dk.creditoro.client.model.channel.IChannelModel;
+import dk.creditoro.client.model.credit.CreditModel;
+import dk.creditoro.client.model.credit.ICreditModel;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.production.ProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
@@ -16,6 +18,7 @@ public class ModelFactory {
     private IUserModel userModel;
     private IChannelModel channelModel;
     private IProductionModel productionModel;
+    private ICreditModel creditModel;
 
     public ModelFactory(ClientFactory clientFactory) {
         this.clientFactory = clientFactory;
@@ -45,5 +48,13 @@ public class ModelFactory {
             productionModel = new ProductionModel(clientFactory.getRestClient());
         }
         return productionModel;
+    }
+
+    public ICreditModel getCreditModel()
+    {
+        if(creditModel == null){
+            creditModel = new CreditModel(clientFactory.getRestClient());
+        }
+        return creditModel;
     }
 }
