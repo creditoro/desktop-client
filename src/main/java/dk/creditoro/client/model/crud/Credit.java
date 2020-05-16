@@ -6,7 +6,7 @@ public class Credit {
     private final Person person;
     private final String job;
 
-    public Credit(String identifier, Production production, String title, String description, Person person, String job)
+    public Credit(String identifier, Production production, Person person, String job)
     {
         this.identifier = identifier;
         this.production = production;
