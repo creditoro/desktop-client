@@ -26,6 +26,11 @@ public class FindCharacter {
 		// node that matchtes is stops. 
 		var btnOptional = alphabet.getChildren().stream().filter(node -> 
 				node == actionEvent.getSource()).findFirst();
+		// if btnOptional is empty we should just return 
+		if( btnOptional.isEmpty() ) {
+			return 0;
+		}
+
 		var btn = ((Button)btnOptional.get());
 
 		// Here we check if the bold should be toggled
