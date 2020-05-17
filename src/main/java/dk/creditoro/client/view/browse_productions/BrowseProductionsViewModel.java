@@ -89,6 +89,7 @@ public class BrowseProductionsViewModel {
      */
     public ObservableList<Node> sortedList(TilePane tilePane) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
+
         workingCollection.sort((o1, o2) -> {
             try {
                 return productionTitle(o1.getId()).compareTo(productionTitle(o2.getId()));
@@ -107,9 +108,9 @@ public class BrowseProductionsViewModel {
      * @return the string
      */
     public String productionTitle(String identifier) {
-        for (Production production : listProperty) {
+        for (int i = 0; i < listProperty.getSize(); i++) {
+            Production production = listProperty.get(i);
             if (production.getIdentifier().equals(identifier)) {
-                LOGGER.info(production.getTitle());
                 return production.getTitle();
             }
         }
