@@ -39,9 +39,8 @@ public class FindCharacter {
 			return 0;
 		} else {
 			btn.getStyleClass().add("bold");
+			// this return the character it found.
 			return btn.getText().charAt(0);
 		}
-
-		// this return the character it found.
-    }
+	}
 }
