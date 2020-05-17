@@ -1,7 +1,6 @@
 package dk.creditoro.client.view.shared_viewmodel_func;
 
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -18,28 +17,26 @@ public class FindCharacter {
      * @return the character
      */
     public char getCharacter(ActionEvent actionEvent, HBox alphabet, char currentCharacter) {
-        char character = 0;
-        var i = 65;
-        for (Node node : alphabet.getChildren()) {
-            if (node == actionEvent.getSource()) {
-                character = (char) i;
-                Button button = (Button) actionEvent.getSource();
-                var styleClass = button.getStyleClass();
-                if (currentCharacter == character) {
-                    styleClass.remove("bold");
-                    currentCharacter = 0;
-                    return currentCharacter;
-                } else {
-                    currentCharacter = character;
-                    styleClass.add("bold");
-                }
-            } else {
-                Button button = (Button) node;
-                var styleClass = button.getStyleClass();
-                styleClass.remove("bold");
-            }
-            i++;
-        }
-        return character;
+		// This loops through every node in alphabet and removes the bold styleClass
+		alphabet.getChildren().forEach(node -> ((Button)node).getStyleClass().remove("bold"));
+		
+		// This goes through every node until it finds the one that quals
+		// to actionEvent, 
+		// Stream and filter + Findfirst is lasy, so then it finds the first
+		// node that matchtes is stops. 
+		var btnOptional = alphabet.getChildren().stream().filter(node -> 
+				node == actionEvent.getSource()).findFirst();
+		var btn = ((Button)btnOptional.get());
+
+		// Here we check if the bold should be toggled
+		if( btn.getText().charAt(0) == currentCharacter ){
+			btn.getStyleClass().remove("bold");
+			return 0;
+		} else {
+			btn.getStyleClass().add("bold");
+			return btn.getText().charAt(0);
+		}
+
+		// this return the character it found.
     }
 }
