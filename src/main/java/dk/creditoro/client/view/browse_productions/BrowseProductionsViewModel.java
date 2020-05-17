@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
@@ -89,27 +90,21 @@ public class BrowseProductionsViewModel {
      */
     public ObservableList<Node> sortedList(TilePane tilePane) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort((o1, o2) -> {
-            try {
-                return productionTitle(o1.getId()).compareTo(productionTitle(o2.getId()));
-            } catch (NullPointerException ex) {
-                LOGGER.info("Production does not exist");
-            }
-            return 0;
-        });
+        workingCollection.sort(Comparator.comparing(this::productionTitle));
         return workingCollection;
     }
 
     /**
      * Production title string.
      *
-     * @param identifier the identifier
+     * @param node the node
      * @return the string
      */
-    public String productionTitle(String identifier) {
-        for (Production production : listProperty) {
+    public String productionTitle(Node node) {
+        var identifier = node.getId();
+        for (int i = 0; i < listProperty.getSize(); i++) {
+            Production production = listProperty.get(i);
             if (production.getIdentifier().equals(identifier)) {
-                LOGGER.info(production.getTitle());
                 return production.getTitle();
             }
         }
@@ -132,7 +127,7 @@ public class BrowseProductionsViewModel {
         currentCharacter = character;
 
         if (character != 0) {
-            observableList.removeIf(node -> !productionTitle(node.getId()).toUpperCase().startsWith(String.valueOf(character)));
+            observableList.removeIf(node -> !productionTitle(node).toUpperCase().startsWith(String.valueOf(character)));
         } else {
             return observableList;
         }

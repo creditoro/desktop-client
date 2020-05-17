@@ -168,7 +168,7 @@ public class BrowseChannelsController implements IViewController {
 
     public void sorted() {
         TilePane tilePane = (TilePane) channelPane.getContent();
-        tilePane.getChildren().setAll(browseChannelsViewModel.sortedList(tilePane));
+        tilePane.getChildren().setAll(browseChannelsViewModel.sortedChannelList(tilePane));
     }
 
     @FXML
