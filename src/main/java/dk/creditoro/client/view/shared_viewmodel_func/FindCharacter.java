@@ -26,16 +26,18 @@ public class FindCharacter {
 		// node that matchtes is stops. 
 		var btnOptional = alphabet.getChildren().stream().filter(node -> 
 				node == actionEvent.getSource()).findFirst();
-		var btn = ((Button)btnOptional.get());
+		if (btnOptional.isPresent()){
+			var btn = ((Button)btnOptional.get());
 
-		// Here we check if the bold should be toggled
-		if( btn.getText().charAt(0) == currentCharacter ){
-			btn.getStyleClass().remove("bold");
-			return 0;
-		} else {
-			btn.getStyleClass().add("bold");
-			return btn.getText().charAt(0);
-		}
+			// Here we check if the bold should be toggled
+			if( btn.getText().charAt(0) == currentCharacter ){
+				btn.getStyleClass().remove("bold");
+				return 0;
+			} else {
+				btn.getStyleClass().add("bold");
+				return btn.getText().charAt(0);
+			}
+		} else { return 0; }
 
 		// this return the character it found.
     }
