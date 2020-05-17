@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
@@ -68,28 +69,23 @@ public class BrowseChannelsViewModel {
         return listProperty;
     }
 
-    public ObservableList<Node> sortedList(TilePane tilePane) {
+    public ObservableList<Node> sortedChannelList(TilePane tilePane) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort((o1, o2) -> {
-            try {
-                return channelName(o1.getId()).compareTo(channelName(o2.getId()));
-            } catch (NullPointerException ex) {
-                LOGGER.info("Channel dont exist");
-            }
-            return 0;
-        });
+        workingCollection.sort(Comparator.comparing(this::channelName));
         return workingCollection;
     }
 
-    public String channelName(String identifier) {
-        for (Channel channel : listProperty) {
+    public String channelName(Node node) {
+        var identifier = node.getId();
+        for (int i = 0; i < listProperty.getSize(); i++) {
+            Channel channel = listProperty.get(i);
             if (channel.getIdentifier().equals(identifier)) {
-                LOGGER.info(channel.getName());
                 return channel.getName();
             }
         }
         return "";
     }
+
 
     public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
         FindCharacter findCharacter = new FindCharacter();
@@ -98,7 +94,7 @@ public class BrowseChannelsViewModel {
         currentCharacter = character;
 
         if (character != 0) {
-            observableList.removeIf(node -> !channelName(node.getId()).toUpperCase().startsWith(String.valueOf(character)));
+            observableList.removeIf(node -> !channelName(node).toUpperCase().startsWith(String.valueOf(character)));
         } else {
             return observableList;
         }
