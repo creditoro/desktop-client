@@ -69,9 +69,14 @@ public class BrowseChannelsViewModel {
         return listProperty;
     }
 
-    public ObservableList<Node> sortedChannelList(TilePane tilePane) {
+    public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort(Comparator.comparing(this::channelName));
+        Comparator<Node> comparator = Comparator.comparing(this::channelName);
+        if (sortingMethod.equals("Å-A")){
+            workingCollection.sort(comparator.reversed());
+            return workingCollection;
+        }
+        workingCollection.sort(comparator);
         return workingCollection;
     }
 
