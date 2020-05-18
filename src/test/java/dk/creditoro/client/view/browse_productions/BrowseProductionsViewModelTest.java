@@ -3,6 +3,8 @@ package dk.creditoro.client.view.browse_productions;
 import dk.creditoro.client.core.ClientFactory;
 import dk.creditoro.client.core.ModelFactory;
 import dk.creditoro.client.core.ViewModelFactory;
+import dk.creditoro.client.model.crud.Production;
+import javafx.collections.FXCollections;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -14,7 +16,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
 
 class BrowseProductionsViewModelTest {
 
@@ -73,18 +77,19 @@ class BrowseProductionsViewModelTest {
         } catch (InterruptedException e) {
         }
         TilePane tilePane = new TilePane();
-        Node node1 = new ImageView();
-        node1.setId("40b656a3-15fa-402b-9444-c7f3672a16a3"); // tv-avisen
-        Node node2 = new ImageView();
-        node2.setId("b729f259-c6a7-4ab1-a040-c894c53ba4e5"); // hammerslag
-        Node node3 = new ImageView();
-        node3.setId("de52bcb8-d2f3-421c-b8bb-47e00d52ee9e"); // hercule
-        tilePane.getChildren().addAll(node1, node3, node2);
-        browseProductionsViewModel.queryParamProperty().setValue("hercule");
+        browseProductionsViewModel.queryParamProperty().setValue("ø");
         browseProductionsViewModel.search();
-        ;
+        var result = browseProductionsViewModel.listPropertyProperty();
+        for (int i = 0; i < result.getSize(); i++){
+            Node node = new ImageView();
+            Production production = result.get(i);
+            node.setId(production.getIdentifier());
+            tilePane.getChildren().add(node);
+        }
         Assertions.assertNotEquals(tilePane.getChildren(), browseProductionsViewModel.sortedList(tilePane));
-        Assertions.assertEquals("Hercule Poirot", browseProductionsViewModel.productionTitle(node3));
+        var title1 = browseProductionsViewModel.productionTitle(tilePane.getChildren().get(0));;
+        var title2 = browseProductionsViewModel.productionTitle(tilePane.getChildren().get(1));
+        Assertions.assertNotEquals(title1, title2);
     }
 
     @Test
@@ -102,26 +107,31 @@ class BrowseProductionsViewModelTest {
             e.printStackTrace();
         }
         HBox alphabet = new HBox();
-        Button btnT = new Button("T");
-        Button btnH = new Button("H");
+        Button btnA = new Button("A");
+        Button btnB = new Button("B");
         Button btnC = new Button("C");
-        alphabet.getChildren().addAll(btnT, btnH, btnC);
+        alphabet.getChildren().addAll(btnA, btnB, btnC);
 
         TilePane tilePane = new TilePane();
-        Node node1 = new ImageView();
-        node1.setId("40b656a3-15fa-402b-9444-c7f3672a16a3"); // tv-avisen
-        Node node2 = new ImageView();
-        node2.setId("b729f259-c6a7-4ab1-a040-c894c53ba4e5"); // hammerslag
-        Node node3 = new ImageView();
-        node3.setId("de52bcb8-d2f3-421c-b8bb-47e00d52ee9e"); // hercule
-        tilePane.getChildren().addAll(node1, node3, node2);
 
-        browseProductionsViewModel.queryParamProperty().setValue("hercule");
+        browseProductionsViewModel.queryParamProperty().setValue("ø");
         browseProductionsViewModel.search();
-        ;
+        ArrayList<Integer> random = new ArrayList<>();
+        var result = browseProductionsViewModel.listPropertyProperty();
+        for (int i = 0; i < result.getSize(); i++){
+            random.add(i);
+        }
+        Collections.shuffle(random);
 
-        ActionEvent ae = new ActionEvent(btnH, ActionEvent.NULL_SOURCE_TARGET);
-        Assertions.assertNotEquals(tilePane.getChildren(), browseProductionsViewModel.sortedByCharacter(tilePane.getChildren(), ae, alphabet));
+        for (int i = 0; i < result.getSize(); i++){
+            Node node = new ImageView();
+            Production production = result.get(random.get(i));
+            node.setId(production.getIdentifier());
+            tilePane.getChildren().add(node);
+        }
+        ActionEvent ae = new ActionEvent(btnA, ActionEvent.NULL_SOURCE_TARGET);
+        var sortResult = browseProductionsViewModel.sortedByCharacter(tilePane.getChildren(), ae, alphabet).get(0);
+        Assertions.assertNotEquals(tilePane.getChildren().get(0), sortResult);
     }
 
 }
