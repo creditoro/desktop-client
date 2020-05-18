@@ -121,7 +121,7 @@ class BrowseProductionsViewModelTest {
         for (int i = 0; i < result.getSize(); i++){
             random.add(i);
         }
-        Collections.shuffle(random);
+        Collections.shuffle(random, new Random(1));
 
         for (int i = 0; i < result.getSize(); i++){
             Node node = new ImageView();
