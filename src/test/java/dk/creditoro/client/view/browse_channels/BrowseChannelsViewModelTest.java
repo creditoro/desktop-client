@@ -110,11 +110,9 @@ class BrowseChannelsViewModelTest {
 		Button btn6 = new Button();
 		btn6.setId(randCh.getIdentifier());
 		var tilePane1 = new TilePane();
-		System.out.println("Channel name that is search after: " + randCh.getName());
 		tilePane1.getChildren().addAll(btn6, btn5);
 		
 		var sortedList = browseChannelsViewModel.sortedByCharacter(tilePane1.getChildren(), ae, alphabet);
-		System.out.println("size: "+sortedList.size() + "\n\n\n\n");
 		assertEquals(randCh.getIdentifier(), sortedList.get(0).getId(), 
 				"This should always be sorted first");
 
