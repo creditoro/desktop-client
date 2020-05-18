@@ -21,7 +21,8 @@ public class ViewHandler {
             Views.LOGIN, "login/login.fxml",
             Views.BROWSE_CHANNELS, "browse_channels/BrowseChannels.fxml",
             Views.BROWSE_PRODUCTIONS, "browse_productions/BrowseProductions.fxml",
-            Views.PRODUCTION, "production/production.fxml");
+            Views.PRODUCTION, "production/production.fxml",
+            Views.CHANNEL_PROGRAMS, "channel_programs/ChannelPrograms.fxml");
     private final ViewModelFactory viewModelFactory;
     private final Map<Views, Scene> sceneMap = new HashMap<>();
     private final Stage root;
@@ -56,7 +57,7 @@ public class ViewHandler {
         try {
             scene = getScene(viewToOpen, loader);
         } catch (IOException e) {
-            LOGGER.info(String.format("Coudn't find FXML file with name: %s", viewToOpen));
+            LOGGER.info(String.format("Couldn't find FXML file with name: %s", viewToOpen));
             return false;
         }
         root.setTitle("Creditoro");
