@@ -93,14 +93,16 @@ public class BrowseChannelsViewModel {
 
 
     public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
-        currentCharacter = new FindCharacter().getCharacter(actionEvent, alphabet, currentCharacter);
+        FindCharacter findCharacter = new FindCharacter();
         ObservableList<Node> observableList = FXCollections.observableArrayList(list);
+        char character = findCharacter.getCharacter(actionEvent, alphabet, currentCharacter);
+        currentCharacter = character;
 
-        if (currentCharacter == 0) {
-            return observableList;
+        if (character != 0) {
+            observableList.removeIf(node -> !channelName(node).toUpperCase().startsWith(String.valueOf(character)));
         } else {
-            observableList.removeIf(node -> !channelName(node).toUpperCase().startsWith(String.valueOf(currentCharacter)));
-			return observableList;
+            return observableList;
         }
+        return observableList;
     }
 }
