@@ -25,7 +25,6 @@ import javafx.scene.layout.TilePane;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 /**
@@ -100,13 +99,7 @@ public class BrowseChannelsController implements IViewController {
 
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
-        choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                System.out.println("number " + number + " number1 " + t1);
-                sorted(t1.intValue());
-            }
-        });
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue()));
 
         //Add listener to channelSearch text area
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
