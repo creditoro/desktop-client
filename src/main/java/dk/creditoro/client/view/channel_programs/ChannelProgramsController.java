@@ -90,7 +90,7 @@ public class ChannelProgramsController implements IViewController {
         channelProgramsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> updateGrid(newValue));
         onSearch();
 
-        // Setting ComboBox Category and Sort.
+        // Add ComboBox Category and Sort.
         cbCategory.setItems(channelProgramsViewModel.listCategory());
         cbSort.setItems(channelProgramsViewModel.listSort());
 
@@ -155,10 +155,6 @@ public class ChannelProgramsController implements IViewController {
 
     public void SwitchToChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
-    }
-
-    private void updateCategory(ObservableList<String> productions) {
-
     }
 }
 

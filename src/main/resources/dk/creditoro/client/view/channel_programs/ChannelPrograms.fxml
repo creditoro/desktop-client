@@ -175,8 +175,8 @@
                         <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="Å" />
                      </children></HBox>
                   <Line endX="1214.0" endY="221.0" startX="228.0" startY="221.0" />
-                  <ComboBox fx:id="cbCategory" layoutX="287.0" layoutY="150.0" promptText="Vælg kategori" style="-fx-background-color: transparent;" />
-                  <ComboBox fx:id="cbSort" layoutX="1126.0" layoutY="150.0" promptText="Sorter" style="-fx-background-color: transparent;" />
+                  <ComboBox fx:id="cbCategory" layoutX="287.0" layoutY="150.0" opacity="0.1" promptText="Vælg kategori" style="-fx-background-color: transparent;" />
+                  <ComboBox fx:id="cbSort" layoutX="1126.0" layoutY="150.0" opacity="0.1" promptText="Sorter" style="-fx-background-color: transparent;" />
                     </children>
                 </AnchorPane>
             </center>
