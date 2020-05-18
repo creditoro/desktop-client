@@ -38,6 +38,13 @@ public class Production {
     public Channel getChannel() {
         return channel;
     }
-
-
+  
+    @Override
+    public String toString() {
+        return String.format("Production{" +
+                "Identifier: %s," +
+                "title: %s," +
+                "channel: %s}", identifier, title,channel);
+    }
 }
+
