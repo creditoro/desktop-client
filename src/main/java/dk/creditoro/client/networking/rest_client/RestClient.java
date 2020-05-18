@@ -20,6 +20,7 @@ public class RestClient implements IClient {
     private final ChannelsEndpoint channelsEndpoint;
     private final ProductionsEndpoint productionsEndpoint;
     private final CreditsEndpoint creditsEndpoint;
+    private static final String PROPERTY_CHANGE = "Fired property change event.";
 
     private String token;
 
@@ -49,7 +50,7 @@ public class RestClient implements IClient {
     public Channel[] searchChannels(String q) {
         var result = channelsEndpoint.getChannels(q, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_CHANNELS_RESULT.toString(), null, result);
-        LOGGER.info("Fired property change event.");
+        LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);
         return result.getT();
     }
@@ -58,7 +59,7 @@ public class RestClient implements IClient {
     public Production[] searchProductions(String q) {
         var result = productionsEndpoint.getProductions(q, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PRODUCTIONS_RESULT.toString(), null, result);
-        LOGGER.info("Fired property change event.");
+        LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);
         return result.getT();
     }
@@ -67,7 +68,7 @@ public class RestClient implements IClient {
     public Credit[] searchCredits(String q) {
         var result = creditsEndpoint.getCredits(q, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_CREDITS_RESULT.toString(), null, result);
-        LOGGER.info("Fired property change event.");
+        LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);
         return result.getT();
     }
