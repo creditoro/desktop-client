@@ -7,8 +7,6 @@ import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.view.IViewController;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
