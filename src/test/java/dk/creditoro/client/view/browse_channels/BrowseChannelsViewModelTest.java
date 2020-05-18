@@ -82,10 +82,10 @@ class BrowseChannelsViewModelTest {
 
 		// CHeck it is ind the right odre
 		assertEquals("00", 
-				browseChannelsViewModel.sortedChannelList(tilePane).get(0).getId(), 
+				browseChannelsViewModel.sortedChannelList(tilePane,"A-Å").get(0).getId(),
 				"This should always be the first ordre");
 		assertEquals(randCh.getIdentifier(), 
-				browseChannelsViewModel.sortedChannelList(tilePane).get(1).getId(), 
+				browseChannelsViewModel.sortedChannelList(tilePane,"A-Å").get(1).getId(),
 				"This should always be the second ordre");
 		
 		// Test 4
