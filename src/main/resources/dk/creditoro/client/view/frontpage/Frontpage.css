@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf');
+}
+
+.label .text {
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20 20 20 20;
+}

@@ -18,6 +18,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
@@ -48,6 +49,14 @@ public class BrowseChannelsController implements IViewController {
     @FXML
     private HBox alphabet;
 
+    /**
+     * Lbl start menu pressed.
+     *
+     * @param mouseEvent the mouse event
+     */
+    public void lblStartMenuPressed(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
 
     ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
 
