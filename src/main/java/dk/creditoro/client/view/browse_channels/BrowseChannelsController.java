@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -38,6 +39,8 @@ public class BrowseChannelsController implements IViewController {
     @FXML
     private ScrollPane channelPane;
 
+    @FXML
+    private ChoiceBox<String> choiceBox;
 
     @FXML
     private TextField channelSearch;
@@ -45,6 +48,8 @@ public class BrowseChannelsController implements IViewController {
     @FXML
     private HBox alphabet;
 
+
+    ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
 
     /**
      * Btn new channel.
@@ -90,6 +95,10 @@ public class BrowseChannelsController implements IViewController {
         this.viewHandler = viewHandler;
         this.cachedImages = new HashMap<>();
 
+        choiceBox.setValue("A-Å");
+        choiceBox.setItems(sortingList);
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue()));
+
         //Add listener to channelSearch text area
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
         browseChannelsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
@@ -100,6 +109,7 @@ public class BrowseChannelsController implements IViewController {
         Platform.runLater(() -> {
             channelPane.setContent(tilePane);
             channelList = FXCollections.observableArrayList(tilePane.getChildren());
+            sorted(0);
         });
 
     }
@@ -166,9 +176,15 @@ public class BrowseChannelsController implements IViewController {
         browseChannelsViewModel.search();
     }
 
-    public void sorted() {
+    public void sorted(int choice) {
         TilePane tilePane = (TilePane) channelPane.getContent();
-        tilePane.getChildren().setAll(browseChannelsViewModel.sortedChannelList(tilePane));
+        String choiceString;
+        if (choice == 1) {
+            choiceString = "Å-A";
+        } else {
+            choiceString = "A-Å";
+        }
+        tilePane.getChildren().setAll(browseChannelsViewModel.sortedChannelList(tilePane, choiceString));
     }
 
     @FXML
