@@ -34,15 +34,25 @@ public class ProductionController implements IViewController {
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
         productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
 
-        onSearch();
+        productionViewModel.setId("40b656a3-15fa-402b-9444-c7f3672a16a3");
+
+        getCredits();
     }
 
-    private void onSearch() {
+    @FXML
+    private void getCredits() {
+        productionViewModel.getCredits();
+    }
+    @FXML
+    private void onSearch(){
         productionViewModel.search();
     }
 
     public void updateList(ObservableList<Credit> list) {
         //Foreach credit, append credit
+        cast.setText("");
+        credit.setText("");
+
         for (Credit c : list) {
             //Get existing text
             String existingCast = cast.getText();

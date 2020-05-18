@@ -65,8 +65,8 @@ public class RestClient implements IClient {
     }
 
     @Override
-    public Credit[] searchCredits(String q) {
-        var result = creditsEndpoint.getCredits(q, token);
+    public Credit[] getCredits(String id) {
+        var result = creditsEndpoint.getCredits(id, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_CREDITS_RESULT.toString(), null, result);
         LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);

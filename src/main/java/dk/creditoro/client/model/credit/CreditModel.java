@@ -23,8 +23,8 @@ public class CreditModel implements ICreditModel {
     }
 
     @Override
-    public void search(String q) {
-        Credit[] credits = client.searchCredits(q);
+    public void getCredits(String id) {
+        Credit[] credits = client.getCredits(id);
         var message = String.format("credits found: %d", credits.length);
         LOGGER.info(message);
     }
