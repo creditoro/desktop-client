@@ -20,7 +20,7 @@ public class RestClient implements IClient {
     private final ChannelsEndpoint channelsEndpoint;
     private final ProductionsEndpoint productionsEndpoint;
     private final CreditsEndpoint creditsEndpoint;
-    private static final String PROPERTY_CHANGE = "Fired property change event.";
+    private static final String PROPERTY_CHANGE = "Fired property change event. ";
 
     private String token;
 
