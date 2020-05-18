@@ -3,14 +3,6 @@ package dk.creditoro.client.view.browse_productions;
 import dk.creditoro.client.core.ClientFactory;
 import dk.creditoro.client.core.ModelFactory;
 import dk.creditoro.client.core.ViewModelFactory;
-import dk.creditoro.client.model.crud.Production;
-import dk.creditoro.client.model.production.IProductionModel;
-import dk.creditoro.client.model.production.ProductionModel;
-import dk.creditoro.client.networking.IClient;
-import dk.creditoro.client.networking.rest_client.RestClient;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -18,13 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 class BrowseProductionsViewModelTest {
@@ -54,9 +43,9 @@ class BrowseProductionsViewModelTest {
                 latch.countDown();
             }
         });
-        try{
+        try {
             latch.await();
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
         }
 
         browseProductionsViewModel.queryParamProperty().setValue(null);
@@ -79,9 +68,9 @@ class BrowseProductionsViewModelTest {
                 latch.countDown();
             }
         });
-        try{
+        try {
             latch.await();
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
         }
         TilePane tilePane = new TilePane();
         Node node1 = new ImageView();
@@ -90,11 +79,12 @@ class BrowseProductionsViewModelTest {
         node2.setId("b729f259-c6a7-4ab1-a040-c894c53ba4e5"); // hammerslag
         Node node3 = new ImageView();
         node3.setId("de52bcb8-d2f3-421c-b8bb-47e00d52ee9e"); // hercule
-        tilePane.getChildren().addAll(node1,node3,node2);
+        tilePane.getChildren().addAll(node1, node3, node2);
         browseProductionsViewModel.queryParamProperty().setValue("hercule");
-        browseProductionsViewModel.search();;
-        Assertions.assertNotEquals(tilePane.getChildren(),browseProductionsViewModel.sortedList(tilePane));
-        Assertions.assertEquals("Hercule Poirot",browseProductionsViewModel.productionTitle(node3));
+        browseProductionsViewModel.search();
+        ;
+        Assertions.assertNotEquals(tilePane.getChildren(), browseProductionsViewModel.sortedList(tilePane));
+        Assertions.assertEquals("Hercule Poirot", browseProductionsViewModel.productionTitle(node3));
     }
 
     @Test
@@ -106,9 +96,9 @@ class BrowseProductionsViewModelTest {
                 latch.countDown();
             }
         });
-        try{
+        try {
             latch.await();
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         HBox alphabet = new HBox();
@@ -124,13 +114,14 @@ class BrowseProductionsViewModelTest {
         node2.setId("b729f259-c6a7-4ab1-a040-c894c53ba4e5"); // hammerslag
         Node node3 = new ImageView();
         node3.setId("de52bcb8-d2f3-421c-b8bb-47e00d52ee9e"); // hercule
-        tilePane.getChildren().addAll(node1,node3,node2);
+        tilePane.getChildren().addAll(node1, node3, node2);
 
         browseProductionsViewModel.queryParamProperty().setValue("hercule");
-        browseProductionsViewModel.search();;
+        browseProductionsViewModel.search();
+        ;
 
         ActionEvent ae = new ActionEvent(btnH, ActionEvent.NULL_SOURCE_TARGET);
-        Assertions.assertNotEquals(tilePane.getChildren(),browseProductionsViewModel.sortedByCharacter(tilePane.getChildren(),ae,alphabet));
+        Assertions.assertNotEquals(tilePane.getChildren(), browseProductionsViewModel.sortedByCharacter(tilePane.getChildren(), ae, alphabet));
     }
 
 }
