@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class FrontpageController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
-    private FrontpageViewModel frontpageViewModel;
 
     @FXML
     private ChoiceBox<String> choiceBox;
@@ -48,8 +47,6 @@ public class FrontpageController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-        this.frontpageViewModel = viewModelFactory.getFrontpageViewModel();
-
         choiceBox.setValue("Produktion");
         choiceBox.setItems(searchingList);
         openNav = new TranslateTransition(new Duration(350), drawer);
@@ -107,10 +104,12 @@ public class FrontpageController implements IViewController {
     public void onSearchAction(ActionEvent actionEvent) {
         LOGGER.info("Hvad f skal der ske med den her søgefunktion");
         var view = choiceBox.getSelectionModel().getSelectedItem();
-        if (view.equals("Kanal")){
+        if (view.equals("Kanal")) {
             viewHandler.openView(Views.BROWSE_CHANNELS, searchTextField.getText());
 
-        } else {viewHandler.openView(Views.BROWSE_PRODUCTIONS, searchTextField.getText());}
+        } else {
+            viewHandler.openView(Views.BROWSE_PRODUCTIONS, searchTextField.getText());
+        }
     }
 
 
