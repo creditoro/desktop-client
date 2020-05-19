@@ -69,9 +69,14 @@ public class BrowseChannelsViewModel {
         return listProperty;
     }
 
-    public ObservableList<Node> sortedChannelList(TilePane tilePane) {
+    public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort(Comparator.comparing(this::channelName));
+        Comparator<Node> comparator = Comparator.comparing(this::channelName);
+        if (sortingMethod.equals("Å-A")){
+            workingCollection.sort(comparator.reversed());
+            return workingCollection;
+        }
+        workingCollection.sort(comparator);
         return workingCollection;
     }
 
@@ -88,16 +93,14 @@ public class BrowseChannelsViewModel {
 
 
     public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
-        FindCharacter findCharacter = new FindCharacter();
+        currentCharacter = new FindCharacter().getCharacter(actionEvent, alphabet, currentCharacter);
         ObservableList<Node> observableList = FXCollections.observableArrayList(list);
-        char character = findCharacter.getCharacter(actionEvent, alphabet, currentCharacter);
-        currentCharacter = character;
 
-        if (character != 0) {
-            observableList.removeIf(node -> !channelName(node).toUpperCase().startsWith(String.valueOf(character)));
-        } else {
+        if (currentCharacter == 0) {
             return observableList;
+        } else {
+            observableList.removeIf(node -> !channelName(node).toUpperCase().startsWith(String.valueOf(currentCharacter)));
+			return observableList;
         }
-        return observableList;
     }
 }

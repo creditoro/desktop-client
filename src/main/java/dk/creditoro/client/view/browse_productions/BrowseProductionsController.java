@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -40,6 +41,15 @@ public class BrowseProductionsController implements IViewController {
     private HBox alphabet;
     @FXML
     private Button btnAccount;
+
+    /**
+     * Lbl start menu pressed.
+     *
+     * @param mouseEvent the mouse event
+     */
+    public void lblStartMenuPressed(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
 
     /**
      * Btn new production.
