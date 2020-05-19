@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * UserModelTest
  */
-public class UserModelTest {
+class UserModelTest {
     UserModel userModel;
     String password = "string";
 

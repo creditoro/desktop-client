@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 /**
 * ChannelTest
 */
-public class ChannelTest {
+class ChannelTest {
 	Channel channel;
 
 	public ChannelTest(){

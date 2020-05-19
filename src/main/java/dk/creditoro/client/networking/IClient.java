@@ -18,7 +18,7 @@ public interface IClient {
 
     Production[] searchProductions(String q);
 
-    Credit[] searchCredits(String q);
+    Credit[] getCredits(String q);
 
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }

@@ -4,7 +4,6 @@ import dk.creditoro.client.core.ClientFactory;
 import dk.creditoro.client.core.ModelFactory;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.crud.Production;
-import javafx.collections.FXCollections;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
-import java.util.stream.Collectors;
 
 class BrowseProductionsViewModelTest {
 

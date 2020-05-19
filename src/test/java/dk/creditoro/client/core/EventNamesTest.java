@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 /**
 * EventNames
 */
-public class EventNamesTest {
+class EventNamesTest {
 
 	@Test
-	public void checkEnumes(){
+	void checkEnumes(){
 		String message = "Check EventNames enumes";
 		assertEquals("LOGIN_RESULT", EventNames.LOGIN_RESULT.toString(), 
 				message);
