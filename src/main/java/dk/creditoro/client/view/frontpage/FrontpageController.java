@@ -110,6 +110,7 @@ public class FrontpageController implements IViewController {
         } else {
             viewHandler.openView(Views.BROWSE_PRODUCTIONS, searchTextField.getText());
         }
+        searchTextField.clear();
     }
 
 
