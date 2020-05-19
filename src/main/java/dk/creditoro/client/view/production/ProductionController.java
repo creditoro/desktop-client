@@ -34,7 +34,6 @@ public class ProductionController implements IViewController {
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
         productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
 
-        productionViewModel.setId("40b656a3-15fa-402b-9444-c7f3672a16a3");
 
         getCredits();
     }

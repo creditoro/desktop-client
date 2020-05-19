@@ -31,6 +31,7 @@ public class BrowseProductionsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseProductionsViewModel browseProductionsViewModel;
     private ViewHandler viewHandler;
+	private ViewModelFactory viewModelFactory; // I don't think it should be implment like this?
     private ObservableList<Node> productionsList;
 
     @FXML
@@ -95,10 +96,13 @@ public class BrowseProductionsController implements IViewController {
      */
     public void switchView(String viewToOpen) {
         LOGGER.info(viewToOpen);
+		this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
+		this.viewHandler.openView(Views.PRODUCTION);
     }
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
+		this.viewModelFactory = viewModelFactory;
         browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         this.viewHandler = viewHandler;
 
