@@ -1,5 +1,7 @@
 package dk.creditoro.client.view.production;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.concurrent.CountDownLatch;
 
 import javax.swing.SwingUtilities;
@@ -7,14 +9,13 @@ import javax.swing.SwingUtilities;
 import org.junit.jupiter.api.*;
 
 import dk.creditoro.client.core.ClientFactory;
-import dk.creditoro.client.core.ModelFactory;
-import dk.creditoro.client.core.ViewModelFactory;
+import dk.creditoro.client.core.*;
 import javafx.embed.swing.JFXPanel;
 
 /**
-* ProductionViewModelTest
-*/
-public class ProductionViewModelTest {
+ * ProductionViewModelTest
+ */
+class ProductionViewModelTest {
 	ProductionViewModel pdViewModel;
 
 	public ProductionViewModelTest() {
@@ -38,8 +39,29 @@ public class ProductionViewModelTest {
 
 	@Test
 	void changeQueryParam(){
-		pdViewModel.queryParamProperty().setValue("This");
-		pdViewModel.setId("This should not be set like this??? ");
-		// pdViewModel.getCredits();
+		assertDoesNotThrow(() -> pdViewModel.queryParamProperty().setValue(""));
+		assertDoesNotThrow(() -> pdViewModel.setId("40b656a3-15fa-402b-9444-c7f3672a16a3"));
+		assertDoesNotThrow(() -> pdViewModel.getCredits());
+
+		// Test the Credits
+		while(pdViewModel.listPropertyProperty().isEmpty()){
+			//Do nothing waiting on result
+		}
+		var creditsList = pdViewModel.listPropertyProperty();
+		assertNotNull(creditsList.get(0));
+		assertNotNull(creditsList.get(0).getIdentifier());
+		assertNotNull(creditsList.get(0).getJob());
+		assertNotNull(creditsList.get(0).getPerson());
+		// assertNotNull(creditsList.get(0).getProduction()); //This test should be turned on, then the API gets fixed
+
+		// Search in the stored credits
+		var job = "Lydmand";
+		pdViewModel.queryParamProperty().set(job);
+
+		assertDoesNotThrow(() ->  pdViewModel.search());
+		System.out.println("\n\n\n\n LENGHT:" + creditsList.size() );
+		creditsList = pdViewModel.listPropertyProperty();
+		assertEquals(job, creditsList.get(0).getJob(),
+				"Maybe credits changed?");
 	}
 }
