@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -139,15 +138,12 @@ public class BrowseProductionsController implements IViewController {
      */
     private void updateList(ObservableList<Production> productions) {
         LOGGER.info("Update grid called.");
-        var start = Calendar.getInstance().getTimeInMillis();
         // Create TilePane for productions
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 0, 0, 0));
         tilePane.prefWidthProperty().bind(productionPane.widthProperty());
         List<Node> children = computeChildren(productions, tilePane);
         Platform.runLater(() -> tilePane.getChildren().addAll(children));
-        var end = Calendar.getInstance().getTimeInMillis();
-        LOGGER.info(String.format("start: %d end: %d total: %d", start, end, end - start));
         doneLoading(tilePane);
     }
 
