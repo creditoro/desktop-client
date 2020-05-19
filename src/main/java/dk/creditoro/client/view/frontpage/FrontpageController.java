@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 public class FrontpageController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
+    private FrontpageViewModel frontpageViewModel;
 
     private TranslateTransition openNav;
     private TranslateTransition closeNav;
@@ -36,6 +37,9 @@ public class FrontpageController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
+        this.frontpageViewModel = viewModelFactory.getFrontpageViewModel();
+
+        searchTextField.textProperty().bindBidirectional(frontpageViewModel.queryParamProperty());
 
 
         openNav = new TranslateTransition(new Duration(350), drawer);
@@ -89,6 +93,7 @@ public class FrontpageController implements IViewController {
      */
     public void onSearchAction(ActionEvent actionEvent) {
         LOGGER.info("Hvad f skal der ske med den her søgefunktion");
+        frontpageViewModel.search();
     }
 
     /**
