@@ -9,7 +9,7 @@ public interface ICreditModel {
      *
      * @param q the q
      */
-    void search(String q);
+    void getCredits(String q);
 
     /**
      * Add listener.

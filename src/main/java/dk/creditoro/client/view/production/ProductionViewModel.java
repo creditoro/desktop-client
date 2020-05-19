@@ -10,9 +10,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.layout.TilePane;
 import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class ProductionViewModel {
@@ -23,6 +23,10 @@ public class ProductionViewModel {
     private final StringProperty queryParam = new SimpleStringProperty();
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
     private final ListProperty<Credit> listProperty = new SimpleListProperty<>(creditList);
+
+    private ArrayList<Credit> cachedCredits = new ArrayList<>();
+
+    private String id;
 
     public ProductionViewModel(ICreditModel creditModel, IUserModel userModel)
     {
@@ -35,19 +39,22 @@ public class ProductionViewModel {
         return queryParam;
     }
 
-    public void search() {
+    public void getCredits() {
         var q = queryParam.get();
         var message = String.format("Called search, q: '%s'", q);
         LOGGER.info(message);
-        creditModel.search(q);
+        creditModel.getCredits(id);
     }
 
     private void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
-        LOGGER.info("On search productions result called.");
+        LOGGER.info("On search credit result called.");
         var credits = (Credit[]) propertyChangeEvent.getNewValue();
         Platform.runLater(() -> {
             listProperty.clear();
             listProperty.addAll(credits);
+
+            //Cache credits
+            cachedCredits.addAll(Arrays.asList(credits));
         });
     }
 
@@ -55,30 +62,25 @@ public class ProductionViewModel {
         return listProperty;
     }
 
+    public void search()
+    {
+        listProperty.clear();
 
-    //******** NEEDS TO BE UPDATED ********
-    public ObservableList<Node> sortedList(TilePane tilePane) {
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort((o1, o2) -> {
-            try {
-                return 1;
-                //return productionTitle(o1.getId()).compareTo(productionTitle(o2.getId()));
-            } catch (NullPointerException ex) {
-                LOGGER.info("Production does not exist");
-            }
-            return 0;
-        });
-        return workingCollection;
-    }
+        for(Credit c : cachedCredits)
+        {
+            String job = c.getJob().toLowerCase();
+            String name = c.getPerson().getName().toLowerCase();
+            String q = queryParam.getValue().toLowerCase();
 
-    /*
-    public String productionTitle(String identifier) {
-        for (Credit credit : listProperty) {
-            if (credit.getIdentifier().equals(identifier)) {
-                LOGGER.info(credit.getTitle());
-                return credit.getTitle();
+            if(job.contains(q) || name.contains(q))
+            {
+                listProperty.add(c);
             }
         }
-        return "";
-    }*/
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 }

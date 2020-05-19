@@ -30,7 +30,7 @@ public class DummyClient implements IClient {
     }
 
     @Override
-    public Credit[] searchCredits(String q) {
+    public Credit[] getCredits(String q) {
         return new Credit[0];
     }
 
