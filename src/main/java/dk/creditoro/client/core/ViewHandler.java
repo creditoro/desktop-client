@@ -74,15 +74,16 @@ public class ViewHandler {
             LOGGER.info(String.format("Coudn't find FXML file with name: %s", viewToOpen));
             return false;
         }
-        root.setTitle("Creditoro");
-        root.setScene(scene);
-        if (viewToOpen == Views.BROWSE_PRODUCTIONS) {
-            viewModelFactory.getBrowseProductionsViewModel().queryParamProperty().setValue(param);
-            viewModelFactory.getBrowseProductionsViewModel().search();
-        } else {
+        if (viewToOpen == Views.BROWSE_CHANNELS) {
             viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue(param);
             viewModelFactory.getBrowseChannelsViewModel().search();
+        } else{
+            viewModelFactory.getBrowseProductionsViewModel().queryParamProperty().setValue(param);
+            viewModelFactory.getBrowseProductionsViewModel().search();
         }
+        root.setTitle("Creditoro");
+        root.setScene(scene);
+
         return true;
     }
 
