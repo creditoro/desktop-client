@@ -103,12 +103,6 @@ public class BrowseProductionsController implements IViewController {
         browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         this.viewHandler = viewHandler;
         this.cachedProdcutions = new HashMap<>();
-        productionSearch.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                onSearch();
-            }
-        });
 
         //Add listener to productionSearch text area
         productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
