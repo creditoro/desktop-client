@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@AddCredits.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.add_credits.addCreditController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@AddCredits.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.add_credits.AddCreditController">
     <left>
         <AnchorPane minWidth="200.0" style="-fx-background-color: #202020;">
             <children>
@@ -20,7 +20,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="Search" mnemonicParsing="false" onAction="#handleSearchBar" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
+                        <Button fx:id="search" mnemonicParsing="false" onAction="#handleSearchBar" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -35,7 +35,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </Button>
-                        <Button fx:id="Channels" mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
+                        <Button fx:id="channels" mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -50,7 +50,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </Button>
-                        <Button fx:id="Productions" mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
+                        <Button fx:id="productions" mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>

@@ -4,19 +4,15 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
-import dk.creditoro.client.view.production.ProductionViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import org.apache.xmlgraphics.java2d.ps.AbstractPSDocumentGraphics2D;
 
 import java.util.logging.Logger;
 
-public class addCreditController implements IViewController {
+public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
 
@@ -47,11 +43,11 @@ public class addCreditController implements IViewController {
     @FXML
     private Button btnAccount;
     @FXML
-    private Button Productions;
+    private Button productions;
     @FXML
-    private Button Channels;
+    private Button channels;
     @FXML
-    private Button Search;
+    private Button search;
 
 
     @Override
@@ -63,29 +59,28 @@ public class addCreditController implements IViewController {
         productionTitleTxtField.setText("production.getTitle();");
     }
 
-    public void handleSearchBar(ActionEvent actionEvent) {
+    public void handleSearchBar() {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
-    public void btnChannels(ActionEvent actionEvent) {
+    public void btnChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
-    public void btnProductions(ActionEvent actionEvent) {
+    public void btnProductions() {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
-    public void lblStartMenuPressed(MouseEvent mouseEvent) {
+    public void lblStartMenuPressed() {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
-    public void btnAccount(ActionEvent actionEvent) {
+    public void btnAccount() {
         LOGGER.info("Account button pressed.");
     }
 
-    public void addCreditOnAction(ActionEvent actionEvent) {
+    public void addCreditOnAction() {
         String name = nameTxtField.getText();
-        String email = emailTxtField.getText();
         String job = jobTxtField.getText();
 
         creditsTxtArea.appendText(name + "\t" + job + "\n");
@@ -97,11 +92,11 @@ public class addCreditController implements IViewController {
         LOGGER.info("Credit added");
     }
 
-    public void deleteOnAction(ActionEvent actionEvent) {
+    public void deleteOnAction() {
         LOGGER.info("Credit deleted");
     }
 
-    public void exitOnAction(ActionEvent actionEvent) {
+    public void exitOnAction() {
         LOGGER.info("Exit pressed - Changing view to production");
     }
 }
