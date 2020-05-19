@@ -65,6 +65,27 @@ public class ViewHandler {
         return true;
     }
 
+    public boolean openView(Views viewToOpen, String param) {
+        FXMLLoader loader = new FXMLLoader();
+        Scene scene;
+        try {
+            scene = getScene(viewToOpen, loader);
+        } catch (IOException e) {
+            LOGGER.info(String.format("Coudn't find FXML file with name: %s", viewToOpen));
+            return false;
+        }
+        root.setTitle("Creditoro");
+        root.setScene(scene);
+        if (viewToOpen == Views.BROWSE_PRODUCTIONS) {
+            viewModelFactory.getBrowseProductionsViewModel().queryParamProperty().setValue(param);
+            viewModelFactory.getBrowseProductionsViewModel().search();
+        } else {
+            viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue(param);
+            viewModelFactory.getBrowseChannelsViewModel().search();
+        }
+        return true;
+    }
+
     private Scene getScene(Views viewToOpen, FXMLLoader loader) throws IOException {
         // check if we scene is present in sceneMap
         Scene scene = sceneMap.get(viewToOpen);
