@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * ProductionTest
  */
-public class ProductionTest {
+class ProductionTest {
     Production production;
     String message = "Maybe production changed?";
 
