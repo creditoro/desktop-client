@@ -3,11 +3,16 @@
     src: url('Roboto-Regular.ttf');
 }
 
-.label .text {
+.label {
     -fx-font-weight: bold;
 }
 
 .text-field {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20 20 20 20;
+}
+
+.button {
     -fx-border-radius: 20;
     -fx-background-radius: 20 20 20 20;
 }
