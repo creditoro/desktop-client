@@ -18,10 +18,11 @@ public class ViewHandler {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final Map<Views, String> FXML_MAP = Map.of(
-            Views.LOGIN, "login/login.fxml",
+            Views.FRONTPAGE, "frontpage/Frontpage.fxml",
+            Views.LOGIN, "login/Login.fxml",
             Views.BROWSE_CHANNELS, "browse_channels/BrowseChannels.fxml",
             Views.BROWSE_PRODUCTIONS, "browse_productions/BrowseProductions.fxml",
-            Views.PRODUCTION, "production/production.fxml");
+            Views.PRODUCTION, "production/Production.fxml");
     private final ViewModelFactory viewModelFactory;
     private final Map<Views, Scene> sceneMap = new HashMap<>();
     private final Stage root;
@@ -40,7 +41,7 @@ public class ViewHandler {
      * Start.
      */
     public void start() {
-        openView(Views.LOGIN);
+        openView(Views.FRONTPAGE);
         root.show();
     }
 

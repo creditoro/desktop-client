@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.browse_channels.BrowseChannelsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.browse_channels.BrowseChannelsController">
    <left>
         <AnchorPane minWidth="200.0" style="-fx-background-color: #202020;">
             <children>
@@ -58,7 +59,7 @@
                         </Button>
                     </children>
                 </GridPane>
-              <Label fx:id="lblStartMenu" alignment="CENTER" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
+              <Label fx:id="lblStartMenu" alignment="CENTER" onMouseClicked="#lblStartMenuPressed" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
                   <font>
                       <Font name="System Bold" size="36.0" />
                   </font>
@@ -69,6 +70,9 @@
                           </image>
                       </ImageView>
                   </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
               </Label>
             </children>
         </AnchorPane>
@@ -122,11 +126,6 @@
                                 <Image url="@../../res/add.png" />
                             </image>
                         </ImageView>
-                  <ImageView fitHeight="62.0" fitWidth="77.0" layoutX="1156.0" layoutY="106.0" onMouseClicked="#sorted" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../res/add.png" />
-                     </image>
-                  </ImageView>
                   <ScrollPane fx:id="channelPane" hbarPolicy="NEVER" layoutX="228.0" layoutY="221.0" prefHeight="600.0" prefWidth="986.0" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" vbarPolicy="ALWAYS" />
                   <HBox fx:id="alphabet" layoutX="272.0" layoutY="183.0">
                      <children>
@@ -162,6 +161,7 @@
                      </children>
                   </HBox>
                   <Line endX="358.0" endY="232.0" layoutX="-129.0" layoutY="-11.0" startX="1338.0" startY="232.0" />
+                  <ChoiceBox fx:id="choiceBox" layoutX="1060.0" layoutY="125.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: transparent;" stylesheets="@BrowseChannels.css" AnchorPane.leftAnchor="1060.0" AnchorPane.topAnchor="125.0" />
                     </children>
                 </AnchorPane>
          </center>
