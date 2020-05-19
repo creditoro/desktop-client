@@ -5,5 +5,6 @@ public enum Views {
     LOGIN,
     BROWSE_CHANNELS,
     BROWSE_PRODUCTIONS,
-    PRODUCTION
+    PRODUCTION,
+    ADD_CREDITS
 }
