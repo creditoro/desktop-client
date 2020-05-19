@@ -22,7 +22,9 @@ public class FrontpageController implements IViewController {
     private ViewHandler viewHandler;
 
     private TranslateTransition openNav;
+    private TranslateTransition openBtn;
     private TranslateTransition closeNav;
+    private TranslateTransition closeBtn;
 
     @FXML
     private Button btnMenu;
@@ -40,7 +42,10 @@ public class FrontpageController implements IViewController {
 
         openNav = new TranslateTransition(new Duration(350), drawer);
         openNav.setToX(0);
+        openBtn = new TranslateTransition(new Duration(350), btnMenu);
+        openBtn.setToX(0);
         closeNav = new TranslateTransition(new Duration(350), drawer);
+        closeBtn = new TranslateTransition(new Duration(350), btnMenu);
     }
 
     /**
@@ -99,9 +104,12 @@ public class FrontpageController implements IViewController {
     public void drawerAction(ActionEvent actionEvent) {
         if (drawer.getTranslateX() != 0) {
             openNav.play();
+            openBtn.play();
         } else {
             closeNav.setToX(drawer.getWidth());
+            closeBtn.setToX(drawer.getWidth());
             closeNav.play();
+            closeBtn.play();
         }
     }
 }
