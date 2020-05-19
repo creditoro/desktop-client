@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 /**
 * FindCharacterTest
 */
-public class FindCharacterTest {
+class FindCharacterTest {
 	FindCharacter findCharacter;
 	
 	public FindCharacterTest(){

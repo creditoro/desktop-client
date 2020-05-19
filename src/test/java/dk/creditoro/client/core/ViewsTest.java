@@ -8,7 +8,7 @@ class ViewsTest {
 
 
     @Test
-    public void testEnumValues() {
+    void testEnumValues() {
         for (Views view : Views.values()){
             assertTrue(isView(view));
         }

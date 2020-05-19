@@ -5,16 +5,14 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -22,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -33,6 +32,7 @@ public class BrowseProductionsController implements IViewController {
     private ViewHandler viewHandler;
 	private ViewModelFactory viewModelFactory; // I don't think it should be implment like this?
     private ObservableList<Node> productionsList;
+    private Map<String, VBox> cachedProdcutions;
 
     @FXML
     private ScrollPane productionPane;
@@ -105,14 +105,34 @@ public class BrowseProductionsController implements IViewController {
 		this.viewModelFactory = viewModelFactory;
         browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         this.viewHandler = viewHandler;
+        this.cachedProdcutions = new HashMap<>();
 
         //Add listener to productionSearch text area
         productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
-        browseProductionsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> updateList(newValue));
+        browseProductionsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
         onSearch();
 
         // set user email
         btnAccount.setText("user.getEmail()");
+    }
+
+    private void loading(ObservableList<Production> productions) {
+        new Thread(() -> Platform.runLater(() -> {
+            ProgressIndicator pb = new ProgressIndicator();
+            pb.minWidthProperty().bind(productionPane.widthProperty());
+            pb.minHeightProperty().bind(productionPane.heightProperty());
+            productionPane.setContent(pb);
+        })).start();
+
+
+        new Thread(() -> updateList(productions)).start();
+    }
+
+    private void doneLoading(TilePane tilePane) {
+        Platform.runLater(() -> {
+            productionPane.setContent(tilePane);
+            productionsList = FXCollections.observableArrayList(tilePane.getChildren());
+        });
     }
 
     /**
@@ -122,28 +142,38 @@ public class BrowseProductionsController implements IViewController {
      */
     private void updateList(ObservableList<Production> productions) {
         LOGGER.info("Update grid called.");
-
         // Create TilePane for productions
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 0, 0, 0));
         tilePane.prefWidthProperty().bind(productionPane.widthProperty());
-
-        // Create VBox for each production and add title and description
-        for (Production production : productions) {
-            VBox vBox = createVBox(tilePane, production);
-            Label title = getTitle(production);
-            Text description = getDescription(production);
-
-            // Make the VBox clickable, so it refers to given production page
-            setOnMouseClicked(production, vBox);
-
-            vBox.getChildren().addAll(title, description);
-            TilePane.setMargin(vBox, new Insets(0, 0, 15, 0));
-            tilePane.getChildren().add(vBox);
-        }
-        productionPane.setContent(tilePane);
-        productionsList = FXCollections.observableArrayList(tilePane.getChildren());
+        List<Node> children = computeChildren(productions, tilePane);
+        Platform.runLater(() -> tilePane.getChildren().addAll(children));
+        doneLoading(tilePane);
     }
+
+    public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
+        List<Node> list = new ArrayList<>();
+        // Create VBox for each production and add title and description
+        for (int i = 0; i < productions.size(); i++) {
+            Production production = productions.get(i);
+            VBox vBox = cachedProdcutions.get(production.getIdentifier());
+            if (vBox == null) {
+                vBox = createVBox(tilePane, production);
+                Label title = getTitle(production);
+                Text description = getDescription(production);
+
+                // Make the VBox clickable, so it refers to given production page
+                setOnMouseClicked(production, vBox);
+
+                vBox.getChildren().addAll(title, description);
+                TilePane.setMargin(vBox, new Insets(0, 0, 15, 0));
+                cachedProdcutions.put(production.getIdentifier(), vBox);
+            }
+            list.add(vBox);
+        }
+        return list;
+    }
+
 
     /**
      * Get title from production

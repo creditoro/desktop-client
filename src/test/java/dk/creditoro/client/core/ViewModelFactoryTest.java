@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 /**
 * ViewModelFactoryTest
 */
-public class ViewModelFactoryTest {
+class ViewModelFactoryTest {
 	ViewModelFactory viewModelFactory;
 	
 	public ViewModelFactoryTest(){
