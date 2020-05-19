@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * DummyClientTest
  */
-public class DummyClientTest {
+class DummyClientTest {
     DummyClient dummyClient;
 
     public DummyClientTest() {

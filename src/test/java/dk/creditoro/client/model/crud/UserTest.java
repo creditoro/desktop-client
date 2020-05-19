@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * UserTest
  */
-public class UserTest {
+class UserTest {
     String message = "Something in Users.java changed?";
     User user;
 

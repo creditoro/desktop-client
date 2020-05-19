@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 /**
  * ProductionModelTest
  */
-public class ProductionModelTest {
+class ProductionModelTest {
     ProductionModel productionModel;
     IClient client;
     User currentUser;

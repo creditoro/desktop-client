@@ -10,7 +10,7 @@ import dk.creditoro.client.networking.IClient;
 /**
  * ChannelModelTest
  */
-public class ChannelModelTest {
+class ChannelModelTest {
     IChannelModel channelModel;
     IClient client;
 
