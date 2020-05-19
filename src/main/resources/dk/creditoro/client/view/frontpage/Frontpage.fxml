@@ -11,7 +11,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="914.0" prefWidth="1415.0" stylesheets="@Frontpage.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.frontpage.FrontpageController">
    <top>
-      <AnchorPane prefHeight="53.0" style="-fx-background-color: #241917;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="53.0" style="-fx-background-color: #202020;" BorderPane.alignment="CENTER">
          <children>
                       <Label fx:id="logo" layoutX="14.0" prefHeight="53.0" prefWidth="350.0" text="Creditoro" textFill="WHITE">
                           <font>
@@ -103,7 +103,7 @@
                   </LinearGradient>
                </fill>
             </Circle>
-            <VBox fx:id="drawer" layoutX="-257.0" layoutY="30.0" prefHeight="774.0" prefWidth="257.0" style="-fx-background-color: #241917;">
+            <VBox fx:id="drawer" layoutX="-257.0" layoutY="30.0" prefHeight="774.0" prefWidth="257.0" style="-fx-background-color: #202020;">
             <GridPane layoutX="13.0" layoutY="125.0" prefHeight="183.0" prefWidth="268.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -162,7 +162,7 @@
                </children>
             </GridPane>
             </VBox>
-            <Button id="drawer_button" fx:id="btnMenu" layoutX="-17.0" layoutY="30.0" mnemonicParsing="false" onAction="#drawerAction" style="-fx-background-color: #241917;" stylesheets="Frontpage.css">
+            <Button id="drawer_button" fx:id="btnMenu" layoutX="-17.0" layoutY="30.0" mnemonicParsing="false" onAction="#drawerAction" style="-fx-background-color: #202020;" stylesheets="Frontpage.css">
                <graphic>
                   <ImageView fx:id="menu" fitHeight="51.0" fitWidth="58.0" onMouseClicked="#drawerAction" onMouseReleased="#drawerAction" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                      <image>
