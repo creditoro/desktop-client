@@ -3,11 +3,16 @@ package dk.creditoro.client.view.login;
 import dk.creditoro.client.core.ClientFactory;
 import dk.creditoro.client.core.ModelFactory;
 import dk.creditoro.client.core.ViewModelFactory;
+import javafx.embed.swing.JFXPanel;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.concurrent.CountDownLatch;
+
+import javax.swing.SwingUtilities;
 
 /**
  * The type Login view model test.
@@ -23,6 +28,17 @@ class LoginViewModelTest {
         var modelFactory = new ModelFactory(clientFactory);
         var viewModelFactory = new ViewModelFactory(modelFactory);
         loginViewModel = viewModelFactory.getLoginViewModel();
+        final CountDownLatch latch = new CountDownLatch(1);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new JFXPanel(); // initializes JavaFX environment
+                latch.countDown();
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+        }
     }
 
     @BeforeEach
@@ -43,6 +59,7 @@ class LoginViewModelTest {
 
     @Test
     void loginResultProperty() {
+		assertDoesNotThrow(()-> loginViewModel.login());
         assertNull(loginViewModel.loginResponseProperty().get());
     }
 
