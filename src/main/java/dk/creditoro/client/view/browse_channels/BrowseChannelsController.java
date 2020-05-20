@@ -172,7 +172,8 @@ public class BrowseChannelsController implements IViewController {
                 LOGGER.info(message);
             }
             cachedImages.put(channel.getIdentifier(), imageView);
-            tilePane.getChildren().add(imageView);
+            ImageView finalImageView = imageView;
+            Platform.runLater (() -> tilePane.getChildren().addAll(finalImageView));
         }
         doneLoading(tilePane);
     }
