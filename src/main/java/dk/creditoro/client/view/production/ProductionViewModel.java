@@ -1,8 +1,11 @@
 package dk.creditoro.client.view.production;
 
+import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.credit.ICreditModel;
+import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.user.IUserModel;
+import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -10,6 +13,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +25,7 @@ public class ProductionViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final ICreditModel creditModel;
     private final IUserModel userModel;
+    private final ViewModelFactory viewModelFactory;
 
     private final StringProperty queryParam = new SimpleStringProperty();
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
@@ -27,9 +34,11 @@ public class ProductionViewModel {
     private ArrayList<Credit> cachedCredits = new ArrayList<>();
 
     private String id;
+    private String channelId;
+    private ImageView channelLogo;
 
-    public ProductionViewModel(ICreditModel creditModel, IUserModel userModel)
-    {
+    public ProductionViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
+        this.viewModelFactory = viewModelFactory;
         this.creditModel = creditModel;
         this.userModel = userModel;
         this.creditModel.addListener("kek", (this::onSearchProductionsResult));
@@ -53,7 +62,7 @@ public class ProductionViewModel {
             listProperty.clear();
             listProperty.addAll(credits);
 
-			cachedCredits.addAll(Arrays.asList(credits));
+            cachedCredits.addAll(Arrays.asList(credits));
         });
     }
 
@@ -61,25 +70,53 @@ public class ProductionViewModel {
         return listProperty;
     }
 
-    public void search()
-    {
+    public void search() {
         listProperty.clear();
 
-        for(Credit c : cachedCredits)
-        {
+        for (Credit c : cachedCredits) {
             String job = c.getJob().toLowerCase();
             String name = c.getPerson().getName().toLowerCase();
             String q = queryParam.getValue().toLowerCase();
 
-            if(job.contains(q) || name.contains(q))
-            {
+            if (job.contains(q) || name.contains(q)) {
                 listProperty.add(c);
             }
         }
     }
 
-    public void setId(String id)
-    {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setChannelId(String id) {
+        this.channelId = id;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public ImageView getChannelLogo() {
+        return channelLogo;
+    }
+
+    public void setChannelLogo(ImageView channelLogo) {
+        this.channelLogo = channelLogo;
+    }
+
+    public void refreshLogo() {
+        BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
+        viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue("");
+        viewModelFactory.getBrowseChannelsViewModel().search();
+        for (Channel channel : channelsViewModel.listPropertyProperty()) {
+            if (channel.getIdentifier().equals(getChannelId())) {
+                System.out.println(channel.getName());
+                Platform.runLater(() -> channelLogo.setImage(new Image(channel.getIconUrl())));
+            }
+        }
     }
 }

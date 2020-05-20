@@ -21,7 +21,7 @@ public class ViewModelFactory {
         loginViewModel = new LoginViewModel(modelFactory.getUserModel());
         browseChannelsViewModel = new BrowseChannelsViewModel(modelFactory.getChannelModel(), modelFactory.getUserModel());
         browseProductionsViewModel = new BrowseProductionsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
-        productionViewModel = new ProductionViewModel(modelFactory.getCreditModel(), modelFactory.getUserModel());
+        productionViewModel = new ProductionViewModel(modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
     }
 
     /**
