@@ -2,12 +2,8 @@ package dk.creditoro.client.view.add_credits;
 
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.credit.ICreditModel;
-import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Credit;
-import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.user.IUserModel;
-import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
-import dk.creditoro.client.view.browse_productions.BrowseProductionsViewModel;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -17,14 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.util.logging.Logger;
-
 public class AddCreditViewModel {
-    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private final ICreditModel creditModel;
-    private final IUserModel userModel;
-    private final ViewModelFactory viewModelFactory;
-
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
     private final ListProperty<Credit> listProperty = new SimpleListProperty<>(creditList);
 
@@ -38,13 +27,6 @@ public class AddCreditViewModel {
     private TextArea creditsTxtArea;
 
     public AddCreditViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
-        this.viewModelFactory = viewModelFactory;
-        this.creditModel = creditModel;
-        this.userModel = userModel;
-    }
-
-    public void setProductionTitle(String productionTitle) {
-        this.productionTitle = productionTitle;
     }
 
     public void setChannelNameTxtField(TextField channelNameTxtField) {
@@ -63,16 +45,26 @@ public class AddCreditViewModel {
         this.listProperty.set(listProperty);
     }
 
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
-    }
-
     public String getChannelName() {
         return channelName;
     }
 
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
     public String getProductionTitle() {
         return productionTitle;
+    }
+
+    public void setProductionTitle(String productionTitle) {
+        this.productionTitle = productionTitle;
+    }
+
+    private void addCreditsToTextArea() {
+        for (Credit cred : listProperty) {
+            creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n");
+        }
     }
 
     public void refreshValues() {
@@ -80,9 +72,7 @@ public class AddCreditViewModel {
         Platform.runLater(() -> {
             channelNameTxtField.setText(getChannelName());
             productionTitleTxtField.setText(getProductionTitle());
-            for (Credit cred : listProperty){
-                creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n");
-            }
+            addCreditsToTextArea();
         });
     }
 }
