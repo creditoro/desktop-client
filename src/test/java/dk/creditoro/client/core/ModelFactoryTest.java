@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
 * ModelFactoryTest
 */
-public class ModelFactoryTest {
+class ModelFactoryTest {
 	ModelFactory modelFactory;
 
 	public ModelFactoryTest(){
@@ -16,31 +16,31 @@ public class ModelFactoryTest {
 	}
 	
 	// UserModel
-	@Test public void notNullUserModel(){
+	@Test void notNullUserModel(){
 		assertNotNull(modelFactory.getUserModel());
 	}
 
-	@Test public void getUserModel(){
+	@Test void getUserModel(){
 		assertEquals(modelFactory.getUserModel(), modelFactory.getUserModel(), 
 				"Check that we will always return the same UserModel");
 	}
 
 	// ChannelModel
-	@Test public void notNullChannelModel(){
+	@Test void notNullChannelModel(){
 		assertNotNull(modelFactory.getChannelModel());
 	}
 
-	@Test public void getChannelModel(){
+	@Test void getChannelModel(){
 		assertEquals(modelFactory.getChannelModel(), modelFactory.getChannelModel(), 
 				"Check that we will always return the same ChannelModel");
 	}
 	
 	// ChannelModel
-	@Test public void notNullProductionModel(){
+	@Test void notNullProductionModel(){
 		assertNotNull(modelFactory.getProductionModel());
 	}
 
-	@Test public void getProductionModel(){
+	@Test void getProductionModel(){
 		assertEquals(modelFactory.getProductionModel(), modelFactory.getProductionModel(), 
 				"Check that we will always return the same ProductionModel");
 	}

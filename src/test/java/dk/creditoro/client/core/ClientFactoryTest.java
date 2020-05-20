@@ -9,27 +9,27 @@ import org.junit.jupiter.api.Test;
 /**
 * ClientFactoryTest
 */
-public class ClientFactoryTest {
+class ClientFactoryTest {
 	ClientFactory clientFactory;
 	public ClientFactoryTest(){
 		clientFactory = new ClientFactory();
 	}
 
 	@Test
-	public void notNullRestClient(){
+	void notNullRestClient(){
 		assertNotNull(clientFactory.getRestClient());	
 	}
 	@Test	
-	public void getRestClient(){
+	void getRestClient(){
 		assertEquals(clientFactory.getRestClient(), clientFactory.getRestClient());	
 	}
 
 	@Test
-	public void notNullDummyClient(){
+	void notNullDummyClient(){
 		assertNotNull(clientFactory.getDummyClient());	
 	}
 	@Test	
-	public void getDummyClient(){
+	void getDummyClient(){
 		assertEquals(clientFactory.getDummyClient(), clientFactory.getDummyClient());	
 	}
 }

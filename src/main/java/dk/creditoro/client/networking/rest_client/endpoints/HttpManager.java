@@ -38,6 +38,13 @@ public class HttpManager {
                 .header(AUTH_HEADER, token);
     }
 
+    public GetRequest getCredits(String route, String id, String token)
+    {
+        return Unirest.get(route)
+                .queryString("production_id", id)
+                .header(AUTH_HEADER, token);
+    }
+
     public RequestBodyEntity put(String route, String identifier, JSONObject body, String token) {
         return Unirest.put(String.format(PATH, route, IDENTIFIER))
                 .routeParam(IDENTIFIER, identifier)

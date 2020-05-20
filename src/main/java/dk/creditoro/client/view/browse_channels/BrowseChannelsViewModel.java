@@ -5,7 +5,6 @@ import dk.creditoro.client.model.channel.IChannelModel;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.user.IUserModel;
 import dk.creditoro.client.view.shared_viewmodel_func.FindCharacter;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -59,10 +58,8 @@ public class BrowseChannelsViewModel {
     private void onSearchChannelsResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search channels result called.");
         var channels = (Channel[]) propertyChangeEvent.getNewValue();
-        Platform.runLater(() -> {
-            listProperty.clear();
-            listProperty.addAll(channels);
-        });
+        listProperty.clear();
+        listProperty.addAll(channels);
     }
 
     public ListProperty<Channel> listPropertyProperty() {
@@ -72,7 +69,7 @@ public class BrowseChannelsViewModel {
     public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
         Comparator<Node> comparator = Comparator.comparing(this::channelName);
-        if (sortingMethod.equals("Å-A")){
+        if (sortingMethod.equals("Å-A")) {
             workingCollection.sort(comparator.reversed());
             return workingCollection;
         }
@@ -100,7 +97,7 @@ public class BrowseChannelsViewModel {
             return observableList;
         } else {
             observableList.removeIf(node -> !channelName(node).toUpperCase().startsWith(String.valueOf(currentCharacter)));
-			return observableList;
+            return observableList;
         }
     }
 }

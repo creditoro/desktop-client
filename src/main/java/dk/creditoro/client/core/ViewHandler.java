@@ -19,10 +19,11 @@ public class ViewHandler {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final Map<Views, String> FXML_MAP = Map.of(
             Views.FRONTPAGE, "frontpage/Frontpage.fxml",
-            Views.LOGIN, "login/login.fxml",
+            Views.LOGIN, "login/Login.fxml",
             Views.BROWSE_CHANNELS, "browse_channels/BrowseChannels.fxml",
             Views.BROWSE_PRODUCTIONS, "browse_productions/BrowseProductions.fxml",
-            Views.PRODUCTION, "production/production.fxml",
+            Views.PRODUCTION, "production/Production.fxml",
+            Views.ADD_CREDITS, "add_credits/AddCredits.fxml",
             Views.CHANNEL_PROGRAMS, "channel_programs/ChannelPrograms.fxml");
     private final ViewModelFactory viewModelFactory;
     private final Map<Views, Scene> sceneMap = new HashMap<>();
@@ -63,6 +64,28 @@ public class ViewHandler {
         }
         root.setTitle("Creditoro");
         root.setScene(scene);
+        return true;
+    }
+
+    public boolean openView(Views viewToOpen, String param) {
+        FXMLLoader loader = new FXMLLoader();
+        Scene scene;
+        try {
+            scene = getScene(viewToOpen, loader);
+        } catch (IOException e) {
+            LOGGER.info(String.format("Coudn't find FXML file with name: %s", viewToOpen));
+            return false;
+        }
+        if (viewToOpen == Views.BROWSE_CHANNELS) {
+            viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue(param);
+            viewModelFactory.getBrowseChannelsViewModel().search();
+        } else{
+            viewModelFactory.getBrowseProductionsViewModel().queryParamProperty().setValue(param);
+            viewModelFactory.getBrowseProductionsViewModel().search();
+        }
+        root.setTitle("Creditoro");
+        root.setScene(scene);
+
         return true;
     }
 

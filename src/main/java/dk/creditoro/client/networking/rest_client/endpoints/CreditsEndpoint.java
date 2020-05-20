@@ -1,7 +1,6 @@
 package dk.creditoro.client.networking.rest_client.endpoints;
 
 import dk.creditoro.client.model.crud.Credit;
-import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.networking.rest_client.TokenResponse;
 import kong.unirest.json.JSONObject;
 
@@ -29,13 +28,13 @@ public class CreditsEndpoint {
         return null;
     }
 
-    public TokenResponse<Credit[]> getCredits(String q, String token) {
-        var response = httpManager.getList(CREDITS, q, token);
+    public TokenResponse<Credit[]> getCredits(String id, String token) {
+        var response = httpManager.getCredits(CREDITS, id, token);
         return new TokenResponse<>(response.asObject(Credit[].class));
     }
 
-    public TokenResponse<Production> postCredit(JSONObject body) {
+    public TokenResponse<Credit> postCredit(JSONObject body) {
         var response = httpManager.post(CREDITS, body);
-        return new TokenResponse<>(response.asObject(Production.class));
+        return new TokenResponse<>(response.asObject(Credit.class));
     }
 }

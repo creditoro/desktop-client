@@ -5,9 +5,12 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -21,8 +24,16 @@ public class FrontpageController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
 
+    @FXML
+    private ChoiceBox<String> choiceBox;
+
+    ObservableList<String> searchingList = FXCollections.observableArrayList("Produktion", "Kanal");
+
+
     private TranslateTransition openNav;
+    private TranslateTransition openBtn;
     private TranslateTransition closeNav;
+    private TranslateTransition closeBtn;
 
     @FXML
     private Button btnMenu;
@@ -36,11 +47,14 @@ public class FrontpageController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-
-
+        choiceBox.setValue("Produktion");
+        choiceBox.setItems(searchingList);
         openNav = new TranslateTransition(new Duration(350), drawer);
         openNav.setToX(0);
+        openBtn = new TranslateTransition(new Duration(350), btnMenu);
+        openBtn.setToX(0);
         closeNav = new TranslateTransition(new Duration(350), drawer);
+        closeBtn = new TranslateTransition(new Duration(350), btnMenu);
     }
 
     /**
@@ -89,7 +103,16 @@ public class FrontpageController implements IViewController {
      */
     public void onSearchAction(ActionEvent actionEvent) {
         LOGGER.info("Hvad f skal der ske med den her søgefunktion");
+        var view = choiceBox.getSelectionModel().getSelectedItem();
+        if (view.equals("Kanal")) {
+            viewHandler.openView(Views.BROWSE_CHANNELS, searchTextField.getText());
+
+        } else {
+            viewHandler.openView(Views.BROWSE_PRODUCTIONS, searchTextField.getText());
+        }
+        searchTextField.clear();
     }
+
 
     /**
      * Drawer action.
@@ -99,9 +122,12 @@ public class FrontpageController implements IViewController {
     public void drawerAction(ActionEvent actionEvent) {
         if (drawer.getTranslateX() != 0) {
             openNav.play();
+            openBtn.play();
         } else {
             closeNav.setToX(drawer.getWidth());
+            closeBtn.setToX(drawer.getWidth());
             closeNav.play();
+            closeBtn.play();
         }
     }
 }
