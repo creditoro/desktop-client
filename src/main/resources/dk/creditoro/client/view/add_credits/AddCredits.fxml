@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@AddCredits.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.add_credits.AddCreditController">
+    <left>
+        <AnchorPane minWidth="200.0" style="-fx-background-color: #202020;">
+            <children>
+                <GridPane layoutX="13.0" layoutY="125.0" prefHeight="183.0" prefWidth="268.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button id="sidePanelButton" fx:id="search" mnemonicParsing="false" onAction="#handleSearchBar" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <graphic>
+                                <ImageView id="sidePanelImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/Search_white.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                        </Button>
+                        <Button id="sidePanelButton" fx:id="channels" mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <graphic>
+                                <ImageView id="sidePanelImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/triangle_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                        </Button>
+                        <Button id="sidePanelButton" fx:id="productions" mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <graphic>
+                                <ImageView id="sidePanelImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/programs_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                        </Button>
+                    </children>
+                </GridPane>
+                <Label fx:id="lblStartMenu" alignment="CENTER" layoutX="14.0" onMouseClicked="#lblStartMenuPressed" prefHeight="53.0" prefWidth="216.0" styleClass="logoLabel" text="Creditoro" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../res/Creditoro.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+               <opaqueInsets>
+                  <Insets left="15.0" />
+               </opaqueInsets>
+                </Label>
+            </children>
+        </AnchorPane>
+    </left>
+    <center>
+        <BorderPane prefHeight="1024.0" prefWidth="1304.0" stylesheets="@AddCredits.css">
+            <top>
+                <AnchorPane prefHeight="53.0">
+                    <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <AnchorPane prefHeight="53.0" prefWidth="1440.0" style="-fx-background-color: #31C5EC;" />
+                            </children>
+                        </HBox>
+                        <Button fx:id="btnAccount" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+                            <graphic>
+                                <ImageView fitHeight="46.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../res/acc_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </top>
+            <center>
+                <AnchorPane prefHeight="53.0" prefWidth="1569.0" stylesheets="@AddCredits.css" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="channelNameTxtField" disable="true" editable="false" layoutX="109.0" layoutY="84.0" prefHeight="40.0" prefWidth="530.0" />
+                  <TextField fx:id="productionTitleTxtField" disable="true" editable="false" layoutX="679.0" layoutY="84.0" prefHeight="40.0" prefWidth="530.0" />
+                  <TextField fx:id="nameTxtField" layoutX="109.0" layoutY="147.0" prefHeight="40.0" prefWidth="250.0" promptText="Navn" />
+                  <TextField fx:id="emailTxtField" layoutX="389.0" layoutY="147.0" prefHeight="40.0" prefWidth="250.0" promptText="Email" />
+                  <TextField fx:id="jobTxtField" layoutX="679.0" layoutY="147.0" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="530.0" promptText="Jobtype" />
+                  <Label id="viewLabel" fx:id="channelLabel" layoutX="109.0" layoutY="57.0" text="Kanal" />
+                  <Label id="viewLabel" fx:id="productionLabel" layoutX="679.0" layoutY="57.0" text="Produktion" />
+                  <TextArea fx:id="creditsTxtArea" disable="true" editable="false" layoutX="109.0" layoutY="286.0" prefHeight="572.0" prefWidth="1100.0" promptText="Tilføjede krediteringer" />
+                  <Button id="viewButton" fx:id="addBtn" layoutX="109.0" layoutY="219.0" mnemonicParsing="false" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="1100.0" text="Tilføj" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button id="viewButton" fx:id="exitBtn" layoutX="1106.0" layoutY="874.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" text="Afslut" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button id="viewButton" fx:id="deleteBtn" layoutX="109.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="viewButton" fx:id="deleteAllBtn" layoutX="224.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet alle" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children></AnchorPane>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>

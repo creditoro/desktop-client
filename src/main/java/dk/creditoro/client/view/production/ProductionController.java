@@ -70,7 +70,7 @@ public class ProductionController implements IViewController {
 
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
-        //Code
+        viewHandler.openView(Views.ADD_CREDITS);
     }
 
     @FXML
