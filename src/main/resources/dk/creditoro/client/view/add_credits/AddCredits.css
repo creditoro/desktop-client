@@ -3,46 +3,24 @@
     src: url('Roboto-Regular.ttf');
 }
 
-.label {
+#viewLabel {
     -fx-font-size: 18;
     -fx-font-weight: bold;
 }
 
-#addBtn {
+#viewButton {
     -fx-background-color: #31C5EC;
 }
 
-#addBtn .text {
+#viewButton .text {
     -fx-font-weight: bold;
     -fx-font-size: 16;
 }
 
-#addBtn:hover {
+#viewButton:hover {
     -fx-background-color: #2CB3D9;
 }
 
-#exitBtn {
-    -fx-background-color: #31C5EC;
-}
-
-#exitBtn .text {
-    -fx-font-weight: bold;
-    -fx-font-size: 16;
-}
-
-#exitBtn:hover {
-    -fx-background-color: #2CB3D9;
-}
-
-#deleteBtn {
-    -fx-background-color: #31C5EC;
-}
-
-#deleteBtn .text {
-    -fx-font-weight: bold;
-    -fx-font-size: 16;
-}
-
-#deleteBtn:hover {
-    -fx-background-color: #2CB3D9;
+#sidePanelButton:hover {
+    -fx-text-fill: #31C5EC;
 }

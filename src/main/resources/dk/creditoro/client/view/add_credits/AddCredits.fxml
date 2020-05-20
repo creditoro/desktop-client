@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -20,12 +21,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="search" mnemonicParsing="false" onAction="#handleSearchBar" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
+                        <Button id="sidePanelButton" fx:id="search" mnemonicParsing="false" onAction="#handleSearchBar" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
                             <font>
                                 <Font size="18.0" />
                             </font>
                             <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView id="sidePanelImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../res/Search_white.png" />
                                     </image>
@@ -35,12 +36,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </Button>
-                        <Button fx:id="channels" mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
+                        <Button id="sidePanelButton" fx:id="channels" mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                             <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView id="sidePanelImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../res/triangle_icon.png" />
                                     </image>
@@ -50,12 +51,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </Button>
-                        <Button fx:id="productions" mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
+                        <Button id="sidePanelButton" fx:id="productions" mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>
                             <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView id="sidePanelImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../res/programs_icon.png" />
                                     </image>
@@ -67,7 +68,7 @@
                         </Button>
                     </children>
                 </GridPane>
-                <Label fx:id="lblStartMenu" alignment="CENTER" onMouseClicked="#lblStartMenuPressed" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
+                <Label fx:id="lblStartMenu" alignment="CENTER" layoutX="14.0" onMouseClicked="#lblStartMenuPressed" prefHeight="53.0" prefWidth="216.0" styleClass="logoLabel" text="Creditoro" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="36.0" />
                     </font>
@@ -81,6 +82,9 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
+               <opaqueInsets>
+                  <Insets left="15.0" />
+               </opaqueInsets>
                 </Label>
             </children>
         </AnchorPane>
@@ -117,19 +121,24 @@
                   <TextField fx:id="productionTitleTxtField" disable="true" editable="false" layoutX="679.0" layoutY="84.0" prefHeight="40.0" prefWidth="530.0" />
                   <TextField fx:id="nameTxtField" layoutX="109.0" layoutY="147.0" prefHeight="40.0" prefWidth="250.0" promptText="Navn" />
                   <TextField fx:id="emailTxtField" layoutX="389.0" layoutY="147.0" prefHeight="40.0" prefWidth="250.0" promptText="Email" />
-                  <TextField fx:id="jobTxtField" layoutX="679.0" layoutY="147.0" prefHeight="40.0" prefWidth="530.0" promptText="Jobtype" />
-                  <Label fx:id="channelLabel" layoutX="109.0" layoutY="57.0" text="Kanal" />
-                  <Label fx:id="productionLabel" layoutX="679.0" layoutY="57.0" text="Produktion" />
+                  <TextField fx:id="jobTxtField" layoutX="679.0" layoutY="147.0" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="530.0" promptText="Jobtype" />
+                  <Label id="viewLabel" fx:id="channelLabel" layoutX="109.0" layoutY="57.0" text="Kanal" />
+                  <Label id="viewLabel" fx:id="productionLabel" layoutX="679.0" layoutY="57.0" text="Produktion" />
                   <TextArea fx:id="creditsTxtArea" disable="true" editable="false" layoutX="109.0" layoutY="286.0" prefHeight="572.0" prefWidth="1100.0" promptText="Tilføjede krediteringer" />
-                  <Button fx:id="addBtn" layoutX="109.0" layoutY="219.0" mnemonicParsing="false" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="1100.0" text="Tilføj" textFill="WHITE">
+                  <Button id="viewButton" fx:id="addBtn" layoutX="109.0" layoutY="219.0" mnemonicParsing="false" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="1100.0" text="Tilføj" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="exitBtn" layoutX="1106.0" layoutY="874.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" text="Afslut" textFill="WHITE">
+                  <Button id="viewButton" fx:id="exitBtn" layoutX="1106.0" layoutY="874.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" text="Afslut" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="deleteBtn" layoutX="109.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet" textFill="WHITE">
+                  <Button id="viewButton" fx:id="deleteBtn" layoutX="109.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="viewButton" fx:id="deleteAllBtn" layoutX="224.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet alle" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
