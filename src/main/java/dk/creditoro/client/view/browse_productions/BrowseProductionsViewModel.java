@@ -82,6 +82,10 @@ public class BrowseProductionsViewModel {
         return listProperty;
     }
 
+    public ObservableList<Production> getListProperty() {
+        return listProperty.get();
+    }
+
     /**
      * Sorted list observable list.
      *

@@ -34,6 +34,9 @@ public class ProductionViewModel {
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
     private final ListProperty<Credit> listProperty = new SimpleListProperty<>(creditList);
 
+    private final ObservableList<Production> productionList = FXCollections.observableArrayList();
+    private final ListProperty<Production> productionListProperty = new SimpleListProperty<>(productionList);
+
     private final ArrayList<Credit> cachedCredits = new ArrayList<>();
 
     private String id;
@@ -72,6 +75,11 @@ public class ProductionViewModel {
     public ListProperty<Credit> listPropertyProperty() {
         return listProperty;
     }
+
+    public ListProperty<Production> productionListPropertyProperty() {
+        return productionListProperty;
+    }
+
 
     public void search() {
         listProperty.clear();
@@ -127,6 +135,18 @@ public class ProductionViewModel {
         this.channelName = channelName;
     }
 
+    public void setProductionListProperty(ObservableList<Production> productionListProperty) {
+        this.productionListProperty.set(productionListProperty);
+    }
+
+    private void setProductionTitle() {
+        for (Production prod : productionListProperty) {
+            if (getId().equals(prod.getIdentifier())) {
+                titleLabel.setText(prod.getTitle());
+            }
+        }
+    }
+
     public void refreshValues() {
         BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
         viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue("");
@@ -140,14 +160,6 @@ public class ProductionViewModel {
             }
         }
 
-        // set productionTitle for chosen production
-        BrowseProductionsViewModel productionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
-        viewModelFactory.getBrowseProductionsViewModel().queryParamProperty().setValue("");
-        viewModelFactory.getBrowseProductionsViewModel().search();
-        for (Production production : productionsViewModel.listPropertyProperty()) {
-            if (production.getIdentifier().equals(getId())) {
-                Platform.runLater(() -> titleLabel.setText(production.getTitle()));
-            }
-        }
+        Platform.runLater(this::setProductionTitle);
     }
 }
