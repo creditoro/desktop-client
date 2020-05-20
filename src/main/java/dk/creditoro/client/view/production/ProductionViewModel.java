@@ -114,6 +114,10 @@ public class ProductionViewModel {
         this.titleLabel = titleLabel;
     }
 
+    public Label getTitleLabel() {
+        return titleLabel;
+    }
+
     public void refreshLogo() {
         BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
         viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue("");
