@@ -24,3 +24,8 @@
 #sidePanelButton:hover {
     -fx-text-fill: #31C5EC;
 }
+
+.text-area .text {
+    -fx-text-alignment: center;
+    -fx-line-spacing: 10px;
+}

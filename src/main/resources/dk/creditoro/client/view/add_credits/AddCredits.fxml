@@ -124,7 +124,13 @@
                   <TextField fx:id="jobTxtField" layoutX="679.0" layoutY="147.0" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="530.0" promptText="Jobtype" />
                   <Label id="viewLabel" fx:id="channelLabel" layoutX="109.0" layoutY="57.0" text="Kanal" />
                   <Label id="viewLabel" fx:id="productionLabel" layoutX="679.0" layoutY="57.0" text="Produktion" />
-                  <TextArea fx:id="creditsTxtArea" disable="true" editable="false" layoutX="109.0" layoutY="286.0" prefHeight="572.0" prefWidth="1100.0" promptText="Tilføjede krediteringer" />
+                  <TextArea fx:id="creditsTxtArea" disable="true" editable="false" layoutX="109.0" layoutY="286.0" prefHeight="572.0" prefWidth="1100.0" promptText="Tilføjede krediteringer">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextArea>
                   <Button id="viewButton" fx:id="addBtn" layoutX="109.0" layoutY="219.0" mnemonicParsing="false" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="1100.0" text="Tilføj" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -133,12 +139,17 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button id="viewButton" fx:id="deleteBtn" layoutX="109.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet" textFill="WHITE">
+                  <Button id="viewButton" fx:id="deleteBtn" layoutX="109.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet valgte" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="viewButton" fx:id="deleteAllBtn" layoutX="224.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet alle" textFill="WHITE">
+                  <Button id="viewButton" fx:id="deleteAllBtn" layoutX="223.0" layoutY="874.0" mnemonicParsing="false" onAction="#deleteAllOnAction" prefHeight="40.0" prefWidth="103.0" text="Slet alle" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="viewButton" fx:id="exportBtn" layoutX="992.0" layoutY="874.0" mnemonicParsing="false" onAction="#exportOnAction" prefHeight="40.0" prefWidth="103.0" text="Eksporter" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

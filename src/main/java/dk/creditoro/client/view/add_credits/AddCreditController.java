@@ -4,6 +4,7 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
+    private AddCreditViewModel addCreditViewModel;
 
     @FXML
     private Label channelLabel;
@@ -49,14 +51,10 @@ public class AddCreditController implements IViewController {
     @FXML
     private Button search;
 
-
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-
-        btnAccount.setText("user.getEmail();");
-        channelNameTxtField.setText("channel.getName();");
-        productionTitleTxtField.setText("production.getTitle();");
+        addCreditViewModel = viewModelFactory.getAddCreditViewModel();
     }
 
     public void handleSearchBar() {
@@ -96,7 +94,15 @@ public class AddCreditController implements IViewController {
         LOGGER.info("Credit deleted");
     }
 
-    public void exitOnAction() {
-        LOGGER.info("Exit pressed - Changing view to production");
+    public void deleteAllOnAction(ActionEvent actionEvent) {
+        LOGGER.info("All credits deleted");
+    }
+
+    public void exportOnAction(ActionEvent actionEvent) {
+        LOGGER.info("Exporting credits");
+    }
+
+    public void exitOnAction(){
+        viewHandler.openView(Views.PRODUCTION);
     }
 }

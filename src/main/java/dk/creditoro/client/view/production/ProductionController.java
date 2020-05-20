@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 public class ProductionController implements IViewController {
     private ProductionViewModel productionViewModel;
     private ViewHandler viewHandler;
+    private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
 
     @FXML
     public Text cast;
@@ -32,6 +33,7 @@ public class ProductionController implements IViewController {
     public TextField search;
     @FXML
     public ImageView channelLogo;
+
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
@@ -79,6 +81,8 @@ public class ProductionController implements IViewController {
 
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
+        this.viewModelFactory.getAddCreditViewModel().setChannelId(productionViewModel.getChannelId());
+        // set Production ID in variable on this viewmodelfactory getAddCre... set production id method
         viewHandler.openView(Views.ADD_CREDITS);
     }
 
