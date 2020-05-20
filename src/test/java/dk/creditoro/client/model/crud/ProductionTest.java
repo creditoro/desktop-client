@@ -33,7 +33,6 @@ class ProductionTest {
         assertEquals("Her er en beskrivelse", production.getDescription(), message);
     }
 
-
     @Test
     void getProducer() {
         assertEquals("producer", production.getProducer().getName(), message);

@@ -73,6 +73,7 @@ public class RestClient implements IClient {
         return result.getT();
     }
 
+
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
         LOGGER.info("added listener.");

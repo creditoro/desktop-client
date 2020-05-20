@@ -43,6 +43,7 @@ public class ViewHandler {
      * Start.
      */
     public void start() {
+
         openView(Views.FRONTPAGE);
         root.show();
     }

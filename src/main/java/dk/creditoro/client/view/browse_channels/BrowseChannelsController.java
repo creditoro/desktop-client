@@ -21,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -35,6 +34,7 @@ public class BrowseChannelsController implements IViewController {
     private ViewHandler viewHandler;
     private ObservableList<Node> channelList;
     private Map<String, ImageView> cachedImages;
+    private ViewModelFactory viewModelFactory;
 
 
     @FXML
@@ -49,11 +49,17 @@ public class BrowseChannelsController implements IViewController {
     @FXML
     private HBox alphabet;
 
+    @FXML
+    ImageView imageView;
+
+
     /**
      * Lbl start menu pressed.
      *
      * @param mouseEvent the mouse event
      */
+
+
     public void lblStartMenuPressed(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
@@ -95,6 +101,11 @@ public class BrowseChannelsController implements IViewController {
      */
     public void switchView(String viewToOpen) {
         LOGGER.info(viewToOpen);
+        viewHandler.openView(Views.CHANNEL_PROGRAMS);
+        viewModelFactory.getChannelProgramsViewModel().setId(viewToOpen);
+        viewModelFactory.getChannelProgramsViewModel().queryParamProperty().setValue("");
+        viewModelFactory.getChannelProgramsViewModel().search();
+
     }
 
 
@@ -103,6 +114,7 @@ public class BrowseChannelsController implements IViewController {
         browseChannelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
         this.viewHandler = viewHandler;
         this.cachedImages = new HashMap<>();
+        this.viewModelFactory = viewModelFactory;
 
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
@@ -112,6 +124,8 @@ public class BrowseChannelsController implements IViewController {
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
         browseChannelsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
         onSearch();
+
+
     }
 
     private void doneLoading(TilePane tilePane) {
@@ -137,7 +151,6 @@ public class BrowseChannelsController implements IViewController {
 
     private void updateGrid(ObservableList<Channel> channels) {
         LOGGER.info("Update grid called.");
-
         //Remove all children from Grid
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 15, 15, 15));
@@ -146,7 +159,7 @@ public class BrowseChannelsController implements IViewController {
         tilePane.prefWidthProperty().bind(channelPane.widthProperty());
 
         for (Channel channel : channels) {
-            ImageView imageView = cachedImages.get(channel.getIdentifier());
+            imageView = cachedImages.get(channel.getIdentifier());
             if (imageView == null) {
                 try {
                     imageView = new ImageView(channel.getIconUrl());
@@ -160,10 +173,10 @@ public class BrowseChannelsController implements IViewController {
                     imageView.setFitWidth(80);
                     imageView.setFitHeight(80);
                     imageView.setSmooth(true);
+
                     //Set Actions
                     imageView.setOnMouseClicked(mouseEvent -> {
-                        var img = (ImageView) mouseEvent.getSource();
-                        switchView(img.getId());
+                        switchView(channel.getName());
                         LOGGER.info(channel.getName());
                     });
                 }

@@ -108,12 +108,12 @@
                             <children>
                                 <AnchorPane prefHeight="81.0" prefWidth="1446.0">
                                     <children>
-                                        <TextField fx:id="channelSearch" alignment="CENTER" layoutX="439.0" layoutY="22.0" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter produktion" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="439.0" AnchorPane.rightAnchor="439.0">
+                                        <TextField fx:id="channelSearch" alignment="CENTER" layoutX="439.0" layoutY="22.0" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter kanal" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="439.0" AnchorPane.rightAnchor="439.0">
                                             <font>
                                                 <Font size="16.0" />
                                             </font>
                                           </TextField>
-                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="450.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="573.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../res/search.png" />
                                             </image>

@@ -6,6 +6,7 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,11 +14,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.layout.TilePane;
+
 import java.util.logging.Logger;
 
 
@@ -27,15 +26,12 @@ public class ChannelProgramsController implements IViewController {
     private ViewHandler viewHandler;
     private ObservableList<Node> productionsList;
 
-
     @FXML
     private ScrollPane productionPane;
 
     @FXML
     private TextField productionSearch;
 
-    @FXML
-    private ImageView imgIcon;
 
     @FXML
     private HBox alphabet;
@@ -48,6 +44,9 @@ public class ChannelProgramsController implements IViewController {
 
     @FXML
     private Button btnAccount;
+
+    @FXML
+    public TextField search;
 
 
     /**
@@ -80,6 +79,10 @@ public class ChannelProgramsController implements IViewController {
         LOGGER.info(viewToOpen);
     }
 
+    public void getProductions() {
+        channelProgramsViewModel.getProductions();
+    }
+
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         channelProgramsViewModel = viewModelFactory.getChannelProgramsViewModel();
@@ -95,45 +98,58 @@ public class ChannelProgramsController implements IViewController {
         cbSort.setItems(channelProgramsViewModel.listSort());
 
         btnAccount.setText("user.getEmail()");
-    }
+        getProductions();
 
+    }
 
     private void updateGrid(ObservableList<Production> productions) {
         LOGGER.info("Update grid called.");
         TilePane tp = new TilePane();
         tp.prefWidthProperty().bind(productionPane.widthProperty());
 
-
         for (Production production : productions) {
-            if (!production.getChannel().getName().equals("DR1")) {
+            if (!production.getChannel().getName().equals(channelProgramsViewModel.getId())) {
                 continue;
             }
-            Text description = getDescription(production);
+
+            Button description = getDescription(production);
             TitledPane tps = new TitledPane(production.getTitle(), description);
             tps.setId(production.getIdentifier());
             tps.setExpanded(false);
             tps.setPadding(new Insets(15, 0, 0, 0));
 
+            setOnMouseClicked(production, description);
+
             tp.getChildren().addAll(tps);
 
         }
+
         productionPane.setContent(tp);
         productionsList = FXCollections.observableArrayList(tp.getChildren());
     }
 
-    private Text getDescription(Production production) {
-        var numberOfCharacters = 1000;
-        var desc = production.getDescription().substring(0, Math.min(numberOfCharacters, production.getDescription().length()));
+    private Button getDescription(Production production) {
+        Button description = new Button();
+        description.wrapTextProperty().setValue(true);
+        description.prefWidthProperty().bind(productionPane.widthProperty().subtract(50));
 
-        Text description = new Text();
-        if (production.getDescription().length() > numberOfCharacters) {
-            description.setText(desc + "...");
+        if (production.getDescription().isEmpty()) {
+            description.setText("Ingen programbeskrivelse at vise");
+            description.setStyle("-fx-font-style: italic");
         } else {
-            description.setText(desc);
+            description.setText(production.getDescription());
         }
-        description.setFont(new Font(14));
-        description.setWrappingWidth(productionPane.getWidth() - 50);
         return description;
+    }
+
+    private void setOnMouseClicked(Production production, Button description) {
+        description.setOnMouseClicked(mouseEvent -> {
+            var desc = (Button) mouseEvent.getSource();
+            switchView(desc.getId());
+            LOGGER.info(production.getTitle());
+            LOGGER.info("Switching to credits");
+
+        });
     }
 
     /**
@@ -153,8 +169,9 @@ public class ChannelProgramsController implements IViewController {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
-    public void SwitchToChannels() {
+    public void switchToChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+
     }
 }
 

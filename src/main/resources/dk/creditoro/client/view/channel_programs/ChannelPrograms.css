@@ -29,12 +29,17 @@
 
 @font-face {
     font-family: 'Roboto';
-    src: url('Roboto-Regular.ttf');
+    src: url('../../res/Roboto-Regular.ttf');
 }
 
 .button .text {
     -fx-font-family: "Roboto";
-    -fx-font-size: 24;
+    -fx-font-size: 14;
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .bold {
@@ -42,5 +47,11 @@
 }
 
 .titled-pane .title{
+    -fx-font-family: "Roboto";
+    -fx-font-size: 24;
     -fx-background-color: transparent;
+}
+
+.titled-pane > *. content {
+    -fx-border-color: transparent;
 }

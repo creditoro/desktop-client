@@ -9,6 +9,7 @@ import dk.creditoro.client.networking.IClient;
 import java.beans.PropertyChangeListener;
 
 public class DummyClient implements IClient {
+
     @Override
     public User login(String email, String password) {
         return null;

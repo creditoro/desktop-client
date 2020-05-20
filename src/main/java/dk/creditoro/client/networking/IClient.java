@@ -11,7 +11,9 @@ import java.beans.PropertyChangeListener;
  * The interface Http manager.
  */
 public interface IClient {
+
     User login(String email, String password);
+
     void register(User user);
 
     Channel[] searchChannels(String q);
