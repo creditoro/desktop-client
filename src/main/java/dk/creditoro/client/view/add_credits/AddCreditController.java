@@ -84,6 +84,7 @@ public class AddCreditController implements IViewController {
     }
 
     public void exitOnAction() {
+        creditsTxtArea.clear();
         viewHandler.openView(Views.PRODUCTION);
     }
 }

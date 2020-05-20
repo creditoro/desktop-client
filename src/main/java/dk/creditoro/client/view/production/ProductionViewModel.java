@@ -34,12 +34,13 @@ public class ProductionViewModel {
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
     private final ListProperty<Credit> listProperty = new SimpleListProperty<>(creditList);
 
-    private ArrayList<Credit> cachedCredits = new ArrayList<>();
+    private final ArrayList<Credit> cachedCredits = new ArrayList<>();
 
     private String id;
     private String channelId;
     private ImageView channelLogo;
     private Label titleLabel;
+    private Label channelName;
 
     public ProductionViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
         this.viewModelFactory = viewModelFactory;
@@ -118,13 +119,24 @@ public class ProductionViewModel {
         return titleLabel;
     }
 
-    public void refreshLogo() {
+    public Label getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(Label channelName) {
+        this.channelName = channelName;
+    }
+
+    public void refreshValues() {
         BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
         viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue("");
         viewModelFactory.getBrowseChannelsViewModel().search();
         for (Channel channel : channelsViewModel.listPropertyProperty()) {
             if (channel.getIdentifier().equals(getChannelId())) {
-                Platform.runLater(() -> channelLogo.setImage(new Image(channel.getIconUrl())));
+                Platform.runLater(() -> {
+                    channelLogo.setImage(new Image(channel.getIconUrl()));
+                    channelName.setText(channel.getName());
+                });
             }
         }
 

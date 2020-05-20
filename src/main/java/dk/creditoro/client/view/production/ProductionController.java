@@ -28,13 +28,13 @@ public class ProductionController implements IViewController {
     @FXML
     private Text credit;
     @FXML
-    private Label lblStartMenu;
-    @FXML
     private TextField search;
     @FXML
     private ImageView channelLogo;
     @FXML
     private Label titleLabel;
+    @FXML
+    private Label channelName;
 
 
     @Override
@@ -50,6 +50,7 @@ public class ProductionController implements IViewController {
         getCredits();
         productionViewModel.setChannelLogo(channelLogo);
         productionViewModel.setTitleLabel(titleLabel);
+        productionViewModel.setChannelName(channelName);
     }
 
     @FXML
@@ -85,10 +86,9 @@ public class ProductionController implements IViewController {
 
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
-        this.viewModelFactory.getAddCreditViewModel().setChannelId(productionViewModel.getChannelId());
-//        this.viewModelFactory.getAddCreditViewModel().setProductionId(productionViewModel.getId());
-        this.viewModelFactory.getAddCreditViewModel().setListProperty(productionViewModel.listPropertyProperty());
+        this.viewModelFactory.getAddCreditViewModel().setChannelName(productionViewModel.getChannelName().getText());
         this.viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitleLabel().getText());
+        this.viewModelFactory.getAddCreditViewModel().setListProperty(productionViewModel.listPropertyProperty());
         this.viewModelFactory.getAddCreditViewModel().refreshValues();
         viewHandler.openView(Views.ADD_CREDITS);
     }

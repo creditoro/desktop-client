@@ -81,7 +81,10 @@
                <children>
                   <AnchorPane prefHeight="50.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Pane prefHeight="50.0" prefWidth="800.0" style="-fx-background-color: #31c5ec;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Pane prefHeight="50.0" prefWidth="800.0" style="-fx-background-color: #31c5ec;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label fx:id="channelName" layoutX="393.0" layoutY="18.0" text="Label" textFill="#31c5ec" />
+                           </children></Pane>
                         <Button contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                            <graphic>
                               <ImageView fitHeight="46.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">

@@ -98,7 +98,7 @@ public class BrowseProductionsController implements IViewController {
         LOGGER.info(viewToOpen);
 		this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
 		this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
-		this.viewModelFactory.getProductionViewModel().refreshLogo();
+		this.viewModelFactory.getProductionViewModel().refreshValues();
 		this.viewHandler.openView(Views.PRODUCTION);
     }
 

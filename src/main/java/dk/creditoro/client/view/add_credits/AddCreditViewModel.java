@@ -13,6 +13,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -27,11 +28,13 @@ public class AddCreditViewModel {
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
     private final ListProperty<Credit> listProperty = new SimpleListProperty<>(creditList);
 
-    private String channelId;
-    private String productionId;
+    private String channelName;
     private String productionTitle;
+    @FXML
     private TextField channelNameTxtField;
+    @FXML
     private TextField productionTitleTxtField;
+    @FXML
     private TextArea creditsTxtArea;
 
     public AddCreditViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
@@ -42,22 +45,6 @@ public class AddCreditViewModel {
 
     public void setProductionTitle(String productionTitle) {
         this.productionTitle = productionTitle;
-    }
-
-    public String getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(String channelId) {
-        this.channelId = channelId;
-    }
-
-    public String getProductionId() {
-        return productionId;
-    }
-
-    public void setProductionId(String productionId) {
-        this.productionId = productionId;
     }
 
     public void setChannelNameTxtField(TextField channelNameTxtField) {
@@ -76,22 +63,25 @@ public class AddCreditViewModel {
         this.listProperty.set(listProperty);
     }
 
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public String getProductionTitle() {
+        return productionTitle;
+    }
+
     public void refreshValues() {
-        // set channelName for chosen production
-        BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
-        viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue("");
-        viewModelFactory.getBrowseChannelsViewModel().search();
-        for (Channel channel : channelsViewModel.listPropertyProperty()) {
-            if (channel.getIdentifier().equals(getChannelId())) {
-                Platform.runLater(() -> channelNameTxtField.setText(channel.getName()));
-            }
-        }
 
-        // Set productionTitle for chosen production
-        Platform.runLater(() -> productionTitleTxtField.setText(productionTitle));
-
-        // Clear credits textArea
-        Platform.runLater(() -> creditsTxtArea.clear());
+        // Set channelName and productionTitle for chosen production
+        Platform.runLater(() -> {
+            channelNameTxtField.setText(getChannelName());
+            productionTitleTxtField.setText(getProductionTitle());
+        });
 
         // Set credits for chosen production
         for (Credit cred : listProperty) {
