@@ -4,10 +4,7 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -16,14 +13,7 @@ import java.util.logging.Logger;
 public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
-    private AddCreditViewModel addCreditViewModel;
 
-    @FXML
-    private Label channelLabel;
-    @FXML
-    private Label productionLabel;
-    @FXML
-    private Label lblStartMenu;
     @FXML
     private TextField channelNameTxtField;
     @FXML
@@ -36,28 +26,16 @@ public class AddCreditController implements IViewController {
     private TextField emailTxtField;
     @FXML
     private TextArea creditsTxtArea;
-    @FXML
-    private Button addBtn;
-    @FXML
-    private Button exitBtn;
-    @FXML
-    private Button deleteBtn;
-    @FXML
-    private Button btnAccount;
-    @FXML
-    private Button productions;
-    @FXML
-    private Button channels;
-    @FXML
-    private Button search;
+
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-        addCreditViewModel = viewModelFactory.getAddCreditViewModel();
+        AddCreditViewModel addCreditViewModel = viewModelFactory.getAddCreditViewModel();
 
         addCreditViewModel.setChannelNameTxtField(channelNameTxtField);
         addCreditViewModel.setProductionTitleTxtField(productionTitleTxtField);
+        addCreditViewModel.setCreditsTxtArea(creditsTxtArea);
     }
 
     public void handleSearchBar() {
@@ -84,7 +62,7 @@ public class AddCreditController implements IViewController {
         String name = nameTxtField.getText();
         String job = jobTxtField.getText();
 
-        creditsTxtArea.appendText(name + "\t" + job + "\n");
+        creditsTxtArea.appendText("\n" + name + "\t" + job);
 
         nameTxtField.clear();
         emailTxtField.clear();
@@ -97,15 +75,15 @@ public class AddCreditController implements IViewController {
         LOGGER.info("Credit deleted");
     }
 
-    public void deleteAllOnAction(ActionEvent actionEvent) {
+    public void deleteAllOnAction() {
         LOGGER.info("All credits deleted");
     }
 
-    public void exportOnAction(ActionEvent actionEvent) {
+    public void exportOnAction() {
         LOGGER.info("Exporting credits");
     }
 
-    public void exitOnAction(){
+    public void exitOnAction() {
         viewHandler.openView(Views.PRODUCTION);
     }
 }

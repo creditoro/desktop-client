@@ -13,8 +13,11 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class AddCreditViewModel {
@@ -30,6 +33,7 @@ public class AddCreditViewModel {
     private String productionId;
     private TextField channelNameTxtField;
     private TextField productionTitleTxtField;
+    private TextArea creditsTxtArea;
 
 
     public AddCreditViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
@@ -62,6 +66,14 @@ public class AddCreditViewModel {
         this.productionTitleTxtField = productionTitleTxtField;
     }
 
+    public void setCreditsTxtArea(TextArea creditsTxtArea) {
+        this.creditsTxtArea = creditsTxtArea;
+    }
+
+    public void setListProperty(ObservableList<Credit> listProperty) {
+        this.listProperty.set(listProperty);
+    }
+
     public void refreshValues() {
         // set channelName for chosen production
         BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
@@ -72,6 +84,7 @@ public class AddCreditViewModel {
                 Platform.runLater(() -> channelNameTxtField.setText(channel.getName()));
             }
         }
+
         // set productionTitle for chosen production
         BrowseProductionsViewModel productionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         viewModelFactory.getBrowseProductionsViewModel().queryParamProperty().setValue("");
@@ -80,6 +93,14 @@ public class AddCreditViewModel {
             if (production.getIdentifier().equals(getProductionId())) {
                 Platform.runLater(() -> productionTitleTxtField.setText(production.getTitle()));
             }
+        }
+
+        // Clear credits textArea
+        Platform.runLater(() -> creditsTxtArea.clear());
+
+        // Set credits for chosen production
+        for (Credit cred : listProperty){
+            Platform.runLater(() -> creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n"));
         }
     }
 }
