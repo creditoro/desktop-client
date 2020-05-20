@@ -76,16 +76,13 @@ public class AddCreditViewModel {
     }
 
     public void refreshValues() {
-
-        // Set channelName and productionTitle for chosen production
+        // Set channelName, productionTitle and credits for chosen production
         Platform.runLater(() -> {
             channelNameTxtField.setText(getChannelName());
             productionTitleTxtField.setText(getProductionTitle());
+            for (Credit cred : listProperty){
+                creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n");
+            }
         });
-
-        // Set credits for chosen production
-        for (Credit cred : listProperty) {
-            Platform.runLater(() -> creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n"));
-        }
     }
 }
