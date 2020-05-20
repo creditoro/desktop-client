@@ -114,7 +114,6 @@ public class ProductionViewModel {
         viewModelFactory.getBrowseChannelsViewModel().search();
         for (Channel channel : channelsViewModel.listPropertyProperty()) {
             if (channel.getIdentifier().equals(getChannelId())) {
-                System.out.println(channel.getName());
                 Platform.runLater(() -> channelLogo.setImage(new Image(channel.getIconUrl())));
             }
         }

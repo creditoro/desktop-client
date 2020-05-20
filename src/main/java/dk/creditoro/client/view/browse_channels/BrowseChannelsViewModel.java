@@ -5,7 +5,6 @@ import dk.creditoro.client.model.channel.IChannelModel;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.user.IUserModel;
 import dk.creditoro.client.view.shared_viewmodel_func.FindCharacter;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
