@@ -9,6 +9,7 @@ import java.util.Map;
 public class UsersEndpoint {
 
     private final HttpManager httpManager;
+	private static final String USERS = "/users";
 
 
     public UsersEndpoint(HttpManager httpManager) {
@@ -16,7 +17,7 @@ public class UsersEndpoint {
     }
 
     public TokenResponse<User> getUser(String identifier) {
-        var response = httpManager.get("/users", identifier, null);
+        var response = httpManager.get(USERS, identifier, null);
         return new TokenResponse<>(response.asObject(User.class));
     }
 
@@ -29,12 +30,12 @@ public class UsersEndpoint {
     }
 
     public TokenResponse<User[]> getUsers(String q) {
-        var response = httpManager.getList("/users", q, null);
+        var response = httpManager.getList(USERS, q, null);
         return new TokenResponse<>(response.asObject(User[].class));
     }
 
     public TokenResponse<User> postUser(JSONObject body) {
-        var response = httpManager.post("/users", body);
+        var response = httpManager.post(USERS, body);
         return new TokenResponse<>(response.asObject(User.class));
     }
 
@@ -43,7 +44,7 @@ public class UsersEndpoint {
             return null;
         }
         var body = new JSONObject(Map.of("email", email, "password", password));
-        var response = httpManager.post("/users/login", body);
+        var response = httpManager.post(USERS+"/login", body);
         return new TokenResponse<>(response.asObject(User.class));
     }
 }
