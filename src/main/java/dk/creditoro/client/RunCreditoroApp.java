@@ -1,6 +1,5 @@
 package dk.creditoro.client;
 
-import de.codecentric.centerdevice.javafxsvg.SvgImageLoaderFactory;
 import dk.creditoro.client.core.CreditoroApp;
 import javafx.application.Application;
 
