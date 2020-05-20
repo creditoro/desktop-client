@@ -36,7 +36,6 @@ public class BrowseChannelsController implements IViewController {
     private ObservableList<Node> channelList;
     private Map<String, ImageView> cachedImages;
 
-
     @FXML
     private ScrollPane channelPane;
 
@@ -54,10 +53,6 @@ public class BrowseChannelsController implements IViewController {
      *
      * @param mouseEvent the mouse event
      */
-    public void lblStartMenuPressed(MouseEvent mouseEvent) {
-        viewHandler.openView(Views.FRONTPAGE);
-    }
-
     ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
 
     /**
