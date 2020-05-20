@@ -24,19 +24,20 @@ public class ProductionController implements IViewController {
     private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
 
     @FXML
-    public Text cast;
+    private Text cast;
     @FXML
-    public Text credit;
+    private Text credit;
     @FXML
-    public Label lblStartMenu;
+    private Label lblStartMenu;
     @FXML
-    public TextField search;
+    private TextField search;
     @FXML
-    public ImageView channelLogo;
+    private ImageView channelLogo;
 
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
+        this.viewModelFactory = viewModelFactory;
         this.viewHandler = viewHandler;
         productionViewModel = viewModelFactory.getProductionViewModel();
 
@@ -82,7 +83,8 @@ public class ProductionController implements IViewController {
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
         this.viewModelFactory.getAddCreditViewModel().setChannelId(productionViewModel.getChannelId());
-        // set Production ID in variable on this viewmodelfactory getAddCre... set production id method
+        this.viewModelFactory.getAddCreditViewModel().setProductionId(productionViewModel.getId());
+        this.viewModelFactory.getAddCreditViewModel().refreshValues();
         viewHandler.openView(Views.ADD_CREDITS);
     }
 

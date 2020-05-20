@@ -55,6 +55,9 @@ public class AddCreditController implements IViewController {
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
         addCreditViewModel = viewModelFactory.getAddCreditViewModel();
+
+        addCreditViewModel.setChannelNameTxtField(channelNameTxtField);
+        addCreditViewModel.setProductionTitleTxtField(productionTitleTxtField);
     }
 
     public void handleSearchBar() {
