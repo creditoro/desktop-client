@@ -37,10 +37,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Skift Produktion" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
-                           <graphic>
-                              <ImageView fx:id="channelLogo" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
+                        <Button mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Skift Produktion" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="720.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">

@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -30,8 +29,6 @@ public class ProductionController implements IViewController {
     public Label lblStartMenu;
     @FXML
     public TextField search;
-    @FXML
-    public ImageView channelLogo;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
@@ -43,7 +40,6 @@ public class ProductionController implements IViewController {
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
         productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
         getCredits();
-        productionViewModel.setChannelLogo(channelLogo);
     }
 
     @FXML
@@ -94,5 +90,9 @@ public class ProductionController implements IViewController {
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
+
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
     }
 }

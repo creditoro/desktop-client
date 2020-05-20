@@ -35,7 +35,6 @@ public class ProductionViewModel {
 
     private String id;
     private String channelId;
-    private ImageView channelLogo;
 
     public ProductionViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
         this.viewModelFactory = viewModelFactory;
@@ -98,24 +97,5 @@ public class ProductionViewModel {
 
     public String getChannelId() {
         return channelId;
-    }
-
-    public ImageView getChannelLogo() {
-        return channelLogo;
-    }
-
-    public void setChannelLogo(ImageView channelLogo) {
-        this.channelLogo = channelLogo;
-    }
-
-    public void refreshLogo() {
-        BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
-        viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue("");
-        viewModelFactory.getBrowseChannelsViewModel().search();
-        for (Channel channel : channelsViewModel.listPropertyProperty()) {
-            if (channel.getIdentifier().equals(getChannelId())) {
-                Platform.runLater(() -> channelLogo.setImage(new Image(channel.getIconUrl())));
-            }
-        }
     }
 }

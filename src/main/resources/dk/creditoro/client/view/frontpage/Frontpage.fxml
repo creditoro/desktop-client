@@ -58,12 +58,12 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #31C5EC;" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="title" text="Krediteringer for alle" textFill="WHITE" AnchorPane.leftAnchor="317.25" AnchorPane.rightAnchor="317.25" AnchorPane.topAnchor="100.0">
+                  <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Krediteringer for alle" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                      <font>
                         <Font size="96.0" />
                      </font>
                   </Label>
-                  <Label text="Digitaliserede rulletekster for tv-kanaler." textFill="WHITE" AnchorPane.leftAnchor="420.75" AnchorPane.rightAnchor="420.75" AnchorPane.topAnchor="225.0">
+                  <Label alignment="CENTER" text="Digitaliserede rulletekster for tv-kanaler." textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="225.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -115,7 +115,7 @@
                         </LinearGradient>
                      </fill>
                   </Circle>
-                  <Button id="drawer_button" fx:id="btnMenu" layoutX="-7.0" layoutY="40.0" mnemonicParsing="false" onAction="#drawerAction" style="-fx-background-color: #202020;" stylesheets="Frontpage.css">
+                  <Button id="drawer_button" fx:id="btnMenu" layoutX="-22.0" layoutY="40.0" mnemonicParsing="false" onAction="#drawerAction" prefHeight="51.0" prefWidth="81.0" style="-fx-background-color: #202020; -fx-background-radius: 20;" stylesheets="Frontpage.css">
                      <graphic>
                         <ImageView fx:id="menu" fitHeight="51.0" fitWidth="58.0" onMouseClicked="#drawerAction" onMouseReleased="#drawerAction" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
                            <image>
@@ -133,12 +133,15 @@
                         <Insets left="15.0" />
                      </padding>
                   </Button>
-                  <AnchorPane fx:id="drawer" layoutX="-250.0" minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="250.0" scaleShape="false" style="-fx-background-color: #202020;" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="drawer" layoutX="-250.0" minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="250.0" scaleShape="false" style="-fx-background-color: #202020;" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Version 0.0.1" textFill="#e4e4e4" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
                            <font>
                               <Font size="20.0" />
                            </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
                         </Label>
                         <VBox prefHeight="800.0" prefWidth="250.0">
                            <children>
