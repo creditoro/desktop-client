@@ -7,7 +7,6 @@ import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.user.IUserModel;
 import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
-import dk.creditoro.client.view.browse_productions.BrowseProductionsViewModel;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -66,10 +65,10 @@ public class ProductionViewModel {
     private void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search credit result called.");
         var credits = (Credit[]) propertyChangeEvent.getNewValue();
-            listProperty.clear();
-            listProperty.addAll(credits);
+        listProperty.clear();
+        listProperty.addAll(credits);
 
-            cachedCredits.addAll(Arrays.asList(credits));
+        cachedCredits.addAll(Arrays.asList(credits));
     }
 
     public ListProperty<Credit> listPropertyProperty() {
@@ -95,20 +94,20 @@ public class ProductionViewModel {
         }
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setChannelId(String id) {
-        this.channelId = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getChannelId() {
         return channelId;
+    }
+
+    public void setChannelId(String id) {
+        this.channelId = id;
     }
 
     public ImageView getChannelLogo() {
@@ -119,12 +118,12 @@ public class ProductionViewModel {
         this.channelLogo = channelLogo;
     }
 
-    public void setTitleLabel(Label titleLabel) {
-        this.titleLabel = titleLabel;
-    }
-
     public Label getTitleLabel() {
         return titleLabel;
+    }
+
+    public void setTitleLabel(Label titleLabel) {
+        this.titleLabel = titleLabel;
     }
 
     public Label getChannelName() {
