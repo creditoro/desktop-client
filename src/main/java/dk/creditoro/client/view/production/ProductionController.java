@@ -9,7 +9,9 @@ import dk.creditoro.client.view.IViewController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -20,30 +22,37 @@ public class ProductionController implements IViewController {
     private ProductionViewModel productionViewModel;
     private ViewHandler viewHandler;
 
-    @FXML public Text cast;
-    @FXML public Text credit;
-    @FXML public Label lblStartMenu;
-    @FXML public TextField search;
+    @FXML
+    public Text cast;
+    @FXML
+    public Text credit;
+    @FXML
+    public Label lblStartMenu;
+    @FXML
+    public TextField search;
+    @FXML
+    public ImageView channelLogo;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
         productionViewModel = viewModelFactory.getProductionViewModel();
 
+
         //Add Listener to search area
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
         productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
-
-
         getCredits();
+        productionViewModel.setChannelLogo(channelLogo);
     }
 
     @FXML
     private void getCredits() {
         productionViewModel.getCredits();
     }
+
     @FXML
-    private void onSearch(){
+    private void onSearch() {
         productionViewModel.search();
     }
 

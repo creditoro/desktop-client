@@ -103,11 +103,7 @@
                         </Button>
                         <Button mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Skift Produktion" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
                            <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../res/Creditoro.png" />
-                                 </image>
-                              </ImageView>
+                              <ImageView fx:id="channelLogo" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                      </children>

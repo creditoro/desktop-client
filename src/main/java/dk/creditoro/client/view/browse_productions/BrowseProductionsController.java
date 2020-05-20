@@ -94,9 +94,11 @@ public class BrowseProductionsController implements IViewController {
      *
      * @param viewToOpen the view to open
      */
-    public void switchView(String viewToOpen) {
+    public void switchView(String viewToOpen, String channelId) {
         LOGGER.info(viewToOpen);
 		this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
+		this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
+		this.viewModelFactory.getProductionViewModel().refreshLogo();
 		this.viewHandler.openView(Views.PRODUCTION);
     }
 
@@ -217,7 +219,7 @@ public class BrowseProductionsController implements IViewController {
     private void setOnMouseClicked(Production production, VBox vBox) {
         vBox.setOnMouseClicked(mouseEvent -> {
             var box = (VBox) mouseEvent.getSource();
-            switchView(box.getId());
+            switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
         });
     }
