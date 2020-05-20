@@ -257,4 +257,12 @@ public class BrowseProductionsController implements IViewController {
         TilePane tilePane = (TilePane) productionPane.getContent();
         tilePane.getChildren().setAll(browseProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
     }
+
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
 }

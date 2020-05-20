@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -38,7 +39,7 @@ public class FrontpageController implements IViewController {
     @FXML
     private Button btnMenu;
     @FXML
-    private VBox drawer;
+    private AnchorPane drawer;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -129,5 +130,9 @@ public class FrontpageController implements IViewController {
             closeNav.play();
             closeBtn.play();
         }
+    }
+
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
     }
 }

@@ -204,4 +204,15 @@ public class BrowseChannelsController implements IViewController {
     }
 
 
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    public void btnChannels(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
 }
