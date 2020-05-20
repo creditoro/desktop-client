@@ -50,9 +50,10 @@ public class ProductionViewModel {
         LOGGER.info("On search credit result called.");
         var credits = (Credit[]) propertyChangeEvent.getNewValue();
         Platform.runLater(() -> {
+            listProperty.clear();
+            listProperty.addAll(credits);
 
 			cachedCredits.addAll(Arrays.asList(credits));
-			search();
         });
     }
 
