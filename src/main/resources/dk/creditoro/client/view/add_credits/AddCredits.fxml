@@ -135,7 +135,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button id="viewButton" fx:id="exitBtn" layoutX="1106.0" layoutY="874.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" text="Afslut" textFill="WHITE">
+                  <Button id="viewButton" fx:id="exitBtn" layoutX="1106.0" layoutY="874.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" text="Færdig" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

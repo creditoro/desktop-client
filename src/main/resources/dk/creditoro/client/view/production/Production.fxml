@@ -101,7 +101,7 @@
                   <AnchorPane prefHeight="720.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                      <children>
                         <Line endX="350.0" layoutX="400.0" startX="-350.0" AnchorPane.leftAnchor="49.5" AnchorPane.rightAnchor="49.5" AnchorPane.topAnchor="80.0" />
-                        <Label alignment="CENTER" layoutX="145.0" layoutY="26.0" prefHeight="50.0" prefWidth="500.0" text="Program Titel" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="25.0">
+                        <Label fx:id="titleLabel" alignment="CENTER" layoutX="145.0" layoutY="26.0" prefHeight="50.0" prefWidth="500.0" text="Program Titel" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="25.0">
                            <font>
                               <Font size="36.0" />
                            </font>

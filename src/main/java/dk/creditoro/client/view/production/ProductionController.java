@@ -33,6 +33,8 @@ public class ProductionController implements IViewController {
     private TextField search;
     @FXML
     private ImageView channelLogo;
+    @FXML
+    private Label titleLabel;
 
 
     @Override
@@ -47,6 +49,7 @@ public class ProductionController implements IViewController {
         productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
         getCredits();
         productionViewModel.setChannelLogo(channelLogo);
+        productionViewModel.setTitleLabel(titleLabel);
     }
 
     @FXML
