@@ -218,6 +218,8 @@ public class BrowseProductionsController implements IViewController {
     private void setOnMouseClicked(Production production, VBox vBox) {
         vBox.setOnMouseClicked(mouseEvent -> {
             var box = (VBox) mouseEvent.getSource();
+            //Set title in productionViewModel
+            viewModelFactory.getProductionViewModel().setTitle(production.getTitle());
             switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
         });
@@ -257,10 +259,12 @@ public class BrowseProductionsController implements IViewController {
         tilePane.getChildren().setAll(browseProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
     }
 
+    @FXML
     public void btnSearch(ActionEvent actionEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    @FXML
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }

@@ -29,17 +29,21 @@ public class ProductionController implements IViewController {
     public Label lblStartMenu;
     @FXML
     public TextField search;
+    @FXML
+    public Label title;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
         productionViewModel = viewModelFactory.getProductionViewModel();
 
-
         //Add Listener to search area
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
         productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
         getCredits();
+
+        //Set title
+        title.textProperty().bindBidirectional(productionViewModel.titleProperty());
     }
 
     @FXML
@@ -83,8 +87,9 @@ public class ProductionController implements IViewController {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
+    @FXML
     public void btnSearch(ActionEvent actionEvent) {
-        //Do something
+        viewHandler.openView(Views.FRONTPAGE);
     }
 
     @FXML
@@ -92,6 +97,7 @@ public class ProductionController implements IViewController {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
+    @FXML
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }

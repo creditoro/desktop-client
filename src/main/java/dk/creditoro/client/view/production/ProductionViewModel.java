@@ -2,20 +2,14 @@ package dk.creditoro.client.view.production;
 
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.credit.ICreditModel;
-import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.user.IUserModel;
-import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +29,8 @@ public class ProductionViewModel {
 
     private String id;
     private String channelId;
+
+    private StringProperty title = new SimpleStringProperty();
 
     public ProductionViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
         this.viewModelFactory = viewModelFactory;
@@ -95,5 +91,13 @@ public class ProductionViewModel {
 
     public String getChannelId() {
         return channelId;
+    }
+
+    public void setTitle(String title) {
+        this.title.set(title);
+    }
+
+    public StringProperty titleProperty() {
+        return title;
     }
 }
