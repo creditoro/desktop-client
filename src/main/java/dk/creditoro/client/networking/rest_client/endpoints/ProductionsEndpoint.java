@@ -21,12 +21,14 @@ public class ProductionsEndpoint {
         return new TokenResponse<>(response.asObject(Production.class));
     }
 
-    public TokenResponse<Production> putProduction(String identifier, JSONObject body) {
-        return null;
+    public TokenResponse<Production> putProduction(String identifier, JSONObject body, String token) {
+        var response = httpManager.put(PRODUCTIONS, identifier, body, token);
+        return new TokenResponse<>(response.asObject(Production.class));
     }
 
-    public TokenResponse<Production> patchProduction(String identifier, Map<String, Object> fields) {
-        return null;
+    public TokenResponse<Production> patchProduction(String identifier, Map<String, Object> fields, String token) {
+        var response = httpManager.patch(PRODUCTIONS, identifier, fields, token);
+        return new TokenResponse<>(response.asObject(Production.class));
     }
 
     public TokenResponse<Production[]> getProductions(String q, String token) {

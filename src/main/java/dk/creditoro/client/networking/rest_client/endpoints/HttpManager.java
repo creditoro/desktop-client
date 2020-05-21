@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class HttpManager {
     private static final String AUTH_HEADER = "Authorization";
     private static final String IDENTIFIER = "identifier";
-    private static final String PATH = "/%s/{%s}";
+    private static final String PATH = "%s{%s}";
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public HttpManager() {
@@ -60,12 +60,12 @@ public class HttpManager {
     }
 
     public RequestBodyEntity post(String route, JSONObject body) {
-        return Unirest.post(String.format("/%s", route))
+        return Unirest.post(route)
                 .body(body);
     }
 
     public RequestBodyEntity post(String route, Object body, String token) {
-        return Unirest.post(String.format("/%s", route))
+        return Unirest.post(route)
                 .header(AUTH_HEADER, token)
                 .body(body);
     }
