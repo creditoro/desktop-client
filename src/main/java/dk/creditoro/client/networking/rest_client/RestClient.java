@@ -8,6 +8,7 @@ import dk.creditoro.client.networking.rest_client.endpoints.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class RestClient implements IClient {
@@ -63,6 +64,7 @@ public class RestClient implements IClient {
         return result.getT();
     }
 
+	// These are for credits
     @Override
     public Credit[] getCredits(String id) {
         var result = creditsEndpoint.getCredits(id, token);
@@ -71,6 +73,24 @@ public class RestClient implements IClient {
         updateToken(result);
         return result.getT();
     }
+
+	@Override
+	public Credit patchCredits(String identifier , Map<String, Object> fields){
+		var result = creditsEndpoint.patchCredit(identifier, fields, token);
+		propertyChangeSupport.firePropertyChange(EventNames.ON_PATCH_CREDITS_RESULT.toString(), null, result);
+		LOGGER.info(PROPERTY_CHANGE);
+        updateToken(result);
+        return result.getT();
+	}
+
+	@Override
+	public Credit postCredits(Credit credit){
+		var result = creditsEndpoint.postCredit(credit);
+		propertyChangeSupport.firePropertyChange(EventNames.ON_POST_CREDITS_RESULT.toString(), null, result);
+		LOGGER.info(PROPERTY_CHANGE);
+		updateToken(result);
+		return result.getT();
+	}
 
     @Override
     public Person[] getPersons(String q) {
