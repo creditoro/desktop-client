@@ -20,12 +20,14 @@ public class CreditsEndpoint {
         return new TokenResponse<>(response.asObject(Credit.class));
     }
 
-    public TokenResponse<Credit> putCredit(String identifier, JSONObject body) {
-        return null;
+    public TokenResponse<Credit> putCredit(String identifier, JSONObject body, String token) {
+		var response = httpManager.put(CREDITS, identifier, body, token);
+		return new TokenResponse<>(response.asObject(Credit.class));
     }
 
-    public TokenResponse<Credit> patchCredit(String identifier, Map<String, Object> fields) {
-        return null;
+    public TokenResponse<Credit> patchCredit(String identifier, Map<String, Object> fields, String token) {
+        var response = httpManager.patch(CREDITS, identifier, fields, token);
+        return new TokenResponse<>(response.asObject(Credit.class));
     }
 
     public TokenResponse<Credit[]> getCredits(String id, String token) {
@@ -33,8 +35,8 @@ public class CreditsEndpoint {
         return new TokenResponse<>(response.asObject(Credit[].class));
     }
 
-    public TokenResponse<Credit> postCredit(JSONObject body) {
-        var response = httpManager.post(CREDITS, body);
+    public TokenResponse<Credit> postCredit(Credit credit) {
+        var response = httpManager.post(CREDITS, credit);
         return new TokenResponse<>(response.asObject(Credit.class));
     }
 }
