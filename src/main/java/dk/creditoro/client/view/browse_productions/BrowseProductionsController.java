@@ -98,7 +98,6 @@ public class BrowseProductionsController implements IViewController {
         LOGGER.info(viewToOpen);
 		this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
 		this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
-		this.viewModelFactory.getProductionViewModel().refreshLogo();
 		this.viewHandler.openView(Views.PRODUCTION);
     }
 
@@ -219,6 +218,8 @@ public class BrowseProductionsController implements IViewController {
     private void setOnMouseClicked(Production production, VBox vBox) {
         vBox.setOnMouseClicked(mouseEvent -> {
             var box = (VBox) mouseEvent.getSource();
+            //Set title in productionViewModel
+            viewModelFactory.getProductionViewModel().setTitle(production.getTitle());
             switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
         });
@@ -256,5 +257,15 @@ public class BrowseProductionsController implements IViewController {
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tilePane = (TilePane) productionPane.getContent();
         tilePane.getChildren().setAll(browseProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
+    }
+
+    @FXML
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    @FXML
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
     }
 }

@@ -4,11 +4,13 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.util.logging.Logger;
 
@@ -98,5 +100,15 @@ public class AddCreditController implements IViewController {
 
     public void exitOnAction() {
         LOGGER.info("Exit pressed - Changing view to production");
+    }
+
+    @FXML
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    @FXML
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
     }
 }
