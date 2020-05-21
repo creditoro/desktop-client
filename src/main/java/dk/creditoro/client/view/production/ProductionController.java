@@ -27,8 +27,6 @@ public class ProductionController implements IViewController {
     @FXML
     private Text credit;
     @FXML
-    private Label lblStartMenu;
-    @FXML
     private TextField search;
     @FXML
     private Label title;
@@ -46,7 +44,6 @@ public class ProductionController implements IViewController {
 
         //Set title
         title.textProperty().bindBidirectional(productionViewModel.titleProperty());
-
     }
 
     @FXML
@@ -59,6 +56,11 @@ public class ProductionController implements IViewController {
         productionViewModel.search();
     }
 
+    /**
+     * Update list.
+     *
+     * @param list the list
+     */
     public void updateList(ObservableList<Credit> list) {
         //Foreach credit, append credit
         cast.setText("");
@@ -75,11 +77,21 @@ public class ProductionController implements IViewController {
         }
     }
 
+    /**
+     * Btn account.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnAccount(ActionEvent actionEvent) {
         //Code
     }
 
+    /**
+     * Btn new credit.
+     *
+     * @param mouseEvent the mouse event
+     */
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
         this.viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitle());
@@ -88,17 +100,32 @@ public class ProductionController implements IViewController {
         viewHandler.openView(Views.ADD_CREDITS);
     }
 
+    /**
+     * Btn productions.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnProductions(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
 
+    /**
+     * Btn channels.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
+    /**
+     * Btn front page.
+     *
+     * @param mouseEvent the mouse event
+     */
     @FXML
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);

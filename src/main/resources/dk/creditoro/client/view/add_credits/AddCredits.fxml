@@ -142,7 +142,7 @@
                         <TextField fx:id="productionTitleTxtField" disable="true" editable="false" prefHeight="40.0" prefWidth="475.0" AnchorPane.leftAnchor="610.0" AnchorPane.topAnchor="100.0" />
                         <TextField fx:id="nameTxtField" prefHeight="40.0" prefWidth="225.0" promptText="Navn" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="160.0" />
                         <TextField fx:id="emailTxtField" prefHeight="40.0" prefWidth="225.0" promptText="Email" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="160.0" />
-                        <TextField fx:id="phoneTxtField" disable="true" layoutX="610.0" layoutY="160.0" prefHeight="40.0" prefWidth="225.0" promptText="Telefonnummer" />
+                        <TextField fx:id="phoneTxtField" disable="true" layoutX="610.0" layoutY="160.0" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="225.0" promptText="Telefonnummer" />
                         <TextField fx:id="jobTxtField" layoutX="860.0" layoutY="160.0" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="225.0" promptText="Jobtype" />
                         <Button id="viewButton" fx:id="addBtn" mnemonicParsing="false" onAction="#addCreditOnAction" prefHeight="40.0" prefWidth="1100.0" stylesheets="@AddCredits.css" text="Tilføj" textFill="WHITE" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="220.0">
                            <cursor>

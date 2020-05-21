@@ -90,15 +90,12 @@ public class AddCreditController implements IViewController {
 
                 clearFields();
                 nameTxtField.requestFocus();
-
-                // Instead of creditIdentifier, add a new constructor in Credit without identifier as a parameter
                 postCredit(creditIdentifier, production, person, job);
             }
         } else {
             phone = phoneTxtField.getText();
             personIdentifier = UUID.randomUUID().toString();
             creditIdentifier = UUID.randomUUID().toString();
-            // Instead of personIdentifier, add a new constructor in Person without identifier as a parameter
             person = new Person(personIdentifier, phone, email, name);
             postPerson(person);
             postCredit(creditIdentifier, production, person, job);
@@ -184,11 +181,17 @@ public class AddCreditController implements IViewController {
         notificationBuilder.show();
     }
 
-    public void exportOnAction(ActionEvent actionEvent) {
+    /**
+     * Export on action.
+     */
+    public void exportOnAction() {
         LOGGER.info("Eksporterer krediteringer");
     }
 
-    public void importOnAction(ActionEvent actionEvent) {
+    /**
+     * Import on action.
+     */
+    public void importOnAction() {
         LOGGER.info("Importerer krediteringer");
     }
 }
