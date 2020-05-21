@@ -52,6 +52,11 @@ public class DummyClient implements IClient {
 				"jobtype");
 	}
 
+	@Override
+	public Person[] getPersons(String q) {
+		return new Person[0];
+	}
+
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
     }
