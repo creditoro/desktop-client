@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.add_credits.AddCreditController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" stylesheets="@AddCredits.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.add_credits.AddCreditController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -164,12 +154,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="viewButton" fx:id="deleteAllBtn" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Slet alle" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="220.0">
+                        <Button id="viewButton" fx:id="deleteAllBtn" layoutX="213.0" layoutY="740.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Slet alle" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="213.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="viewButton" fx:id="exitBtn" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Afslut" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="100.0">
+                        <Button id="viewButton" fx:id="exitBtn" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Færdig" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="100.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button id="viewButton" fx:id="exportBtn" layoutX="873.0" layoutY="740.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Eksporter" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

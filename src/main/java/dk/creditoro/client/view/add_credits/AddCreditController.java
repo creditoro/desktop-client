@@ -7,7 +7,6 @@ import dk.creditoro.client.view.IViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -18,12 +17,6 @@ public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
 
-    @FXML
-    private Label channelLabel;
-    @FXML
-    private Label productionLabel;
-    @FXML
-    private Label lblStartMenu;
     @FXML
     private TextField channelNameTxtField;
     @FXML
@@ -37,19 +30,7 @@ public class AddCreditController implements IViewController {
     @FXML
     private TextArea creditsTxtArea;
     @FXML
-    private Button addBtn;
-    @FXML
-    private Button exitBtn;
-    @FXML
-    private Button deleteBtn;
-    @FXML
     private Button btnAccount;
-    @FXML
-    private Button productions;
-    @FXML
-    private Button channels;
-    @FXML
-    private Button search;
 
 
     @Override
@@ -59,22 +40,6 @@ public class AddCreditController implements IViewController {
         btnAccount.setText("user.getEmail();");
         channelNameTxtField.setText("channel.getName();");
         productionTitleTxtField.setText("production.getTitle();");
-    }
-
-    public void handleSearchBar() {
-        viewHandler.openView(Views.FRONTPAGE);
-    }
-
-    public void btnChannels() {
-        viewHandler.openView(Views.BROWSE_CHANNELS);
-    }
-
-    public void btnProductions() {
-        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
-    }
-
-    public void lblStartMenuPressed() {
-        viewHandler.openView(Views.FRONTPAGE);
     }
 
     public void btnAccount() {
@@ -99,7 +64,15 @@ public class AddCreditController implements IViewController {
     }
 
     public void exitOnAction() {
-        LOGGER.info("Exit pressed - Changing view to production");
+        viewHandler.openView(Views.PRODUCTION);
+    }
+
+    public void btnChannels() {
+        viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
+
+    public void btnProductions() {
+        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
     @FXML
