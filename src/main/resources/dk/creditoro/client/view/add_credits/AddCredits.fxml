@@ -55,7 +55,7 @@
                               <Insets top="70.0" />
                            </VBox.margin>
                            <children>
-                              <Button mnemonicParsing="false" onAction="#btnSearch" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
+                              <Button mnemonicParsing="false" onAction="#btnFrontPage" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
                                  <font>
                                     <Font size="22.0" />
                                  </font>

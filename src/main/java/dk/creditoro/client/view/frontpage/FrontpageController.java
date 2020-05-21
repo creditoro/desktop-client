@@ -134,5 +134,6 @@ public class FrontpageController implements IViewController {
     @FXML
     public void btnSearch(ActionEvent actionEvent) {
         searchTextField.requestFocus();
+        drawerAction(actionEvent);
     }
 }

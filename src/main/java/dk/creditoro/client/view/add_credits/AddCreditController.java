@@ -35,6 +35,8 @@ public class AddCreditController implements IViewController {
 
         // Set productionTitle
         productionTitleTxtField.textProperty().bindBidirectional(addCreditViewModel.productionTitleProperty());
+
+        // Set channelName
         channelNameTxtField.textProperty().bindBidirectional(addCreditViewModel.channelNameProperty());
 
         // Set credits
@@ -79,12 +81,6 @@ public class AddCreditController implements IViewController {
 
     @FXML
     public void btnFrontPage() {
-        creditsTxtArea.clear();
-        viewHandler.openView(Views.FRONTPAGE);
-    }
-
-    @FXML
-    public void btnSearch() {
         creditsTxtArea.clear();
         viewHandler.openView(Views.FRONTPAGE);
     }

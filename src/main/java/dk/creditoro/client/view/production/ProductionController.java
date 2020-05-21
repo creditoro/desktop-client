@@ -93,10 +93,6 @@ public class ProductionController implements IViewController {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
-    @FXML
-    public void btnSearch(ActionEvent actionEvent) {
-        viewHandler.openView(Views.FRONTPAGE);
-    }
 
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
