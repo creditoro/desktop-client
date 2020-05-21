@@ -38,6 +38,11 @@ class DummyClientTest {
         assertNotNull(dummyClient.searchProductions(""));
     }
 
+	@Test
+	void getPersons(){
+		assertNotNull(dummyClient.getPersons(""));
+	}
+
 	@Test 
 	void getCredits(){
 		assertNotNull(dummyClient.getCredits(""));
