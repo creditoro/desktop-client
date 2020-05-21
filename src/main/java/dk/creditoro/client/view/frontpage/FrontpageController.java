@@ -22,14 +22,10 @@ import java.util.logging.Logger;
  */
 public class FrontpageController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    ObservableList<String> searchingList = FXCollections.observableArrayList("Produktion", "Kanal");
     private ViewHandler viewHandler;
-
     @FXML
     private ChoiceBox<String> choiceBox;
-
-    ObservableList<String> searchingList = FXCollections.observableArrayList("Produktion", "Kanal");
-
-
     private TranslateTransition openNav;
     private TranslateTransition openBtn;
     private TranslateTransition closeNav;
@@ -134,5 +130,6 @@ public class FrontpageController implements IViewController {
     @FXML
     public void btnSearch(ActionEvent actionEvent) {
         searchTextField.requestFocus();
+        drawerAction(actionEvent);
     }
 }

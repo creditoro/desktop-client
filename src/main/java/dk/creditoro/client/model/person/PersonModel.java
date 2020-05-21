@@ -31,6 +31,13 @@ public class PersonModel implements IPersonModel {
     }
 
     @Override
+    public void postPerson(Person person) {
+        client.postPerson(person);
+        var message = String.format("person posted %d", 1);
+        LOGGER.info(message);
+    }
+
+    @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.addPropertyChangeListener(name, propertyChangeListener);
     }
