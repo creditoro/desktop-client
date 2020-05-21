@@ -97,4 +97,8 @@ public class ProductionViewModel {
     public StringProperty titleProperty() {
         return title;
     }
+
+    public String getTitle() {
+        return title.get();
+    }
 }

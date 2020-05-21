@@ -7,6 +7,7 @@ import dk.creditoro.client.view.IViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
+    private AddCreditViewModel addCreditViewModel;
 
     @FXML
     private TextField channelNameTxtField;
@@ -36,10 +38,10 @@ public class AddCreditController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
+        this.addCreditViewModel = viewModelFactory.getAddCreditViewModel();
 
-        btnAccount.setText("user.getEmail();");
-        channelNameTxtField.setText("channel.getName();");
-        productionTitleTxtField.setText("production.getTitle();");
+        // Set productionTitle
+        productionTitleTxtField.textProperty().bindBidirectional(addCreditViewModel.productionTitleProperty());
     }
 
     public void btnAccount() {

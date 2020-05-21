@@ -20,6 +20,8 @@ import javafx.scene.text.Text;
 public class ProductionController implements IViewController {
     private ProductionViewModel productionViewModel;
     private ViewHandler viewHandler;
+    private ViewModelFactory viewModelFactory; // I don't think it should be implment like this?
+
 
     @FXML
     public Text cast;
@@ -34,6 +36,7 @@ public class ProductionController implements IViewController {
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
+        this.viewModelFactory = viewModelFactory;
         this.viewHandler = viewHandler;
         productionViewModel = viewModelFactory.getProductionViewModel();
 
@@ -79,6 +82,7 @@ public class ProductionController implements IViewController {
 
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
+        viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitle());
         viewHandler.openView(Views.ADD_CREDITS);
     }
 
