@@ -1,6 +1,5 @@
 package dk.creditoro.client.view.add_credits;
 
-import com.sun.javafx.iio.gif.GIFImageLoaderFactory;
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
@@ -65,7 +64,7 @@ public class AddCreditController implements IViewController {
         String name = nameTxtField.getText();
         String job = jobTxtField.getText();
 
-        if (addCreditViewModel.getPerson(email) != null){
+        if (addCreditViewModel.getPerson(email) != null) {
             person = addCreditViewModel.getPerson(email);
 
         } else {

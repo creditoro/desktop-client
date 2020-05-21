@@ -120,7 +120,7 @@ public class AddCreditViewModel {
 
     public Person getPerson(String email) {
         for (Person p : personList) {
-            if (p.getEmail().equals(email)){
+            if (p.getEmail().equals(email)) {
                 return p;
             }
         }

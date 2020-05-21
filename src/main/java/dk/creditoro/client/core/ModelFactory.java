@@ -52,9 +52,8 @@ public class ModelFactory {
         return productionModel;
     }
 
-    public ICreditModel getCreditModel()
-    {
-        if(creditModel == null){
+    public ICreditModel getCreditModel() {
+        if (creditModel == null) {
             creditModel = new CreditModel(clientFactory.getRestClient());
         }
         return creditModel;
