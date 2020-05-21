@@ -30,6 +30,13 @@ public class CreditModel implements ICreditModel {
     }
 
     @Override
+    public void postCredits(Credit credit){
+        client.postCredits(credit);
+        var message = String.format("credits posted %d", 1);
+        LOGGER.info(message);
+    }
+
+    @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.addPropertyChangeListener(name, propertyChangeListener);
     }

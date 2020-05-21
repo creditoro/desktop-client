@@ -1,18 +1,24 @@
 package dk.creditoro.client.view.add_credits;
 
+import com.sun.javafx.iio.gif.GIFImageLoaderFactory;
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
+import dk.creditoro.client.model.crud.Credit;
+import dk.creditoro.client.model.crud.Person;
+import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
+    private AddCreditViewModel addCreditViewModel;
 
     @FXML
     private TextField channelNameTxtField;
@@ -20,6 +26,8 @@ public class AddCreditController implements IViewController {
     private TextField productionTitleTxtField;
     @FXML
     private TextField nameTxtField;
+    @FXML
+    private TextField phoneTxtField;
     @FXML
     private TextField jobTxtField;
     @FXML
@@ -31,7 +39,7 @@ public class AddCreditController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-        AddCreditViewModel addCreditViewModel = viewModelFactory.getAddCreditViewModel();
+        addCreditViewModel = viewModelFactory.getAddCreditViewModel();
 
         // Set productionTitle
         productionTitleTxtField.textProperty().bindBidirectional(addCreditViewModel.productionTitleProperty());
@@ -48,15 +56,33 @@ public class AddCreditController implements IViewController {
     }
 
     public void addCreditOnAction() {
+        String creditIdentifier = UUID.randomUUID().toString();
+        String personIdentifier = UUID.randomUUID().toString();
+        Production production = addCreditViewModel.getProduction();
+        Person person;
+
+        String email = emailTxtField.getText();
         String name = nameTxtField.getText();
         String job = jobTxtField.getText();
 
-        creditsTxtArea.appendText(name + "\t" + job + "\n");
+        if (addCreditViewModel.getPerson(email) != null){
+            person = addCreditViewModel.getPerson(email);
 
+        } else {
+            phoneTxtField.setDisable(false);
+            phoneTxtField.setPromptText("Tilføj venligst et telefonnummer");
+            String phone = phoneTxtField.getText();
+            person = new Person(personIdentifier, phone, email, name);
+        }
+
+        creditsTxtArea.appendText(name + "\t" + job + "\n");
         nameTxtField.clear();
         emailTxtField.clear();
         jobTxtField.clear();
         nameTxtField.requestFocus();
+
+        addCreditViewModel.setCredit(new Credit(creditIdentifier, production, person, job));
+        addCreditViewModel.postCredits();
         LOGGER.info("Credit added");
     }
 
