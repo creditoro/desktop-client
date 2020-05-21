@@ -56,6 +56,23 @@ public class AddCreditViewModel {
     }
 
     /**
+     * Refresh values.
+     */
+    public void refreshValues() {
+        // Set credits for chosen production
+        Platform.runLater(this::addCreditsToTextArea);
+    }
+
+    /**
+     * Sets credits txt area.
+     *
+     * @param creditsTxtArea the credits txt area
+     */
+    public void setCreditsTxtArea(TextArea creditsTxtArea) {
+        this.creditsTxtArea = creditsTxtArea;
+    }
+
+    /**
      * Gets production title.
      *
      * @return the production title
@@ -137,15 +154,6 @@ public class AddCreditViewModel {
     }
 
     /**
-     * Sets credits txt area.
-     *
-     * @param creditsTxtArea the credits txt area
-     */
-    public void setCreditsTxtArea(TextArea creditsTxtArea) {
-        this.creditsTxtArea = creditsTxtArea;
-    }
-
-    /**
      * Sets credit.
      *
      * @param credit the credit
@@ -168,14 +176,6 @@ public class AddCreditViewModel {
         for (Credit cred : credits) {
             creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n");
         }
-    }
-
-    /**
-     * Refresh values.
-     */
-    public void refreshValues() {
-        // Set credits for chosen production
-        Platform.runLater(this::addCreditsToTextArea);
     }
 
     /**

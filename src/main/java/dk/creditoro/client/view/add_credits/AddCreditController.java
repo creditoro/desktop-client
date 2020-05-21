@@ -7,7 +7,6 @@ import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.crud.Person;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
