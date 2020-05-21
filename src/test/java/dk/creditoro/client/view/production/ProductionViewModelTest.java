@@ -80,31 +80,4 @@ class ProductionViewModelTest {
 		
 	}
 
-	@Test
-	void getAndSetLogo(){
-		var channelViewModel = vmlF.getBrowseChannelsViewModel();
-		// Searching for at channel to gets it id
-		channelViewModel.queryParamProperty().setValue("TV");
-		channelViewModel.search();
-		// Extract the channels and id from it 
-		var channelIdList = channelViewModel.listPropertyProperty();
-		var channelId = channelIdList.get(0).getIdentifier();
-
-		// Sets the new Channel ID
-		pdViewModel.setChannelId(channelId);
-		//Get set ChannelLogo
-		//
-		// Refresesh the logo
-		assertDoesNotThrow(() -> pdViewModel.refreshLogo());
-
-		var imageView = new ImageView();
-		assertNotEquals(imageView, pdViewModel.getChannelLogo(), 
-				"This logo should never be the same, if it ise then change the channelId");
-
-		// set the image view
-		assertDoesNotThrow(()-> pdViewModel.setChannelLogo(imageView));
-		assertEquals(imageView, pdViewModel.getChannelLogo());	
-		
-
-	}
 }
