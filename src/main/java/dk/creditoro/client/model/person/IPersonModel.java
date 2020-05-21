@@ -1,10 +1,14 @@
 package dk.creditoro.client.model.person;
 
+import dk.creditoro.client.model.crud.Person;
+
 import java.beans.PropertyChangeListener;
 
 public interface IPersonModel {
 
     void getPersons(String q);
+
+    void postPerson(Person person);
 
     /**
      * Add listener.
