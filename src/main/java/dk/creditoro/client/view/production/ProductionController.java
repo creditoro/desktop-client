@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 public class ProductionController implements IViewController {
     private ProductionViewModel productionViewModel;
     private ViewHandler viewHandler;
-    private ViewModelFactory viewModelFactory; // I don't think it should be implment like this?
+    private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
 
 
     @FXML
@@ -47,6 +47,7 @@ public class ProductionController implements IViewController {
 
         //Set title
         title.textProperty().bindBidirectional(productionViewModel.titleProperty());
+
     }
 
     @FXML
@@ -82,7 +83,9 @@ public class ProductionController implements IViewController {
 
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
-        viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitle());
+        this.viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitle());
+        this.viewModelFactory.getAddCreditViewModel().setCredits(productionViewModel.listPropertyProperty());
+        this.viewModelFactory.getAddCreditViewModel().refreshValues();
         viewHandler.openView(Views.ADD_CREDITS);
     }
 

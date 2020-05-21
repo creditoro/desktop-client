@@ -30,7 +30,7 @@ public class BrowseProductionsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseProductionsViewModel browseProductionsViewModel;
     private ViewHandler viewHandler;
-	private ViewModelFactory viewModelFactory; // I don't think it should be implment like this?
+	private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProdcutions;
 

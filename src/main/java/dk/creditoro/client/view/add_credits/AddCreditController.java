@@ -7,7 +7,6 @@ import dk.creditoro.client.view.IViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -42,6 +41,10 @@ public class AddCreditController implements IViewController {
 
         // Set productionTitle
         productionTitleTxtField.textProperty().bindBidirectional(addCreditViewModel.productionTitleProperty());
+
+        // Set credits
+//        creditsTxtArea.textProperty().bindBidirectional(addCreditViewModel.getCredits());
+        addCreditViewModel.setCreditsTxtArea(creditsTxtArea);
     }
 
     public void btnAccount() {
