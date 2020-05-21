@@ -59,12 +59,12 @@ public class HttpManager {
                 .header(AUTH_HEADER, token);
     }
 
-    public RequestBodyEntity post(String route, Object body) {
+    public RequestBodyEntity post(String route, JSONObject body) {
         return Unirest.post(String.format("/%s", route))
                 .body(body);
     }
 
-    public RequestBodyEntity post(String route, String token, JSONObject body) {
+    public RequestBodyEntity post(String route, Object body, String token) {
         return Unirest.post(String.format("/%s", route))
                 .header(AUTH_HEADER, token)
                 .body(body);

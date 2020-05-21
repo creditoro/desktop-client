@@ -41,7 +41,7 @@ public class ChannelsEndpoint {
 
     }
     public TokenResponse<Channel> postChannel(JSONObject body, String token) {
-        var response = httpManager.post(CHANNELS, token, body);
+        var response = httpManager.post(CHANNELS, body, token);
         return new TokenResponse<>(response.asObject(Channel.class));
     }
 
