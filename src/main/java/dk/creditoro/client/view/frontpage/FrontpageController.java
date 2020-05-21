@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.util.logging.Logger;
@@ -132,6 +131,7 @@ public class FrontpageController implements IViewController {
         }
     }
 
+    @FXML
     public void btnSearch(ActionEvent actionEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }

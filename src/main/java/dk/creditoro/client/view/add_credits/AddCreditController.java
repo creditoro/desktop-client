@@ -102,10 +102,12 @@ public class AddCreditController implements IViewController {
         LOGGER.info("Exit pressed - Changing view to production");
     }
 
+    @FXML
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    @FXML
     public void btnSearch(ActionEvent actionEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
