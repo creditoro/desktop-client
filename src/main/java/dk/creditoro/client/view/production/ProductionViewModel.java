@@ -2,20 +2,14 @@ package dk.creditoro.client.view.production;
 
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.credit.ICreditModel;
-import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.user.IUserModel;
-import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +19,6 @@ public class ProductionViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final ICreditModel creditModel;
     private final IUserModel userModel;
-    private final ViewModelFactory viewModelFactory;
 
     private final StringProperty queryParam = new SimpleStringProperty();
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
@@ -35,10 +28,9 @@ public class ProductionViewModel {
 
     private String id;
     private String channelId;
-    private ImageView channelLogo;
+    private StringProperty title = new SimpleStringProperty();
 
     public ProductionViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
-        this.viewModelFactory = viewModelFactory;
         this.creditModel = creditModel;
         this.userModel = userModel;
         this.creditModel.addListener("kek", (this::onSearchProductionsResult));
@@ -98,22 +90,11 @@ public class ProductionViewModel {
         return channelId;
     }
 
-    public ImageView getChannelLogo() {
-        return channelLogo;
+    public void setTitle(String title) {
+        this.title.set(title);
     }
 
-    public void setChannelLogo(ImageView channelLogo) {
-        this.channelLogo = channelLogo;
-    }
-
-    public void refreshLogo() {
-        BrowseChannelsViewModel channelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
-        viewModelFactory.getBrowseChannelsViewModel().queryParamProperty().setValue("");
-        viewModelFactory.getBrowseChannelsViewModel().search();
-        for (Channel channel : channelsViewModel.listPropertyProperty()) {
-            if (channel.getIdentifier().equals(getChannelId())) {
-                Platform.runLater(() -> channelLogo.setImage(new Image(channel.getIconUrl())));
-            }
-        }
+    public StringProperty titleProperty() {
+        return title;
     }
 }

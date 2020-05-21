@@ -1,9 +1,6 @@
 package dk.creditoro.client.networking;
 
-import dk.creditoro.client.model.crud.Channel;
-import dk.creditoro.client.model.crud.Credit;
-import dk.creditoro.client.model.crud.Production;
-import dk.creditoro.client.model.crud.User;
+import dk.creditoro.client.model.crud.*;
 
 import java.beans.PropertyChangeListener;
 import java.util.Map;
@@ -18,12 +15,14 @@ public interface IClient {
     Channel[] searchChannels(String q);
 
     Production[] searchProductions(String q);
+  
+    Person[] getPersons(String q);
 
     Credit[] getCredits(String q);
 
-	Credit postCredits(Credit credit);
+    Credit postCredits(Credit credit);
 
-	Credit patchCredits(String identifier , Map<String, Object> fields);
+    Credit patchCredits(String identifier , Map<String, Object> fields);
 
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }
