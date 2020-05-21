@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,10 +51,10 @@ public class ProductionViewModel {
     private void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search credit result called.");
         var credits = (Credit[]) propertyChangeEvent.getNewValue();
-            listProperty.clear();
-            listProperty.addAll(credits);
+        listProperty.clear();
+        listProperty.addAll(credits);
 
-            cachedCredits.addAll(Arrays.asList(credits));
+        cachedCredits.addAll(Arrays.asList(credits));
     }
 
     public ListProperty<Credit> listPropertyProperty() {
@@ -74,24 +75,20 @@ public class ProductionViewModel {
         }
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setChannelId(String id) {
-        this.channelId = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getChannelId() {
         return channelId;
     }
 
-    public void setTitle(String title) {
-        this.title.set(title);
+    public void setChannelId(String id) {
+        this.channelId = id;
     }
 
     public StringProperty titleProperty() {
@@ -100,5 +97,9 @@ public class ProductionViewModel {
 
     public String getTitle() {
         return title.get();
+    }
+
+    public void setTitle(String title) {
+        this.title.set(title);
     }
 }

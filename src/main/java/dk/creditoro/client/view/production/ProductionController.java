@@ -22,17 +22,16 @@ public class ProductionController implements IViewController {
     private ViewHandler viewHandler;
     private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
 
-
     @FXML
-    public Text cast;
+    private Text cast;
     @FXML
-    public Text credit;
+    private Text credit;
     @FXML
-    public Label lblStartMenu;
+    private Label lblStartMenu;
     @FXML
-    public TextField search;
+    private TextField search;
     @FXML
-    public Label title;
+    private Label title;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {

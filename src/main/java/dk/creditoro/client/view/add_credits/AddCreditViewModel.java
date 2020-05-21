@@ -12,11 +12,11 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.TextArea;
 
 public class AddCreditViewModel {
     private final StringProperty productionTitle = new SimpleStringProperty();
+    private final StringProperty channelName = new SimpleStringProperty();
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
     private final ListProperty<Credit> credits = new SimpleListProperty<>(creditList);
 
@@ -36,6 +36,18 @@ public class AddCreditViewModel {
 
     public StringProperty productionTitleProperty() {
         return productionTitle;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName.set(channelName);
+    }
+
+    public String getChannelName() {
+        return channelName.get();
+    }
+
+    public StringProperty channelNameProperty() {
+        return channelName;
     }
 
     public ObservableList<Credit> getCredits() {
@@ -64,5 +76,4 @@ public class AddCreditViewModel {
         // Set credits for chosen production
         Platform.runLater(this::addCreditsToTextArea);
     }
-
 }

@@ -4,19 +4,15 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import java.util.logging.Logger;
 
 public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
-    private AddCreditViewModel addCreditViewModel;
 
     @FXML
     private TextField channelNameTxtField;
@@ -30,20 +26,18 @@ public class AddCreditController implements IViewController {
     private TextField emailTxtField;
     @FXML
     private TextArea creditsTxtArea;
-    @FXML
-    private Button btnAccount;
 
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
-        this.addCreditViewModel = viewModelFactory.getAddCreditViewModel();
+        AddCreditViewModel addCreditViewModel = viewModelFactory.getAddCreditViewModel();
 
         // Set productionTitle
         productionTitleTxtField.textProperty().bindBidirectional(addCreditViewModel.productionTitleProperty());
+        channelNameTxtField.textProperty().bindBidirectional(addCreditViewModel.channelNameProperty());
 
         // Set credits
-//        creditsTxtArea.textProperty().bindBidirectional(addCreditViewModel.getCredits());
         addCreditViewModel.setCreditsTxtArea(creditsTxtArea);
     }
 
@@ -69,24 +63,29 @@ public class AddCreditController implements IViewController {
     }
 
     public void exitOnAction() {
+        creditsTxtArea.clear();
         viewHandler.openView(Views.PRODUCTION);
     }
 
     public void btnChannels() {
+        creditsTxtArea.clear();
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
     public void btnProductions() {
+        creditsTxtArea.clear();
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
     @FXML
-    public void btnFrontPage(MouseEvent mouseEvent) {
+    public void btnFrontPage() {
+        creditsTxtArea.clear();
         viewHandler.openView(Views.FRONTPAGE);
     }
 
     @FXML
-    public void btnSearch(ActionEvent actionEvent) {
+    public void btnSearch() {
+        creditsTxtArea.clear();
         viewHandler.openView(Views.FRONTPAGE);
     }
 }

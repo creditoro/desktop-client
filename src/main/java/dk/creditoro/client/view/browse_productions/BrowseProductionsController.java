@@ -20,7 +20,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -30,7 +33,7 @@ public class BrowseProductionsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseProductionsViewModel browseProductionsViewModel;
     private ViewHandler viewHandler;
-	private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
+    private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProdcutions;
 
@@ -96,14 +99,14 @@ public class BrowseProductionsController implements IViewController {
      */
     public void switchView(String viewToOpen, String channelId) {
         LOGGER.info(viewToOpen);
-		this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
-		this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
-		this.viewHandler.openView(Views.PRODUCTION);
+        this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
+        this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
+        this.viewHandler.openView(Views.PRODUCTION);
     }
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
-		this.viewModelFactory = viewModelFactory;
+        this.viewModelFactory = viewModelFactory;
         browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         this.viewHandler = viewHandler;
         this.cachedProdcutions = new HashMap<>();
@@ -220,6 +223,7 @@ public class BrowseProductionsController implements IViewController {
             var box = (VBox) mouseEvent.getSource();
             //Set title in productionViewModel
             viewModelFactory.getProductionViewModel().setTitle(production.getTitle());
+            viewModelFactory.getAddCreditViewModel().setChannelName(production.getChannel().getName());
             switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
         });
