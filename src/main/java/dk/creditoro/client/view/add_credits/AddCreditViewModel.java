@@ -130,4 +130,11 @@ public class AddCreditViewModel {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public void postPerson() {
+        var p = person.getName();
+        var message = String.format("Posted person for, %s", p);
+        LOGGER.info(message);
+        personModel.postPerson(person);
+    }
 }

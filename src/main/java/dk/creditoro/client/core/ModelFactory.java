@@ -5,6 +5,7 @@ import dk.creditoro.client.model.channel.IChannelModel;
 import dk.creditoro.client.model.credit.CreditModel;
 import dk.creditoro.client.model.credit.ICreditModel;
 import dk.creditoro.client.model.person.IPersonModel;
+import dk.creditoro.client.model.person.PersonModel;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.production.ProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
@@ -60,6 +61,9 @@ public class ModelFactory {
     }
 
     public IPersonModel getPersonModel() {
+        if (personModel == null) {
+            personModel = new PersonModel(clientFactory.getRestClient());
+        }
         return personModel;
     }
 }

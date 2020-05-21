@@ -165,7 +165,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="viewButton" fx:id="exportBtn" layoutX="873.0" layoutY="740.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Eksporter" textFill="WHITE">
+                        <Button id="viewButton" fx:id="exportBtn" layoutX="873.0" layoutY="740.0" mnemonicParsing="false" onAction="#exportOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Eksporter" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button id="viewButton" fx:id="importBtn" layoutX="758.0" layoutY="740.0" mnemonicParsing="false" onAction="#importOnAction" prefHeight="40.0" prefWidth="103.0" stylesheets="@AddCredits.css" text="Importer" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

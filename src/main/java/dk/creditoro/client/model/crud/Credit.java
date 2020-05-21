@@ -1,19 +1,21 @@
 package dk.creditoro.client.model.crud;
 
 public class Credit {
-    private final String identifier;
+
+    /*
+        Read about transient modifier here: https://www.baeldung.com/gson-exclude-fields-serialization
+    */
+    private final transient String identifier;
     private final Production production;
     private final Person person;
     private final String job;
 
-    public Credit(String identifier, Production production, Person person, String job)
-    {
+    public Credit(String identifier, Production production, Person person, String job) {
         this.identifier = identifier;
         this.production = production;
         this.person = person;
         this.job = job;
     }
-
 
     public String getIdentifier() {
         return identifier;

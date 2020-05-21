@@ -11,6 +11,9 @@ import java.beans.PropertyChangeSupport;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * The type Rest client.
+ */
 public class RestClient implements IClient {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final PropertyChangeSupport propertyChangeSupport;
@@ -23,6 +26,9 @@ public class RestClient implements IClient {
 
     private String token;
 
+    /**
+     * Instantiates a new Rest client.
+     */
     public RestClient() {
         propertyChangeSupport = new PropertyChangeSupport(this);
         var httpManager = new HttpManager();
@@ -100,6 +106,16 @@ public class RestClient implements IClient {
         updateToken(result);
         return result.getT();
     }
+
+    @Override
+    public Person postPerson(Person person) {
+        var result = personsEndpoint.postPerson(person, token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_POST_PERSON_RESULT.toString(), null, result);
+        LOGGER.info(PROPERTY_CHANGE);
+        updateToken(result);
+        return result.getT();
+    }
+
 
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {

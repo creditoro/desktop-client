@@ -58,6 +58,11 @@ public class DummyClient implements IClient {
 	}
 
     @Override
+    public Person postPerson(Person person) {
+        return new Person("ID-1-1-1-1-1", "88888888", "some@email.com", "Peter");
+    }
+
+    @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
     }
 }

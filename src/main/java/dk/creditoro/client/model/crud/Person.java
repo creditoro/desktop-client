@@ -2,7 +2,10 @@ package dk.creditoro.client.model.crud;
 
 public class Person {
 
-    private final String identifier;
+    /*
+        Read about transient modifier here: https://www.baeldung.com/gson-exclude-fields-serialization
+    */
+    private final transient String identifier;
     private final String phone;
     private final String email;
     private final String name;
