@@ -102,9 +102,9 @@
                   </Label>
                   <VBox prefHeight="800.0" prefWidth="250.0">
                      <children>
-                        <HBox prefHeight="75.0" prefWidth="200.0">
+                        <HBox prefHeight="50.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblStartMenu" alignment="CENTER" onMouseClicked="#btnFrontPage" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
+                              <Label fx:id="lblStartMenu" alignment="CENTER" onMouseClicked="#btnFrontPage" prefHeight="50.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
@@ -119,7 +119,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                                  <HBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </Label>
                            </children>

@@ -133,6 +133,6 @@ public class FrontpageController implements IViewController {
 
     @FXML
     public void btnSearch(ActionEvent actionEvent) {
-        viewHandler.openView(Views.FRONTPAGE);
+        searchTextField.requestFocus();
     }
 }

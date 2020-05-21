@@ -19,7 +19,6 @@ public class ProductionViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final ICreditModel creditModel;
     private final IUserModel userModel;
-    private final ViewModelFactory viewModelFactory;
 
     private final StringProperty queryParam = new SimpleStringProperty();
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
@@ -29,11 +28,9 @@ public class ProductionViewModel {
 
     private String id;
     private String channelId;
-
     private StringProperty title = new SimpleStringProperty();
 
     public ProductionViewModel(ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
-        this.viewModelFactory = viewModelFactory;
         this.creditModel = creditModel;
         this.userModel = userModel;
         this.creditModel.addListener("kek", (this::onSearchProductionsResult));
