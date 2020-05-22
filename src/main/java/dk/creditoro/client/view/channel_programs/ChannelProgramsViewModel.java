@@ -1,6 +1,8 @@
 package dk.creditoro.client.view.channel_programs;
 
 
+import dk.creditoro.client.core.ViewModelFactory;
+import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
@@ -18,9 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -28,16 +28,28 @@ import java.util.logging.Logger;
  */
 public class ChannelProgramsViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private StringProperty queryParam = new SimpleStringProperty();
     private final IProductionModel productionModel;
     private final IUserModel userModel;
+    private final ViewModelFactory viewModelFactory;
     private final ArrayList<Production> cachedProductions = new ArrayList<>();
-
     private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
-
+    private final Map<String, List<Production>> productionMap = new HashMap<>();
+    private StringProperty queryParam = new SimpleStringProperty();
     private char currentCharacter;
     private String id;
+
+    /**
+     * Instantiates a new Login view model.
+     *
+     * @param productionModel the channel model
+     */
+    public ChannelProgramsViewModel(IProductionModel productionModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
+        this.productionModel = productionModel;
+        this.userModel = userModel;
+        this.productionModel.addListener("kek", (this::onSearchProductionsResult));
+        this.viewModelFactory = viewModelFactory;
+    }
 
     public String getId() {
         return id;
@@ -47,16 +59,22 @@ public class ChannelProgramsViewModel {
         this.id = id;
     }
 
+    public Map<String, List<Production>> createProductionMap() {
+        for (Channel c : viewModelFactory.getBrowseChannelsViewModel().listPropertyProperty()) {
+            productionMap.put(c.getName(), prodList(c.getName()));
+        }
+        return productionMap;
+    }
 
-    /**
-     * Instantiates a new Login view model.
-     *
-     * @param productionModel the channel model
-     */
-    public ChannelProgramsViewModel(IProductionModel productionModel, IUserModel userModel) {
-        this.productionModel = productionModel;
-        this.userModel = userModel;
-        this.productionModel.addListener("kek", (this::onSearchProductionsResult));
+    public List<Production> prodList(String chanName) {
+        List<Production> pl = new ArrayList<>();
+
+        for (Production p : listProperty) {
+            if (p.getChannel().getName().equals(chanName)) {
+                pl.add(p);
+            }
+        }
+        return pl;
     }
 
     public StringProperty queryParamProperty() {

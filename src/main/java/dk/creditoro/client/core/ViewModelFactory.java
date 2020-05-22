@@ -25,7 +25,7 @@ public class ViewModelFactory {
         browseChannelsViewModel = new BrowseChannelsViewModel(modelFactory.getChannelModel(), modelFactory.getUserModel());
         browseProductionsViewModel = new BrowseProductionsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
         productionViewModel = new ProductionViewModel(modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
-        channelProgramsViewModel = new ChannelProgramsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
+        channelProgramsViewModel = new ChannelProgramsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel(), this);
         addCreditViewModel = new AddCreditViewModel(modelFactory.getPersonModel(), modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
     }
 

@@ -35,6 +35,7 @@ public class ChannelProgramsController implements IViewController {
     private ViewModelFactory viewModelFactory;
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProductions;
+    private Map<String, List<Production>> cachedProductionMap;
 
     @FXML
     private ScrollPane productionPane;
@@ -87,6 +88,7 @@ public class ChannelProgramsController implements IViewController {
         channelProgramsViewModel = viewModelFactory.getChannelProgramsViewModel();
         this.viewHandler = viewHandler;
         this.cachedProductions = new HashMap<>();
+        this.cachedProductionMap = viewModelFactory.getChannelProgramsViewModel().createProductionMap();
 
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
@@ -124,12 +126,12 @@ public class ChannelProgramsController implements IViewController {
 
     public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
         List<Node> list = new ArrayList<>();
+        List<Production> productionList = new ArrayList<>();
+
+
+        String cName = viewModelFactory.getChannelProgramsViewModel().getId();
         // Create VBox for each production and add title and description
-        for (int i = 0; i < productions.size(); i++) {
-            Production production = productions.get(i);
-            if (!production.getChannel().getName().equals(channelProgramsViewModel.getId())){
-                continue;
-            }
+        for (Production production : cachedProductionMap.get(cName)) {
             VBox vBox = cachedProductions.get(production.getIdentifier());
             if (vBox == null) {
                 vBox = createVBox(tilePane, production);
