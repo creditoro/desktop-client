@@ -6,7 +6,6 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -123,8 +122,7 @@ public class ChannelProgramsController implements IViewController {
         doneLoading(tilePane);
     }
 
-    public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane)
-    {
+    public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
         List<Node> list = new ArrayList<>();
         // Create VBox for each production and add title and description
         for (int i = 0; i < productions.size(); i++) {
@@ -147,8 +145,7 @@ public class ChannelProgramsController implements IViewController {
         return list;
     }
 
-    private VBox createVBox(TilePane tilepane, Production production)
-    {
+    private VBox createVBox(TilePane tilepane, Production production) {
         VBox vBox = new VBox();
         vBox.prefWidthProperty().bind(tilepane.widthProperty());
         vBox.setPadding(new Insets(15, 15, 15, 15));
@@ -157,24 +154,27 @@ public class ChannelProgramsController implements IViewController {
         return vBox;
     }
 
-    private Label getTitle(Production production)
-    {
+    private Label getTitle(Production production) {
         Label title = new Label(production.getTitle());
         title.setFont(new Font(30));
         return title;
     }
 
     private Text getDescription(Production production) {
-        Text description = new Text();
-        //description.setWrappingWidth(productionPane.getWidth());
-        //description.prefWidth(productionPane.getWidth());
+        var maxNumberOfCharacters = 300;
+        var desc = production.getDescription().substring(0, Math.min(maxNumberOfCharacters, production.getDescription().length()));
 
+        Text description = new Text();
         if (production.getDescription().isEmpty()) {
             description.setText("Ingen programbeskrivelse at vise");
-            description.setStyle("-fx-font-style: italic");
+        } else if (production.getDescription().length() > maxNumberOfCharacters) {
+            description.setText(desc + "...");
         } else {
-            description.setText(production.getDescription());
+            description.setText(desc);
         }
+
+        description.setFont(new Font(14));
+        description.setWrappingWidth(productionPane.getWidth() - 50);
         return description;
     }
 
@@ -191,7 +191,6 @@ public class ChannelProgramsController implements IViewController {
             // Changing view to chosen production
             switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
-
         });
     }
 

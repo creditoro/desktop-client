@@ -1,8 +1,13 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../res/Roboto-Regular.ttf');
+}
+
 .scroll-bar:vertical {
     -fx-background-color: transparent;
 }
 
-.scroll-bar:vertical .increment-button{
+.scroll-bar:vertical .increment-button {
     -fx-opacity: 0;
 }
 
@@ -23,13 +28,7 @@
 }
 
 .scroll-pane:hover .scroll-bar:vertical .thumb {
-    -fx-background-color: transparent;
     -fx-background-color: #202020;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../../res/Roboto-Regular.ttf');
 }
 
 .button .text {
@@ -37,21 +36,10 @@
     -fx-font-size: 14;
 }
 
-.button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+.button:hover {
+    -fx-font-weight: bold;
 }
 
 .bold {
     -fx-font-weight: bold;
-}
-
-.titled-pane .title{
-    -fx-font-family: "Roboto";
-    -fx-font-size: 24;
-    -fx-background-color: transparent;
-}
-
-.titled-pane > *. content {
-    -fx-border-color: transparent;
 }

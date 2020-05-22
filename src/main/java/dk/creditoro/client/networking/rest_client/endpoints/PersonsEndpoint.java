@@ -33,11 +33,12 @@ public class PersonsEndpoint {
         return new TokenResponse<>(response.asObject(Person.class));
     }
 
-      /**
+    /**
      * Put person token response.
      *
      * @param identifier the identifier
      * @param body       the body
+     * @param token      the token
      * @return the token response
      */
     public TokenResponse<Person> putPerson(String identifier, JSONObject body, String token) {
@@ -51,8 +52,9 @@ public class PersonsEndpoint {
      *
      * @param identifier the identifier
      * @param fields     the fields
+     * @param token      the token
      * @return the token response
-     */  
+     */
     public TokenResponse<Person> patchPerson(String identifier, Map<String, Object> fields, String token) {
         var response = httpManager.patch(PERSONS, identifier, fields, token);
         return new TokenResponse<>(response.asObject(Person.class));
@@ -74,7 +76,8 @@ public class PersonsEndpoint {
     /**
      * Post person token response.
      *
-     * @param body the body
+     * @param person the person
+     * @param token  the token
      * @return the token response
      */
     public TokenResponse<Person> postPerson(Person person, String token) {
