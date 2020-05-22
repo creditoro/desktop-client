@@ -58,9 +58,6 @@ public class BrowseChannelsController implements IViewController {
      * @param mouseEvent the mouse event
      */
 
-    public void lblStartMenuPressed(MouseEvent mouseEvent) {
-        viewHandler.openView(Views.FRONTPAGE);
-    }
 
     ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
 
@@ -103,8 +100,6 @@ public class BrowseChannelsController implements IViewController {
         viewModelFactory.getChannelProgramsViewModel().setId(viewToOpen);
         viewModelFactory.getChannelProgramsViewModel().queryParamProperty().setValue("");
         viewModelFactory.getChannelProgramsViewModel().filter();
-        viewModelFactory.getChannelProgramsViewModel().search();
-
     }
 
 
@@ -123,7 +118,6 @@ public class BrowseChannelsController implements IViewController {
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
         browseChannelsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
         onSearch();
-
 
     }
 
@@ -149,7 +143,7 @@ public class BrowseChannelsController implements IViewController {
     }
 
     private void updateGrid(ObservableList<Channel> channels) {
-        LOGGER.info("Update grid called.");
+        LOGGER.info("Update grid called. BrowseChannels");
         //Remove all children from Grid
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 15, 15, 15));

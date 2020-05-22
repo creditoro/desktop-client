@@ -80,12 +80,13 @@ public class ChannelProgramsViewModel {
 
     public void filter() {
         listProperty.clear();
-
-        for (Production p : cachedProductions) {
+        for (int i = 0; i < cachedProductions.size(); i++) {
+            Production p = cachedProductions.get(i);
             String name = p.getChannel().getName().toLowerCase();
             String q;
-            if (queryParam.getValue() == null) {
+            if (queryParam.getValue().isEmpty()) {
                 q = "";
+
             } else {
                 q = queryParam.getValue().toLowerCase();
             }
@@ -111,12 +112,6 @@ public class ChannelProgramsViewModel {
         return listProperty;
     }
 
-
-    public ObservableList<Node> sortedList(TilePane tilePane) {
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort(Comparator.comparing(this::productionTitle));
-        return workingCollection;
-    }
 
     public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());

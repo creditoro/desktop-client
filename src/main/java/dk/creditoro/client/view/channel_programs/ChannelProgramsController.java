@@ -94,7 +94,7 @@ public class ChannelProgramsController implements IViewController {
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(channelProgramsViewModel.queryParamProperty());
-        channelProgramsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> updateGrid(newValue));
+        channelProgramsViewModel.listPropertyProperty().addListener((observableValue, productions, newValue) -> updateList(newValue));
         onSearch();
 
         btnAccount.setText("user.getEmail()");
@@ -102,8 +102,15 @@ public class ChannelProgramsController implements IViewController {
 
     }
 
-    private void updateGrid(ObservableList<Production> productions) {
-        LOGGER.info("Update grid called.");
+    private void doneLoading(TilePane tilePane) {
+        Platform.runLater(() -> {
+            productionPane.setContent(tilePane);
+            productionsList = FXCollections.observableArrayList(tilePane.getChildren());
+        });
+    }
+
+    private void updateList(ObservableList<Production> productions) {
+        LOGGER.info("Update grid called. ChannelPrograms");
 
         // Create TilePane for productions
         TilePane tilePane = new TilePane();
@@ -113,6 +120,7 @@ public class ChannelProgramsController implements IViewController {
         Platform.runLater(() -> tilePane.getChildren().addAll(children));
         doneLoading(tilePane);
     }
+
 
     public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
         List<Node> list = new ArrayList<>();
@@ -188,13 +196,6 @@ public class ChannelProgramsController implements IViewController {
             // Changing view to chosen production
             switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
-        });
-    }
-
-    private void doneLoading(TilePane tilePane) {
-        Platform.runLater(() -> {
-            productionPane.setContent(tilePane);
-            productionsList = FXCollections.observableArrayList(tilePane.getChildren());
         });
     }
 

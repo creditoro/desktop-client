@@ -131,7 +131,7 @@ public class BrowseProductionsController implements IViewController {
      * @param productions
      */
     private void updateList(ObservableList<Production> productions) {
-        LOGGER.info("Update grid called.");
+        LOGGER.info("Update grid called. BrowseProductions");
         // Create TilePane for productions
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 0, 0, 0));
@@ -195,7 +195,9 @@ public class BrowseProductionsController implements IViewController {
         var desc = production.getDescription().substring(0, Math.min(numberOfCharacters, production.getDescription().length()));
 
         Text description = new Text();
-        if (production.getDescription().length() > numberOfCharacters) {
+        if (production.getDescription().isEmpty()) {
+            description.setText("Ingen programbeskrivelse at vise");
+        } else if (production.getDescription().length() > numberOfCharacters) {
             description.setText(desc + "...");
         } else {
             description.setText(desc);
