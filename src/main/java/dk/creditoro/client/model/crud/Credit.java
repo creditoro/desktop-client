@@ -12,6 +12,8 @@ public class Credit {
     private final Production production;
     private final Person person;
     private final String job;
+    private final String productionId;
+    private final String personId;
 
     /**
      * Instantiates a new Credit.
@@ -26,6 +28,24 @@ public class Credit {
         this.production = production;
         this.person = person;
         this.job = job;
+        this.productionId = null;
+        this.personId = null;
+    }
+
+    /**
+     * Instantiates a new Credit.
+     *
+     * @param job          the job
+     * @param productionId the production id
+     * @param personId     the person id
+     */
+    public Credit(String job, String productionId, String personId) {
+        this.identifier = null;
+        this.production = null;
+        this.person = null;
+        this.job = job;
+        this.productionId = productionId;
+        this.personId = personId;
     }
 
     /**
@@ -62,5 +82,23 @@ public class Credit {
      */
     public String getJob() {
         return job;
+    }
+
+    /**
+     * Gets production id.
+     *
+     * @return the production id
+     */
+    public String getProductionId() {
+        return productionId;
+    }
+
+    /**
+     * Gets person id.
+     *
+     * @return the person id
+     */
+    public String getPersonId() {
+        return personId;
     }
 }

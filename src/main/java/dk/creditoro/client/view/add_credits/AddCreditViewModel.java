@@ -166,9 +166,9 @@ public class AddCreditViewModel {
      * Post credits.
      */
     public void postCredits() {
-        var c = credit.getPerson().getName();
-        var message = String.format("Posted credit for, c: '%s'", c);
-        LOGGER.info(message);
+//        var c = credit.getPerson().getName();
+//        var message = String.format("Posted credit for, c: '%s'", c);
+//        LOGGER.info(message);
         creditModel.postCredits(credit);
     }
 
