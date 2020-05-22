@@ -31,13 +31,10 @@ public class ChannelProgramsViewModel {
     private StringProperty queryParam = new SimpleStringProperty();
     private final IProductionModel productionModel;
     private final IUserModel userModel;
-    private static final ArrayList<Production> cachedProductions = new ArrayList<>();
+    private final ArrayList<Production> cachedProductions = new ArrayList<>();
 
-    private static final ObservableList<Production> productionsList = FXCollections.observableArrayList();
-    private static final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
-
-    private final ObservableList<String> categoryList = FXCollections.observableArrayList();
-    private final ObservableList<String> sortList = FXCollections.observableArrayList();
+    private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
+    private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
 
     private char currentCharacter;
     private String id;
@@ -121,6 +118,17 @@ public class ChannelProgramsViewModel {
         return workingCollection;
     }
 
+    public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
+        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
+        Comparator<Node> comparator = Comparator.comparing(this::productionTitle);
+        if (sortingMethod.equals("Å-A")) {
+            workingCollection.sort(comparator.reversed());
+            return workingCollection;
+        }
+        workingCollection.sort(comparator);
+        return workingCollection;
+    }
+
     public String productionTitle(Node node) {
         var identifier = node.getId();
         for (int i = 0; i < listProperty.getSize(); i++) {
@@ -144,14 +152,6 @@ public class ChannelProgramsViewModel {
             return observableList;
         }
         return observableList;
-    }
-
-    public ObservableList<String> listCategory() {
-        return categoryList;
-    }
-
-    public ObservableList<String> listSort() {
-        return sortList;
     }
 }
 

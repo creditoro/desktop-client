@@ -43,21 +43,13 @@ public class ChannelProgramsController implements IViewController {
     @FXML
     private HBox alphabet;
     @FXML
-    private ComboBox<String> cbCategory;
-    @FXML
-    private ComboBox<String> cbSort;
-    @FXML
     private Button btnAccount;
     @FXML
     private TextField search;
+    @FXML
+    private ChoiceBox<String> choiceBox;
 
-
-    /**
-     * Btn new channel.
-     */
-    public void btnNewChannel() {
-        LOGGER.info("Open popup box");
-    }
+    ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
 
     /**
      * Handle search bar.
@@ -96,14 +88,14 @@ public class ChannelProgramsController implements IViewController {
         this.viewHandler = viewHandler;
         this.cachedProductions = new HashMap<>();
 
+        choiceBox.setValue("A-Å");
+        choiceBox.setItems(sortingList);
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue()));
+
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(channelProgramsViewModel.queryParamProperty());
         channelProgramsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> updateGrid(newValue));
         onSearch();
-
-        // Add ComboBox Category and Sort.
-        cbCategory.setItems(channelProgramsViewModel.listCategory());
-        cbSort.setItems(channelProgramsViewModel.listSort());
 
         btnAccount.setText("user.getEmail()");
         getProductions();
@@ -217,6 +209,17 @@ public class ChannelProgramsController implements IViewController {
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tp = (TilePane) productionPane.getContent();
         tp.getChildren().setAll(channelProgramsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
+    }
+
+    public void sorted(int choice) {
+        TilePane tilePane = (TilePane) productionPane.getContent();
+        String choiceString;
+        if (choice == 1) {
+            choiceString = "Å-A";
+        } else {
+            choiceString = "A-Å";
+        }
+        tilePane.getChildren().setAll(channelProgramsViewModel.sortedChannelList(tilePane, choiceString));
     }
 
     public void switchChannels() {
