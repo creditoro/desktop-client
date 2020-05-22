@@ -98,8 +98,8 @@ public class BrowseChannelsController implements IViewController {
         LOGGER.info(viewToOpen);
         viewHandler.openView(Views.CHANNEL_PROGRAMS);
         viewModelFactory.getChannelProgramsViewModel().setId(viewToOpen);
-        viewModelFactory.getChannelProgramsViewModel().queryParamProperty().setValue("");
-        viewModelFactory.getChannelProgramsViewModel().filter();
+        viewModelFactory.getChannelProgramsViewModel().queryParamProperty().setValue(null);
+        viewModelFactory.getChannelProgramsViewModel().search();
     }
 
 

@@ -7,7 +7,6 @@ import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
 import dk.creditoro.client.view.shared_viewmodel_func.FindCharacter;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,7 +30,6 @@ public class ChannelProgramsViewModel {
     private final IProductionModel productionModel;
     private final IUserModel userModel;
     private final ViewModelFactory viewModelFactory;
-    private final ArrayList<Production> cachedProductions = new ArrayList<>();
     private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
     private final Map<String, List<Production>> productionMap = new HashMap<>();
@@ -60,6 +58,7 @@ public class ChannelProgramsViewModel {
     }
 
     public Map<String, List<Production>> createProductionMap() {
+        LOGGER.info("Creating productionMap");
         for (Channel c : viewModelFactory.getBrowseChannelsViewModel().listPropertyProperty()) {
             productionMap.put(c.getName(), prodList(c.getName()));
         }
@@ -68,7 +67,6 @@ public class ChannelProgramsViewModel {
 
     public List<Production> prodList(String chanName) {
         List<Production> pl = new ArrayList<>();
-
         for (Production p : listProperty) {
             if (p.getChannel().getName().equals(chanName)) {
                 pl.add(p);
@@ -81,14 +79,6 @@ public class ChannelProgramsViewModel {
         return queryParam;
     }
 
-    public void getProductions() {
-        var q = queryParam.get();
-        var message = String.format("Called search, q: '%s'", q);
-        LOGGER.info(message);
-        listProperty.clear();
-        productionModel.search(id);
-    }
-
     public void search() {
         var q = queryParam.get();
         var message = String.format("Called search, q: '%s'", q);
@@ -96,34 +86,11 @@ public class ChannelProgramsViewModel {
         productionModel.search(q);
     }
 
-    public void filter() {
-        listProperty.clear();
-        for (int i = 0; i < cachedProductions.size(); i++) {
-            Production p = cachedProductions.get(i);
-            String name = p.getChannel().getName().toLowerCase();
-            String q;
-            if (queryParam.getValue().isEmpty()) {
-                q = "";
-
-            } else {
-                q = queryParam.getValue().toLowerCase();
-            }
-            if (name.contains(q)) {
-                listProperty.add(p);
-            }
-        }
-    }
-
-
     private void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
-        LOGGER.info("On search channels result called.");
+        LOGGER.info("On search channelPrograms result called.");
         var productions = (Production[]) propertyChangeEvent.getNewValue();
-        Platform.runLater(() -> {
-            listProperty.clear();
-            cachedProductions.clear();
-            listProperty.addAll(productions);
-            cachedProductions.addAll(Arrays.asList(productions));
-        });
+        listProperty.clear();
+        listProperty.addAll(productions);
     }
 
     public ListProperty<Production> listPropertyProperty() {

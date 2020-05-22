@@ -78,17 +78,12 @@ public class ChannelProgramsController implements IViewController {
         this.viewHandler.openView(Views.PRODUCTION);
     }
 
-    public void getProductions() {
-        channelProgramsViewModel.getProductions();
-    }
-
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewModelFactory = viewModelFactory;
         channelProgramsViewModel = viewModelFactory.getChannelProgramsViewModel();
         this.viewHandler = viewHandler;
         this.cachedProductions = new HashMap<>();
-        this.cachedProductionMap = viewModelFactory.getChannelProgramsViewModel().createProductionMap();
 
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
@@ -96,12 +91,11 @@ public class ChannelProgramsController implements IViewController {
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(channelProgramsViewModel.queryParamProperty());
-        channelProgramsViewModel.listPropertyProperty().addListener((observableValue, productions, newValue) -> updateList(newValue));
+        channelProgramsViewModel.listPropertyProperty().addListener((observableValue, productions, newValue) -> updateList());
         onSearch();
 
         btnAccount.setText("user.getEmail()");
-        getProductions();
-
+        this.cachedProductionMap = viewModelFactory.getChannelProgramsViewModel().createProductionMap();
     }
 
     private void doneLoading(TilePane tilePane) {
@@ -111,23 +105,21 @@ public class ChannelProgramsController implements IViewController {
         });
     }
 
-    private void updateList(ObservableList<Production> productions) {
+    private void updateList() {
         LOGGER.info("Update grid called. ChannelPrograms");
 
         // Create TilePane for productions
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 0, 0, 0));
         tilePane.prefWidthProperty().bind(productionPane.widthProperty());
-        List<Node> children = computeChildren(productions, tilePane);
+        List<Node> children = computeChildren(tilePane);
         Platform.runLater(() -> tilePane.getChildren().addAll(children));
         doneLoading(tilePane);
     }
 
 
-    public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
+    public List<Node> computeChildren(TilePane tilePane) {
         List<Node> list = new ArrayList<>();
-        List<Production> productionList = new ArrayList<>();
-
 
         String cName = viewModelFactory.getChannelProgramsViewModel().getId();
         // Create VBox for each production and add title and description
