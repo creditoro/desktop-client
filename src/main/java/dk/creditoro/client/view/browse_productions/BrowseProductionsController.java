@@ -221,6 +221,8 @@ public class BrowseProductionsController implements IViewController {
             viewModelFactory.getAddCreditViewModel().setChannelName(production.getChannel().getName());
             // Set production in addCreditViewModel
             viewModelFactory.getAddCreditViewModel().setProduction(production);
+            // Set boolean
+            viewModelFactory.getProductionViewModel().setWhichView(false);
             // Changing view to chosen production
             switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
