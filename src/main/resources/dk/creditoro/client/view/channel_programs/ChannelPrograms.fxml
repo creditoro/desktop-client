@@ -1,173 +1,312 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.channel_programs.ChannelProgramsController">
-    <left>
-        <AnchorPane minWidth="200.0" style="-fx-background-color: #202020;">
-            <children>
-                <GridPane layoutX="13.0" layoutY="125.0" prefHeight="183.0" prefWidth="268.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Button fx:id="Search" mnemonicParsing="false" onAction="#handleSearchBar" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../res/Search_white.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button fx:id="Channels" mnemonicParsing="false" onMouseClicked="#switchToChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../res/triangle_icon.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button fx:id="Productions" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../res/programs_icon.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                    </children>
-                </GridPane>
-                <Label fx:id="lblStartMenu" alignment="CENTER" prefHeight="53.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="36.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../res/Creditoro.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Label>
-            </children>
-        </AnchorPane>
-    </left>
-    <center>
-        <BorderPane prefHeight="1024.0" prefWidth="1304.0">
-            <top>
-                <AnchorPane prefHeight="53.0">
-                    <children>
-                        <HBox alignment="CENTER" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane prefHeight="53.0" prefWidth="1440.0" style="-fx-background-color: #31C5EC;">
-                           <children>
-                              <Label fx:id="label" layoutX="151.0" layoutY="18.0" />
-                           </children></AnchorPane>
-                            </children>
-                        </HBox>
-                        <Button fx:id="btnAccount" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
-                            <graphic>
-                                <ImageView fitHeight="46.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../res/acc_icon.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                  <Label layoutX="10.0" onMouseClicked="#switchChannels" prefHeight="53.0" prefWidth="106.0" text="Skift kanal" textFill="WHITE" />
-                    </children>
-                </AnchorPane>
-            </top>
-            <center>
-                <AnchorPane prefHeight="53.0" prefWidth="1569.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Line endX="354.6666564941406" endY="234.66665649414062" layoutX="-129.0" layoutY="-52.0" startX="1342.6666259765625" startY="234.66665649414062" AnchorPane.leftAnchor="225.16665649414062" AnchorPane.rightAnchor="225.83334350585938" AnchorPane.topAnchor="182.16665649414062" />
-                        <HBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane prefHeight="81.0" prefWidth="1446.0">
-                                    <children>
-                                        <TextField fx:id="productionSearch" alignment="CENTER" layoutX="439.0" layoutY="22.0" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="37.0" prefWidth="562.0" promptText="Søg efter kanal" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="439.0" AnchorPane.rightAnchor="439.0">
-                                            <font>
-                                                <Font size="16.0" />
-                                            </font>
-                                        </TextField>
-                                        <ImageView fitHeight="40.0" fitWidth="26.0" layoutX="458.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../res/search.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </HBox>
-                        <ImageView fx:id="imgAddChannel" fitHeight="62.0" fitWidth="77.0" layoutX="225.0" layoutY="119.0" onMouseClicked="#btnNewChannel" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0">
-                            <image>
-                                <Image url="@../../res/add.png" />
-                            </image>
-                        </ImageView>
-                        <ScrollPane fx:id="productionPane" hbarPolicy="NEVER" layoutX="228.0" layoutY="221.0" prefHeight="600.0" prefWidth="986.0" style="-fx-background-color: transparent;" stylesheets="@ChannelPrograms.css" vbarPolicy="ALWAYS">
-                     <content>
-                        <Accordion fx:id="ac" prefHeight="600.0" prefWidth="986.0" />
-                     </content></ScrollPane>
-                  <HBox fx:id="alphabet" layoutX="264.0" layoutY="180.0" prefHeight="46.0" prefWidth="950.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.channel_programs.ChannelProgramsController">
+   <children>
+      <BorderPane prefHeight="800.0" prefWidth="1440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <AnchorPane prefHeight="800.0" prefWidth="1190.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="50.0" prefWidth="1190.0" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="A" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="B" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="C" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="D" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="E" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="F" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="G" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="H" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="I" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="J" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="K" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="L" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="M" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="N" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="O" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="P" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="Q" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="R" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="S" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="T" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="U" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="V" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="W" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="X" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="Y" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="Z" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="Æ" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="Ø" />
-                        <Button mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" text="Å" />
-                     </children></HBox>
-                  <Line endX="1214.0" endY="221.0" startX="228.0" startY="221.0" />
-                  <ComboBox fx:id="cbCategory" layoutX="287.0" layoutY="150.0" opacity="0.1" promptText="Vælg kategori" style="-fx-background-color: transparent;" />
-                  <ComboBox fx:id="cbSort" layoutX="1126.0" layoutY="150.0" opacity="0.1" promptText="Sorter" style="-fx-background-color: transparent;" />
-                    </children>
-                </AnchorPane>
-            </center>
-        </BorderPane>
-    </center>
-</BorderPane>
+                        <Button fx:id="btnAccount" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+                           <graphic>
+                              <ImageView fitHeight="46.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../res/acc_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label onMouseClicked="#switchChannels" prefHeight="35.0" prefWidth="106.0" text="Skift kanal" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="80.0" prefWidth="1190.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                     <children>
+                        <TextField fx:id="productionSearch" alignment="CENTER" onInputMethodTextChanged="#onSearch" onKeyTyped="#onSearch" prefHeight="40.0" prefWidth="600.0" promptText="Søg efter produktion" style="-fx-background-radius: 20; -fx-background-color: #DFDFDF;" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="20.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <ImageView fitHeight="40.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="27.0">
+                           <image>
+                              <Image url="@../../res/search.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <Line endX="1090.0" endY="200.0" startX="100.0" startY="200.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+                  <Line endX="1090.0" endY="240.0" startX="100.0" startY="240.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+                  <ImageView fx:id="imgAddProduction" fitHeight="62.0" fitWidth="77.0" onMouseClicked="#btnNewChannel" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="130.0">
+                     <image>
+                        <Image url="@../../res/add.png" />
+                     </image>
+                  </ImageView>
+                  <ScrollPane fx:id="productionPane" hbarPolicy="NEVER" pannable="true" prefHeight="600.0" prefWidth="990.0" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="260.0" />
+                  <HBox fx:id="alphabet" alignment="CENTER" prefHeight="30.0" prefWidth="990.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="205.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="A">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="B">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="37.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="C">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="63.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="D">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="90.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="E">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="116.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="F">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="143.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="G">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="169.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="H">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="196.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="I">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="222.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="J">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="249.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="K">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="275.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="L">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="302.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="M">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="328.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="N">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="355.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="O">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="381.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="P">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="408.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="Q">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="434.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="R">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="461.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="S">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="487.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="T">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="514.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="U">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="540.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="V">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="567.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="X">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="593.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="Y">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="620.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="Z">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="646.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="Æ">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="673.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="Ø">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="699.0" layoutY="10.0" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="Å">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <ComboBox fx:id="cbCategory" opacity="0.1" promptText="Vælg kategori" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="155.0" />
+                  <ComboBox fx:id="cbSort" opacity="0.1" promptText="Sorter" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="155.0" />
+               </children>
+            </AnchorPane>
+         </center>
+         <left>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="250.0" scaleShape="false" style="-fx-background-color: #202020;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Version 0.0.1" textFill="#e4e4e4" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="800.0" prefWidth="250.0">
+                     <children>
+                        <HBox prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblStartMenu" alignment="CENTER" onMouseClicked="#btnFrontPage" prefHeight="50.0" prefWidth="227.0" text="Creditoro" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../res/Creditoro.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <GridPane prefHeight="200.0" prefWidth="300.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <VBox.margin>
+                              <Insets top="70.0" />
+                           </VBox.margin>
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#btnSearch" style="-fx-background-color: transparent;" text="Søg" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../res/Search_white.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="40.0" />
+                                 </padding>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#btnChannels" style="-fx-background-color: transparent;" text="Kanaler" textFill="WHITE" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../res/triangle_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="40.0" />
+                                 </padding>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#btnProductions" style="-fx-background-color: transparent;" text="Programmer" textFill="WHITE" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../res/programs_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="40.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

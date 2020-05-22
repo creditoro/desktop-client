@@ -7,6 +7,7 @@ import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,9 +15,17 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -24,29 +33,24 @@ public class ChannelProgramsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ChannelProgramsViewModel channelProgramsViewModel;
     private ViewHandler viewHandler;
+    private ViewModelFactory viewModelFactory;
     private ObservableList<Node> productionsList;
+    private Map<String, VBox> cachedProductions;
 
     @FXML
     private ScrollPane productionPane;
-
     @FXML
     private TextField productionSearch;
-
-
     @FXML
     private HBox alphabet;
-
     @FXML
-    ComboBox<String> cbCategory;
-
+    private ComboBox<String> cbCategory;
     @FXML
-    ComboBox<String> cbSort;
-
+    private ComboBox<String> cbSort;
     @FXML
     private Button btnAccount;
-
     @FXML
-    public TextField search;
+    private TextField search;
 
 
     /**
@@ -75,8 +79,11 @@ public class ChannelProgramsController implements IViewController {
      *
      * @param viewToOpen the view to open
      */
-    public void switchView(String viewToOpen) {
+    public void switchView(String viewToOpen, String channelId) {
         LOGGER.info(viewToOpen);
+        this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
+        this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
+        this.viewHandler.openView(Views.PRODUCTION);
     }
 
     public void getProductions() {
@@ -85,8 +92,10 @@ public class ChannelProgramsController implements IViewController {
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
+        this.viewModelFactory = viewModelFactory;
         channelProgramsViewModel = viewModelFactory.getChannelProgramsViewModel();
         this.viewHandler = viewHandler;
+        this.cachedProductions = new HashMap<>();
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(channelProgramsViewModel.queryParamProperty());
@@ -104,34 +113,61 @@ public class ChannelProgramsController implements IViewController {
 
     private void updateGrid(ObservableList<Production> productions) {
         LOGGER.info("Update grid called.");
-        TilePane tp = new TilePane();
-        tp.prefWidthProperty().bind(productionPane.widthProperty());
 
-        for (Production production : productions) {
-            if (!production.getChannel().getName().equals(channelProgramsViewModel.getId())) {
-                continue;
-            }
-
-            Button description = getDescription(production);
-            TitledPane tps = new TitledPane(production.getTitle(), description);
-            tps.setId(production.getIdentifier());
-            tps.setExpanded(false);
-            tps.setPadding(new Insets(15, 0, 0, 0));
-
-            setOnMouseClicked(production, description);
-
-            tp.getChildren().addAll(tps);
-
-        }
-
-        productionPane.setContent(tp);
-        productionsList = FXCollections.observableArrayList(tp.getChildren());
+        // Create TilePane for productions
+        TilePane tilePane = new TilePane();
+        tilePane.setPadding(new Insets(15, 0, 0, 0));
+        tilePane.prefWidthProperty().bind(productionPane.widthProperty());
+        List<Node> children = computeChildren(productions, tilePane);
+        Platform.runLater(() -> tilePane.getChildren().addAll(children));
+        doneLoading(tilePane);
     }
 
-    private Button getDescription(Production production) {
-        Button description = new Button();
-        description.wrapTextProperty().setValue(true);
-        description.prefWidthProperty().bind(productionPane.widthProperty().subtract(50));
+    public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane)
+    {
+        List<Node> list = new ArrayList<>();
+        // Create VBox for each production and add title and description
+        for (int i = 0; i < productions.size(); i++) {
+            Production production = productions.get(i);
+            VBox vBox = cachedProductions.get(production.getIdentifier());
+            if (vBox == null) {
+                vBox = createVBox(tilePane, production);
+                Label title = getTitle(production);
+                Text description = getDescription(production);
+
+                // Make the VBox clickable, so it refers to given production page
+                setOnMouseClicked(production, vBox);
+
+                vBox.getChildren().addAll(title, description);
+                TilePane.setMargin(vBox, new Insets(0, 0, 15, 0));
+                cachedProductions.put(production.getIdentifier(), vBox);
+            }
+            list.add(vBox);
+        }
+        return list;
+    }
+
+    private VBox createVBox(TilePane tilepane, Production production)
+    {
+        VBox vBox = new VBox();
+        vBox.prefWidthProperty().bind(tilepane.widthProperty());
+        vBox.setPadding(new Insets(15, 15, 15, 15));
+        vBox.setStyle("-fx-background-color: #EEEEEE;");
+        vBox.setId(production.getIdentifier());
+        return vBox;
+    }
+
+    private Label getTitle(Production production)
+    {
+        Label title = new Label(production.getTitle());
+        title.setFont(new Font(30));
+        return title;
+    }
+
+    private Text getDescription(Production production) {
+        Text description = new Text();
+        //description.setWrappingWidth(productionPane.getWidth());
+        //description.prefWidth(productionPane.getWidth());
 
         if (production.getDescription().isEmpty()) {
             description.setText("Ingen programbeskrivelse at vise");
@@ -142,13 +178,27 @@ public class ChannelProgramsController implements IViewController {
         return description;
     }
 
-    private void setOnMouseClicked(Production production, Button description) {
+    private void setOnMouseClicked(Production production, VBox description) {
         description.setOnMouseClicked(mouseEvent -> {
-            var desc = (Button) mouseEvent.getSource();
-            switchView(desc.getId());
+            // Check which VBox was pressed
+            var box = (VBox) mouseEvent.getSource();
+            //Set title in productionViewModel
+            viewModelFactory.getProductionViewModel().setTitle(production.getTitle());
+            // set channel Neme in addCreditViewModel
+            viewModelFactory.getAddCreditViewModel().setChannelName(production.getChannel().getName());
+            // Set production in addCreditViewModel
+            viewModelFactory.getAddCreditViewModel().setProduction(production);
+            // Changing view to chosen production
+            switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
-            LOGGER.info("Switching to credits");
 
+        });
+    }
+
+    private void doneLoading(TilePane tilePane) {
+        Platform.runLater(() -> {
+            productionPane.setContent(tilePane);
+            productionsList = FXCollections.observableArrayList(tilePane.getChildren());
         });
     }
 
@@ -169,9 +219,24 @@ public class ChannelProgramsController implements IViewController {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
-    public void switchToChannels() {
-        viewHandler.openView(Views.BROWSE_CHANNELS);
+    @FXML
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
 
+    @FXML
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    @FXML
+    public void btnChannels(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
+
+    @FXML
+    public void btnProductions(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 }
 
