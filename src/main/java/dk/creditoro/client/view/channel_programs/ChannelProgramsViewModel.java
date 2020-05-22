@@ -75,7 +75,13 @@ public class ChannelProgramsViewModel {
     }
 
     public void search() {
+        var q = queryParam.get();
+        var message = String.format("Called search, q: '%s'", q);
+        LOGGER.info(message);
+        productionModel.search(q);
+    }
 
+    public void filter() {
         listProperty.clear();
 
         for (Production p : cachedProductions) {
@@ -89,7 +95,6 @@ public class ChannelProgramsViewModel {
             if (name.contains(q)) {
                 listProperty.add(p);
             }
-
         }
     }
 

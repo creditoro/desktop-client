@@ -107,7 +107,7 @@ public class ProductionController implements IViewController {
      */
     @FXML
     public void btnProductions(ActionEvent actionEvent) {
-        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewHandler.openView(Views.CHANNEL_PROGRAMS);
     }
 
 

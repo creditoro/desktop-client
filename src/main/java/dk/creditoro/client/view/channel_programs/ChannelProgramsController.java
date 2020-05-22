@@ -127,6 +127,9 @@ public class ChannelProgramsController implements IViewController {
         // Create VBox for each production and add title and description
         for (int i = 0; i < productions.size(); i++) {
             Production production = productions.get(i);
+            if (!production.getChannel().getName().equals(channelProgramsViewModel.getId())){
+                continue;
+            }
             VBox vBox = cachedProductions.get(production.getIdentifier());
             if (vBox == null) {
                 vBox = createVBox(tilePane, production);
