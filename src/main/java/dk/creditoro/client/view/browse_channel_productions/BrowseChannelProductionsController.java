@@ -88,8 +88,6 @@ public class BrowseChannelProductionsController implements IViewController {
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
         choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue()));
-        browseChannelProductionsViewModel.queryParamProperty().setValue(null);
-        browseChannelProductionsViewModel.search();
         this.cachedProductionMap = viewModelFactory.getBrowseChannelProductionsViewModel().createProductionMap();
 
         //Add listener to channelSearch text area

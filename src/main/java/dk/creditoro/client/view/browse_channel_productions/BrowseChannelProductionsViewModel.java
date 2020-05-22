@@ -47,6 +47,8 @@ public class BrowseChannelProductionsViewModel {
         this.userModel = userModel;
         this.productionModel.addListener("kek", (this::onSearchProductionsResult));
         this.viewModelFactory = viewModelFactory;
+        queryParamProperty().setValue(null);
+        search();
     }
 
     public SimpleStringProperty getName() {
@@ -54,12 +56,11 @@ public class BrowseChannelProductionsViewModel {
     }
 
     public void setName(String name) {
-        this.name.setValue(name);   
+        this.name.setValue(name);
     }
 
     public Map<String, List<Production>> createProductionMap() {
         LOGGER.info("Creating productionMap");
-        search();
         for (Channel c : viewModelFactory.getBrowseChannelsViewModel().listPropertyProperty()) {
             productionMap.put(c.getName(), prodList(c.getName()));
         }
