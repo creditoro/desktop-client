@@ -122,7 +122,7 @@ public class BrowseChannelProductionsController implements IViewController {
 
         String cName = viewModelFactory.getBrowseChannelProductionsViewModel().getName().getValue();
         // Create VBox for each production and add title and description
-        for (Production production : cachedProductionMap.get(cName)) {
+        for (Production production : browseChannelProductionsViewModel.qSearch()) {
             VBox vBox = cachedProductions.get(production.getIdentifier());
             if (vBox == null) {
                 vBox = createVBox(tilePane, production);
@@ -196,7 +196,8 @@ public class BrowseChannelProductionsController implements IViewController {
      * On search.
      */
     public void onSearch() {
-        browseChannelProductionsViewModel.search();
+        browseChannelProductionsViewModel.qSearch();
+        updateList();
     }
 
     @FXML

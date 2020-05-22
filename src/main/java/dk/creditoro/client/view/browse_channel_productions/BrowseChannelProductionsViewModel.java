@@ -95,6 +95,15 @@ public class BrowseChannelProductionsViewModel {
         listProperty.addAll(productions);
     }
 
+    public List<Production> qSearch() {
+        List<Production> productions = new ArrayList<>();
+        productions.addAll(productionMap.get(name.getValue()));
+        if (queryParamProperty().getValue() != null) {
+            productions.removeIf(n -> (!n.getTitle().toLowerCase().contains(queryParam.getValue().toLowerCase())));
+        }
+        return productions;
+    }
+
     public ListProperty<Production> listPropertyProperty() {
         return listProperty;
     }
