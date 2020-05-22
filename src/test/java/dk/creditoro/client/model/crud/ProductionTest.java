@@ -30,7 +30,7 @@ class ProductionTest {
 
     @Test
     void getDescription() {
-        assertEquals("Her er en beskrivelse", production.getDescription(), message);
+        assertEquals("Og det var Hornbæk der var langt ude", production.getDescription(), message);
     }
 
     @Test

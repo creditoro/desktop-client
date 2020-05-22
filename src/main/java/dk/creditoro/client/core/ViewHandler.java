@@ -64,6 +64,7 @@ public class ViewHandler {
             return false;
         }
         root.setTitle("Creditoro");
+        root.setResizable(false);
         root.setScene(scene);
         return true;
     }
@@ -85,6 +86,7 @@ public class ViewHandler {
             viewModelFactory.getBrowseProductionsViewModel().search();
         }
         root.setTitle("Creditoro");
+        root.setResizable(false);
         root.setScene(scene);
 
         return true;

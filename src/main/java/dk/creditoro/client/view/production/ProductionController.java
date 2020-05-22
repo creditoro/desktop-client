@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -21,29 +20,30 @@ import javafx.scene.text.Text;
 public class ProductionController implements IViewController {
     private ProductionViewModel productionViewModel;
     private ViewHandler viewHandler;
+    private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
 
     @FXML
-    public Text cast;
+    private Text cast;
     @FXML
-    public Text credit;
+    private Text credit;
     @FXML
-    public Label lblStartMenu;
+    private TextField search;
     @FXML
-    public TextField search;
-    @FXML
-    public ImageView channelLogo;
+    private Label title;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
+        this.viewModelFactory = viewModelFactory;
         this.viewHandler = viewHandler;
         productionViewModel = viewModelFactory.getProductionViewModel();
-
 
         //Add Listener to search area
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
         productionViewModel.listPropertyProperty().addListener(((observableValue, credits, newValue) -> updateList(newValue)));
         getCredits();
-        productionViewModel.setChannelLogo(channelLogo);
+
+        //Set title
+        title.textProperty().bindBidirectional(productionViewModel.titleProperty());
     }
 
     @FXML
@@ -56,6 +56,11 @@ public class ProductionController implements IViewController {
         productionViewModel.search();
     }
 
+    /**
+     * Update list.
+     *
+     * @param list the list
+     */
     public void updateList(ObservableList<Credit> list) {
         //Foreach credit, append credit
         cast.setText("");
@@ -72,27 +77,57 @@ public class ProductionController implements IViewController {
         }
     }
 
+    /**
+     * Btn account.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnAccount(ActionEvent actionEvent) {
         //Code
     }
 
+    /**
+     * Btn new credit.
+     *
+     * @param mouseEvent the mouse event
+     */
     @FXML
     public void btnNewCredit(MouseEvent mouseEvent) {
+        this.viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitle());
+        this.viewModelFactory.getAddCreditViewModel().setCredits(productionViewModel.listPropertyProperty());
+        this.viewModelFactory.getAddCreditViewModel().refreshValues();
         viewHandler.openView(Views.ADD_CREDITS);
     }
 
+    /**
+     * Btn productions.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnProductions(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
-    public void btnSearch(ActionEvent actionEvent) {
-        //Do something
-    }
 
+    /**
+     * Btn channels.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
+
+    /**
+     * Btn front page.
+     *
+     * @param mouseEvent the mouse event
+     */
+    @FXML
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
     }
 }

@@ -20,7 +20,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -30,9 +33,9 @@ public class BrowseProductionsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseProductionsViewModel browseProductionsViewModel;
     private ViewHandler viewHandler;
-	private ViewModelFactory viewModelFactory; // I don't think it should be implment like this?
+    private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
     private ObservableList<Node> productionsList;
-    private Map<String, VBox> cachedProdcutions;
+    private Map<String, VBox> cachedProductions;
 
     @FXML
     private ScrollPane productionPane;
@@ -43,27 +46,12 @@ public class BrowseProductionsController implements IViewController {
     @FXML
     private Button btnAccount;
 
-    /**
-     * Lbl start menu pressed.
-     *
-     * @param mouseEvent the mouse event
-     */
-    public void lblStartMenuPressed(MouseEvent mouseEvent) {
-        viewHandler.openView(Views.FRONTPAGE);
-    }
 
     /**
      * Btn new production.
      */
     public void btnNewProduction() {
         LOGGER.info("Create production button pressed");
-    }
-
-    /**
-     * Handle search bar.
-     */
-    public void handleSearchBar() {
-        LOGGER.info("Search button pressed");
     }
 
     /**
@@ -93,21 +81,21 @@ public class BrowseProductionsController implements IViewController {
      * Switch view.
      *
      * @param viewToOpen the view to open
+     * @param channelId  the channel id
      */
     public void switchView(String viewToOpen, String channelId) {
         LOGGER.info(viewToOpen);
-		this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
-		this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
-		this.viewModelFactory.getProductionViewModel().refreshLogo();
-		this.viewHandler.openView(Views.PRODUCTION);
+        this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
+        this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
+        this.viewHandler.openView(Views.PRODUCTION);
     }
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
-		this.viewModelFactory = viewModelFactory;
+        this.viewModelFactory = viewModelFactory;
         browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         this.viewHandler = viewHandler;
-        this.cachedProdcutions = new HashMap<>();
+        this.cachedProductions = new HashMap<>();
 
         //Add listener to productionSearch text area
         productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
@@ -153,12 +141,19 @@ public class BrowseProductionsController implements IViewController {
         doneLoading(tilePane);
     }
 
+    /**
+     * Compute children list.
+     *
+     * @param productions the productions
+     * @param tilePane    the tile pane
+     * @return the list
+     */
     public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
         List<Node> list = new ArrayList<>();
         // Create VBox for each production and add title and description
         for (int i = 0; i < productions.size(); i++) {
             Production production = productions.get(i);
-            VBox vBox = cachedProdcutions.get(production.getIdentifier());
+            VBox vBox = cachedProductions.get(production.getIdentifier());
             if (vBox == null) {
                 vBox = createVBox(tilePane, production);
                 Label title = getTitle(production);
@@ -169,7 +164,7 @@ public class BrowseProductionsController implements IViewController {
 
                 vBox.getChildren().addAll(title, description);
                 TilePane.setMargin(vBox, new Insets(0, 0, 15, 0));
-                cachedProdcutions.put(production.getIdentifier(), vBox);
+                cachedProductions.put(production.getIdentifier(), vBox);
             }
             list.add(vBox);
         }
@@ -218,7 +213,15 @@ public class BrowseProductionsController implements IViewController {
      */
     private void setOnMouseClicked(Production production, VBox vBox) {
         vBox.setOnMouseClicked(mouseEvent -> {
+            // Check which VBox was pressed
             var box = (VBox) mouseEvent.getSource();
+            //Set title in productionViewModel
+            viewModelFactory.getProductionViewModel().setTitle(production.getTitle());
+            // set channel Neme in addCreditViewModel
+            viewModelFactory.getAddCreditViewModel().setChannelName(production.getChannel().getName());
+            // Set production in addCreditViewModel
+            viewModelFactory.getAddCreditViewModel().setProduction(production);
+            // Changing view to chosen production
             switchView(box.getId(), production.getChannel().getIdentifier());
             LOGGER.info(production.getTitle());
         });
@@ -256,5 +259,16 @@ public class BrowseProductionsController implements IViewController {
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tilePane = (TilePane) productionPane.getContent();
         tilePane.getChildren().setAll(browseProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
+    }
+
+
+    /**
+     * Btn front page.
+     *
+     * @param mouseEvent the mouse event
+     */
+    @FXML
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
     }
 }

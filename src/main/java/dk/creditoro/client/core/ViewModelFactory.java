@@ -1,5 +1,6 @@
 package dk.creditoro.client.core;
 
+import dk.creditoro.client.view.add_credits.AddCreditViewModel;
 import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
 import dk.creditoro.client.view.browse_productions.BrowseProductionsViewModel;
 import dk.creditoro.client.view.channel_programs.ChannelProgramsViewModel;
@@ -12,13 +13,12 @@ import dk.creditoro.client.view.production.ProductionViewModel;
  */
 public class ViewModelFactory {
 
-
     private final LoginViewModel loginViewModel;
     private final BrowseChannelsViewModel browseChannelsViewModel;
     private final BrowseProductionsViewModel browseProductionsViewModel;
     private final ProductionViewModel productionViewModel;
     private final ChannelProgramsViewModel channelProgramsViewModel;
-
+    private final AddCreditViewModel addCreditViewModel;
 
     public ViewModelFactory(ModelFactory modelFactory) {
         loginViewModel = new LoginViewModel(modelFactory.getUserModel());
@@ -26,6 +26,7 @@ public class ViewModelFactory {
         browseProductionsViewModel = new BrowseProductionsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
         productionViewModel = new ProductionViewModel(modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
         channelProgramsViewModel = new ChannelProgramsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
+        addCreditViewModel = new AddCreditViewModel(modelFactory.getPersonModel(), modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
     }
 
     /**
@@ -45,12 +46,18 @@ public class ViewModelFactory {
         return browseProductionsViewModel;
     }
 
-    public ProductionViewModel getProductionViewModel()
-    {
+    public ProductionViewModel getProductionViewModel() {
         return productionViewModel;
     }
 
+    public AddCreditViewModel getAddCreditViewModel() {
+        return addCreditViewModel;
+    }
+
+    /**
+     * @return the channelProgramsViewModel
+     */
     public ChannelProgramsViewModel getChannelProgramsViewModel() {
-            return channelProgramsViewModel;
-        }
+        return channelProgramsViewModel;
+    }
 }

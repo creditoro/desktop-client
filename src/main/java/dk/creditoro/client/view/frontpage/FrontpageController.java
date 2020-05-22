@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.util.logging.Logger;
@@ -22,14 +22,10 @@ import java.util.logging.Logger;
  */
 public class FrontpageController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    ObservableList<String> searchingList = FXCollections.observableArrayList("Produktion", "Kanal");
     private ViewHandler viewHandler;
-
     @FXML
     private ChoiceBox<String> choiceBox;
-
-    ObservableList<String> searchingList = FXCollections.observableArrayList("Produktion", "Kanal");
-
-
     private TranslateTransition openNav;
     private TranslateTransition openBtn;
     private TranslateTransition closeNav;
@@ -38,7 +34,7 @@ public class FrontpageController implements IViewController {
     @FXML
     private Button btnMenu;
     @FXML
-    private VBox drawer;
+    private AnchorPane drawer;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -129,5 +125,11 @@ public class FrontpageController implements IViewController {
             closeNav.play();
             closeBtn.play();
         }
+    }
+
+    @FXML
+    public void btnSearch(ActionEvent actionEvent) {
+        searchTextField.requestFocus();
+        drawerAction(actionEvent);
     }
 }

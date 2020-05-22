@@ -36,7 +36,6 @@ public class BrowseChannelsController implements IViewController {
     private Map<String, ImageView> cachedImages;
     private ViewModelFactory viewModelFactory;
 
-
     @FXML
     private ScrollPane channelPane;
 
@@ -58,7 +57,6 @@ public class BrowseChannelsController implements IViewController {
      *
      * @param mouseEvent the mouse event
      */
-
 
     public void lblStartMenuPressed(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
@@ -216,5 +214,18 @@ public class BrowseChannelsController implements IViewController {
         tilePane.getChildren().setAll(browseChannelsViewModel.sortedByCharacter(channelList, actionEvent, alphabet));
     }
 
+    @FXML
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
 
+    @FXML
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    @FXML
+    public void btnChannels(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
 }
