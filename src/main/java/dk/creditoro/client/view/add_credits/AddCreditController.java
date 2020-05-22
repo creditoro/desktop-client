@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
-import java.util.UUID;
 import java.util.logging.Logger;
 
 /**
@@ -67,41 +66,48 @@ public class AddCreditController implements IViewController {
      * Add credit on action.
      */
     public void addCreditOnAction() {
-        String creditIdentifier = UUID.randomUUID().toString();
         Production production = addCreditViewModel.getProduction();
-        String personIdentifier;
         Person person;
 
         String email = emailTxtField.getText();
-        String name = nameTxtField.getText();
         String job = jobTxtField.getText();
+        String name;
         String phone;
 
         if (phoneTxtField.isDisabled()) {
             if (addCreditViewModel.getPerson(email) == null) {
-                createPopup("Personen blev ikke fundet", "Tilføj venligst et telefonnummer for at oprette personen", 5, Pos.BASELINE_CENTER);
+                createPopup("Personen blev ikke fundet", "Tilføj venligst et navn og telefonnummer for at oprette personen", 5, Pos.BASELINE_CENTER);
+                nameTxtField.setDisable(false);
                 phoneTxtField.setDisable(false);
-                phoneTxtField.requestFocus();
+                nameTxtField.requestFocus();
 
             } else {
                 person = addCreditViewModel.getPerson(email);
-                creditsTxtArea.appendText(name + "\t" + job + "\n");
+                creditsTxtArea.appendText(person.getName() + "\t" + job + "\n");
 
                 clearFields();
                 nameTxtField.requestFocus();
-                postCredit(creditIdentifier, production, person, job);
+
+                setAndPostCredit(production, person, job);
             }
         } else {
             phone = phoneTxtField.getText();
-            personIdentifier = UUID.randomUUID().toString();
-            creditIdentifier = UUID.randomUUID().toString();
-            person = new Person(personIdentifier, phone, email, name);
+            name = nameTxtField.getText();
+            person = new Person(phone, email, name);
             postPerson(person);
-            postCredit(creditIdentifier, production, person, job);
+
+            setAndPostCredit(production, person, job);
+
             phoneTxtField.setDisable(true);
+            nameTxtField.setDisable(true);
             creditsTxtArea.appendText(name + "\t" + job + "\n");
             clearFields();
         }
+    }
+
+    private void setAndPostCredit(Production production, Person person, String job) {
+        addCreditViewModel.setCredit(new Credit(job, production.getIdentifier(), person.getIdentifier()));
+        addCreditViewModel.postCredits();
     }
 
     private void postPerson(Person person) {
@@ -114,12 +120,6 @@ public class AddCreditController implements IViewController {
         emailTxtField.clear();
         phoneTxtField.clear();
         jobTxtField.clear();
-    }
-
-    private void postCredit(String creditIdentifier, Production production, Person person, String job) {
-        addCreditViewModel.setCredit(new Credit(creditIdentifier, production, person, job));
-        addCreditViewModel.postCredits();
-        LOGGER.info("Credit added");
     }
 
     /**
