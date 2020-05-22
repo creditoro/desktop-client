@@ -35,7 +35,7 @@ public class BrowseChannelProductionsViewModel {
     private final Map<String, List<Production>> productionMap = new HashMap<>();
     private StringProperty queryParam = new SimpleStringProperty();
     private char currentCharacter;
-    private String name;
+    private SimpleStringProperty name = new SimpleStringProperty();
 
     /**
      * Instantiates a new Login view model.
@@ -49,16 +49,17 @@ public class BrowseChannelProductionsViewModel {
         this.viewModelFactory = viewModelFactory;
     }
 
-    public String getName() {
+    public SimpleStringProperty getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.setValue(name);   
     }
 
     public Map<String, List<Production>> createProductionMap() {
         LOGGER.info("Creating productionMap");
+        search();
         for (Channel c : viewModelFactory.getBrowseChannelsViewModel().listPropertyProperty()) {
             productionMap.put(c.getName(), prodList(c.getName()));
         }

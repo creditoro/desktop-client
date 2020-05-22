@@ -88,14 +88,15 @@ public class BrowseChannelProductionsController implements IViewController {
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
         choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue()));
+        browseChannelProductionsViewModel.queryParamProperty().setValue(null);
+        browseChannelProductionsViewModel.search();
+        this.cachedProductionMap = viewModelFactory.getBrowseChannelProductionsViewModel().createProductionMap();
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());
-        browseChannelProductionsViewModel.listPropertyProperty().addListener((observableValue, productions, newValue) -> updateList());
-        onSearch();
-
+        browseChannelProductionsViewModel.getName().addListener((observableValue, productions, newValue) -> updateList());
+        updateList();
         btnAccount.setText("user.getEmail()");
-        this.cachedProductionMap = viewModelFactory.getBrowseChannelProductionsViewModel().createProductionMap();
     }
 
     private void doneLoading(TilePane tilePane) {
@@ -121,7 +122,7 @@ public class BrowseChannelProductionsController implements IViewController {
     public List<Node> computeChildren(TilePane tilePane) {
         List<Node> list = new ArrayList<>();
 
-        String cName = viewModelFactory.getBrowseChannelProductionsViewModel().getName();
+        String cName = viewModelFactory.getBrowseChannelProductionsViewModel().getName().getValue();
         // Create VBox for each production and add title and description
         for (Production production : cachedProductionMap.get(cName)) {
             VBox vBox = cachedProductions.get(production.getIdentifier());
