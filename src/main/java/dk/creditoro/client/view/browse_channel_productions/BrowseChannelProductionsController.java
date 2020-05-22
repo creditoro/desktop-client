@@ -1,4 +1,4 @@
-package dk.creditoro.client.view.channel_programs;
+package dk.creditoro.client.view.browse_channel_productions;
 
 
 import dk.creditoro.client.core.ViewHandler;
@@ -28,9 +28,9 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 
-public class ChannelProgramsController implements IViewController {
+public class BrowseChannelProductionsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private ChannelProgramsViewModel channelProgramsViewModel;
+    private BrowseChannelProductionsViewModel browseChannelProductionsViewModel;
     private ViewHandler viewHandler;
     private ViewModelFactory viewModelFactory;
     private ObservableList<Node> productionsList;
@@ -81,7 +81,7 @@ public class ChannelProgramsController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewModelFactory = viewModelFactory;
-        channelProgramsViewModel = viewModelFactory.getChannelProgramsViewModel();
+        browseChannelProductionsViewModel = viewModelFactory.getBrowseChannelProductionsViewModel();
         this.viewHandler = viewHandler;
         this.cachedProductions = new HashMap<>();
 
@@ -90,12 +90,12 @@ public class ChannelProgramsController implements IViewController {
         choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue()));
 
         //Add listener to channelSearch text area
-        productionSearch.textProperty().bindBidirectional(channelProgramsViewModel.queryParamProperty());
-        channelProgramsViewModel.listPropertyProperty().addListener((observableValue, productions, newValue) -> updateList());
+        productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());
+        browseChannelProductionsViewModel.listPropertyProperty().addListener((observableValue, productions, newValue) -> updateList());
         onSearch();
 
         btnAccount.setText("user.getEmail()");
-        this.cachedProductionMap = viewModelFactory.getChannelProgramsViewModel().createProductionMap();
+        this.cachedProductionMap = viewModelFactory.getBrowseChannelProductionsViewModel().createProductionMap();
     }
 
     private void doneLoading(TilePane tilePane) {
@@ -121,7 +121,7 @@ public class ChannelProgramsController implements IViewController {
     public List<Node> computeChildren(TilePane tilePane) {
         List<Node> list = new ArrayList<>();
 
-        String cName = viewModelFactory.getChannelProgramsViewModel().getId();
+        String cName = viewModelFactory.getBrowseChannelProductionsViewModel().getName();
         // Create VBox for each production and add title and description
         for (Production production : cachedProductionMap.get(cName)) {
             VBox vBox = cachedProductions.get(production.getIdentifier());
@@ -197,13 +197,13 @@ public class ChannelProgramsController implements IViewController {
      * On search.
      */
     public void onSearch() {
-        channelProgramsViewModel.search();
+        browseChannelProductionsViewModel.search();
     }
 
     @FXML
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tp = (TilePane) productionPane.getContent();
-        tp.getChildren().setAll(channelProgramsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
+        tp.getChildren().setAll(browseChannelProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
     }
 
     public void sorted(int choice) {
@@ -214,7 +214,7 @@ public class ChannelProgramsController implements IViewController {
         } else {
             choiceString = "A-Å";
         }
-        tilePane.getChildren().setAll(channelProgramsViewModel.sortedChannelList(tilePane, choiceString));
+        tilePane.getChildren().setAll(browseChannelProductionsViewModel.sortedChannelList(tilePane, choiceString));
     }
 
     public void switchChannels() {

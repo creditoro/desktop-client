@@ -24,7 +24,7 @@ public class ViewHandler {
             Views.BROWSE_PRODUCTIONS, "browse_productions/BrowseProductions.fxml",
             Views.PRODUCTION, "production/Production.fxml",
             Views.ADD_CREDITS, "add_credits/AddCredits.fxml",
-            Views.CHANNEL_PROGRAMS, "channel_programs/ChannelPrograms.fxml");
+            Views.BROWSE_CHANNEL_PRODUCTIONS, "browse_channel_productions/BrowseChannelProductions.fxml");
     private final ViewModelFactory viewModelFactory;
     private final Map<Views, Scene> sceneMap = new HashMap<>();
     private final Stage root;

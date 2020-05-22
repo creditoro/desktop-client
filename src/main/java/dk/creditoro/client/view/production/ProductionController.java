@@ -108,7 +108,7 @@ public class ProductionController implements IViewController {
     @FXML
     public void btnProductions(ActionEvent actionEvent) {
         if (Boolean.TRUE.equals(this.viewModelFactory.getProductionViewModel().getWhichView())) {
-            viewHandler.openView(Views.CHANNEL_PROGRAMS);
+            viewHandler.openView(Views.BROWSE_CHANNEL_PRODUCTIONS);
         } else {
             viewHandler.openView(Views.BROWSE_PRODUCTIONS);
         }

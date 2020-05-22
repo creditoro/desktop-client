@@ -1,4 +1,4 @@
-package dk.creditoro.client.view.channel_programs;
+package dk.creditoro.client.view.browse_channel_productions;
 
 
 import dk.creditoro.client.core.ViewModelFactory;
@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 /**
  * The type Browse channels view model.
  */
-public class ChannelProgramsViewModel {
+public class BrowseChannelProductionsViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final IProductionModel productionModel;
     private final IUserModel userModel;
@@ -35,26 +35,26 @@ public class ChannelProgramsViewModel {
     private final Map<String, List<Production>> productionMap = new HashMap<>();
     private StringProperty queryParam = new SimpleStringProperty();
     private char currentCharacter;
-    private String id;
+    private String name;
 
     /**
      * Instantiates a new Login view model.
      *
      * @param productionModel the channel model
      */
-    public ChannelProgramsViewModel(IProductionModel productionModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
+    public BrowseChannelProductionsViewModel(IProductionModel productionModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
         this.productionModel = productionModel;
         this.userModel = userModel;
         this.productionModel.addListener("kek", (this::onSearchProductionsResult));
         this.viewModelFactory = viewModelFactory;
     }
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Map<String, List<Production>> createProductionMap() {
