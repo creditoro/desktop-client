@@ -294,9 +294,15 @@ public class AddCreditViewModel {
                 Person p = getPersonByName(l);
                 if (p == null) {
                     // create new person
+                    p = new Person("phone", "email", "name");
+                    setPerson(p);
+                    postPerson();
                 }
-                if (!isCredit(job,p)){
+                if (!isCredit(job, p)) {
                     // create new credit
+                    Credit c = new Credit(job, production.getIdentifier(), p.getIdentifier());
+                    setCredit(c);
+                    postCredits();
                 }
             }
         }
@@ -305,7 +311,7 @@ public class AddCreditViewModel {
 
     public boolean isCredit(String job, Person person) {
         for (Credit c : this.credits) {
-            if (c.getPerson().equals(person) && c.getJob().equalsIgnoreCase(job)){
+            if (c.getPerson().equals(person) && c.getJob().equalsIgnoreCase(job)) {
                 return true;
             }
         }
