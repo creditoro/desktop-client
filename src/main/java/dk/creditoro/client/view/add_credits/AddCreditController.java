@@ -58,7 +58,7 @@ public class AddCreditController implements IViewController {
         addCreditViewModel.setCreditsTxtArea(creditsTxtArea);
     }
 
-    private void getPersons(){
+    private void getPersons() {
         addCreditViewModel.getPersons();
     }
 
@@ -93,8 +93,8 @@ public class AddCreditController implements IViewController {
                 creditsTxtArea.appendText(person.getName() + "\t" + job + "\n");
 
                 clearFields();
-                emailTxtField.requestFocus();
                 setAndPostCredit(production, person, job);
+                emailTxtField.requestFocus();
             }
         } else {
             phone = phoneTxtField.getText();
@@ -108,6 +108,7 @@ public class AddCreditController implements IViewController {
             nameTxtField.setDisable(true);
             creditsTxtArea.appendText(name + "\t" + job + "\n");
             clearFields();
+            emailTxtField.requestFocus();
         }
     }
 
