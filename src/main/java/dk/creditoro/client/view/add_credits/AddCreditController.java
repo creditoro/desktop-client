@@ -192,5 +192,6 @@ public class AddCreditController implements IViewController {
      */
     public void importOnAction() {
         LOGGER.info("Importerer krediteringer");
+        addCreditViewModel.importCredits();
     }
 }

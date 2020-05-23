@@ -17,6 +17,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
+import javax.swing.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -173,6 +177,7 @@ public class AddCreditViewModel {
     }
 
     private void addCreditsToTextArea() {
+        creditsTxtArea.clear();
         for (Credit cred : credits) {
             creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n");
         }
@@ -221,6 +226,21 @@ public class AddCreditViewModel {
     }
 
     /**
+     * Gets person.
+     *
+     * @param name the name
+     * @return the person
+     */
+    public Person getPersonByName(String name) {
+        for (Person p : personList) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Sets person.
      *
      * @param person the person
@@ -237,5 +257,58 @@ public class AddCreditViewModel {
         var message = String.format("Posted person for, %s", p);
         LOGGER.info(message);
         personModel.postPerson(person);
+    }
+
+    public void importCredits() {
+        JFileChooser fileChooser = new JFileChooser("user");
+        fileChooser.showOpenDialog(null);
+
+        File file = fileChooser.getSelectedFile();
+        List<String> lines = new ArrayList<>();
+        String line;
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
+            while ((line = bufferedReader.readLine()) != null) {
+                lines.add(line.trim());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (!lines.get(0).equalsIgnoreCase(productionTitle.getValue())) {
+            System.out.println("Imported credits does not match current production");
+            return;
+        }
+
+        String job = "";
+        for (int i = 2; i < lines.size(); i++) {
+            String l = lines.get(i);
+            if (lines.get(i - 1).isEmpty()) {
+                job = lines.get(i);
+                continue;
+            }
+            if (!l.isEmpty()) {
+                Person p = getPersonByName(l);
+                if (p == null) {
+                    // create new person
+                }
+                if (!isCredit(job,p)){
+                    // create new credit
+                }
+            }
+        }
+        refreshValues();
+    }
+
+    public boolean isCredit(String job, Person person) {
+        for (Credit c : this.credits) {
+            if (c.getPerson().equals(person) && c.getJob().equalsIgnoreCase(job)){
+                return true;
+            }
+        }
+        return false;
     }
 }
