@@ -24,8 +24,8 @@ public class PersonModel implements IPersonModel {
     }
 
     @Override
-    public void getPersons(String id) {
-        Person[] persons = client.getPersons(id);
+    public void getPersons(String q) {
+        Person[] persons = client.getPersons(q);
         var message = String.format("persons found: %d", persons.length);
         LOGGER.info(message);
     }

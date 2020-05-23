@@ -31,6 +31,7 @@ public class AddCreditViewModel {
     private final ICreditModel creditModel;
     private final IPersonModel personModel;
 
+    private final StringProperty queryParam = new SimpleStringProperty();
     private final StringProperty productionTitle = new SimpleStringProperty();
     private final StringProperty channelName = new SimpleStringProperty();
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
@@ -57,6 +58,16 @@ public class AddCreditViewModel {
     public AddCreditViewModel(IPersonModel personModel, ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
         this.personModel = personModel;
         this.creditModel = creditModel;
+    }
+
+    /**
+     * Get persons.
+     */
+    public void getPersons(){
+        var q = queryParam.get();
+        var message = String.format("Called search, q: '%s*", q);
+        LOGGER.info(message);
+        personModel.getPersons(q);
     }
 
     /**
@@ -201,14 +212,14 @@ public class AddCreditViewModel {
         this.production = production;
     }
 
-    /**
-     * Gets persons.
-     *
-     * @return the persons
-     */
-    public ObservableList<Person> getPersons() {
-        return persons.get();
-    }
+//    /**
+//     * Gets persons.
+//     *
+//     * @return the persons
+//     */
+//    public ObservableList<Person> getPersons() {
+//        return persons.get();
+//    }
 
     /**
      * Gets person.
@@ -217,7 +228,7 @@ public class AddCreditViewModel {
      * @return the person
      */
     public Person getPerson(String email) {
-        for (Person p : personList) {
+        for (Person p : persons) {
             if (p.getEmail().equals(email)) {
                 return p;
             }
@@ -232,7 +243,7 @@ public class AddCreditViewModel {
      * @return the person
      */
     public Person getPersonByName(String name) {
-        for (Person p : personList) {
+        for (Person p : persons) {
             if (p.getName().equals(name)) {
                 return p;
             }
@@ -259,6 +270,9 @@ public class AddCreditViewModel {
         personModel.postPerson(person);
     }
 
+    /**
+     * Import credits.
+     */
     public void importCredits() {
         JFileChooser fileChooser = new JFileChooser("user");
         fileChooser.showOpenDialog(null);
@@ -309,6 +323,13 @@ public class AddCreditViewModel {
         refreshValues();
     }
 
+    /**
+     * Is credit boolean.
+     *
+     * @param job    the job
+     * @param person the person
+     * @return the boolean
+     */
     public boolean isCredit(String job, Person person) {
         for (Credit c : this.credits) {
             if (c.getPerson().equals(person) && c.getJob().equalsIgnoreCase(job)) {

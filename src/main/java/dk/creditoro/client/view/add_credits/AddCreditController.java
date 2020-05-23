@@ -45,6 +45,9 @@ public class AddCreditController implements IViewController {
         this.viewHandler = viewHandler;
         addCreditViewModel = viewModelFactory.getAddCreditViewModel();
 
+        // Getting persons from database
+        getPersons();
+
         // Set productionTitle
         productionTitleTxtField.textProperty().bindBidirectional(addCreditViewModel.productionTitleProperty());
 
@@ -53,6 +56,10 @@ public class AddCreditController implements IViewController {
 
         // Set credits
         addCreditViewModel.setCreditsTxtArea(creditsTxtArea);
+    }
+
+    private void getPersons(){
+        addCreditViewModel.getPersons();
     }
 
     /**
