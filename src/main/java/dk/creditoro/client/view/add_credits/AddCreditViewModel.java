@@ -304,18 +304,21 @@ public class AddCreditViewModel {
                 continue;
             }
             if (!l.isEmpty()) {
+                System.out.println("job: " + job + " : " + l);
                 Person p = getPersonByName(l);
                 if (p == null) {
                     // create new person
-                    p = new Person("phone", "email", "name");
+                    p = new Person("phone", "email", l);
                     setPerson(p);
                     postPerson();
+                    p = getPersonByName(l);
                 }
                 if (!isCredit(job, p)) {
                     // create new credit
-                    Credit c = new Credit(job, production.getIdentifier(), p.getIdentifier());
-                    setCredit(c);
-                    postCredits();
+//                    Credit c = new Credit(job, production.getIdentifier(), p.getIdentifier());
+//                    setCredit(c);
+//                    postCredits();
+                    System.out.println("create credit p: " + p.getName());
                 }
             }
         }
