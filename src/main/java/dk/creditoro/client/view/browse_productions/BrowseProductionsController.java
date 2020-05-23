@@ -5,6 +5,7 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
+import dk.creditoro.client.view.shard_controller_func.SharedControllerFunc;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,13 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +38,7 @@ public class BrowseProductionsController implements IViewController {
     private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProductions;
+    private SharedControllerFunc sharedControllerFunc;
 
     @FXML
     private ScrollPane productionPane;
@@ -77,18 +80,6 @@ public class BrowseProductionsController implements IViewController {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
-    /**
-     * Switch view.
-     *
-     * @param viewToOpen the view to open
-     * @param channelId  the channel id
-     */
-    public void switchView(String viewToOpen, String channelId) {
-        LOGGER.info(viewToOpen);
-        this.viewModelFactory.getProductionViewModel().setId(viewToOpen);
-        this.viewModelFactory.getProductionViewModel().setChannelId(channelId);
-        this.viewHandler.openView(Views.PRODUCTION);
-    }
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
@@ -96,6 +87,7 @@ public class BrowseProductionsController implements IViewController {
         browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
         this.viewHandler = viewHandler;
         this.cachedProductions = new HashMap<>();
+        sharedControllerFunc = new SharedControllerFunc();
 
         //Add listener to productionSearch text area
         productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
@@ -151,100 +143,10 @@ public class BrowseProductionsController implements IViewController {
     public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
         List<Node> list = new ArrayList<>();
         // Create VBox for each production and add title and description
-        for (int i = 0; i < productions.size(); i++) {
-            Production production = productions.get(i);
-            VBox vBox = cachedProductions.get(production.getIdentifier());
-            if (vBox == null) {
-                vBox = createVBox(tilePane, production);
-                Label title = getTitle(production);
-                Text description = getDescription(production);
-
-                // Make the VBox clickable, so it refers to given production page
-                setOnMouseClicked(production, vBox);
-
-                vBox.getChildren().addAll(title, description);
-                TilePane.setMargin(vBox, new Insets(0, 0, 15, 0));
-                cachedProductions.put(production.getIdentifier(), vBox);
-            }
-            list.add(vBox);
+        for (Production production : productions) {
+            sharedControllerFunc.generateChildren(tilePane, list, production, cachedProductions, productionPane, viewModelFactory, viewHandler);
         }
         return list;
-    }
-
-
-    /**
-     * Get title from production
-     *
-     * @param production
-     * @return
-     */
-    private Label getTitle(Production production) {
-        Label title = new Label(production.getTitle());
-        title.setFont(new Font(30));
-        return title;
-    }
-
-    /**
-     * Get description from production
-     *
-     * @param production
-     * @return
-     */
-    private Text getDescription(Production production) {
-        var numberOfCharacters = 300;
-        var desc = production.getDescription().substring(0, Math.min(numberOfCharacters, production.getDescription().length()));
-
-        Text description = new Text();
-        if (production.getDescription().isEmpty()) {
-            description.setText("Ingen programbeskrivelse at vise");
-        } else if (production.getDescription().length() > numberOfCharacters) {
-            description.setText(desc + "...");
-        } else {
-            description.setText(desc);
-        }
-        description.setFont(new Font(14));
-        description.setWrappingWidth(productionPane.getWidth() - 50);
-        return description;
-    }
-
-    /**
-     * Set logic for when production vBox is clicked
-     *
-     * @param production
-     * @param vBox
-     */
-    private void setOnMouseClicked(Production production, VBox vBox) {
-        vBox.setOnMouseClicked(mouseEvent -> {
-            // Check which VBox was pressed
-            var box = (VBox) mouseEvent.getSource();
-            //Set title in productionViewModel
-            viewModelFactory.getProductionViewModel().setTitle(production.getTitle());
-            // set channel Neme in addCreditViewModel
-            viewModelFactory.getAddCreditViewModel().setChannelName(production.getChannel().getName());
-            // Set production in addCreditViewModel
-            viewModelFactory.getAddCreditViewModel().setProduction(production);
-            // Set boolean
-            viewModelFactory.getProductionViewModel().setWhichView(false);
-            // Changing view to chosen production
-            switchView(box.getId(), production.getChannel().getIdentifier());
-            LOGGER.info(production.getTitle());
-        });
-    }
-
-    /**
-     * Create VBox for productions
-     *
-     * @param tilePane
-     * @param production
-     * @return
-     */
-    private VBox createVBox(TilePane tilePane, Production production) {
-        VBox vBox = new VBox();
-        vBox.prefWidthProperty().bind(tilePane.widthProperty());
-        vBox.setPadding(new Insets(15, 15, 15, 15));
-        vBox.setStyle("-fx-background-color: #EEEEEE;");
-        vBox.setId(production.getIdentifier());
-        return vBox;
     }
 
     /**
@@ -264,7 +166,6 @@ public class BrowseProductionsController implements IViewController {
         TilePane tilePane = (TilePane) productionPane.getContent();
         tilePane.getChildren().setAll(browseProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
     }
-
 
     /**
      * Btn front page.
