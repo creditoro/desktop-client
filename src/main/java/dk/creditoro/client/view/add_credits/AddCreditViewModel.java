@@ -20,7 +20,9 @@ import javafx.scene.control.TextArea;
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -46,6 +48,7 @@ public class AddCreditViewModel {
     private Credit credit;
     private Production production;
     private Person person;
+    private Person[] people;
 
     /**
      * Instantiates a new Add credit view model.
@@ -63,11 +66,16 @@ public class AddCreditViewModel {
     /**
      * Get persons.
      */
-    public void getPersons(){
+    public void getPersons() {
         var q = queryParam.get();
         var message = String.format("Called search, q: '%s*", q);
         LOGGER.info(message);
-        personModel.getPersons(q);
+        people = personModel.getPersons(q);
+        setPersons();
+    }
+
+    public void setPersons() {
+        persons.addAll(Arrays.asList(people));
     }
 
     /**
@@ -212,14 +220,6 @@ public class AddCreditViewModel {
         this.production = production;
     }
 
-//    /**
-//     * Gets persons.
-//     *
-//     * @return the persons
-//     */
-//    public ObservableList<Person> getPersons() {
-//        return persons.get();
-//    }
 
     /**
      * Gets person.
@@ -268,6 +268,7 @@ public class AddCreditViewModel {
         var message = String.format("Posted person for, %s", p);
         LOGGER.info(message);
         personModel.postPerson(person);
+        getPersons();
     }
 
     /**
@@ -281,19 +282,17 @@ public class AddCreditViewModel {
         List<String> lines = new ArrayList<>();
         String line;
 
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while ((line = bufferedReader.readLine()) != null) {
                 lines.add(line.trim());
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "File not found", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Something went wrong", e);
         }
         if (!lines.get(0).equalsIgnoreCase(productionTitle.getValue())) {
-            System.out.println("Imported credits does not match current production");
+            LOGGER.info("Imported credits does not match current production");
             return;
         }
 

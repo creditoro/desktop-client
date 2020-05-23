@@ -93,16 +93,15 @@ public class AddCreditController implements IViewController {
                 creditsTxtArea.appendText(person.getName() + "\t" + job + "\n");
 
                 clearFields();
-                nameTxtField.requestFocus();
-
+                emailTxtField.requestFocus();
                 setAndPostCredit(production, person, job);
             }
         } else {
             phone = phoneTxtField.getText();
             name = nameTxtField.getText();
             person = new Person(phone, email, name);
-            postPerson(person);
 
+            setAndPostPerson(person);
             setAndPostCredit(production, person, job);
 
             phoneTxtField.setDisable(true);
@@ -113,11 +112,11 @@ public class AddCreditController implements IViewController {
     }
 
     private void setAndPostCredit(Production production, Person person, String job) {
-        addCreditViewModel.setCredit(new Credit(job, production.getIdentifier(), person.getIdentifier()));
+        addCreditViewModel.setCredit(new Credit(production.getIdentifier(), person.getIdentifier(), job));
         addCreditViewModel.postCredits();
     }
 
-    private void postPerson(Person person) {
+    private void setAndPostPerson(Person person) {
         addCreditViewModel.setPerson(person);
         addCreditViewModel.postPerson();
     }
@@ -140,7 +139,7 @@ public class AddCreditController implements IViewController {
      * Exit on action.
      */
     public void exitOnAction() {
-        creditsTxtArea.clear();
+        clearFields();
         viewHandler.openView(Views.PRODUCTION);
     }
 
@@ -148,7 +147,7 @@ public class AddCreditController implements IViewController {
      * Btn channels.
      */
     public void btnChannels() {
-        creditsTxtArea.clear();
+        clearFields();
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
@@ -156,7 +155,7 @@ public class AddCreditController implements IViewController {
      * Btn productions.
      */
     public void btnProductions() {
-        creditsTxtArea.clear();
+        clearFields();
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
@@ -165,7 +164,7 @@ public class AddCreditController implements IViewController {
      */
     @FXML
     public void btnFrontPage() {
-        creditsTxtArea.clear();
+        clearFields();
         viewHandler.openView(Views.FRONTPAGE);
     }
 

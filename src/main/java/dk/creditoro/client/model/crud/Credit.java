@@ -35,17 +35,17 @@ public class Credit {
     /**
      * Instantiates a new Credit.
      *
-     * @param job          the job
      * @param productionId the production id
      * @param personId     the person id
+     * @param job          the job
      */
-    public Credit(String job, String productionId, String personId) {
+    public Credit(String productionId, String personId, String job) {
         this.identifier = null;
         this.production = null;
         this.person = null;
-        this.job = job;
         this.productionId = productionId;
         this.personId = personId;
+        this.job = job;
     }
 
     /**
