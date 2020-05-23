@@ -28,6 +28,9 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 
+/**
+ * The type Browse channel productions controller.
+ */
 public class BrowseChannelProductionsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private BrowseChannelProductionsViewModel browseChannelProductionsViewModel;
@@ -50,6 +53,9 @@ public class BrowseChannelProductionsController implements IViewController {
     @FXML
     private ChoiceBox<String> choiceBox;
 
+    /**
+     * The Sorting list.
+     */
     ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
 
     /**
@@ -70,6 +76,7 @@ public class BrowseChannelProductionsController implements IViewController {
      * Switch view.
      *
      * @param viewToOpen the view to open
+     * @param channelId  the channel id
      */
     public void switchView(String viewToOpen, String channelId) {
         LOGGER.info(viewToOpen);
@@ -92,7 +99,7 @@ public class BrowseChannelProductionsController implements IViewController {
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());
-        browseChannelProductionsViewModel.getName().addListener((observableValue, productions, newValue) -> updateList());
+        browseChannelProductionsViewModel.getChannelName().addListener((observableValue, productions, newValue) -> updateList());
         updateList();
         btnAccount.setText("user.getEmail()");
     }
@@ -117,10 +124,15 @@ public class BrowseChannelProductionsController implements IViewController {
     }
 
 
+    /**
+     * Compute children list.
+     *
+     * @param tilePane the tile pane
+     * @return the list
+     */
     public List<Node> computeChildren(TilePane tilePane) {
         List<Node> list = new ArrayList<>();
 
-        String cName = viewModelFactory.getBrowseChannelProductionsViewModel().getName().getValue();
         // Create VBox for each production and add title and description
         for (Production production : browseChannelProductionsViewModel.qSearch()) {
             VBox vBox = cachedProductions.get(production.getIdentifier());
@@ -170,7 +182,9 @@ public class BrowseChannelProductionsController implements IViewController {
         }
 
         description.setFont(new Font(14));
-        description.setWrappingWidth(productionPane.getWidth() - 50);
+
+        // productionPane has no width, this is just a temporary fix
+        description.setWrappingWidth(941);
         return description;
     }
 
@@ -200,12 +214,22 @@ public class BrowseChannelProductionsController implements IViewController {
         updateList();
     }
 
+    /**
+     * Sort by character.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tp = (TilePane) productionPane.getContent();
         tp.getChildren().setAll(browseChannelProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
     }
 
+    /**
+     * Sorted.
+     *
+     * @param choice the choice
+     */
     public void sorted(int choice) {
         TilePane tilePane = (TilePane) productionPane.getContent();
         String choiceString;
@@ -217,25 +241,48 @@ public class BrowseChannelProductionsController implements IViewController {
         tilePane.getChildren().setAll(browseChannelProductionsViewModel.sortedChannelList(tilePane, choiceString));
     }
 
+    /**
+     * Switch channels.
+     */
     public void switchChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
+    /**
+     * Btn front page.
+     *
+     * @param mouseEvent the mouse event
+     */
     @FXML
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    /**
+     * Btn search.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnSearch(ActionEvent actionEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    /**
+     * Btn channels.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
+    /**
+     * Btn productions.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnProductions(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);

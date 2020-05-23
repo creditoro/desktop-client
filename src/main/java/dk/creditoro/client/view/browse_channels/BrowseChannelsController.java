@@ -96,7 +96,7 @@ public class BrowseChannelsController implements IViewController {
      */
     public void switchView(String viewToOpen) {
         LOGGER.info(viewToOpen);
-        viewModelFactory.getBrowseChannelProductionsViewModel().setName(viewToOpen);
+        viewModelFactory.getBrowseChannelProductionsViewModel().setChannelName(viewToOpen);
         viewHandler.openView(Views.BROWSE_CHANNEL_PRODUCTIONS);
     }
 

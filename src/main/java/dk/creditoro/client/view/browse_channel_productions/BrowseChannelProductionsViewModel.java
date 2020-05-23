@@ -35,12 +35,14 @@ public class BrowseChannelProductionsViewModel {
     private final Map<String, List<Production>> productionMap = new HashMap<>();
     private StringProperty queryParam = new SimpleStringProperty();
     private char currentCharacter;
-    private SimpleStringProperty name = new SimpleStringProperty();
+    private SimpleStringProperty channelName = new SimpleStringProperty();
 
     /**
      * Instantiates a new Login view model.
      *
-     * @param productionModel the channel model
+     * @param productionModel  the channel model
+     * @param userModel        the user model
+     * @param viewModelFactory the view model factory
      */
     public BrowseChannelProductionsViewModel(IProductionModel productionModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
         this.productionModel = productionModel;
@@ -51,14 +53,29 @@ public class BrowseChannelProductionsViewModel {
         search();
     }
 
-    public SimpleStringProperty getName() {
-        return name;
+    /**
+     * Gets channel name.
+     *
+     * @return the channel name
+     */
+    public SimpleStringProperty getChannelName() {
+        return channelName;
     }
 
-    public void setName(String name) {
-        this.name.setValue(name);
+    /**
+     * Sets channel name.
+     *
+     * @param channelName the channel name
+     */
+    public void setChannelName(String channelName) {
+        this.channelName.setValue(channelName);
     }
 
+    /**
+     * Create production map, with channelName as key and List of productions for that channel as value.
+     *
+     * @return the map
+     */
     public Map<String, List<Production>> createProductionMap() {
         LOGGER.info("Creating productionMap");
         for (Channel c : viewModelFactory.getBrowseChannelsViewModel().listPropertyProperty()) {
@@ -67,6 +84,12 @@ public class BrowseChannelProductionsViewModel {
         return productionMap;
     }
 
+    /**
+     * Generate a List with all productions for a given channelName.
+     *
+     * @param chanName the chan name
+     * @return the list
+     */
     public List<Production> prodList(String chanName) {
         List<Production> pl = new ArrayList<>();
         for (Production p : listProperty) {
@@ -77,10 +100,18 @@ public class BrowseChannelProductionsViewModel {
         return pl;
     }
 
+    /**
+     * Query param property string property.
+     *
+     * @return the string property
+     */
     public StringProperty queryParamProperty() {
         return queryParam;
     }
 
+    /**
+     * Search.
+     */
     public void search() {
         var q = queryParam.get();
         var message = String.format("Called search, q: '%s'", q);
@@ -95,20 +126,36 @@ public class BrowseChannelProductionsViewModel {
         listProperty.addAll(productions);
     }
 
+    /**
+     * Q search list.
+     *
+     * @return the list
+     */
     public List<Production> qSearch() {
-        List<Production> productions = new ArrayList<>();
-        productions.addAll(productionMap.get(name.getValue()));
+        List<Production> productions = new ArrayList<>(productionMap.get(channelName.getValue()));
         if (queryParamProperty().getValue() != null) {
             productions.removeIf(n -> (!n.getTitle().toLowerCase().contains(queryParam.getValue().toLowerCase())));
         }
         return productions;
     }
 
+    /**
+     * List property property list property.
+     *
+     * @return the list property
+     */
     public ListProperty<Production> listPropertyProperty() {
         return listProperty;
     }
 
 
+    /**
+     * Sorted channel list observable list.
+     *
+     * @param tilePane      the tile pane
+     * @param sortingMethod the sorting method
+     * @return the observable list
+     */
     public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
         Comparator<Node> comparator = Comparator.comparing(this::productionTitle);
@@ -120,6 +167,12 @@ public class BrowseChannelProductionsViewModel {
         return workingCollection;
     }
 
+    /**
+     * Production title string.
+     *
+     * @param node the node
+     * @return the string
+     */
     public String productionTitle(Node node) {
         var identifier = node.getId();
         for (int i = 0; i < listProperty.getSize(); i++) {
@@ -131,6 +184,14 @@ public class BrowseChannelProductionsViewModel {
         return "";
     }
 
+    /**
+     * Sorted by character observable list.
+     *
+     * @param list        the list
+     * @param actionEvent the action event
+     * @param alphabet    the alphabet
+     * @return the observable list
+     */
     public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
         FindCharacter findCharacter = new FindCharacter();
         ObservableList<Node> observableList = FXCollections.observableArrayList(list);
