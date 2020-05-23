@@ -182,9 +182,7 @@ public class BrowseChannelProductionsController implements IViewController {
         }
 
         description.setFont(new Font(14));
-
-        // productionPane has no width, this is just a temporary fix
-        description.setWrappingWidth(941);
+        description.setWrappingWidth(productionPane.getPrefWidth() - 50);
         return description;
     }
 
