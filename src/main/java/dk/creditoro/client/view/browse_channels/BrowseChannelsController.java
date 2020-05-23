@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -30,24 +31,9 @@ import java.util.logging.Logger;
  */
 public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private BrowseChannelsViewModel browseChannelsViewModel;
-    private ViewHandler viewHandler;
-    private ObservableList<Node> channelList;
-    private Map<String, ImageView> cachedImages;
-    private ViewModelFactory viewModelFactory;
-
-    @FXML
-    private ScrollPane channelPane;
-
-    @FXML
-    private ChoiceBox<String> choiceBox;
-
-    @FXML
-    private TextField channelSearch;
-
-    @FXML
-    private HBox alphabet;
-
+    /**
+     * The Image view.
+     */
     @FXML
     ImageView imageView;
 
@@ -57,9 +43,20 @@ public class BrowseChannelsController implements IViewController {
      *
      * @param mouseEvent the mouse event
      */
-
-
     ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
+    private BrowseChannelsViewModel browseChannelsViewModel;
+    private ViewHandler viewHandler;
+    private ObservableList<Node> channelList;
+    private Map<String, ImageView> cachedImages;
+    private ViewModelFactory viewModelFactory;
+    @FXML
+    private ScrollPane channelPane;
+    @FXML
+    private ChoiceBox<String> choiceBox;
+    @FXML
+    private TextField channelSearch;
+    @FXML
+    private HBox alphabet;
 
     /**
      * Btn new channel.
@@ -177,7 +174,7 @@ public class BrowseChannelsController implements IViewController {
             }
             cachedImages.put(channel.getIdentifier(), imageView);
             ImageView finalImageView = imageView;
-            Platform.runLater (() -> tilePane.getChildren().addAll(finalImageView));
+            Platform.runLater(() -> tilePane.getChildren().addAll(finalImageView));
         }
         doneLoading(tilePane);
     }
@@ -190,6 +187,11 @@ public class BrowseChannelsController implements IViewController {
         browseChannelsViewModel.search();
     }
 
+    /**
+     * Sorted.
+     *
+     * @param choice the choice
+     */
     public void sorted(int choice) {
         TilePane tilePane = (TilePane) channelPane.getContent();
         String choiceString;
@@ -201,22 +203,42 @@ public class BrowseChannelsController implements IViewController {
         tilePane.getChildren().setAll(browseChannelsViewModel.sortedChannelList(tilePane, choiceString));
     }
 
+    /**
+     * Sort by character.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tilePane = (TilePane) channelPane.getContent();
         tilePane.getChildren().setAll(browseChannelsViewModel.sortedByCharacter(channelList, actionEvent, alphabet));
     }
 
+    /**
+     * Btn front page.
+     *
+     * @param mouseEvent the mouse event
+     */
     @FXML
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    /**
+     * Btn search.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnSearch(ActionEvent actionEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    /**
+     * Btn channels.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);

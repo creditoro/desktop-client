@@ -7,6 +7,7 @@ import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
 import dk.creditoro.client.view.shard_controller_func.SharedControllerFunc;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +47,8 @@ public class BrowseChannelProductionsController implements IViewController {
     private Map<String, VBox> cachedProductions;
     private Map<String, List<Production>> cachedProductionMap;
     private SharedControllerFunc sharedControllerFunc;
+    private SharedViewModelFunc sharedViewModelFunc;
+
     @FXML
     private ScrollPane productionPane;
     @FXML
@@ -80,6 +83,7 @@ public class BrowseChannelProductionsController implements IViewController {
         this.viewHandler = viewHandler;
         this.cachedProductions = new HashMap<>();
         sharedControllerFunc = new SharedControllerFunc();
+        sharedViewModelFunc = new SharedViewModelFunc();
 
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
@@ -145,7 +149,7 @@ public class BrowseChannelProductionsController implements IViewController {
     @FXML
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tp = (TilePane) productionPane.getContent();
-        tp.getChildren().setAll(browseChannelProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
+        tp.getChildren().setAll(sharedViewModelFunc.sortedByCharacter(productionsList, actionEvent, alphabet, browseChannelProductionsViewModel.listPropertyProperty()));
     }
 
     /**

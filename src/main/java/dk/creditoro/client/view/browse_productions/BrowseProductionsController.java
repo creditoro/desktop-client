@@ -6,6 +6,7 @@ import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
 import dk.creditoro.client.view.shard_controller_func.SharedControllerFunc;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,6 +40,7 @@ public class BrowseProductionsController implements IViewController {
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProductions;
     private SharedControllerFunc sharedControllerFunc;
+    private SharedViewModelFunc sharedViewModelFunc;
 
     @FXML
     private ScrollPane productionPane;
@@ -88,6 +90,7 @@ public class BrowseProductionsController implements IViewController {
         this.viewHandler = viewHandler;
         this.cachedProductions = new HashMap<>();
         sharedControllerFunc = new SharedControllerFunc();
+        sharedViewModelFunc = new SharedViewModelFunc();
 
         //Add listener to productionSearch text area
         productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
@@ -164,7 +167,7 @@ public class BrowseProductionsController implements IViewController {
     @FXML
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tilePane = (TilePane) productionPane.getContent();
-        tilePane.getChildren().setAll(browseProductionsViewModel.sortedByCharacter(productionsList, actionEvent, alphabet));
+        tilePane.getChildren().setAll(sharedViewModelFunc.sortedByCharacter(productionsList, actionEvent, alphabet, browseProductionsViewModel.listPropertyProperty()));
     }
 
     /**

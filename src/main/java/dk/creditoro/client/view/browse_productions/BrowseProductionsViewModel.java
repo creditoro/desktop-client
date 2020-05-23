@@ -3,7 +3,6 @@ package dk.creditoro.client.view.browse_productions;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
-import dk.creditoro.client.view.shared_viewmodel_func.FindCharacter;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -11,9 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
@@ -31,7 +28,6 @@ public class BrowseProductionsViewModel {
 
     private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
-    private char currentCharacter;
 
     /**
      * Instantiates a new Login view model.
@@ -111,26 +107,4 @@ public class BrowseProductionsViewModel {
         return "";
     }
 
-
-    /**
-     * Sorted by character observable list.
-     *
-     * @param list        the list
-     * @param actionEvent the action event
-     * @param alphabet    the alphabet
-     * @return the observable list
-     */
-    public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
-        FindCharacter findCharacter = new FindCharacter();
-        ObservableList<Node> observableList = FXCollections.observableArrayList(list);
-        char character = findCharacter.getCharacter(actionEvent, alphabet, currentCharacter);
-        currentCharacter = character;
-
-        if (character != 0) {
-            observableList.removeIf(node -> !productionTitle(node).toUpperCase().startsWith(String.valueOf(character)));
-        } else {
-            return observableList;
-        }
-        return observableList;
-    }
 }

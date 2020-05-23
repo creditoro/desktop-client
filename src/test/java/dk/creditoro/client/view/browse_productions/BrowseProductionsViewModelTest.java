@@ -90,46 +90,46 @@ class BrowseProductionsViewModelTest {
         Assertions.assertNotEquals(title1, title2);
     }
 
-    @Test
-    void sortedByCharacter() {
-        final CountDownLatch latch = new CountDownLatch(1);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new JFXPanel(); // initializes JavaFX environment
-                latch.countDown();
-            }
-        });
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        HBox alphabet = new HBox();
-        Button btnA = new Button("A");
-        Button btnB = new Button("B");
-        Button btnC = new Button("C");
-        alphabet.getChildren().addAll(btnA, btnB, btnC);
-
-        TilePane tilePane = new TilePane();
-
-        browseProductionsViewModel.queryParamProperty().setValue("ø");
-        browseProductionsViewModel.search();
-        ArrayList<Integer> random = new ArrayList<>();
-        var result = browseProductionsViewModel.listPropertyProperty();
-        for (int i = 0; i < result.getSize(); i++){
-            random.add(i);
-        }
-        Collections.shuffle(random, new Random(1));
-
-        for (int i = 0; i < result.getSize(); i++){
-            Node node = new ImageView();
-            Production production = result.get(random.get(i));
-            node.setId(production.getIdentifier());
-            tilePane.getChildren().add(node);
-        }
-        ActionEvent ae = new ActionEvent(btnA, ActionEvent.NULL_SOURCE_TARGET);
-        var sortResult = browseProductionsViewModel.sortedByCharacter(tilePane.getChildren(), ae, alphabet).get(0);
-        Assertions.assertNotEquals(tilePane.getChildren().get(0), sortResult);
-    }
+//    @Test
+//    void sortedByCharacter() {
+//        final CountDownLatch latch = new CountDownLatch(1);
+//        SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                new JFXPanel(); // initializes JavaFX environment
+//                latch.countDown();
+//            }
+//        });
+//        try {
+//            latch.await();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        HBox alphabet = new HBox();
+//        Button btnA = new Button("A");
+//        Button btnB = new Button("B");
+//        Button btnC = new Button("C");
+//        alphabet.getChildren().addAll(btnA, btnB, btnC);
+//
+//        TilePane tilePane = new TilePane();
+//
+//        browseProductionsViewModel.queryParamProperty().setValue("ø");
+//        browseProductionsViewModel.search();
+//        ArrayList<Integer> random = new ArrayList<>();
+//        var result = browseProductionsViewModel.listPropertyProperty();
+//        for (int i = 0; i < result.getSize(); i++){
+//            random.add(i);
+//        }
+//        Collections.shuffle(random, new Random(1));
+//
+//        for (int i = 0; i < result.getSize(); i++){
+//            Node node = new ImageView();
+//            Production production = result.get(random.get(i));
+//            node.setId(production.getIdentifier());
+//            tilePane.getChildren().add(node);
+//        }
+//        ActionEvent ae = new ActionEvent(btnA, ActionEvent.NULL_SOURCE_TARGET);
+//        var sortResult = browseProductionsViewModel.sortedByCharacter(tilePane.getChildren(), ae, alphabet).get(0);
+//        Assertions.assertNotEquals(tilePane.getChildren().get(0), sortResult);
+//    }
 
 }
