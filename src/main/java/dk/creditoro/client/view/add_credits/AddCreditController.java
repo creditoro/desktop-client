@@ -9,11 +9,14 @@ import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +26,7 @@ public class AddCreditController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ViewHandler viewHandler;
     private AddCreditViewModel addCreditViewModel;
+    private List<Credit> deletedCredits = new ArrayList<>();
 
     @FXML
     private TextField channelNameTxtField;
@@ -38,12 +42,15 @@ public class AddCreditController implements IViewController {
     private TextField emailTxtField;
     @FXML
     private TextArea creditsTxtArea;
+    @FXML
+    private ListView<Credit> listView;
 
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
         addCreditViewModel = viewModelFactory.getAddCreditViewModel();
+        listView.setItems(addCreditViewModel.getCredits());
 
         // Getting persons from database
         getPersons();
@@ -100,10 +107,10 @@ public class AddCreditController implements IViewController {
             phone = phoneTxtField.getText();
             name = nameTxtField.getText();
             person = new Person(phone, email, name);
-            setAndPostPerson(person);
 
-            Person p = addCreditViewModel.getPerson(email);
-            setAndPostCredit(production, p, job);
+            Credit temp = new Credit(null,production,person,job);
+            addCreditViewModel.getCredits().add(temp);
+            addCreditViewModel.getCreatedCredits().add(temp);
 
             phoneTxtField.setDisable(true);
             nameTxtField.setDisable(true);
@@ -135,6 +142,17 @@ public class AddCreditController implements IViewController {
      */
     public void deleteOnAction() {
         LOGGER.info("Credit deleted");
+        deletedCredits.add(listView.getSelectionModel().getSelectedItem());
+        addCreditViewModel.getCredits().remove(listView.getSelectionModel().getSelectedItem());
+    }
+
+    /**
+     * Delete all on action.
+     */
+    public void deleteOnActionAll() {
+        LOGGER.info("Credits deleted");
+        deletedCredits.addAll(listView.getSelectionModel().getSelectedItems());
+        addCreditViewModel.getCredits().clear();
     }
 
     /**
@@ -142,6 +160,7 @@ public class AddCreditController implements IViewController {
      */
     public void exitOnAction() {
         clearFields();
+        addCreditViewModel.finishCredits(deletedCredits);
         viewHandler.openView(Views.PRODUCTION);
     }
 

@@ -42,7 +42,12 @@ public class DummyClient implements IClient {
 				"jobtype");
 	}
 
-	@Override
+    @Override
+    public boolean deleteCredit(String identifier) {
+        return false;
+    }
+
+    @Override
 	public Credit postCredits(Credit credit) {
 		return new Credit("ID-1-1-1-11", 
 				new Production("ID-3-3-3", "title-10", "Description LONG", 

@@ -24,6 +24,13 @@ public interface ICreditModel {
     void postCredits(Credit credit);
 
     /**
+     * Delete credit.
+     *
+     * @param  identifier identifier of the credit
+     */
+    void deleteCredit(String identifier);
+
+    /**
      * Add listener.
      *
      * @param name                   the name

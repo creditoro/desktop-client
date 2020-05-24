@@ -102,4 +102,12 @@ public class Credit {
     public String getPersonId() {
         return personId;
     }
+
+    @Override
+    public String toString() {
+        if (person != null) {
+            return String.format("%s    %s    %s", person.getName(), job, person.getEmail());
+        }
+        return "no person";
+    }
 }

@@ -63,4 +63,9 @@ class DummyClientTest {
 				"jobtype")));
 	}
 
+	@Test
+	void deleteCredit(){
+    	assertFalse(dummyClient.deleteCredit("test"));
+	}
+
 }

@@ -4,6 +4,7 @@ import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.networking.IClient;
 import dk.creditoro.client.networking.rest_client.TokenResponse;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -30,9 +31,21 @@ public class CreditModel implements ICreditModel {
     }
 
     @Override
-    public void postCredits(Credit credit){
+    public void postCredits(Credit credit) {
         client.postCredits(credit);
         var message = String.format("credits posted %d", 1);
+        LOGGER.info(message);
+    }
+
+    @Override
+    public void deleteCredit(String identifier) {
+        var result = client.deleteCredit(identifier);
+        var message = "";
+        if (result) {
+            message = "Credit deleted";
+        } else {
+            message = "Credit not Deleted";
+        }
         LOGGER.info(message);
     }
 

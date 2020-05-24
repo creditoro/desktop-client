@@ -90,6 +90,11 @@ public class RestClient implements IClient {
     }
 
     @Override
+    public boolean deleteCredit(String identifier) {
+        return creditsEndpoint.deleteCredit(identifier,token);
+    }
+
+    @Override
     public Credit postCredits(Credit credit){
         var result = creditsEndpoint.postCredit(credit, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_POST_CREDITS_RESULT.toString(), null, result);

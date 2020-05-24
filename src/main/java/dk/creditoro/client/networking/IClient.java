@@ -26,5 +26,7 @@ public interface IClient {
 
     Credit patchCredits(String identifier , Map<String, Object> fields);
 
+    boolean deleteCredit(String identifier);
+
     void addListener(String name, PropertyChangeListener propertyChangeListener);
 }

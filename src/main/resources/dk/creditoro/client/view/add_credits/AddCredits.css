@@ -18,7 +18,7 @@
 }
 
 #viewButton:hover {
-    -fx-background-color: #2CB3D9;
+    -fx-background-color: #2cb3d9;
 }
 
 #sidePanelButton:hover {
@@ -28,4 +28,23 @@
 .text-area .text {
     -fx-text-alignment: center;
     -fx-line-spacing: 10px;
+}
+
+.list-view .list-cell {
+    -fx-alignment: center;
+    -fx-font-size: 15;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#328bdb 0%, #207bcf 25%, #1973c9 75%, #0a65bf 100%);
+    -fx-text-fill: white;
+}
+
+.list-cell:even { /* <=== changed to even */
+    -fx-background-color: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: white;
 }

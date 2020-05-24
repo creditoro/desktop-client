@@ -36,8 +36,8 @@ public class AddCreditViewModel {
     private final StringProperty queryParam = new SimpleStringProperty();
     private final StringProperty productionTitle = new SimpleStringProperty();
     private final StringProperty channelName = new SimpleStringProperty();
-    private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
-    private final ListProperty<Credit> credits = new SimpleListProperty<>(creditList);
+    private ObservableList<Credit> creditList = FXCollections.observableArrayList();
+    private List<Credit> createdCredits = new ArrayList<>();
 
     private final ObservableList<Person> personList = FXCollections.observableArrayList();
     private final ListProperty<Person> persons = new SimpleListProperty<>(personList);
@@ -155,7 +155,7 @@ public class AddCreditViewModel {
      * @return the credits
      */
     public ObservableList<Credit> getCredits() {
-        return credits.get();
+        return creditList;
     }
 
     /**
@@ -164,16 +164,7 @@ public class AddCreditViewModel {
      * @param credits the credits
      */
     public void setCredits(ObservableList<Credit> credits) {
-        this.credits.set(credits);
-    }
-
-    /**
-     * Credits property list property.
-     *
-     * @return the list property
-     */
-    public ListProperty<Credit> creditsProperty() {
-        return credits;
+        this.creditList = credits;
     }
 
     /**
@@ -197,7 +188,7 @@ public class AddCreditViewModel {
 
     private void addCreditsToTextArea() {
         creditsTxtArea.clear();
-        for (Credit cred : credits) {
+        for (Credit cred : creditList) {
             creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n");
         }
     }
@@ -295,34 +286,35 @@ public class AddCreditViewModel {
             LOGGER.info("Imported credits does not match current production");
             return;
         }
-
+        List<Credit> cs = new ArrayList<>();
         String job = "";
         for (int i = 2; i < lines.size(); i++) {
-            String l = lines.get(i);
+            String l = convertToTitleCase(lines.get(i));
             if (lines.get(i - 1).isEmpty()) {
-                job = lines.get(i);
+                job = convertToTitleCase(lines.get(i));
                 continue;
             }
-            if (!l.isEmpty()) {
-                System.out.println("job: " + job + " : " + l);
-                Person p = getPersonByName(l);
-                if (p == null) {
-                    // create new person
-                    p = new Person("phone", "email", l);
-                    setPerson(p);
-                    postPerson();
-                    p = getPersonByName(l);
-                }
-                if (!isCredit(job, p)) {
-                    // create new credit
-//                    Credit c = new Credit(job, production.getIdentifier(), p.getIdentifier());
-//                    setCredit(c);
-//                    postCredits();
-                    System.out.println("create credit p: " + p.getName());
+            if (l != null) {
+                if (!l.isEmpty()) {
+                    Person p = getPersonByName(l);
+                    if (p == null) {
+                        // create new person
+                        p = new Person("phone", "email@" + l + ".dk", l);
+                    }
+                    if (!isCredit(job, p)) {
+                        // create new credit
+                        Credit c = new Credit(null, production, p, job);
+                        cs.add(c);
+                    }
                 }
             }
         }
-        refreshValues();
+        creditList.addAll(cs);
+        createdCredits.addAll(cs);
+    }
+
+    public List<Credit> getCreatedCredits() {
+        return createdCredits;
     }
 
     /**
@@ -333,11 +325,58 @@ public class AddCreditViewModel {
      * @return the boolean
      */
     public boolean isCredit(String job, Person person) {
-        for (Credit c : this.credits) {
+        for (Credit c : this.creditList) {
             if (c.getPerson().equals(person) && c.getJob().equalsIgnoreCase(job)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static String convertToTitleCase (String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        StringBuilder converted = new StringBuilder();
+
+        boolean convertNext = true;
+        for (char ch : text.toCharArray()) {
+            if (Character.isSpaceChar(ch)) {
+                convertNext = true;
+            } else if (convertNext) {
+                ch = Character.toTitleCase(ch);
+                convertNext = false;
+            } else {
+                ch = Character.toLowerCase(ch);
+            }
+            converted.append(ch);
+        }
+
+        return converted.toString();
+    }
+
+    public void finishCredits(List<Credit> deletedCredits){
+        for (Credit cred : deletedCredits){
+            if (!createdCredits.contains(cred)) {
+                creditModel.deleteCredit(cred.getIdentifier());
+            }
+        }
+        List<Person> personLst = new ArrayList<>();
+        for (Credit cred : createdCredits) {
+            Person p = cred.getPerson();
+            var email = p.getEmail();
+            if (getPerson(email) == (null)) {
+                personLst.add(p);
+            }
+        }
+        for (Person psn : personLst){
+            personModel.postPerson(psn);
+        }
+        for (Credit cred : createdCredits){
+            var personId = getPerson(cred.getPerson().getEmail()).getIdentifier();
+            Credit temp = new Credit(production.getIdentifier(),personId,cred.getJob());
+            creditModel.postCredits(temp);
+        }
     }
 }
