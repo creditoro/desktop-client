@@ -18,6 +18,8 @@ public interface IClient {
   
     Person[] getPersons(String q);
 
+    Person[] getPersonsByEmail(String email);
+
     Person postPerson(Person person);
 
     Credit[] getCredits(String q);

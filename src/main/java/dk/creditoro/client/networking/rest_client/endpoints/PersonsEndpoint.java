@@ -33,6 +33,19 @@ public class PersonsEndpoint {
         return new TokenResponse<>(response.asObject(Person.class));
     }
 
+    /**
+     * Gets person by email.
+     *
+     * @param email the email
+     * @param token the token
+     * @return the person by email
+     */
+    public TokenResponse<Person[]> getPersonByEmail(String email, String token) {
+        Map<String, Object> queryParam = Map.of("email", email);
+        var response = httpManager.getByQueryParams(PERSONS, queryParam, token);
+        return new TokenResponse<>(response.asObject(Person[].class));
+    }
+
       /**
      * Put person token response.
      *
