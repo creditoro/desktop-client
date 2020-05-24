@@ -38,10 +38,9 @@ public class HttpManager {
                 .header(AUTH_HEADER, token);
     }
 
-    public GetRequest getCredits(String route, String id, String token)
-    {
+    public GetRequest getByQueryParams(String route, Map<String,Object> queryParam, String token) {
         return Unirest.get(route)
-                .queryString("production_id", id)
+                .queryString(queryParam)
                 .header(AUTH_HEADER, token);
     }
 

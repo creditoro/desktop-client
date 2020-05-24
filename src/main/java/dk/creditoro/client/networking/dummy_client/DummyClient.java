@@ -57,6 +57,11 @@ public class DummyClient implements IClient {
 		return new Person[0];
 	}
 
+        @Override
+        public Person[] getPersonsByEmail(String email) {
+		return new Person[0];
+        }
+
     @Override
     public Person postPerson(Person person) {
         return new Person("ID-1-1-1-1-1", "88888888", "some@email.com", "Peter");

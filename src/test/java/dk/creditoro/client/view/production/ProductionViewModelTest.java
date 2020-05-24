@@ -11,8 +11,6 @@ import org.junit.jupiter.api.*;
 import dk.creditoro.client.core.ClientFactory;
 import dk.creditoro.client.core.*;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * ProductionViewModelTest
@@ -52,10 +50,10 @@ class ProductionViewModelTest {
 		}
 		var creditsList = pdViewModel.listPropertyProperty();
 		assertNotNull(creditsList.get(0));
-		// assertNotNull(creditsList.get(0).getIdentifier()); // This test should be turned on when the transient stuff is figured out
+		assertNotNull(creditsList.get(0).getIdentifier()); // This test should be turned on when the transient stuff is figured out
 		assertNotNull(creditsList.get(0).getJob());
 		assertNotNull(creditsList.get(0).getPerson());
-		// assertNotNull(creditsList.get(0).getProduction()); //This test should be turned on, then the API gets fixed
+		assertNotNull(creditsList.get(0).getProduction()); //This test should be turned on, then the API gets fixed
 
 		// Search in the stored credits
 		var job = "Lydmand";

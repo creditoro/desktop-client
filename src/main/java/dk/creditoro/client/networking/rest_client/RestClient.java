@@ -108,6 +108,15 @@ public class RestClient implements IClient {
     }
 
     @Override
+    public Person[] getPersonsByEmail(String email) {
+        var result = personsEndpoint.getPersonByEmail(email, token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PERSONS_RESULT.toString(), null, result);
+        LOGGER.info(PROPERTY_CHANGE);
+        updateToken(result);
+        return result.getT();
+    }
+
+    @Override
     public Person postPerson(Person person) {
         var result = personsEndpoint.postPerson(person, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_POST_PERSON_RESULT.toString(), null, result);
