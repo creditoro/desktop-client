@@ -369,7 +369,7 @@ public class AddCreditViewModel {
         for (Credit cred : createdCredits) {
             Person p = cred.getPerson();
             var email = p.getEmail();
-            if (getPerson(email) == (null)) {
+            if (getPerson(email) == null) {
                 personLst.add(p);
             }
         }
