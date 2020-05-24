@@ -1,18 +1,19 @@
 package dk.creditoro.client.model.crud;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The type Credit.
  */
 public class Credit {
 
-    /*
-        Read about transient modifier here: https://www.baeldung.com/gson-exclude-fields-serialization
-    */
-    private final transient String identifier;
+    private final String identifier;
     private final Production production;
     private final Person person;
     private final String job;
+    @SerializedName("production_id")
     private final String productionId;
+    @SerializedName("person_id")
     private final String personId;
 
     /**

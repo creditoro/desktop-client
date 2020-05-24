@@ -100,9 +100,10 @@ public class AddCreditController implements IViewController {
             phone = phoneTxtField.getText();
             name = nameTxtField.getText();
             person = new Person(phone, email, name);
-
             setAndPostPerson(person);
-            setAndPostCredit(production, person, job);
+
+            Person p = addCreditViewModel.getPerson(email);
+            setAndPostCredit(production, p, job);
 
             phoneTxtField.setDisable(true);
             nameTxtField.setDisable(true);
