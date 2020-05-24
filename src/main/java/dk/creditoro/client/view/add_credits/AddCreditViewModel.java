@@ -288,32 +288,35 @@ public class AddCreditViewModel {
                 LOGGER.info("Imported credits does not match current production");
                 return;
             }
-            List<Credit> cs = new ArrayList<>();
-            String job = "";
-            for (int i = 2; i < lines.size(); i++) {
-                String l = convertToTitleCase(lines.get(i));
-                if (lines.get(i - 1).isEmpty()) {
-                    job = convertToTitleCase(lines.get(i));
-                    continue;
+            List<Credit> credits = createCredits(lines);
+            creditList.addAll(credits);
+            createdCredits.addAll(credits);
+        }
+    }
+
+    public List<Credit> createCredits(List<String> lines) {
+        List<Credit> cs = new ArrayList<>();
+        String job = "";
+        for (int i = 2; i < lines.size(); i++) {
+            String l = convertToTitleCase(lines.get(i));
+            if (lines.get(i - 1).isEmpty()) {
+                job = convertToTitleCase(lines.get(i));
+                continue;
+            }
+            if (l != null && !l.isEmpty()) {
+                Person p = getPersonByName(l);
+                if (p == null) {
+                    // create new person
+                    p = new Person("phone", "email@" + l + ".dk", l);
                 }
-                if (l != null) {
-                    if (!l.isEmpty()) {
-                        Person p = getPersonByName(l);
-                        if (p == null) {
-                            // create new person
-                            p = new Person("phone", "email@" + l + ".dk", l);
-                        }
-                        if (!isCredit(job, p)) {
-                            // create new credit
-                            Credit c = new Credit(null, production, p, job);
-                            cs.add(c);
-                        }
-                    }
+                if (!isCredit(job, p)) {
+                    // create new credit
+                    Credit c = new Credit(null, production, p, job);
+                    cs.add(c);
                 }
             }
-            creditList.addAll(cs);
-            createdCredits.addAll(cs);
         }
+        return cs;
     }
 
     public List<Credit> getCreatedCredits() {
@@ -412,7 +415,7 @@ public class AddCreditViewModel {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.warning(e.getMessage());
         }
     }
 }
