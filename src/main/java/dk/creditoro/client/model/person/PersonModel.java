@@ -20,12 +20,12 @@ public class PersonModel implements IPersonModel {
     public PersonModel(IClient client) {
         this.client = client;
         propertyChangeSupport = new PropertyChangeSupport(this);
-        this.client.addListener(EventNames.ON_SEARCH_PERSONS_RESULT.toString(), this::onSearchPersonsResult);
+        this.client.addListener(EventNames.ON_SEARCH_PEOPLE_RESULT.toString(), this::onSearchPeopleResult);
     }
 
     @Override
-    public void getPersons(String id) {
-        Person[] persons = client.getPersons(id);
+    public void getPeople(String id) {
+        Person[] persons = client.getPeople(id);
         var message = String.format("persons found: %d", persons.length);
         LOGGER.info(message);
     }
@@ -43,7 +43,7 @@ public class PersonModel implements IPersonModel {
     }
 
     @SuppressWarnings("unchecked")
-    public void onSearchPersonsResult(PropertyChangeEvent propertyChangeEvent) {
+    public void onSearchPeopleResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search persons result called.");
         var response = (TokenResponse<Person[]>) propertyChangeEvent.getNewValue();
         var persons = response.getT();

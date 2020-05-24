@@ -36,6 +36,11 @@ public class UserModel implements IUserModel {
     }
 
     @Override
+    public String getToken() {
+        return client.getToken();
+    }
+
+    @Override
     public void login(String email, String password) {
         currentUser = client.login(email, password);
     }
