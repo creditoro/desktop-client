@@ -34,10 +34,11 @@ public class PersonsEndpoint {
     }
 
     /**
-     * Gets person.
+     * Gets person by email.
      *
-     * @param identifier the identifier
-     * @return the person
+     * @param email the email
+     * @param token the token
+     * @return the person by email
      */
     public TokenResponse<Person[]> getPersonByEmail(String email, String token) {
         Map<String, Object> queryParam = Map.of("email", email);
