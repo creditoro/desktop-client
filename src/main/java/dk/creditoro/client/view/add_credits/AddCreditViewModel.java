@@ -18,10 +18,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -267,50 +266,54 @@ public class AddCreditViewModel {
      */
     public void importCredits() {
         JFileChooser fileChooser = new JFileChooser("user");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("txt file", "txt"));
         fileChooser.showOpenDialog(null);
 
         File file = fileChooser.getSelectedFile();
-        List<String> lines = new ArrayList<>();
-        String line;
+        if (file != null) {
+            List<String> lines = new ArrayList<>();
+            String line;
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line.trim());
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+                while ((line = bufferedReader.readLine()) != null) {
+                    lines.add(line.trim());
+                }
+            } catch (FileNotFoundException e) {
+                LOGGER.log(Level.SEVERE, "File not found", e);
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Something went wrong", e);
             }
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "File not found", e);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Something went wrong", e);
-        }
-        if (!lines.get(0).equalsIgnoreCase(productionTitle.getValue())) {
-            LOGGER.info("Imported credits does not match current production");
-            return;
-        }
-        List<Credit> cs = new ArrayList<>();
-        String job = "";
-        for (int i = 2; i < lines.size(); i++) {
-            String l = convertToTitleCase(lines.get(i));
-            if (lines.get(i - 1).isEmpty()) {
-                job = convertToTitleCase(lines.get(i));
-                continue;
+            if (!lines.get(0).equalsIgnoreCase(productionTitle.getValue())) {
+                LOGGER.info("Imported credits does not match current production");
+                return;
             }
-            if (l != null) {
-                if (!l.isEmpty()) {
-                    Person p = getPersonByName(l);
-                    if (p == null) {
-                        // create new person
-                        p = new Person("phone", "email@" + l + ".dk", l);
-                    }
-                    if (!isCredit(job, p)) {
-                        // create new credit
-                        Credit c = new Credit(null, production, p, job);
-                        cs.add(c);
+            List<Credit> cs = new ArrayList<>();
+            String job = "";
+            for (int i = 2; i < lines.size(); i++) {
+                String l = convertToTitleCase(lines.get(i));
+                if (lines.get(i - 1).isEmpty()) {
+                    job = convertToTitleCase(lines.get(i));
+                    continue;
+                }
+                if (l != null) {
+                    if (!l.isEmpty()) {
+                        Person p = getPersonByName(l);
+                        if (p == null) {
+                            // create new person
+                            p = new Person("phone", "email@" + l + ".dk", l);
+                        }
+                        if (!isCredit(job, p)) {
+                            // create new credit
+                            Credit c = new Credit(null, production, p, job);
+                            cs.add(c);
+                        }
                     }
                 }
             }
+            creditList.addAll(cs);
+            createdCredits.addAll(cs);
         }
-        creditList.addAll(cs);
-        createdCredits.addAll(cs);
     }
 
     public List<Credit> getCreatedCredits() {
@@ -333,7 +336,7 @@ public class AddCreditViewModel {
         return false;
     }
 
-    public static String convertToTitleCase (String text) {
+    public static String convertToTitleCase(String text) {
         if (text == null || text.isEmpty()) {
             return text;
         }
@@ -356,8 +359,8 @@ public class AddCreditViewModel {
         return converted.toString();
     }
 
-    public void finishCredits(List<Credit> deletedCredits){
-        for (Credit cred : deletedCredits){
+    public void finishCredits(List<Credit> deletedCredits) {
+        for (Credit cred : deletedCredits) {
             if (!createdCredits.contains(cred)) {
                 creditModel.deleteCredit(cred.getIdentifier());
             }
@@ -370,13 +373,46 @@ public class AddCreditViewModel {
                 personLst.add(p);
             }
         }
-        for (Person psn : personLst){
+        for (Person psn : personLst) {
             personModel.postPerson(psn);
         }
-        for (Credit cred : createdCredits){
+        for (Credit cred : createdCredits) {
             var personId = getPerson(cred.getPerson().getEmail()).getIdentifier();
-            Credit temp = new Credit(production.getIdentifier(),personId,cred.getJob());
+            Credit temp = new Credit(production.getIdentifier(), personId, cred.getJob());
             creditModel.postCredits(temp);
+        }
+    }
+
+    public void export() {
+        JFileChooser jFileChooser = new JFileChooser("user");
+        Map<String, List<Person>> personJobMap = new HashMap<>();
+        try {
+            var fileName = production.getTitle() + ".txt";
+            jFileChooser.setSelectedFile(new File(fileName));
+            jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            jFileChooser.setFileFilter(new FileNameExtensionFilter("txt file", "txt"));
+            jFileChooser.showSaveDialog(null);
+            try (FileWriter fileWriter = new FileWriter(jFileChooser.getSelectedFile())) {
+                for (Credit cred : creditList) {
+                    var job = cred.getJob();
+                    if (personJobMap.get(job) == null) {
+                        List<Person> personsList = new ArrayList<>();
+                        personsList.add(cred.getPerson());
+                        personJobMap.put(job, personsList);
+                    }
+                }
+                fileWriter.write(production.getTitle() + "\n\n");
+                for (Map.Entry<String, List<Person>> entry : personJobMap.entrySet()) {
+                    List<Person> temp = entry.getValue();
+                    fileWriter.write(entry.getKey().toUpperCase() + "\n");
+                    for (Person p : temp) {
+                        fileWriter.write(p.getName().toUpperCase() + "\n");
+                    }
+                    fileWriter.write("\n");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

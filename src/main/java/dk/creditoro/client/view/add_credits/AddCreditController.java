@@ -212,6 +212,7 @@ public class AddCreditController implements IViewController {
      */
     public void exportOnAction() {
         LOGGER.info("Eksporterer krediteringer");
+        addCreditViewModel.export();
     }
 
     /**
