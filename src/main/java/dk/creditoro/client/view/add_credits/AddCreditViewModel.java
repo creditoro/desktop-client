@@ -33,7 +33,7 @@ public class AddCreditViewModel {
     private final ListProperty<Credit> credits = new SimpleListProperty<>(creditList);
 
     private final ObservableList<Person> personList = FXCollections.observableArrayList();
-    private final ListProperty<Person> persons = new SimpleListProperty<>(personList);
+    private final ListProperty<Person> people = new SimpleListProperty<>(personList);
 
     @FXML
     private TextArea creditsTxtArea;
@@ -201,8 +201,8 @@ public class AddCreditViewModel {
      *
      * @return the persons
      */
-    public ObservableList<Person> getPersons() {
-        return persons.get();
+    public ObservableList<Person> getPeople() {
+        return people.get();
     }
 
     /**

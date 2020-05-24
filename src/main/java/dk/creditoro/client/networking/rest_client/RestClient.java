@@ -21,7 +21,7 @@ public class RestClient implements IClient {
     private final ChannelsEndpoint channelsEndpoint;
     private final ProductionsEndpoint productionsEndpoint;
     private final CreditsEndpoint creditsEndpoint;
-    private final PersonsEndpoint personsEndpoint;
+    private final PeopleEndpoint peopleEndpoint;
     private static final String PROPERTY_CHANGE = "Fired property change event. ";
 
     private String token;
@@ -36,7 +36,7 @@ public class RestClient implements IClient {
         channelsEndpoint = new ChannelsEndpoint(httpManager);
         productionsEndpoint = new ProductionsEndpoint(httpManager);
         creditsEndpoint = new CreditsEndpoint(httpManager);
-        personsEndpoint = new PersonsEndpoint(httpManager);
+        peopleEndpoint = new PeopleEndpoint(httpManager);
     }
 
     @Override
@@ -99,18 +99,18 @@ public class RestClient implements IClient {
     }
 
     @Override
-    public Person[] getPersons(String q) {
-        var result = personsEndpoint.getPersons(q, token);
-        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PERSONS_RESULT.toString(), null, result);
+    public Person[] getPeople(String q) {
+        var result = peopleEndpoint.getPeople(q, token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PEOPLE_RESULT.toString(), null, result);
         LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);
         return result.getT();
     }
 
     @Override
-    public Person[] getPersonsByEmail(String email) {
-        var result = personsEndpoint.getPersonByEmail(email, token);
-        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PERSONS_RESULT.toString(), null, result);
+    public Person[] getPeopleByEmail(String email) {
+        var result = peopleEndpoint.getPersonByEmail(email, token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PEOPLE_RESULT.toString(), null, result);
         LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);
         return result.getT();
@@ -118,7 +118,7 @@ public class RestClient implements IClient {
 
     @Override
     public Person postPerson(Person person) {
-        var result = personsEndpoint.postPerson(person, token);
+        var result = peopleEndpoint.postPerson(person, token);
         propertyChangeSupport.firePropertyChange(EventNames.ON_POST_PERSON_RESULT.toString(), null, result);
         LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);
@@ -134,5 +134,9 @@ public class RestClient implements IClient {
 
     private void updateToken(TokenResponse<?> response) {
         token = response.getToken();
+    }
+
+    public String getToken(){
+        return token;
     }
 }
