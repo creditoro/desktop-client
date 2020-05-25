@@ -61,7 +61,7 @@ public class LoginViewModel {
     private void onLoginResponse(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On login response called.");
         String result = (String) propertyChangeEvent.getNewValue();
-        Platform.runLater(() -> loginResponse.setValue(result));
+        loginResponse.setValue(result);
     }
 
     /**

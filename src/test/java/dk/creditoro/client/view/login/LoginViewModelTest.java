@@ -60,7 +60,7 @@ class LoginViewModelTest {
     @Test
     void loginResultProperty() {
 		assertDoesNotThrow(()-> loginViewModel.login());
-        assertNull(loginViewModel.loginResponseProperty().get());
+        assertNotNull(loginViewModel.loginResponseProperty().get());
     }
 
     @Test

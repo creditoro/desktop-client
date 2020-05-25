@@ -125,10 +125,6 @@ public class AddCreditViewModel {
         return channelName;
     }
 
-    public ListProperty<Person> peopleListProperty() {
-        return people;
-    }
-
     /**
      * Gets credits.
      *
@@ -209,19 +205,19 @@ public class AddCreditViewModel {
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
                 while ((line = bufferedReader.readLine()) != null) {
                     lines.add(line.trim());
+                    if (!lines.get(0).equalsIgnoreCase(productionTitle.getValue())) {
+                        LOGGER.info("Imported credits does not match current production");
+                        return;
+                    }
+                    List<Credit> credits = createCredits(lines);
+                    creditList.addAll(credits);
+                    createdCredits.addAll(credits);
                 }
             } catch (FileNotFoundException e) {
                 LOGGER.log(Level.SEVERE, "File not found", e);
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "Something went wrong", e);
             }
-            if (!lines.get(0).equalsIgnoreCase(productionTitle.getValue())) {
-                LOGGER.info("Imported credits does not match current production");
-                return;
-            }
-            List<Credit> credits = createCredits(lines);
-            creditList.addAll(credits);
-            createdCredits.addAll(credits);
         }
     }
 
@@ -302,9 +298,11 @@ public class AddCreditViewModel {
     }
 
     public void finishCredits(List<Credit> deletedCredits) {
-        for (Credit cred : deletedCredits) {
-            if (!createdCredits.contains(cred)) {
-                creditModel.deleteCredit(cred.getIdentifier());
+        if (deletedCredits != null) {
+            for (Credit cred : deletedCredits) {
+                if (!createdCredits.contains(cred)) {
+                    creditModel.deleteCredit(cred.getIdentifier());
+                }
             }
         }
         List<Person> personLst = new ArrayList<>();
