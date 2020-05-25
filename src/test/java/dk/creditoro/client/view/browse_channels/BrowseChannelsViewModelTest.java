@@ -20,9 +20,7 @@
 
     class BrowseChannelsViewModelTest {
         BrowseChannelsViewModel browseChannelsViewModel;
-        BrowseChannelsViewModel browseChannelsViewModel2;
-        SharedViewModelFunc sharedViewModelFunc;
-        public ListProperty<Production> listProperty;
+
 
         public BrowseChannelsViewModelTest(){
             final CountDownLatch latch = new CountDownLatch(1);
@@ -116,8 +114,7 @@
             var tilePane1 = new TilePane();
             tilePane1.getChildren().addAll(btn6, btn5);
 
-          //  var sortedList = browseChannelsViewModel.sortedByCharacter(tilePane1.getChildren(), ae, alphabet);
-            var sortedList = sharedViewModelFunc.sortedByCharacter(tilePane1.getChildren(), ae, alphabet, listProperty);
+            var sortedList = browseChannelsViewModel.sortedByCharacter(tilePane1.getChildren(), ae, alphabet);
             assertEquals(randCh.getIdentifier(), sortedList.get(0).getId(),
                     "This should always be sorted first");
 

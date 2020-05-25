@@ -44,7 +44,6 @@ public class BrowseChannelProductionsController implements IViewController {
     private ViewModelFactory viewModelFactory;
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProductions;
-    private Map<String, List<Production>> cachedProductionMap;
     private SharedControllerFunc sharedControllerFunc;
     private SharedViewModelFunc sharedViewModelFunc;
 
@@ -76,7 +75,6 @@ public class BrowseChannelProductionsController implements IViewController {
     }
 
 
-
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewModelFactory = viewModelFactory;
@@ -90,7 +88,6 @@ public class BrowseChannelProductionsController implements IViewController {
         //Sets ChoiceBox "A-Å"
         sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
         sharedViewModelFunc.setListProperty(browseChannelProductionsViewModel.listPropertyProperty());
-
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());

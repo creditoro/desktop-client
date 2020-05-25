@@ -5,7 +5,6 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
-import dk.creditoro.client.model.user.IUserModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
