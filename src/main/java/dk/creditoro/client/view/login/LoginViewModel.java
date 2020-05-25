@@ -2,7 +2,6 @@ package dk.creditoro.client.view.login;
 
 import dk.creditoro.client.core.EventNames;
 import dk.creditoro.client.model.user.IUserModel;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
