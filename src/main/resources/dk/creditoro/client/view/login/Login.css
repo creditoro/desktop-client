@@ -31,4 +31,8 @@
     -fx-background-radius: 30px;
 }
 
+.button:hover {
+    -fx-cursor: hand;
+}
+
 /* -fx-padding: 10 20 10 20; */

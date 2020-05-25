@@ -120,7 +120,8 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #31C5EC;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <AnchorPane layoutX="15.0" prefHeight="800.0" prefWidth="1160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Button fx:id="btnAccount" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#btnAccount" style="-fx-background-color: transparent;" text="E-mail" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                            <graphic>
@@ -134,10 +135,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="800.0" prefWidth="1190.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
                         <Label id="viewLabel" fx:id="channelLabel" stylesheets="@AddCredits.css" text="Kanal" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="75.0">
                            <font>
                               <Font size="20.0" />

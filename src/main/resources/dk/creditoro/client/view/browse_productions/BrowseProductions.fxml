@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.browse_productions.BrowseProductionsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" stylesheets="@BrowseProductions.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.creditoro.client.view.browse_productions.BrowseProductionsController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -43,13 +43,8 @@
                   </AnchorPane>
                   <Line endX="1090.0" endY="200.0" startX="100.0" startY="200.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
                   <Line endX="1090.0" endY="240.0" startX="100.0" startY="240.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
-                  <ImageView fitHeight="62.0" fitWidth="77.0" onMouseClicked="#btnNewProduction" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="130.0">
-                     <image>
-                        <Image url="@../../res/add.png" />
-                     </image>
-                  </ImageView>
-                  <ChoiceBox fx:id="choiceBox" prefHeight="40.0" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="130.0" />
-                  <ScrollPane fx:id="productionPane" hbarPolicy="NEVER" prefHeight="600.0" prefWidth="990.0" style="-fx-background-color: transparent;" stylesheets="@../browse_channels/BrowseChannels.css" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="260.0" />
+                  <ChoiceBox fx:id="choiceBox" layoutX="1040.0" layoutY="149.0" prefHeight="40.0" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="149.0" />
+                  <ScrollPane fx:id="productionPane" hbarPolicy="NEVER" prefHeight="600.0" prefWidth="990.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="260.0" />
                   <HBox fx:id="alphabet" alignment="CENTER" prefHeight="30.0" prefWidth="990.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="205.0">
                      <children>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#sortByCharacter" style="-fx-background-color: transparent;" text="A">

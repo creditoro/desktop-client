@@ -17,24 +17,40 @@
     -fx-background-radius: 20 20 20 20;
 }
 
+.button:hover {
+    -fx-cursor: hand;
+}
+
 /* Background color of the whole context menu */
 .choice-box .context-menu {
     -fx-background-color: white;
     -fx-background-radius: 20;
 }
+
 /* Focused item background color in the list */
 .choice-box .menu-item:focused {
     -fx-background-color: grey;
     -fx-background-radius: 20;
+    -fx-cursor: hand;
 }
+
 /* Text color of non-focused items in the list */
-.choice-box .menu-item > .label { -fx-text-fill: black; }
+.choice-box .menu-item > .label {
+    -fx-text-fill: black;
+}
+
 /* Text color of focused item in the list */
-.choice-box .menu-item:focused > .label { -fx-text-fill: black; }
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: black;
+}
 
 .choice-box {
     -fx-background-color: white;
     -fx-background-radius: 20;
     -fx-font-size: 18;
     -fx-font-family: Roboto;
+}
+
+.choice-box:hover {
+    -fx-cursor: hand;
 }
