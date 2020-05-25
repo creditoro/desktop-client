@@ -10,7 +10,6 @@ import dk.creditoro.client.view.IViewController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
@@ -41,8 +40,6 @@ public class AddCreditController implements IViewController {
     @FXML
     private TextField emailTxtField;
     @FXML
-    private TextArea creditsTxtArea;
-    @FXML
     private ListView<Credit> listView;
 
 
@@ -53,19 +50,16 @@ public class AddCreditController implements IViewController {
         listView.setItems(addCreditViewModel.getCredits());
 
         // Getting persons from database
-        getPersons();
+        getPeople();
 
         // Set productionTitle
         productionTitleTxtField.textProperty().bindBidirectional(addCreditViewModel.productionTitleProperty());
 
         // Set channelName
         channelNameTxtField.textProperty().bindBidirectional(addCreditViewModel.channelNameProperty());
-
-        // Set credits
-        addCreditViewModel.setCreditsTxtArea(creditsTxtArea);
     }
 
-    private void getPersons() {
+    private void getPeople() {
         addCreditViewModel.getPeople();
     }
 
@@ -97,7 +91,6 @@ public class AddCreditController implements IViewController {
 
             } else {
                 person = addCreditViewModel.getPerson(email);
-                creditsTxtArea.appendText(person.getName() + "\t" + job + "\n");
 
                 clearFields();
                 Credit temp = new Credit(null,production,person,job);
@@ -117,7 +110,6 @@ public class AddCreditController implements IViewController {
 
             phoneTxtField.setDisable(true);
             nameTxtField.setDisable(true);
-            creditsTxtArea.appendText(name + "\t" + job + "\n");
             clearFields();
             emailTxtField.requestFocus();
         }
@@ -205,7 +197,7 @@ public class AddCreditController implements IViewController {
      */
     public void exportOnAction() {
         LOGGER.info("Eksporterer krediteringer");
-        addCreditViewModel.export();
+        addCreditViewModel.saveFile();
     }
 
     /**
@@ -213,6 +205,6 @@ public class AddCreditController implements IViewController {
      */
     public void importOnAction() {
         LOGGER.info("Importerer krediteringer");
-        addCreditViewModel.importCredits();
+        addCreditViewModel.openFile();
     }
 }
