@@ -75,7 +75,6 @@ public class BrowseChannelProductionsController implements IViewController {
     }
 
 
-
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewModelFactory = viewModelFactory;
@@ -89,7 +88,6 @@ public class BrowseChannelProductionsController implements IViewController {
         //Sets ChoiceBox "A-Å"
         sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
         sharedViewModelFunc.setListProperty(browseChannelProductionsViewModel.listPropertyProperty());
-
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());
