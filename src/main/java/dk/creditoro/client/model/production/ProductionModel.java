@@ -29,6 +29,7 @@ public class ProductionModel implements IProductionModel {
         LOGGER.info(message);
     }
 
+
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
         propertyChangeSupport.addPropertyChangeListener(name, propertyChangeListener);

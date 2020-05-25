@@ -3,21 +3,14 @@ package dk.creditoro.client.view.browse_productions;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
-import dk.creditoro.client.view.shared_viewmodel_func.FindCharacter;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
@@ -31,7 +24,6 @@ public class BrowseProductionsViewModel {
 
     private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
-    private char currentCharacter;
 
     /**
      * Instantiates a new Login view model.
@@ -67,10 +59,8 @@ public class BrowseProductionsViewModel {
     private void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search productions result called.");
         var productions = (Production[]) propertyChangeEvent.getNewValue();
-        Platform.runLater(() -> {
-            listProperty.clear();
-            listProperty.addAll(productions);
-        });
+        listProperty.clear();
+        listProperty.addAll(productions);
     }
 
     /**
@@ -82,55 +72,4 @@ public class BrowseProductionsViewModel {
         return listProperty;
     }
 
-    /**
-     * Sorted list observable list.
-     *
-     * @param tilePane the tile pane
-     * @return the observable list
-     */
-    public ObservableList<Node> sortedList(TilePane tilePane) {
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort(Comparator.comparing(this::productionTitle));
-        return workingCollection;
-    }
-
-    /**
-     * Production title string.
-     *
-     * @param node the node
-     * @return the string
-     */
-    public String productionTitle(Node node) {
-        var identifier = node.getId();
-        for (int i = 0; i < listProperty.getSize(); i++) {
-            Production production = listProperty.get(i);
-            if (production.getIdentifier().equals(identifier)) {
-                return production.getTitle();
-            }
-        }
-        return "";
-    }
-
-
-    /**
-     * Sorted by character observable list.
-     *
-     * @param list        the list
-     * @param actionEvent the action event
-     * @param alphabet    the alphabet
-     * @return the observable list
-     */
-    public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
-        FindCharacter findCharacter = new FindCharacter();
-        ObservableList<Node> observableList = FXCollections.observableArrayList(list);
-        char character = findCharacter.getCharacter(actionEvent, alphabet, currentCharacter);
-        currentCharacter = character;
-
-        if (character != 0) {
-            observableList.removeIf(node -> !productionTitle(node).toUpperCase().startsWith(String.valueOf(character)));
-        } else {
-            return observableList;
-        }
-        return observableList;
-    }
 }

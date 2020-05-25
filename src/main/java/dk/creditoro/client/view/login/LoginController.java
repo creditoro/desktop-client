@@ -54,6 +54,7 @@ public class LoginController implements IViewController {
             LOGGER.info("Logged in, switching view");
             loginViewModel.clearFields();
             viewHandler.openView(Views.BROWSE_CHANNELS);
+
         } else {
             createPopup("Incorrect Login", "Wrong credentials has been entered", 5, Pos.BASELINE_CENTER);
         }

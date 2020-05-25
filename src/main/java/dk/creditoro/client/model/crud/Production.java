@@ -1,5 +1,6 @@
 package dk.creditoro.client.model.crud;
 
+
 public class Production {
 
     private final String identifier;
@@ -8,12 +9,14 @@ public class Production {
     private final User producer;
     private final Channel channel;
 
+
     public Production(String identifier, String title, String description, User producer, Channel channel) {
         this.identifier = identifier;
         this.title = title;
         this.description = description;
         this.producer = producer;
         this.channel = channel;
+
     }
 
     public String getIdentifier() {
@@ -35,7 +38,7 @@ public class Production {
     public Channel getChannel() {
         return channel;
     }
-
+  
     @Override
     public String toString() {
         return String.format("Production{" +
@@ -44,3 +47,4 @@ public class Production {
                 "channel: %s}", identifier, title,channel);
     }
 }
+

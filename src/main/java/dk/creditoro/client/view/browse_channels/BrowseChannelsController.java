@@ -31,22 +31,7 @@ import java.util.logging.Logger;
  */
 public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private BrowseChannelsViewModel browseChannelsViewModel;
-    private ViewHandler viewHandler;
-    private ObservableList<Node> channelList;
-    private Map<String, ImageView> cachedImages;
 
-    @FXML
-    private ScrollPane channelPane;
-
-    @FXML
-    private ChoiceBox<String> choiceBox;
-
-    @FXML
-    private TextField channelSearch;
-
-    @FXML
-    private HBox alphabet;
 
     /**
      * Lbl start menu pressed.
@@ -54,6 +39,22 @@ public class BrowseChannelsController implements IViewController {
      * @param mouseEvent the mouse event
      */
     ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
+    private BrowseChannelsViewModel browseChannelsViewModel;
+    private ViewHandler viewHandler;
+    private ObservableList<Node> channelList;
+    private Map<String, ImageView> cachedImages;
+    private ViewModelFactory viewModelFactory;
+
+    @FXML
+    private ScrollPane channelPane;
+    @FXML
+    private ChoiceBox<String> choiceBox;
+    @FXML
+    private TextField channelSearch;
+    @FXML
+    private HBox alphabet;
+
+
 
     /**
      * Btn new channel.
@@ -90,6 +91,8 @@ public class BrowseChannelsController implements IViewController {
      */
     public void switchView(String viewToOpen) {
         LOGGER.info(viewToOpen);
+        viewModelFactory.getBrowseChannelProductionsViewModel().setChannelName(viewToOpen);
+        viewHandler.openView(Views.BROWSE_CHANNEL_PRODUCTIONS);
     }
 
 
@@ -98,6 +101,7 @@ public class BrowseChannelsController implements IViewController {
         browseChannelsViewModel = viewModelFactory.getBrowseChannelsViewModel();
         this.viewHandler = viewHandler;
         this.cachedImages = new HashMap<>();
+        this.viewModelFactory = viewModelFactory;
 
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
@@ -107,6 +111,7 @@ public class BrowseChannelsController implements IViewController {
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
         browseChannelsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
         onSearch();
+
     }
 
     private void doneLoading(TilePane tilePane) {
@@ -131,8 +136,7 @@ public class BrowseChannelsController implements IViewController {
     }
 
     private void updateGrid(ObservableList<Channel> channels) {
-        LOGGER.info("Update grid called.");
-
+        LOGGER.info("Update grid called. BrowseChannels");
         //Remove all children from Grid
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 15, 15, 15));
@@ -155,10 +159,10 @@ public class BrowseChannelsController implements IViewController {
                     imageView.setFitWidth(80);
                     imageView.setFitHeight(80);
                     imageView.setSmooth(true);
+
                     //Set Actions
                     imageView.setOnMouseClicked(mouseEvent -> {
-                        var img = (ImageView) mouseEvent.getSource();
-                        switchView(img.getId());
+                        switchView(channel.getName());
                         LOGGER.info(channel.getName());
                     });
                 }
@@ -168,7 +172,7 @@ public class BrowseChannelsController implements IViewController {
             }
             cachedImages.put(channel.getIdentifier(), imageView);
             ImageView finalImageView = imageView;
-            Platform.runLater (() -> tilePane.getChildren().addAll(finalImageView));
+            Platform.runLater(() -> tilePane.getChildren().addAll(finalImageView));
         }
         doneLoading(tilePane);
     }
@@ -181,6 +185,11 @@ public class BrowseChannelsController implements IViewController {
         browseChannelsViewModel.search();
     }
 
+    /**
+     * Sorted.
+     *
+     * @param choice the choice
+     */
     public void sorted(int choice) {
         TilePane tilePane = (TilePane) channelPane.getContent();
         String choiceString;
@@ -192,22 +201,42 @@ public class BrowseChannelsController implements IViewController {
         tilePane.getChildren().setAll(browseChannelsViewModel.sortedChannelList(tilePane, choiceString));
     }
 
+    /**
+     * Sort by character.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tilePane = (TilePane) channelPane.getContent();
         tilePane.getChildren().setAll(browseChannelsViewModel.sortedByCharacter(channelList, actionEvent, alphabet));
     }
 
+    /**
+     * Btn front page.
+     *
+     * @param mouseEvent the mouse event
+     */
     @FXML
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    /**
+     * Btn search.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnSearch(ActionEvent actionEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
+    /**
+     * Btn channels.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);

@@ -6,6 +6,7 @@ public class Channel {
     private final String identifier;
     private final String name;
 
+
     @SerializedName("icon_url")
     private final String iconUrl;
 
@@ -13,6 +14,7 @@ public class Channel {
         this.identifier = identifier;
         this.name = name;
         this.iconUrl = iconUrl;
+
     }
 
     public String getIdentifier() {
@@ -32,4 +34,6 @@ public class Channel {
         return String.format(
                 "Channel (name=%s)", this.name);
     }
-}
+
+    }
+

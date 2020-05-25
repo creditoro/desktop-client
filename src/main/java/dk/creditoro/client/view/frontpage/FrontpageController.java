@@ -98,7 +98,6 @@ public class FrontpageController implements IViewController {
      * @param actionEvent the action event
      */
     public void onSearchAction(ActionEvent actionEvent) {
-        LOGGER.info("Hvad f skal der ske med den her søgefunktion");
         var view = choiceBox.getSelectionModel().getSelectedItem();
         if (view.equals("Kanal")) {
             viewHandler.openView(Views.BROWSE_CHANNELS, searchTextField.getText());

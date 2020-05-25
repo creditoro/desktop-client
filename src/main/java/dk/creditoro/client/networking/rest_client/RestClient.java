@@ -80,6 +80,7 @@ public class RestClient implements IClient {
         return result.getT();
     }
 
+
     @Override
     public Credit patchCredits(String identifier , Map<String, Object> fields){
         var result = creditsEndpoint.patchCredit(identifier, fields, token);

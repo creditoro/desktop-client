@@ -10,6 +10,7 @@ import java.util.Map;
  * The type Dummy client.
  */
 public class DummyClient implements IClient {
+
     @Override
     public User login(String email, String password) {
         return null;
