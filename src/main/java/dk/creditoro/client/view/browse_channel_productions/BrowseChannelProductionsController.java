@@ -82,6 +82,7 @@ public class BrowseChannelProductionsController implements IViewController {
         this.viewModelFactory = viewModelFactory;
         browseChannelProductionsViewModel = viewModelFactory.getBrowseChannelProductionsViewModel();
         this.viewHandler = viewHandler;
+        browseChannelProductionsViewModel.createProductionMap();
         this.cachedProductions = new HashMap<>();
         sharedControllerFunc = new SharedControllerFunc();
         sharedViewModelFunc = new SharedViewModelFunc();
@@ -90,7 +91,6 @@ public class BrowseChannelProductionsController implements IViewController {
         sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
         sharedViewModelFunc.setListProperty(browseChannelProductionsViewModel.listPropertyProperty());
 
-        this.cachedProductionMap = viewModelFactory.getBrowseChannelProductionsViewModel().createProductionMap();
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());

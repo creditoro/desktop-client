@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class BrowseChannelProductionsViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final IProductionModel productionModel;
-    private final IUserModel userModel;
     private final ViewModelFactory viewModelFactory;
     private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
@@ -36,12 +35,10 @@ public class BrowseChannelProductionsViewModel {
      * Instantiates a new Login view model.
      *
      * @param productionModel  the channel model
-     * @param userModel        the user model
      * @param viewModelFactory the view model factory
      */
-    public BrowseChannelProductionsViewModel(IProductionModel productionModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
+    public BrowseChannelProductionsViewModel(IProductionModel productionModel, ViewModelFactory viewModelFactory) {
         this.productionModel = productionModel;
-        this.userModel = userModel;
         this.productionModel.addListener("kek", (this::onSearchProductionsResult));
         this.viewModelFactory = viewModelFactory;
         queryParamProperty().setValue(null);
@@ -69,14 +66,12 @@ public class BrowseChannelProductionsViewModel {
     /**
      * Create production map, with channelName as key and List of productions for that channel as value.
      *
-     * @return the map
      */
-    public Map<String, List<Production>> createProductionMap() {
+    public void createProductionMap() {
         LOGGER.info("Creating productionMap");
         for (Channel c : viewModelFactory.getBrowseChannelsViewModel().listPropertyProperty()) {
             productionMap.put(c.getName(), prodList(c.getName()));
         }
-        return productionMap;
     }
 
     /**
