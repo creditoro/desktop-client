@@ -96,7 +96,6 @@ public class ProductionController implements IViewController {
     public void btnNewCredit(MouseEvent mouseEvent) {
         this.viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitle());
         this.viewModelFactory.getAddCreditViewModel().setCredits(productionViewModel.listPropertyProperty());
-        this.viewModelFactory.getAddCreditViewModel().refreshValues();
         viewHandler.openView(Views.ADD_CREDITS);
     }
 

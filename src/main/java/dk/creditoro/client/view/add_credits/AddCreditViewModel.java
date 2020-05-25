@@ -7,16 +7,18 @@ import dk.creditoro.client.model.crud.Person;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.person.IPersonModel;
 import dk.creditoro.client.model.user.IUserModel;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.*;
+import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -27,20 +29,19 @@ public class AddCreditViewModel {
     private final ICreditModel creditModel;
     private final IPersonModel personModel;
 
+    private final StringProperty queryParam = new SimpleStringProperty();
     private final StringProperty productionTitle = new SimpleStringProperty();
     private final StringProperty channelName = new SimpleStringProperty();
-    private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
-    private final ListProperty<Credit> credits = new SimpleListProperty<>(creditList);
+    private ObservableList<Credit> creditList = FXCollections.observableArrayList();
+    private List<Credit> createdCredits = new ArrayList<>();
 
     private final ObservableList<Person> personList = FXCollections.observableArrayList();
     private final ListProperty<Person> people = new SimpleListProperty<>(personList);
 
-    @FXML
-    private TextArea creditsTxtArea;
-
-    private Credit credit;
     private Production production;
-    private Person person;
+    private Person[] peopleArray;
+
+
 
     /**
      * Instantiates a new Add credit view model.
@@ -56,20 +57,18 @@ public class AddCreditViewModel {
     }
 
     /**
-     * Refresh values.
+     * Get persons.
      */
-    public void refreshValues() {
-        // Set credits for chosen production
-        Platform.runLater(this::addCreditsToTextArea);
+    public void getPeople() {
+        var q = queryParam.get();
+        var message = String.format("Called search, q: '%s*", q);
+        LOGGER.info(message);
+        peopleArray = personModel.getPeople(q);
+        setPeople();
     }
 
-    /**
-     * Sets credits txt area.
-     *
-     * @param creditsTxtArea the credits txt area
-     */
-    public void setCreditsTxtArea(TextArea creditsTxtArea) {
-        this.creditsTxtArea = creditsTxtArea;
+    public void setPeople() {
+        people.addAll(Arrays.asList(peopleArray));
     }
 
     /**
@@ -132,7 +131,7 @@ public class AddCreditViewModel {
      * @return the credits
      */
     public ObservableList<Credit> getCredits() {
-        return credits.get();
+        return creditList;
     }
 
     /**
@@ -141,42 +140,9 @@ public class AddCreditViewModel {
      * @param credits the credits
      */
     public void setCredits(ObservableList<Credit> credits) {
-        this.credits.set(credits);
+        this.creditList = credits;
     }
 
-    /**
-     * Credits property list property.
-     *
-     * @return the list property
-     */
-    public ListProperty<Credit> creditsProperty() {
-        return credits;
-    }
-
-    /**
-     * Sets credit.
-     *
-     * @param credit the credit
-     */
-    public void setCredit(Credit credit) {
-        this.credit = credit;
-    }
-
-    /**
-     * Post credits.
-     */
-    public void postCredits() {
-        var c = credit.getJob();
-        var message = String.format("Posted credit for job type: '%s'", c);
-        LOGGER.info(message);
-        creditModel.postCredits(credit);
-    }
-
-    private void addCreditsToTextArea() {
-        for (Credit cred : credits) {
-            creditsTxtArea.appendText(cred.getPerson().getName() + "\t" + cred.getJob() + "\n");
-        }
-    }
 
     /**
      * Gets production.
@@ -196,14 +162,6 @@ public class AddCreditViewModel {
         this.production = production;
     }
 
-    /**
-     * Gets persons.
-     *
-     * @return the persons
-     */
-    public ObservableList<Person> getPeople() {
-        return people.get();
-    }
 
     /**
      * Gets person.
@@ -212,7 +170,7 @@ public class AddCreditViewModel {
      * @return the person
      */
     public Person getPerson(String email) {
-        for (Person p : personList) {
+        for (Person p : people) {
             if (p.getEmail().equals(email)) {
                 return p;
             }
@@ -221,21 +179,183 @@ public class AddCreditViewModel {
     }
 
     /**
-     * Sets person.
+     * Gets person.
      *
-     * @param person the person
+     * @param name the name
+     * @return the person
      */
-    public void setPerson(Person person) {
-        this.person = person;
+    public Person getPersonByName(String name) {
+        for (Person p : people) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+
+    /**
+     * Import credits.
+     */
+    public void importCredits(File file) {
+        if (file != null) {
+            List<String> lines = new ArrayList<>();
+            String line;
+
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+                while ((line = bufferedReader.readLine()) != null) {
+                    lines.add(line.trim());
+                    if (!lines.get(0).equalsIgnoreCase(productionTitle.getValue())) {
+                        LOGGER.info("Imported credits does not match current production");
+                        return;
+                    }
+                    List<Credit> credits = createCredits(lines);
+                    creditList.addAll(credits);
+                    createdCredits.addAll(credits);
+                }
+            } catch (FileNotFoundException e) {
+                LOGGER.log(Level.SEVERE, "File not found", e);
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Something went wrong", e);
+            }
+        }
+    }
+
+    public void openFile() {
+        JFileChooser fileChooser = new JFileChooser("user");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("txt file", "txt"));
+        fileChooser.showOpenDialog(null);
+        importCredits(fileChooser.getSelectedFile());
+    }
+
+    public List<Credit> createCredits(List<String> lines) {
+        List<Credit> cs = new ArrayList<>();
+        String job = "";
+        for (int i = 2; i < lines.size(); i++) {
+            String l = convertToTitleCase(lines.get(i));
+            if (lines.get(i - 1).isEmpty()) {
+                job = convertToTitleCase(lines.get(i));
+                continue;
+            }
+            if (l != null && !l.isEmpty()) {
+                Person p = getPersonByName(l);
+                if (p == null) {
+                    // create new person
+                    p = new Person("phone", "email@" + l + ".dk", l);
+                }
+                if (!isCredit(job, p)) {
+                    // create new credit
+                    Credit c = new Credit(null, production, p, job);
+                    cs.add(c);
+                }
+            }
+        }
+        return cs;
+    }
+
+    public List<Credit> getCreatedCredits() {
+        return createdCredits;
     }
 
     /**
-     * Post person.
+     * Is credit boolean.
+     *
+     * @param job    the job
+     * @param person the person
+     * @return the boolean
      */
-    public void postPerson() {
-        var p = person.getName();
-        var message = String.format("Posted person for, %s", p);
-        LOGGER.info(message);
-        personModel.postPerson(person);
+    public boolean isCredit(String job, Person person) {
+        for (Credit c : this.creditList) {
+            if (c.getPerson().equals(person) && c.getJob().equalsIgnoreCase(job)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String convertToTitleCase(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        StringBuilder converted = new StringBuilder();
+
+        boolean convertNext = true;
+        for (char ch : text.toCharArray()) {
+            if (Character.isSpaceChar(ch)) {
+                convertNext = true;
+            } else if (convertNext) {
+                ch = Character.toTitleCase(ch);
+                convertNext = false;
+            } else {
+                ch = Character.toLowerCase(ch);
+            }
+            converted.append(ch);
+        }
+
+        return converted.toString();
+    }
+
+    public void finishCredits(List<Credit> deletedCredits) {
+        if (deletedCredits != null) {
+            for (Credit cred : deletedCredits) {
+                if (!createdCredits.contains(cred)) {
+                    creditModel.deleteCredit(cred.getIdentifier());
+                }
+            }
+        }
+        List<Person> personLst = new ArrayList<>();
+        for (Credit cred : createdCredits) {
+            Person p = cred.getPerson();
+            var email = p.getEmail();
+            if (getPerson(email) == null) {
+                personLst.add(p);
+            }
+        }
+        for (Person psn : personLst) {
+            personModel.postPerson(psn);
+        }
+        getPeople();
+        for (Credit cred : createdCredits) {
+            var personId = getPerson(cred.getPerson().getEmail()).getIdentifier();
+            Credit temp = new Credit(production.getIdentifier(), personId, cred.getJob());
+            creditModel.postCredits(temp);
+        }
+    }
+
+    public void saveFile() {
+        JFileChooser jFileChooser = new JFileChooser("user");
+        var fileName = production.getTitle() + ".txt";
+        jFileChooser.setSelectedFile(new File(fileName));
+        jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jFileChooser.setFileFilter(new FileNameExtensionFilter("txt file", "txt"));
+        jFileChooser.showSaveDialog(null);
+        export(jFileChooser.getSelectedFile());
+    }
+
+    public void export(File file) {
+        Map<String, List<Person>> personJobMap = new HashMap<>();
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            for (Credit cred : creditList) {
+                var job = cred.getJob();
+                if (personJobMap.get(job) == null) {
+                    List<Person> personsList = new ArrayList<>();
+                    personJobMap.put(job, personsList);
+                }
+                personJobMap.get(job).add(cred.getPerson());
+            }
+            fileWriter.write(productionTitle.getValue() + "\n\n");
+            for (Map.Entry<String, List<Person>> entry : personJobMap.entrySet()) {
+                List<Person> temp = entry.getValue();
+                fileWriter.write(entry.getKey().toUpperCase() + "\n");
+                for (Person p : temp) {
+                    fileWriter.write(p.getName().toUpperCase() + "\n");
+                }
+                fileWriter.write("\n");
+            }
+        } catch (IOException | NullPointerException e) {
+            LOGGER.info("No File");
+        }
     }
 }

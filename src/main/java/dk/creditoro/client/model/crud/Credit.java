@@ -7,9 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Credit {
 
-    /*
-        Read about transient modifier here: https://www.baeldung.com/gson-exclude-fields-serialization
-    */
     private final String identifier;
     private final Production production;
     private final Person person;
@@ -39,17 +36,17 @@ public class Credit {
     /**
      * Instantiates a new Credit.
      *
-     * @param job          the job
      * @param productionId the production id
      * @param personId     the person id
+     * @param job          the job
      */
-    public Credit(String job, String productionId, String personId) {
+    public Credit(String productionId, String personId, String job) {
         this.identifier = null;
         this.production = null;
         this.person = null;
-        this.job = job;
         this.productionId = productionId;
         this.personId = personId;
+        this.job = job;
     }
 
     /**
@@ -104,5 +101,13 @@ public class Credit {
      */
     public String getPersonId() {
         return personId;
+    }
+
+    @Override
+    public String toString() {
+        if (person != null) {
+            return String.format("%s    %s    %s", person.getName(), job, person.getEmail());
+        }
+        return "no person";
     }
 }

@@ -42,7 +42,7 @@ public interface IClient {
     Production[] searchProductions(String q);
 
     /**
-     * Get persons person [ ].
+     * Get people person [ ].
      *
      * @param q the q
      * @return the person [ ]
@@ -50,7 +50,7 @@ public interface IClient {
     Person[] getPeople(String q);
 
     /**
-     * Get persons by email person [ ].
+     * Get people by email person [ ].
      *
      * @param email the email
      * @return the person [ ]
@@ -89,6 +89,8 @@ public interface IClient {
      * @return the credit
      */
     Credit patchCredits(String identifier , Map<String, Object> fields);
+
+    boolean deleteCredit(String identifier);
 
     /**
      * Add listener.

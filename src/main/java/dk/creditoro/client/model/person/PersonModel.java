@@ -10,6 +10,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.logging.Logger;
 
+/**
+ * The type Person model.
+ */
 public class PersonModel implements IPersonModel {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -17,6 +20,11 @@ public class PersonModel implements IPersonModel {
     private final PropertyChangeSupport propertyChangeSupport;
 
 
+    /**
+     * Instantiates a new Person model.
+     *
+     * @param client the client
+     */
     public PersonModel(IClient client) {
         this.client = client;
         propertyChangeSupport = new PropertyChangeSupport(this);
@@ -24,10 +32,12 @@ public class PersonModel implements IPersonModel {
     }
 
     @Override
-    public void getPeople(String id) {
-        Person[] persons = client.getPeople(id);
-        var message = String.format("persons found: %d", persons.length);
+    public Person[] getPeople(String q) {
+        Person[] people = client.getPeople(q);
+        var message = String.format("persons found: %d", people.length);
         LOGGER.info(message);
+
+        return people;
     }
 
     @Override
@@ -42,6 +52,11 @@ public class PersonModel implements IPersonModel {
         propertyChangeSupport.addPropertyChangeListener(name, propertyChangeListener);
     }
 
+    /**
+     * On search persons result.
+     *
+     * @param propertyChangeEvent the property change event
+     */
     @SuppressWarnings("unchecked")
     public void onSearchPeopleResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search persons result called.");

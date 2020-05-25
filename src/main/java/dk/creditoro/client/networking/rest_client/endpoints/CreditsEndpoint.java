@@ -84,4 +84,16 @@ public class CreditsEndpoint {
         var response = httpManager.post(CREDITS, credit, token);
         return new TokenResponse<>(response.asObject(Credit.class));
     }
+
+    /**
+     * Delete credit.
+     *
+     * @param identifier the credit identifier
+     * @param token  the token
+     * @return boolean
+     */
+    public boolean deleteCredit(String identifier, String token) {
+        var response = httpManager.delete(CREDITS, identifier, token);
+        return response.asEmpty().isSuccess();
+    }
 }
