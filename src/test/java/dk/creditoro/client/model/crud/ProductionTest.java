@@ -15,6 +15,7 @@ class ProductionTest {
         var producer = new User("madeUpIdentifier", "phone", "email", "producer", "producer");
         var channel = new Channel("madeUpIdentifier", "TV2 ØST", "iconUrl");
         production = new Production("10-10-10", "Hornbœk langt ude","Og det var Hornbæk der var langt ude", producer, channel);
+
     }
 
     @Test
@@ -25,6 +26,11 @@ class ProductionTest {
     @Test
     void getTitle() {
         assertEquals("Hornbœk langt ude", production.getTitle(), message);
+    }
+
+    @Test
+    void getDescription() {
+        assertEquals("Og det var Hornbæk der var langt ude", production.getDescription(), message);
     }
 
     @Test

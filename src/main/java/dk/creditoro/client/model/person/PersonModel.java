@@ -58,7 +58,7 @@ public class PersonModel implements IPersonModel {
      * @param propertyChangeEvent the property change event
      */
     @SuppressWarnings("unchecked")
-    public void onSearchPersonsResult(PropertyChangeEvent propertyChangeEvent) {
+    public void onSearchPeopleResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search persons result called.");
         var response = (TokenResponse<Person[]>) propertyChangeEvent.getNewValue();
         var persons = response.getT();

@@ -30,10 +30,10 @@ public class ProductionViewModel {
 
     private ArrayList<Credit> cachedCredits = new ArrayList<>();
 
+    private Boolean whichView;
     private String id;
     private String channelId;
     private StringProperty title = new SimpleStringProperty();
-
     /**
      * Instantiates a new Production view model.
      *
@@ -45,6 +45,14 @@ public class ProductionViewModel {
         this.creditModel = creditModel;
         this.userModel = userModel;
         this.creditModel.addListener("kek", (this::onSearchProductionsResult));
+    }
+
+    public Boolean getWhichView() {
+        return whichView;
+    }
+
+    public void setWhichView(Boolean whichView) {
+        this.whichView = whichView;
     }
 
     /**

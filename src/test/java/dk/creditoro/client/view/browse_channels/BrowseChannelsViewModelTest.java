@@ -3,6 +3,9 @@
     import dk.creditoro.client.core.ClientFactory;
     import dk.creditoro.client.core.ModelFactory;
     import dk.creditoro.client.core.ViewModelFactory;
+    import dk.creditoro.client.model.crud.Production;
+    import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
+    import javafx.beans.property.ListProperty;
     import javafx.embed.swing.JFXPanel;
     import javafx.event.ActionEvent;
     import javafx.scene.control.Button;
@@ -17,7 +20,7 @@
 
     class BrowseChannelsViewModelTest {
         BrowseChannelsViewModel browseChannelsViewModel;
-        BrowseChannelsViewModel browseChannelsViewModel2;
+
 
         public BrowseChannelsViewModelTest(){
             final CountDownLatch latch = new CountDownLatch(1);

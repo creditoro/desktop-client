@@ -3,6 +3,7 @@ package dk.creditoro.client.core;
 import dk.creditoro.client.view.add_credits.AddCreditViewModel;
 import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
 import dk.creditoro.client.view.browse_productions.BrowseProductionsViewModel;
+import dk.creditoro.client.view.browse_channel_productions.BrowseChannelProductionsViewModel;
 import dk.creditoro.client.view.login.LoginViewModel;
 import dk.creditoro.client.view.production.ProductionViewModel;
 
@@ -16,6 +17,7 @@ public class ViewModelFactory {
     private final BrowseChannelsViewModel browseChannelsViewModel;
     private final BrowseProductionsViewModel browseProductionsViewModel;
     private final ProductionViewModel productionViewModel;
+    private final BrowseChannelProductionsViewModel browseChannelProductionsViewModel;
     private final AddCreditViewModel addCreditViewModel;
 
     public ViewModelFactory(ModelFactory modelFactory) {
@@ -23,6 +25,7 @@ public class ViewModelFactory {
         browseChannelsViewModel = new BrowseChannelsViewModel(modelFactory.getChannelModel(), modelFactory.getUserModel());
         browseProductionsViewModel = new BrowseProductionsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
         productionViewModel = new ProductionViewModel(modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
+        browseChannelProductionsViewModel = new BrowseChannelProductionsViewModel(modelFactory.getProductionModel(), this);
         addCreditViewModel = new AddCreditViewModel(modelFactory.getPersonModel(), modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
     }
 
@@ -50,4 +53,12 @@ public class ViewModelFactory {
     public AddCreditViewModel getAddCreditViewModel() {
         return addCreditViewModel;
     }
+
+    /**
+     * @return the channelProgramsViewModel
+     */
+    public BrowseChannelProductionsViewModel getBrowseChannelProductionsViewModel() {
+        return browseChannelProductionsViewModel;
+    }
+
 }

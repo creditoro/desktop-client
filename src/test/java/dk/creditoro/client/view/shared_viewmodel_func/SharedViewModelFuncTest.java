@@ -18,11 +18,11 @@ import javafx.scene.layout.HBox;
 /**
 * FindCharacterTest
 */
-class FindCharacterTest {
-	FindCharacter findCharacter;
+class SharedViewModelFuncTest {
+	SharedViewModelFunc sharedViewModelFunc;
 	
-	public FindCharacterTest(){
-		findCharacter = new FindCharacter();
+	public SharedViewModelFuncTest(){
+		sharedViewModelFunc = new SharedViewModelFunc();
 	}
 
 	@Test
@@ -46,9 +46,9 @@ class FindCharacterTest {
 		alphabet.getChildren().addAll(btnA, btnB, btnC);
 
 		ActionEvent ae = new ActionEvent(btnB, ActionEvent.NULL_SOURCE_TARGET);
-		assertEquals('B', findCharacter.getCharacter(ae, alphabet, 'A'),
+		assertEquals('B', sharedViewModelFunc.getCharacter(ae, alphabet, 'A'),
 				"CurrentChar is A, and the actionEvent is the B button");
-		assertEquals(0, findCharacter.getCharacter(ae, alphabet, 'B'),
+		assertEquals(0, sharedViewModelFunc.getCharacter(ae, alphabet, 'B'),
 				"What happend to the 0 char return?");
 
 	}

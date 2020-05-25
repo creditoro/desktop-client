@@ -68,7 +68,8 @@ public class CreditsEndpoint {
      * @return the credits
      */
     public TokenResponse<Credit[]> getCredits(String id, String token) {
-        var response = httpManager.getCredits(CREDITS, id, token);
+        Map<String, Object> queryParam = Map.of("production_id", id);
+        var response = httpManager.getByQueryParams(CREDITS, queryParam, token);
         return new TokenResponse<>(response.asObject(Credit[].class));
     }
 

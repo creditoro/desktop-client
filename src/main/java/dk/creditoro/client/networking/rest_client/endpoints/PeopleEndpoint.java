@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * The type Persons endpoint.
  */
-public class PersonsEndpoint {
+public class PeopleEndpoint {
     private static final String PEOPLE = "/people/";
     private final HttpManager httpManager;
 
@@ -18,7 +18,7 @@ public class PersonsEndpoint {
      *
      * @param httpManager the http manager
      */
-    public PersonsEndpoint(HttpManager httpManager) {
+    public PeopleEndpoint(HttpManager httpManager) {
         this.httpManager = httpManager;
     }
 
@@ -31,6 +31,19 @@ public class PersonsEndpoint {
     public TokenResponse<Person> getPerson(String identifier) {
         var response = httpManager.get(PEOPLE, identifier, null);
         return new TokenResponse<>(response.asObject(Person.class));
+    }
+
+    /**
+     * Gets person by email.
+     *
+     * @param email the email
+     * @param token the token
+     * @return the person by email
+     */
+    public TokenResponse<Person[]> getPersonByEmail(String email, String token) {
+        Map<String, Object> queryParam = Map.of("email", email);
+        var response = httpManager.getByQueryParams(PEOPLE, queryParam, token);
+        return new TokenResponse<>(response.asObject(Person[].class));
     }
 
       /**

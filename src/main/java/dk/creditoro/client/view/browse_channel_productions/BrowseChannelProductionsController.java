@@ -1,4 +1,5 @@
-package dk.creditoro.client.view.browse_productions;
+package dk.creditoro.client.view.browse_channel_productions;
+
 
 import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
@@ -14,7 +15,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -26,14 +30,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+
 /**
- * The type Browse productions controller.
+ * The type Browse channel productions controller.
  */
-public class BrowseProductionsController implements IViewController {
+public class BrowseChannelProductionsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private BrowseProductionsViewModel browseProductionsViewModel;
+    /**
+     * The Sorting list.
+     */
+    private BrowseChannelProductionsViewModel browseChannelProductionsViewModel;
     private ViewHandler viewHandler;
-    private ViewModelFactory viewModelFactory; // I don't think it should be implemented like this?
+    private ViewModelFactory viewModelFactory;
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProductions;
     private SharedControllerFunc sharedControllerFunc;
@@ -48,74 +56,45 @@ public class BrowseProductionsController implements IViewController {
     @FXML
     private Button btnAccount;
     @FXML
+    private TextField search;
+    @FXML
     private ChoiceBox<String> choiceBox;
 
-
     /**
-     * Btn new production.
+     * Handle search bar.
      */
-    public void btnNewProduction() {
-        LOGGER.info("Create production button pressed");
+    public void handleSearchBar() {
+        LOGGER.info("Handle search bar.");
     }
 
     /**
      * Btn account.
      */
     public void btnAccount() {
-        LOGGER.info("Account button pressed.");
-    }
-
-    /**
-     * Btn channels.
-     */
-    public void btnChannels() {
-        viewHandler.openView(Views.BROWSE_CHANNELS);
-    }
-
-    /**
-     * Btn productions.
-     *
-     * @param actionEvent the action event
-     */
-    public void btnProductions(ActionEvent actionEvent) {
-        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewHandler.openView(Views.LOGIN);
     }
 
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewModelFactory = viewModelFactory;
-        browseProductionsViewModel = viewModelFactory.getBrowseProductionsViewModel();
+        browseChannelProductionsViewModel = viewModelFactory.getBrowseChannelProductionsViewModel();
         this.viewHandler = viewHandler;
+        browseChannelProductionsViewModel.createProductionMap();
         this.cachedProductions = new HashMap<>();
         sharedControllerFunc = new SharedControllerFunc();
         sharedViewModelFunc = new SharedViewModelFunc();
 
         //Sets ChoiceBox "A-Å"
         sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
-        sharedViewModelFunc.setListProperty(browseProductionsViewModel.listPropertyProperty());
+        sharedViewModelFunc.setListProperty(browseChannelProductionsViewModel.listPropertyProperty());
 
+        //Add listener to channelSearch text area
+        productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());
 
-        //Add listener to productionSearch text area
-        productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
-        browseProductionsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
-
-        onSearch();
-
-        // set user email
+        browseChannelProductionsViewModel.getChannelName().addListener((observableValue, productions, newValue) -> updateList());
+        updateList();
         btnAccount.setText("user.getEmail()");
-    }
-
-    private void loading(ObservableList<Production> productions) {
-        new Thread(() -> Platform.runLater(() -> {
-            ProgressIndicator pb = new ProgressIndicator();
-            pb.minWidthProperty().bind(productionPane.widthProperty());
-            pb.minHeightProperty().bind(productionPane.heightProperty());
-            productionPane.setContent(pb);
-        })).start();
-
-
-        new Thread(() -> updateList(productions)).start();
     }
 
     private void doneLoading(TilePane tilePane) {
@@ -125,33 +104,29 @@ public class BrowseProductionsController implements IViewController {
         });
     }
 
-    /**
-     * Updates list of productions
-     *
-     * @param productions
-     */
-    private void updateList(ObservableList<Production> productions) {
-        LOGGER.info("Update grid called. BrowseProductions");
+    private void updateList() {
+        LOGGER.info("Update grid called. ChannelPrograms");
         // Create TilePane for productions
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 0, 0, 0));
         tilePane.prefWidthProperty().bind(productionPane.widthProperty());
-        List<Node> children = computeChildren(productions, tilePane);
+        List<Node> children = computeChildren(tilePane);
         Platform.runLater(() -> tilePane.getChildren().addAll(children));
         doneLoading(tilePane);
     }
 
+
     /**
      * Compute children list.
      *
-     * @param productions the productions
-     * @param tilePane    the tile pane
+     * @param tilePane the tile pane
      * @return the list
      */
-    public List<Node> computeChildren(ObservableList<Production> productions, TilePane tilePane) {
+    public List<Node> computeChildren(TilePane tilePane) {
         List<Node> list = new ArrayList<>();
+
         // Create VBox for each production and add title and description
-        for (Production production : productions) {
+        for (Production production : browseChannelProductionsViewModel.qSearch()) {
             sharedControllerFunc.generateChildren(tilePane, list, production, cachedProductions, productionPane, viewModelFactory, viewHandler);
         }
         return list;
@@ -161,7 +136,8 @@ public class BrowseProductionsController implements IViewController {
      * On search.
      */
     public void onSearch() {
-        browseProductionsViewModel.search();
+        browseChannelProductionsViewModel.qSearch();
+        updateList();
     }
 
     /**
@@ -171,9 +147,16 @@ public class BrowseProductionsController implements IViewController {
      */
     @FXML
     public void sortByCharacter(ActionEvent actionEvent) {
-        TilePane tilePane = (TilePane) productionPane.getContent();
-        tilePane.getChildren().setAll(sharedViewModelFunc.sortedByCharacter(productionsList, actionEvent, alphabet, browseProductionsViewModel.listPropertyProperty()));
+        TilePane tp = (TilePane) productionPane.getContent();
+        tp.getChildren().setAll(sharedViewModelFunc.sortedByCharacter(productionsList, actionEvent, alphabet, browseChannelProductionsViewModel.listPropertyProperty()));
+    }
 
+
+    /**
+     * Switch channels.
+     */
+    public void switchChannels() {
+        viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
     /**
@@ -185,4 +168,36 @@ public class BrowseProductionsController implements IViewController {
     public void btnFrontPage(MouseEvent mouseEvent) {
         viewHandler.openView(Views.FRONTPAGE);
     }
+
+    /**
+     * Btn search.
+     *
+     * @param actionEvent the action event
+     */
+    @FXML
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    /**
+     * Btn channels.
+     *
+     * @param actionEvent the action event
+     */
+    @FXML
+    public void btnChannels(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
+
+    /**
+     * Btn productions.
+     *
+     * @param actionEvent the action event
+     */
+    @FXML
+    public void btnProductions(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+    }
 }
+
+

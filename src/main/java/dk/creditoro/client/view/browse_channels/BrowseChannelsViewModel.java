@@ -4,7 +4,7 @@ package dk.creditoro.client.view.browse_channels;
 import dk.creditoro.client.model.channel.IChannelModel;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.user.IUserModel;
-import dk.creditoro.client.view.shared_viewmodel_func.FindCharacter;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,6 +37,7 @@ public class BrowseChannelsViewModel {
      * Instantiates a new Login view model.
      *
      * @param channelModel the channel model
+     * @param userModel    the user model
      */
     public BrowseChannelsViewModel(IChannelModel channelModel, IUserModel userModel) {
         this.channelModel = channelModel;
@@ -44,10 +45,18 @@ public class BrowseChannelsViewModel {
         this.channelModel.addListener("kek", (this::onSearchChannelsResult));
     }
 
+    /**
+     * Query param property string property.
+     *
+     * @return the string property
+     */
     public StringProperty queryParamProperty() {
         return queryParam;
     }
 
+    /**
+     * Search.
+     */
     public void search() {
         var q = queryParam.get();
         var message = String.format("Called search, q: '%s'", q);
@@ -62,10 +71,22 @@ public class BrowseChannelsViewModel {
         listProperty.addAll(channels);
     }
 
+    /**
+     * List property property list property.
+     *
+     * @return the list property
+     */
     public ListProperty<Channel> listPropertyProperty() {
         return listProperty;
     }
 
+    /**
+     * Sorted channel list observable list.
+     *
+     * @param tilePane      the tile pane
+     * @param sortingMethod the sorting method
+     * @return the observable list
+     */
     public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
         Comparator<Node> comparator = Comparator.comparing(this::channelName);
@@ -77,6 +98,12 @@ public class BrowseChannelsViewModel {
         return workingCollection;
     }
 
+    /**
+     * Channel name string.
+     *
+     * @param node the node
+     * @return the string
+     */
     public String channelName(Node node) {
         var identifier = node.getId();
         for (int i = 0; i < listProperty.getSize(); i++) {
@@ -89,8 +116,16 @@ public class BrowseChannelsViewModel {
     }
 
 
+    /**
+     * Sorted by character observable list.
+     *
+     * @param list        the list
+     * @param actionEvent the action event
+     * @param alphabet    the alphabet
+     * @return the observable list
+     */
     public ObservableList<Node> sortedByCharacter(ObservableList<Node> list, ActionEvent actionEvent, HBox alphabet) {
-        currentCharacter = new FindCharacter().getCharacter(actionEvent, alphabet, currentCharacter);
+        currentCharacter = new SharedViewModelFunc().getCharacter(actionEvent, alphabet, currentCharacter);
         ObservableList<Node> observableList = FXCollections.observableArrayList(list);
 
         if (currentCharacter == 0) {
