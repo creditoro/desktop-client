@@ -2,6 +2,9 @@
     font-family: 'Roboto';
     src: url('../../res/Roboto-Regular.ttf');
 }
+.button:hover{
+    -fx-cursor: hand;
+}
 
 #viewLabel {
     -fx-font-size: 18;
@@ -18,7 +21,9 @@
 }
 
 #viewButton:hover {
-    -fx-background-color: #2cb3d9;
+    -fx-background-color: #2CB3D9;
+    -fx-cursor: hand;
+
 }
 
 #sidePanelButton:hover {

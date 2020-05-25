@@ -1,6 +1,10 @@
-@font-face {
-    font-family: 'Roboto';
-    src: url('../../res/Roboto-Regular.ttf');
+/*@font-face {*/
+/*    font-family: 'Roboto';*/
+/*    src: url('../../res/Roboto-Regular.ttf');*/
+/*}*/
+
+.button:hover {
+    -fx-cursor: hand;
 }
 
 .scroll-bar:vertical {
@@ -31,15 +35,26 @@
     -fx-background-color: #202020;
 }
 
-.button .text {
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14;
-}
-
-.button:hover {
-    -fx-font-weight: bold;
-}
-
 .bold {
     -fx-font-weight: bold;
+}
+
+VBox:hover {
+    -fx-cursor: hand;
+}
+
+.choice-box:hover {
+    -fx-cursor: hand;
+}
+
+.choice-box .menu-item:focused {
+    -fx-cursor: hand;
+}
+
+Text:hover {
+    -fx-cursor: hand;
+}
+
+.label:hover {
+    -fx-cursor: hand;
 }

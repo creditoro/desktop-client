@@ -27,20 +27,36 @@
     -fx-background-color: #202020;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url('../../res/Roboto-Regular.ttf');
-}
+/*@font-face {*/
+/*    font-family: 'Roboto';*/
+/*    src: url('../../res/Roboto-Regular.ttf');*/
+/*}*/
 
-.button .text {
-    -fx-font-family: "Roboto";
-    -fx-font-size: 24;
-}
+/*.button .text {*/
+/*    -fx-font-family: "Roboto";*/
+/*    -fx-font-size: 24;*/
+/*}*/
 
 .bold {
     -fx-font-weight: bold;
 }
 
 .button:hover {
+    -fx-cursor: hand;
+}
+
+Text:hover{
+    -fx-cursor: hand;
+}
+
+.label:hover {
+    -fx-cursor: hand;
+}
+
+.choice-box:hover {
+    -fx-cursor: hand;
+}
+
+.choice-box .menu-item:focused {
     -fx-cursor: hand;
 }

@@ -4,6 +4,7 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -81,5 +82,21 @@ public class LoginController implements IViewController {
         txtEmail.setText("string@string.dk");
         txtPassword.setText("string");
         loginViewModel.login();
+    }
+
+    public void btnFrontPage(MouseEvent mouseEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
+    }
+
+    public void btnProductions(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+    }
+
+    public void btnChannels(ActionEvent actionEvent) {
+        viewHandler.openView(Views.BROWSE_CHANNELS);
+    }
+
+    public void btnSearch(ActionEvent actionEvent) {
+        viewHandler.openView(Views.FRONTPAGE);
     }
 }
