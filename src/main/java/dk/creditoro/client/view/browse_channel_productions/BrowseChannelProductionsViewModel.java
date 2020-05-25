@@ -5,7 +5,6 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
-import dk.creditoro.client.model.user.IUserModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,7 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
