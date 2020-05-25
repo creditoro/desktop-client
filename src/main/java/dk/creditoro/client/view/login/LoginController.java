@@ -4,11 +4,9 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
@@ -29,14 +27,6 @@ public class LoginController implements IViewController {
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
 
-    /**
-     * Lbl start menu pressed.
-     *
-     * @param mouseEvent the mouse event
-     */
-    public void lblStartMenuPressed(MouseEvent mouseEvent) {
-        viewHandler.openView(Views.FRONTPAGE);
-    }
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
@@ -68,6 +58,14 @@ public class LoginController implements IViewController {
         loginViewModel.login();
     }
 
+    /**
+     * Create popup.
+     *
+     * @param title    the title
+     * @param text     the text
+     * @param duration the duration
+     * @param position the position
+     */
     public void createPopup(String title, String text, int duration, Pos position) {
         Notifications notificationBuilder = Notifications.create()
                 .title(title)
@@ -78,25 +76,33 @@ public class LoginController implements IViewController {
         notificationBuilder.show();
     }
 
-    public void debugLogin() {
-        txtEmail.setText("string@string.dk");
-        txtPassword.setText("string");
-        loginViewModel.login();
-    }
 
-    public void btnFrontPage(MouseEvent mouseEvent) {
+    /**
+     * Btn front page.
+     */
+    public void btnFrontPage() {
         viewHandler.openView(Views.FRONTPAGE);
     }
 
-    public void btnProductions(ActionEvent actionEvent) {
+    /**
+     * Btn productions.
+     */
+    public void btnProductions() {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
     }
 
-    public void btnChannels(ActionEvent actionEvent) {
+    /**
+     * Btn channels.
+     */
+    public void btnChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
     }
 
-    public void btnSearch(ActionEvent actionEvent) {
+
+    /**
+     * Btn search.
+     */
+    public void btnSearch() {
         viewHandler.openView(Views.FRONTPAGE);
     }
 }
