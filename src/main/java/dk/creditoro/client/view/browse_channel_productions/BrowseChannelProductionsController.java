@@ -44,7 +44,6 @@ public class BrowseChannelProductionsController implements IViewController {
     private ViewModelFactory viewModelFactory;
     private ObservableList<Node> productionsList;
     private Map<String, VBox> cachedProductions;
-    private Map<String, List<Production>> cachedProductionMap;
     private SharedControllerFunc sharedControllerFunc;
     private SharedViewModelFunc sharedViewModelFunc;
 
