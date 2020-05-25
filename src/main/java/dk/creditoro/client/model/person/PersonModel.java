@@ -28,7 +28,7 @@ public class PersonModel implements IPersonModel {
     public PersonModel(IClient client) {
         this.client = client;
         propertyChangeSupport = new PropertyChangeSupport(this);
-        this.client.addListener(EventNames.ON_SEARCH_PEOPLE_RESULT.toString(), this::onSearchPersonsResult);
+        this.client.addListener(EventNames.ON_SEARCH_PEOPLE_RESULT.toString(), this::onSearchPeopleResult);
     }
 
     @Override
