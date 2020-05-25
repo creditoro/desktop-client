@@ -38,9 +38,7 @@ public class AddCreditViewModel {
     private final ObservableList<Person> personList = FXCollections.observableArrayList();
     private final ListProperty<Person> people = new SimpleListProperty<>(personList);
 
-    private Credit credit;
     private Production production;
-    private Person person;
     private Person[] peopleArray;
 
 
@@ -149,15 +147,6 @@ public class AddCreditViewModel {
         this.creditList = credits;
     }
 
-    /**
-     * Sets credit.
-     *
-     * @param credit the credit
-     */
-    public void setCredit(Credit credit) {
-        this.credit = credit;
-    }
-
 
     /**
      * Gets production.
@@ -207,16 +196,7 @@ public class AddCreditViewModel {
         }
         return null;
     }
-
-    /**
-     * Sets person.
-     *
-     * @param person the person
-     */
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
+    
 
     /**
      * Import credits.
