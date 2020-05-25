@@ -9,8 +9,8 @@ import java.util.Map;
 /**
  * The type Persons endpoint.
  */
-public class PersonsEndpoint {
-    private static final String PERSONS = "/people/";
+public class PeopleEndpoint {
+    private static final String PEOPLE = "/people/";
     private final HttpManager httpManager;
 
     /**
@@ -18,7 +18,7 @@ public class PersonsEndpoint {
      *
      * @param httpManager the http manager
      */
-    public PersonsEndpoint(HttpManager httpManager) {
+    public PeopleEndpoint(HttpManager httpManager) {
         this.httpManager = httpManager;
     }
 
@@ -29,20 +29,32 @@ public class PersonsEndpoint {
      * @return the person
      */
     public TokenResponse<Person> getPerson(String identifier) {
-        var response = httpManager.get(PERSONS, identifier, null);
+        var response = httpManager.get(PEOPLE, identifier, null);
         return new TokenResponse<>(response.asObject(Person.class));
     }
 
     /**
+     * Gets person by email.
+     *
+     * @param email the email
+     * @param token the token
+     * @return the person by email
+     */
+    public TokenResponse<Person[]> getPersonByEmail(String email, String token) {
+        Map<String, Object> queryParam = Map.of("email", email);
+        var response = httpManager.getByQueryParams(PEOPLE, queryParam, token);
+        return new TokenResponse<>(response.asObject(Person[].class));
+    }
+
+      /**
      * Put person token response.
      *
      * @param identifier the identifier
      * @param body       the body
-     * @param token      the token
      * @return the token response
      */
     public TokenResponse<Person> putPerson(String identifier, JSONObject body, String token) {
-        var response = httpManager.put(PERSONS, identifier, body, token);
+        var response = httpManager.put(PEOPLE, identifier, body, token);
         return new TokenResponse<>(response.asObject(Person.class));
     }
 
@@ -52,11 +64,10 @@ public class PersonsEndpoint {
      *
      * @param identifier the identifier
      * @param fields     the fields
-     * @param token      the token
      * @return the token response
-     */
+     */  
     public TokenResponse<Person> patchPerson(String identifier, Map<String, Object> fields, String token) {
-        var response = httpManager.patch(PERSONS, identifier, fields, token);
+        var response = httpManager.patch(PEOPLE, identifier, fields, token);
         return new TokenResponse<>(response.asObject(Person.class));
 
     }
@@ -68,20 +79,19 @@ public class PersonsEndpoint {
      * @param token the token
      * @return the persons
      */
-    public TokenResponse<Person[]> getPersons(String q, String token) {
-        var response = httpManager.getList(PERSONS, q, token);
+    public TokenResponse<Person[]> getPeople(String q, String token) {
+        var response = httpManager.getList(PEOPLE, q, token);
         return new TokenResponse<>(response.asObject(Person[].class));
     }
 
     /**
      * Post person token response.
      *
-     * @param person the person
-     * @param token  the token
+     * @param body the body
      * @return the token response
      */
     public TokenResponse<Person> postPerson(Person person, String token) {
-        var response = httpManager.post(PERSONS, person, token);
+        var response = httpManager.post(PEOPLE, person, token);
         return new TokenResponse<>(response.asObject(Person.class));
     }
 }

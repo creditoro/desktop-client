@@ -32,6 +32,13 @@ public interface IUserModel {
     User getCurrentUser();
 
     /**
+     * Gets token.
+     *
+     * @return the token
+     */
+    String getToken();
+
+    /**
      * Add listener.
      *
      * @param name                   the name

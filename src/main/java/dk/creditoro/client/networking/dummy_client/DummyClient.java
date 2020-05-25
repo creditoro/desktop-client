@@ -6,6 +6,9 @@ import dk.creditoro.client.networking.IClient;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
+/**
+ * The type Dummy client.
+ */
 public class DummyClient implements IClient {
 
     @Override
@@ -54,9 +57,14 @@ public class DummyClient implements IClient {
 	}
 
 	@Override
-	public Person[] getPersons(String q) {
+	public Person[] getPeople(String q) {
 		return new Person[0];
 	}
+
+        @Override
+        public Person[] getPeopleByEmail(String email) {
+		return new Person[0];
+        }
 
     @Override
     public Person postPerson(Person person) {
@@ -65,5 +73,10 @@ public class DummyClient implements IClient {
 
     @Override
     public void addListener(String name, PropertyChangeListener propertyChangeListener) {
+    }
+
+    @Override
+    public String getToken() {
+        return "token";
     }
 }
