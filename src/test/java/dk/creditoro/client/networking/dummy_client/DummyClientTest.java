@@ -40,7 +40,7 @@ class DummyClientTest {
 
 	@Test
 	void getPersons(){
-		assertNotNull(dummyClient.getPersons(""));
+		assertNotNull(dummyClient.getPeople(""));
 	}
 
 	@Test 

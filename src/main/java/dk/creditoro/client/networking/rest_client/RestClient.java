@@ -104,9 +104,9 @@ public class RestClient implements IClient {
     }
 
     @Override
-    public Person[] getPersons(String q) {
-        var result = personsEndpoint.getPersons(q, token);
-        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PERSONS_RESULT.toString(), null, result);
+    public Person[] getPeople(String q) {
+        var result = personsEndpoint.getPeople(q, token);
+        propertyChangeSupport.firePropertyChange(EventNames.ON_SEARCH_PEOPLE_RESULT.toString(), null, result);
         LOGGER.info(PROPERTY_CHANGE);
         updateToken(result);
         return result.getT();

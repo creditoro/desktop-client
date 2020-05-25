@@ -16,7 +16,7 @@ public interface IClient {
 
     Production[] searchProductions(String q);
   
-    Person[] getPersons(String q);
+    Person[] getPeople(String q);
 
     Person postPerson(Person person);
 

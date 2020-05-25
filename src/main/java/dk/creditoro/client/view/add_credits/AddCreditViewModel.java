@@ -39,7 +39,7 @@ public class AddCreditViewModel {
     private List<Credit> createdCredits = new ArrayList<>();
 
     private final ObservableList<Person> personList = FXCollections.observableArrayList();
-    private final ListProperty<Person> persons = new SimpleListProperty<>(personList);
+    private final ListProperty<Person> people = new SimpleListProperty<>(personList);
 
     @FXML
     private TextArea creditsTxtArea;
@@ -47,7 +47,7 @@ public class AddCreditViewModel {
     private Credit credit;
     private Production production;
     private Person person;
-    private Person[] people;
+    private Person[] peopleArray;
 
     /**
      * Instantiates a new Add credit view model.
@@ -65,16 +65,16 @@ public class AddCreditViewModel {
     /**
      * Get persons.
      */
-    public void getPersons() {
+    public void getPeople() {
         var q = queryParam.get();
         var message = String.format("Called search, q: '%s*", q);
         LOGGER.info(message);
-        people = personModel.getPersons(q);
-        setPersons();
+        peopleArray = personModel.getPeople(q);
+        setPeople();
     }
 
-    public void setPersons() {
-        persons.addAll(Arrays.asList(people));
+    public void setPeople() {
+        people.addAll(Arrays.asList(peopleArray));
     }
 
     /**
@@ -218,7 +218,7 @@ public class AddCreditViewModel {
      * @return the person
      */
     public Person getPerson(String email) {
-        for (Person p : persons) {
+        for (Person p : people) {
             if (p.getEmail().equals(email)) {
                 return p;
             }
@@ -233,7 +233,7 @@ public class AddCreditViewModel {
      * @return the person
      */
     public Person getPersonByName(String name) {
-        for (Person p : persons) {
+        for (Person p : people) {
             if (p.getName().equals(name)) {
                 return p;
             }
@@ -258,7 +258,7 @@ public class AddCreditViewModel {
         var message = String.format("Posted person for, %s", p);
         LOGGER.info(message);
         personModel.postPerson(person);
-        getPersons();
+        getPeople();
     }
 
     /**

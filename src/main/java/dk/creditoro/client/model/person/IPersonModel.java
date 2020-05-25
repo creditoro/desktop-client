@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 
 public interface IPersonModel {
 
-    Person[] getPersons(String q);
+    Person[] getPeople(String q);
 
     void postPerson(Person person);
 

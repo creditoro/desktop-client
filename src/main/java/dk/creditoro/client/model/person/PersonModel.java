@@ -28,16 +28,16 @@ public class PersonModel implements IPersonModel {
     public PersonModel(IClient client) {
         this.client = client;
         propertyChangeSupport = new PropertyChangeSupport(this);
-        this.client.addListener(EventNames.ON_SEARCH_PERSONS_RESULT.toString(), this::onSearchPersonsResult);
+        this.client.addListener(EventNames.ON_SEARCH_PEOPLE_RESULT.toString(), this::onSearchPersonsResult);
     }
 
     @Override
-    public Person[] getPersons(String q) {
-        Person[] persons = client.getPersons(q);
-        var message = String.format("persons found: %d", persons.length);
+    public Person[] getPeople(String q) {
+        Person[] people = client.getPeople(q);
+        var message = String.format("persons found: %d", people.length);
         LOGGER.info(message);
 
-        return persons;
+        return people;
     }
 
     @Override

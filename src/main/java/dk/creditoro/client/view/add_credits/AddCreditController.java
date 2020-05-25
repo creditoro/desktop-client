@@ -66,7 +66,7 @@ public class AddCreditController implements IViewController {
     }
 
     private void getPersons() {
-        addCreditViewModel.getPersons();
+        addCreditViewModel.getPeople();
     }
 
     /**

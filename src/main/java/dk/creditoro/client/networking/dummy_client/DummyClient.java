@@ -58,7 +58,7 @@ public class DummyClient implements IClient {
 	}
 
 	@Override
-	public Person[] getPersons(String q) {
+	public Person[] getPeople(String q) {
 		return new Person[0];
 	}
 
