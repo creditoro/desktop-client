@@ -65,37 +65,6 @@ class BrowseProductionsViewModelTest {
 
     }
 
-
-    @Test
-    void sortedList() {
-        final CountDownLatch latch = new CountDownLatch(1);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new JFXPanel(); // initializes JavaFX environment
-                latch.countDown();
-            }
-        });
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-        }
-        TilePane tilePane = new TilePane();
-        browseProductionsViewModel.queryParamProperty().setValue("ø");
-        browseProductionsViewModel.search();
-        var result = browseProductionsViewModel.listPropertyProperty();
-
-        for (int i = 0; i < result.getSize(); i++){
-            Node node = new ImageView();
-            Production production = result.get(i);
-            node.setId(production.getIdentifier());
-            tilePane.getChildren().add(node);
-        }
-   /*     Assertions.assertNotEquals(tilePane.getChildren(), browseProductionsViewModel.sortedList(tilePane));
-        var title1 = browseProductionsViewModel.productionTitle(tilePane.getChildren().get(0));;
-        var title2 = browseProductionsViewModel.productionTitle(tilePane.getChildren().get(1));
-        Assertions.assertNotEquals(title1, title2);*/
-    }
-
 //    @Test
 //    void sortedByCharacter() {
 //        final CountDownLatch latch = new CountDownLatch(1);

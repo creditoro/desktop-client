@@ -75,32 +75,4 @@ public class BrowseProductionsViewModel {
         return listProperty;
     }
 
-    /**
-     * Sorted list observable list.
-     *
-     * @param tilePane the tile pane
-     * @return the observable list
-     */
- /*   public ObservableList<Node> sortedList(TilePane tilePane) {
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        workingCollection.sort(Comparator.comparing(this::productionTitle));
-        return workingCollection;
-    }*/
-
-    /**
-     * Production title string.
-     *
-     * @param node the node
-     * @return the string
-     */
- /*   public String productionTitle(Node node) {
-        var identifier = node.getId();
-        for (int i = 0; i < listProperty.getSize(); i++) {
-            Production production = listProperty.get(i);
-            if (production.getIdentifier().equals(identifier)) {
-                return production.getTitle();
-            }
-        }
-        return "";
-    }*/
 }

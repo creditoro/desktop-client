@@ -31,11 +31,6 @@ import java.util.logging.Logger;
  */
 public class BrowseChannelsController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    /**
-     * The Image view.
-     */
-    @FXML
-    ImageView imageView;
 
 
     /**
@@ -150,7 +145,7 @@ public class BrowseChannelsController implements IViewController {
         tilePane.prefWidthProperty().bind(channelPane.widthProperty());
 
         for (Channel channel : channels) {
-            imageView = cachedImages.get(channel.getIdentifier());
+            ImageView imageView = cachedImages.get(channel.getIdentifier());
             if (imageView == null) {
                 try {
                     imageView = new ImageView(channel.getIconUrl());

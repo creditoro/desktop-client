@@ -75,6 +75,8 @@ public class BrowseChannelProductionsController implements IViewController {
         viewHandler.openView(Views.LOGIN);
     }
 
+
+
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewModelFactory = viewModelFactory;
