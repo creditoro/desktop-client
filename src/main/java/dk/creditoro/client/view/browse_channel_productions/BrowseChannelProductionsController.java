@@ -39,7 +39,6 @@ public class BrowseChannelProductionsController implements IViewController {
     /**
      * The Sorting list.
      */
-    ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
     private BrowseChannelProductionsViewModel browseChannelProductionsViewModel;
     private ViewHandler viewHandler;
     private ViewModelFactory viewModelFactory;
@@ -85,13 +84,15 @@ public class BrowseChannelProductionsController implements IViewController {
         sharedControllerFunc = new SharedControllerFunc();
         sharedViewModelFunc = new SharedViewModelFunc();
 
-        choiceBox.setValue("A-Å");
-        choiceBox.setItems(sortingList);
-        choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue()));
+        //Sets ChoiceBox "A-Å"
+        sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
+        sharedViewModelFunc.setListProperty(browseChannelProductionsViewModel.listPropertyProperty());
+
         this.cachedProductionMap = viewModelFactory.getBrowseChannelProductionsViewModel().createProductionMap();
 
         //Add listener to channelSearch text area
         productionSearch.textProperty().bindBidirectional(browseChannelProductionsViewModel.queryParamProperty());
+
         browseChannelProductionsViewModel.getChannelName().addListener((observableValue, productions, newValue) -> updateList());
         updateList();
         btnAccount.setText("user.getEmail()");
@@ -106,7 +107,6 @@ public class BrowseChannelProductionsController implements IViewController {
 
     private void updateList() {
         LOGGER.info("Update grid called. ChannelPrograms");
-
         // Create TilePane for productions
         TilePane tilePane = new TilePane();
         tilePane.setPadding(new Insets(15, 0, 0, 0));
@@ -152,21 +152,6 @@ public class BrowseChannelProductionsController implements IViewController {
         tp.getChildren().setAll(sharedViewModelFunc.sortedByCharacter(productionsList, actionEvent, alphabet, browseChannelProductionsViewModel.listPropertyProperty()));
     }
 
-    /**
-     * Sorted.
-     *
-     * @param choice the choice
-     */
-    public void sorted(int choice) {
-        TilePane tilePane = (TilePane) productionPane.getContent();
-        String choiceString;
-        if (choice == 1) {
-            choiceString = "Å-A";
-        } else {
-            choiceString = "A-Å";
-        }
-        tilePane.getChildren().setAll(browseChannelProductionsViewModel.sortedChannelList(tilePane, choiceString));
-    }
 
     /**
      * Switch channels.

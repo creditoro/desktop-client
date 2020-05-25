@@ -6,6 +6,7 @@ import dk.creditoro.client.view.browse_productions.BrowseProductionsViewModel;
 import dk.creditoro.client.view.browse_channel_productions.BrowseChannelProductionsViewModel;
 import dk.creditoro.client.view.login.LoginViewModel;
 import dk.creditoro.client.view.production.ProductionViewModel;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 
 /**
  * The type View model factory is responsible for creating and making the View Model available.
@@ -60,4 +61,5 @@ public class ViewModelFactory {
     public BrowseChannelProductionsViewModel getBrowseChannelProductionsViewModel() {
         return browseChannelProductionsViewModel;
     }
+
 }

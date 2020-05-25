@@ -12,8 +12,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
 import java.util.*;
@@ -31,8 +29,8 @@ public class BrowseChannelProductionsViewModel {
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
     private final Map<String, List<Production>> productionMap = new HashMap<>();
     private StringProperty queryParam = new SimpleStringProperty();
-    private char currentCharacter;
     private SimpleStringProperty channelName = new SimpleStringProperty();
+
 
     /**
      * Instantiates a new Login view model.
@@ -97,6 +95,7 @@ public class BrowseChannelProductionsViewModel {
         return pl;
     }
 
+
     /**
      * Query param property string property.
      *
@@ -136,6 +135,7 @@ public class BrowseChannelProductionsViewModel {
         return productions;
     }
 
+
     /**
      * List property property list property.
      *
@@ -144,42 +144,5 @@ public class BrowseChannelProductionsViewModel {
     public ListProperty<Production> listPropertyProperty() {
         return listProperty;
     }
-
-
-    /**
-     * Sorted channel list observable list.
-     *
-     * @param tilePane      the tile pane
-     * @param sortingMethod the sorting method
-     * @return the observable list
-     */
-    public ObservableList<Node> sortedChannelList(TilePane tilePane, String sortingMethod) {
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
-        Comparator<Node> comparator = Comparator.comparing(this::productionTitle);
-        if (sortingMethod.equals("Å-A")) {
-            workingCollection.sort(comparator.reversed());
-            return workingCollection;
-        }
-        workingCollection.sort(comparator);
-        return workingCollection;
-    }
-
-    /**
-     * Production title string.
-     *
-     * @param node the node
-     * @return the string
-     */
-    public String productionTitle(Node node) {
-        var identifier = node.getId();
-        for (int i = 0; i < listProperty.getSize(); i++) {
-            Production production = listProperty.get(i);
-            if (production.getIdentifier().equals(identifier)) {
-                return production.getTitle();
-            }
-        }
-        return "";
-    }
-
 }
 

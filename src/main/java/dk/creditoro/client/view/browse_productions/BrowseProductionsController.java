@@ -14,10 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -50,6 +47,8 @@ public class BrowseProductionsController implements IViewController {
     private HBox alphabet;
     @FXML
     private Button btnAccount;
+    @FXML
+    private ChoiceBox<String> choiceBox;
 
 
     /**
@@ -92,9 +91,15 @@ public class BrowseProductionsController implements IViewController {
         sharedControllerFunc = new SharedControllerFunc();
         sharedViewModelFunc = new SharedViewModelFunc();
 
+        //Sets ChoiceBox "A-Å"
+        sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
+        sharedViewModelFunc.setListProperty(browseProductionsViewModel.listPropertyProperty());
+
+
         //Add listener to productionSearch text area
         productionSearch.textProperty().bindBidirectional(browseProductionsViewModel.queryParamProperty());
         browseProductionsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
+
         onSearch();
 
         // set user email
@@ -168,6 +173,7 @@ public class BrowseProductionsController implements IViewController {
     public void sortByCharacter(ActionEvent actionEvent) {
         TilePane tilePane = (TilePane) productionPane.getContent();
         tilePane.getChildren().setAll(sharedViewModelFunc.sortedByCharacter(productionsList, actionEvent, alphabet, browseProductionsViewModel.listPropertyProperty()));
+
     }
 
     /**

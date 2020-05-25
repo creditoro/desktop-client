@@ -10,11 +10,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.layout.TilePane;
 
 import java.beans.PropertyChangeEvent;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
@@ -84,11 +81,11 @@ public class BrowseProductionsViewModel {
      * @param tilePane the tile pane
      * @return the observable list
      */
-    public ObservableList<Node> sortedList(TilePane tilePane) {
+ /*   public ObservableList<Node> sortedList(TilePane tilePane) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(tilePane.getChildren());
         workingCollection.sort(Comparator.comparing(this::productionTitle));
         return workingCollection;
-    }
+    }*/
 
     /**
      * Production title string.
@@ -96,7 +93,7 @@ public class BrowseProductionsViewModel {
      * @param node the node
      * @return the string
      */
-    public String productionTitle(Node node) {
+ /*   public String productionTitle(Node node) {
         var identifier = node.getId();
         for (int i = 0; i < listProperty.getSize(); i++) {
             Production production = listProperty.get(i);
@@ -105,6 +102,5 @@ public class BrowseProductionsViewModel {
             }
         }
         return "";
-    }
-
+    }*/
 }

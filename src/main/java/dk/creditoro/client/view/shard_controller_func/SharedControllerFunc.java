@@ -4,8 +4,12 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.model.crud.Production;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.TilePane;
@@ -23,6 +27,8 @@ import java.util.logging.Logger;
  */
 public class SharedControllerFunc {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    ObservableList<String> sortingList = FXCollections.observableArrayList("A-Å", "Å-A");
+
 
     /**
      * Generate children.
@@ -136,5 +142,38 @@ public class SharedControllerFunc {
         viewModelFactory.getProductionViewModel().setId(viewToOpen);
         viewModelFactory.getProductionViewModel().setChannelId(channelId);
         viewHandler.openView(Views.PRODUCTION);
+    }
+
+
+    /**
+     * Sort from A-Å and reverse
+     *
+     * @param choice                the choice int
+     * @param productionPane        the production pane
+     * @param sharedViewModelFunc   the shared view model
+     */
+    public void sorted(int choice, ScrollPane productionPane, SharedViewModelFunc sharedViewModelFunc) {
+        TilePane tilePane = (TilePane) productionPane.getContent();
+        String choiceString;
+        if (choice == 1) {
+            choiceString = "Å-A";
+        } else {
+            choiceString = "A-Å";
+        }
+        tilePane.getChildren().setAll(sharedViewModelFunc.sortedProductionList(tilePane, choiceString));
+    }
+
+
+    /**
+     * Choice Box to apply sort from A-Å
+     *
+     * @param choiceBox             the choice box
+     * @param productionPane        the production pane
+     * @param sharedViewModelFunc   the shared view model
+     */
+    public void createChoiceBox(ChoiceBox<String> choiceBox, ScrollPane productionPane, SharedViewModelFunc sharedViewModelFunc){
+        choiceBox.setValue("A-Å");
+        choiceBox.setItems(sortingList);
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> sorted(t1.intValue(), productionPane, sharedViewModelFunc));
     }
 }

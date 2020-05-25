@@ -49,6 +49,7 @@ public class BrowseChannelsController implements IViewController {
     private ObservableList<Node> channelList;
     private Map<String, ImageView> cachedImages;
     private ViewModelFactory viewModelFactory;
+
     @FXML
     private ScrollPane channelPane;
     @FXML
@@ -57,6 +58,8 @@ public class BrowseChannelsController implements IViewController {
     private TextField channelSearch;
     @FXML
     private HBox alphabet;
+
+
 
     /**
      * Btn new channel.
