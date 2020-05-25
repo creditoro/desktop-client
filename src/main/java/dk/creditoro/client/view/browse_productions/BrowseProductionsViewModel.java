@@ -3,7 +3,6 @@ package dk.creditoro.client.view.browse_productions;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -60,10 +59,8 @@ public class BrowseProductionsViewModel {
     private void onSearchProductionsResult(PropertyChangeEvent propertyChangeEvent) {
         LOGGER.info("On search productions result called.");
         var productions = (Production[]) propertyChangeEvent.getNewValue();
-        Platform.runLater(() -> {
-            listProperty.clear();
-            listProperty.addAll(productions);
-        });
+        listProperty.clear();
+        listProperty.addAll(productions);
     }
 
     /**
