@@ -350,7 +350,7 @@ public class AddCreditViewModel {
                 List<Person> temp = entry.getValue();
                 fileWriter.write(entry.getKey().toUpperCase() + "\n");
                 for (Person p : temp) {
-                    fileWriter.write(p.getName().toUpperCase() + "\n");
+                    fileWriter.write(String.format("%s %s %s%n", p.getName().toUpperCase(), p.getEmail().toUpperCase(), p.getPhone()));
                 }
                 fileWriter.write("\n");
             }
