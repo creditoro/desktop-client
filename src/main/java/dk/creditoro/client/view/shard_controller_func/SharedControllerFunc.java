@@ -117,6 +117,10 @@ public class SharedControllerFunc {
             var box = (VBox) mouseEvent.getSource();
             //Set title in productionViewModel
             viewModelFactory.getProductionViewModel().setTitle(production.getTitle());
+            // set id of production
+            viewModelFactory.getProductionViewModel().setId(production.getIdentifier());
+            // get credits
+            viewModelFactory.getProductionViewModel().getCredits();
             // set channel Name in addCreditViewModel
             viewModelFactory.getAddCreditViewModel().setChannelName(production.getChannel().getName());
             // Set production in addCreditViewModel
