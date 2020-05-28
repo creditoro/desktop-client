@@ -84,6 +84,7 @@ public class BrowseChannelProductionsController implements IViewController {
         this.cachedProductions = new HashMap<>();
         sharedControllerFunc = new SharedControllerFunc();
         sharedViewModelFunc = new SharedViewModelFunc();
+        browseChannelProductionsViewModel.setBtnAccount(btnAccount);
 
         //Sets ChoiceBox "A-Å"
         sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
@@ -157,6 +158,7 @@ public class BrowseChannelProductionsController implements IViewController {
      */
     public void switchChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
     /**
@@ -187,6 +189,7 @@ public class BrowseChannelProductionsController implements IViewController {
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
     /**
@@ -197,6 +200,7 @@ public class BrowseChannelProductionsController implements IViewController {
     @FXML
     public void btnProductions(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewModelFactory.getBrowseProductionsViewModel().setMail();
     }
 }
 

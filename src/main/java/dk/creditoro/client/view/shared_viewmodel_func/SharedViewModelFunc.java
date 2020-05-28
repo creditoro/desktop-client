@@ -1,6 +1,7 @@
 package dk.creditoro.client.view.shared_viewmodel_func;
 
 import dk.creditoro.client.model.crud.Production;
+import dk.creditoro.client.model.user.IUserModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -126,6 +127,15 @@ public class SharedViewModelFunc {
         }
         workingCollection.sort(comparator);
         return workingCollection;
+    }
+
+    public void setUserEmail(Button btnAccount, IUserModel userModel){
+        var user = userModel.getCurrentUser();
+        if (user == null){
+            btnAccount.setText("Log ind");
+        } else {
+            btnAccount.setText(user.getEmail());
+        }
     }
 }
 

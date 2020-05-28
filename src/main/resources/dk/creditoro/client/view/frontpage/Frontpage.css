@@ -3,7 +3,7 @@
     src: url('../../res/Roboto-Regular.ttf');
 }
 
-.label {
+#boldLabel {
     -fx-font-weight: bold;
 }
 

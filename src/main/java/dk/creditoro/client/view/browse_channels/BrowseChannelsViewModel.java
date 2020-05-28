@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
@@ -27,7 +28,9 @@ public class BrowseChannelsViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final StringProperty queryParam = new SimpleStringProperty();
     private final IChannelModel channelModel;
-    private final IUserModel userModel;
+    private final SharedViewModelFunc sharedViewModelFunc = new SharedViewModelFunc();
+    private IUserModel userModel;
+    private Button btnAccount;
 
     private final ObservableList<Channel> channelsList = FXCollections.observableArrayList();
     private final ListProperty<Channel> listProperty = new SimpleListProperty<>(channelsList);
@@ -40,9 +43,17 @@ public class BrowseChannelsViewModel {
      * @param userModel    the user model
      */
     public BrowseChannelsViewModel(IChannelModel channelModel, IUserModel userModel) {
-        this.channelModel = channelModel;
         this.userModel = userModel;
+        this.channelModel = channelModel;
         this.channelModel.addListener("kek", (this::onSearchChannelsResult));
+    }
+
+    public void setBtnAccount(Button btnAccount) {
+        this.btnAccount = btnAccount;
+    }
+
+    public void setMail(){
+        sharedViewModelFunc.setUserEmail(btnAccount,userModel);
     }
 
     /**

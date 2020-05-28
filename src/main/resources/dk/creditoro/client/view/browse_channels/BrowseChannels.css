@@ -27,16 +27,6 @@
     -fx-background-color: #202020;
 }
 
-/*@font-face {*/
-/*    font-family: 'Roboto';*/
-/*    src: url('../../res/Roboto-Regular.ttf');*/
-/*}*/
-
-/*.button .text {*/
-/*    -fx-font-family: "Roboto";*/
-/*    -fx-font-size: 24;*/
-/*}*/
-
 .bold {
     -fx-font-weight: bold;
 }

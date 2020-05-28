@@ -9,6 +9,7 @@ import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
@@ -26,6 +27,7 @@ public class AddCreditController implements IViewController {
     private ViewHandler viewHandler;
     private AddCreditViewModel addCreditViewModel;
     private List<Credit> deletedCredits = new ArrayList<>();
+    private ViewModelFactory viewModelFactory;
 
     @FXML
     private TextField channelNameTxtField;
@@ -41,12 +43,16 @@ public class AddCreditController implements IViewController {
     private TextField emailTxtField;
     @FXML
     private ListView<Credit> listView;
+    @FXML
+    private Button btnAccountE;
 
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
+        this.viewModelFactory = viewModelFactory;
         addCreditViewModel = viewModelFactory.getAddCreditViewModel();
+        addCreditViewModel.setAccountBtn(btnAccountE);
         listView.setItems(addCreditViewModel.getCredits());
 
         // Getting persons from database
@@ -147,6 +153,7 @@ public class AddCreditController implements IViewController {
         clearFields();
         addCreditViewModel.finishCredits(deletedCredits);
         viewHandler.openView(Views.PRODUCTION);
+        viewModelFactory.getProductionViewModel().setAccountEmail();
     }
 
     /**
@@ -155,6 +162,7 @@ public class AddCreditController implements IViewController {
     public void btnChannels() {
         clearFields();
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
     /**
@@ -163,6 +171,7 @@ public class AddCreditController implements IViewController {
     public void btnProductions() {
         clearFields();
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewModelFactory.getBrowseProductionsViewModel().setMail();
     }
 
     /**

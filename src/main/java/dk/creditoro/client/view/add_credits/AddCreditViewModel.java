@@ -7,12 +7,14 @@ import dk.creditoro.client.model.crud.Person;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.person.IPersonModel;
 import dk.creditoro.client.model.user.IUserModel;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -28,6 +30,9 @@ public class AddCreditViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final ICreditModel creditModel;
     private final IPersonModel personModel;
+    private final IUserModel userModel;
+    private final SharedViewModelFunc sharedViewModelFunc = new SharedViewModelFunc();
+    private Button accountBtn;
 
     private final StringProperty queryParam = new SimpleStringProperty();
     private final StringProperty productionTitle = new SimpleStringProperty();
@@ -54,6 +59,7 @@ public class AddCreditViewModel {
     public AddCreditViewModel(IPersonModel personModel, ICreditModel creditModel, IUserModel userModel, ViewModelFactory viewModelFactory) {
         this.personModel = personModel;
         this.creditModel = creditModel;
+        this.userModel = userModel;
     }
 
     /**
@@ -78,6 +84,14 @@ public class AddCreditViewModel {
      */
     public String getProductionTitle() {
         return productionTitle.get();
+    }
+
+    public void setAccountBtn(Button accountBtn) {
+        this.accountBtn = accountBtn;
+    }
+
+    public void setEmail(){
+        sharedViewModelFunc.setUserEmail(accountBtn, userModel);
     }
 
     /**

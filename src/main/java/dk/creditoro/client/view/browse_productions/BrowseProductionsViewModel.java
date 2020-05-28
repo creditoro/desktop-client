@@ -3,12 +3,14 @@ package dk.creditoro.client.view.browse_productions;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
 import dk.creditoro.client.model.user.IUserModel;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 import java.beans.PropertyChangeEvent;
 import java.util.logging.Logger;
@@ -24,6 +26,8 @@ public class BrowseProductionsViewModel {
 
     private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
+    private Button btnAccount;
+    private final SharedViewModelFunc sharedViewModelFunc = new SharedViewModelFunc();
 
     /**
      * Instantiates a new Login view model.
@@ -35,6 +39,14 @@ public class BrowseProductionsViewModel {
         this.productionModel = productionModel;
         this.userModel = userModel;
         this.productionModel.addListener("kek", (this::onSearchProductionsResult));
+    }
+
+    public void setBtnAccount(Button btnAccount) {
+        this.btnAccount = btnAccount;
+    }
+
+    public void setMail() {
+        sharedViewModelFunc.setUserEmail(btnAccount,userModel);
     }
 
     /**

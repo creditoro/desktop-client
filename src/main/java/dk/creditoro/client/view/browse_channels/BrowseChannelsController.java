@@ -13,10 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -53,6 +50,8 @@ public class BrowseChannelsController implements IViewController {
     private TextField channelSearch;
     @FXML
     private HBox alphabet;
+    @FXML
+    private Button btnAccount;
 
 
 
@@ -74,7 +73,9 @@ public class BrowseChannelsController implements IViewController {
      * Btn account.
      */
     public void btnAccount() {
-        viewHandler.openView(Views.LOGIN);
+        if (btnAccount.getText().equals("Log ind")) {
+            viewHandler.openView(Views.LOGIN);
+        }
     }
 
     /**
@@ -82,6 +83,7 @@ public class BrowseChannelsController implements IViewController {
      */
     public void btnProductions() {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewModelFactory.getBrowseProductionsViewModel().setMail();
     }
 
     /**
@@ -93,6 +95,7 @@ public class BrowseChannelsController implements IViewController {
         LOGGER.info(viewToOpen);
         viewModelFactory.getBrowseChannelProductionsViewModel().setChannelName(viewToOpen);
         viewHandler.openView(Views.BROWSE_CHANNEL_PRODUCTIONS);
+        viewModelFactory.getBrowseChannelProductionsViewModel().setMail();
     }
 
 
@@ -102,6 +105,7 @@ public class BrowseChannelsController implements IViewController {
         this.viewHandler = viewHandler;
         this.cachedImages = new HashMap<>();
         this.viewModelFactory = viewModelFactory;
+        browseChannelsViewModel.setBtnAccount(btnAccount);
 
         choiceBox.setValue("A-Å");
         choiceBox.setItems(sortingList);
@@ -111,7 +115,6 @@ public class BrowseChannelsController implements IViewController {
         channelSearch.textProperty().bindBidirectional(browseChannelsViewModel.queryParamProperty());
         browseChannelsViewModel.listPropertyProperty().addListener((observableValue, oldValue, newValue) -> loading(newValue));
         onSearch();
-
     }
 
     private void doneLoading(TilePane tilePane) {
@@ -240,5 +243,6 @@ public class BrowseChannelsController implements IViewController {
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 }

@@ -62,7 +62,9 @@ public class BrowseProductionsController implements IViewController {
      * Btn account.
      */
     public void btnAccount() {
-        LOGGER.info("Account button pressed.");
+        if (btnAccount.getText().equals("Log ind")){
+            viewHandler.openView(Views.FRONTPAGE);
+        }
     }
 
     /**
@@ -70,6 +72,7 @@ public class BrowseProductionsController implements IViewController {
      */
     public void btnChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
     /**
@@ -79,6 +82,7 @@ public class BrowseProductionsController implements IViewController {
      */
     public void btnProductions(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewModelFactory.getBrowseProductionsViewModel().setMail();
     }
 
 
@@ -90,6 +94,7 @@ public class BrowseProductionsController implements IViewController {
         this.cachedProductions = new HashMap<>();
         sharedControllerFunc = new SharedControllerFunc();
         sharedViewModelFunc = new SharedViewModelFunc();
+        browseProductionsViewModel.setBtnAccount(btnAccount);
 
         //Sets ChoiceBox "A-Å"
         sharedControllerFunc.createChoiceBox(choiceBox, productionPane, sharedViewModelFunc);
