@@ -26,6 +26,7 @@ public class AddCreditController implements IViewController {
     private ViewHandler viewHandler;
     private AddCreditViewModel addCreditViewModel;
     private List<Credit> deletedCredits = new ArrayList<>();
+    private ViewModelFactory viewModelFactory;
 
     @FXML
     private TextField channelNameTxtField;
@@ -46,6 +47,7 @@ public class AddCreditController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
+        this.viewModelFactory = viewModelFactory;
         addCreditViewModel = viewModelFactory.getAddCreditViewModel();
         listView.setItems(addCreditViewModel.getCredits());
 
@@ -147,6 +149,7 @@ public class AddCreditController implements IViewController {
         clearFields();
         addCreditViewModel.finishCredits(deletedCredits);
         viewHandler.openView(Views.PRODUCTION);
+        viewModelFactory.getProductionViewModel().setAcountEmail();
     }
 
     /**
@@ -155,6 +158,7 @@ public class AddCreditController implements IViewController {
     public void btnChannels() {
         clearFields();
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
     /**
@@ -163,6 +167,7 @@ public class AddCreditController implements IViewController {
     public void btnProductions() {
         clearFields();
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewModelFactory.getBrowseProductionsViewModel().setMail();
     }
 
     /**

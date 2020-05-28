@@ -4,6 +4,7 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ public class FrontpageController implements IViewController {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     ObservableList<String> searchingList = FXCollections.observableArrayList("Produktion", "Kanal");
     private ViewHandler viewHandler;
+    private ViewModelFactory viewModelFactory;
     @FXML
     private ChoiceBox<String> choiceBox;
     private TranslateTransition openNav;
@@ -43,6 +45,7 @@ public class FrontpageController implements IViewController {
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
+        this.viewModelFactory = viewModelFactory;
         choiceBox.setValue("Produktion");
         choiceBox.setItems(searchingList);
         openNav = new TranslateTransition(new Duration(350), drawer);
@@ -51,6 +54,8 @@ public class FrontpageController implements IViewController {
         openBtn.setToX(0);
         closeNav = new TranslateTransition(new Duration(350), drawer);
         closeBtn = new TranslateTransition(new Duration(350), btnMenu);
+        SharedViewModelFunc sharedViewModelFunc = new SharedViewModelFunc();
+        sharedViewModelFunc.setUserEmail(btnlogin,viewModelFactory.getModelFactory().getUserModel());
     }
 
     /**
@@ -59,6 +64,7 @@ public class FrontpageController implements IViewController {
      * @param actionEvent the action event
      */
     public void loginAction(ActionEvent actionEvent) {
+        btnlogin.setVisible(false);
         viewHandler.openView(Views.LOGIN);
     }
 
@@ -80,6 +86,7 @@ public class FrontpageController implements IViewController {
     public void btnChannels(ActionEvent actionEvent) {
         drawerAction(actionEvent);
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
     /**
@@ -90,6 +97,7 @@ public class FrontpageController implements IViewController {
     public void btnProductions(ActionEvent actionEvent) {
         drawerAction(actionEvent);
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewModelFactory.getBrowseProductionsViewModel().setMail();
     }
 
     /**
@@ -101,9 +109,11 @@ public class FrontpageController implements IViewController {
         var view = choiceBox.getSelectionModel().getSelectedItem();
         if (view.equals("Kanal")) {
             viewHandler.openView(Views.BROWSE_CHANNELS, searchTextField.getText());
+            viewModelFactory.getBrowseChannelsViewModel().setMail();
 
         } else {
             viewHandler.openView(Views.BROWSE_PRODUCTIONS, searchTextField.getText());
+            viewModelFactory.getBrowseProductionsViewModel().setMail();
         }
         searchTextField.clear();
     }

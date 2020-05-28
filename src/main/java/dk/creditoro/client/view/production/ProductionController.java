@@ -9,6 +9,7 @@ import dk.creditoro.client.view.IViewController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -30,12 +31,15 @@ public class ProductionController implements IViewController {
     private TextField search;
     @FXML
     private Label title;
+    @FXML
+    private Button btnAccount;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
         this.viewModelFactory = viewModelFactory;
         this.viewHandler = viewHandler;
         productionViewModel = viewModelFactory.getProductionViewModel();
+        productionViewModel.setBtnAccount(btnAccount);
 
         //Add Listener to search area
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());
@@ -84,7 +88,9 @@ public class ProductionController implements IViewController {
      */
     @FXML
     public void btnAccount(ActionEvent actionEvent) {
-        //Code
+        if (btnAccount.getText().equals("Log ind")){
+            viewHandler.openView(Views.LOGIN);
+        }
     }
 
     /**
@@ -108,8 +114,10 @@ public class ProductionController implements IViewController {
     public void btnProductions(ActionEvent actionEvent) {
         if (Boolean.TRUE.equals(this.viewModelFactory.getProductionViewModel().getWhichView())) {
             viewHandler.openView(Views.BROWSE_CHANNEL_PRODUCTIONS);
+            viewModelFactory.getBrowseChannelProductionsViewModel().setMail();
         } else {
             viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+            viewModelFactory.getBrowseProductionsViewModel().setMail();
         }
     }
 
@@ -122,6 +130,7 @@ public class ProductionController implements IViewController {
     @FXML
     public void btnChannels(ActionEvent actionEvent) {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
     /**

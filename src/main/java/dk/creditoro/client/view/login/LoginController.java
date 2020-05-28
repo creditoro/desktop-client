@@ -4,6 +4,7 @@ import dk.creditoro.client.core.ViewHandler;
 import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.core.Views;
 import dk.creditoro.client.view.IViewController;
+import dk.creditoro.client.view.browse_channels.BrowseChannelsViewModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -26,10 +27,12 @@ public class LoginController implements IViewController {
 
     private LoginViewModel loginViewModel;
     private ViewHandler viewHandler;
+    private ViewModelFactory viewModelFactory;
 
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
+        this.viewModelFactory = viewModelFactory;
         loginViewModel = viewModelFactory.getLoginViewModel();
         this.viewHandler = viewHandler;
 
@@ -44,7 +47,7 @@ public class LoginController implements IViewController {
         if (response.equals("OK")) {
             LOGGER.info("Logged in, switching view");
             loginViewModel.clearFields();
-            viewHandler.openView(Views.BROWSE_CHANNELS);
+            viewHandler.openView(Views.FRONTPAGE);
 
         } else {
             createPopup("Incorrect Login", "Wrong credentials has been entered", 5, Pos.BASELINE_CENTER);
@@ -89,6 +92,7 @@ public class LoginController implements IViewController {
      */
     public void btnProductions() {
         viewHandler.openView(Views.BROWSE_PRODUCTIONS);
+        viewModelFactory.getBrowseProductionsViewModel().setMail();
     }
 
     /**
@@ -96,6 +100,7 @@ public class LoginController implements IViewController {
      */
     public void btnChannels() {
         viewHandler.openView(Views.BROWSE_CHANNELS);
+        viewModelFactory.getBrowseChannelsViewModel().setMail();
     }
 
 

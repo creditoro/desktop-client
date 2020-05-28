@@ -19,13 +19,15 @@ public class ViewModelFactory {
     private final ProductionViewModel productionViewModel;
     private final BrowseChannelProductionsViewModel browseChannelProductionsViewModel;
     private final AddCreditViewModel addCreditViewModel;
+    private ModelFactory modelFactory;
 
     public ViewModelFactory(ModelFactory modelFactory) {
+        this.modelFactory = modelFactory;
         loginViewModel = new LoginViewModel(modelFactory.getUserModel());
         browseChannelsViewModel = new BrowseChannelsViewModel(modelFactory.getChannelModel(), modelFactory.getUserModel());
         browseProductionsViewModel = new BrowseProductionsViewModel(modelFactory.getProductionModel(), modelFactory.getUserModel());
         productionViewModel = new ProductionViewModel(modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
-        browseChannelProductionsViewModel = new BrowseChannelProductionsViewModel(modelFactory.getProductionModel(), this);
+        browseChannelProductionsViewModel = new BrowseChannelProductionsViewModel(modelFactory.getProductionModel(), this,modelFactory.getUserModel());
         addCreditViewModel = new AddCreditViewModel(modelFactory.getPersonModel(), modelFactory.getCreditModel(), modelFactory.getUserModel(), this);
     }
 
@@ -52,6 +54,10 @@ public class ViewModelFactory {
 
     public AddCreditViewModel getAddCreditViewModel() {
         return addCreditViewModel;
+    }
+
+    public ModelFactory getModelFactory() {
+        return modelFactory;
     }
 
     /**

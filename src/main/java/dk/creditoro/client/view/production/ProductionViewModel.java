@@ -4,12 +4,14 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.credit.ICreditModel;
 import dk.creditoro.client.model.crud.Credit;
 import dk.creditoro.client.model.user.IUserModel;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -22,14 +24,15 @@ import java.util.logging.Logger;
 public class ProductionViewModel {
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private final ICreditModel creditModel;
-    private final IUserModel userModel;
+    private IUserModel userModel;
 
     private final StringProperty queryParam = new SimpleStringProperty();
     private final ObservableList<Credit> creditList = FXCollections.observableArrayList();
     private final ListProperty<Credit> listProperty = new SimpleListProperty<>(creditList);
+    private final SharedViewModelFunc sharedViewModelFunc = new SharedViewModelFunc();
 
     private ArrayList<Credit> cachedCredits = new ArrayList<>();
-
+    private Button btnAccount;
     private Boolean whichView;
     private String id;
     private String channelId;
@@ -53,6 +56,14 @@ public class ProductionViewModel {
 
     public void setWhichView(Boolean whichView) {
         this.whichView = whichView;
+    }
+
+    public void setBtnAccount(Button btnAccount) {
+        this.btnAccount = btnAccount;
+    }
+
+    public void setAcountEmail(){
+        sharedViewModelFunc.setUserEmail(btnAccount, userModel);
     }
 
     /**

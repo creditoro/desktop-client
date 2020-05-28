@@ -5,12 +5,15 @@ import dk.creditoro.client.core.ViewModelFactory;
 import dk.creditoro.client.model.crud.Channel;
 import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.model.production.IProductionModel;
+import dk.creditoro.client.model.user.IUserModel;
+import dk.creditoro.client.view.shared_viewmodel_func.SharedViewModelFunc;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -29,8 +32,11 @@ public class BrowseChannelProductionsViewModel {
     private final ObservableList<Production> productionsList = FXCollections.observableArrayList();
     private final ListProperty<Production> listProperty = new SimpleListProperty<>(productionsList);
     private final Map<String, List<Production>> productionMap = new HashMap<>();
+    private SharedViewModelFunc sharedViewModelFunc = new SharedViewModelFunc();
     private StringProperty queryParam = new SimpleStringProperty();
     private SimpleStringProperty channelName = new SimpleStringProperty();
+    private IUserModel userModel;
+    private Button btnAccount;
 
 
     /**
@@ -39,12 +45,21 @@ public class BrowseChannelProductionsViewModel {
      * @param productionModel  the channel model
      * @param viewModelFactory the view model factory
      */
-    public BrowseChannelProductionsViewModel(IProductionModel productionModel, ViewModelFactory viewModelFactory) {
+    public BrowseChannelProductionsViewModel(IProductionModel productionModel, ViewModelFactory viewModelFactory, IUserModel userModel) {
         this.productionModel = productionModel;
         this.productionModel.addListener("kek", (this::onSearchProductionsResult));
         this.viewModelFactory = viewModelFactory;
+        this.userModel = userModel;
         queryParamProperty().setValue(null);
         search();
+    }
+
+    public void setBtnAccount(Button btnAccount) {
+        this.btnAccount = btnAccount;
+    }
+
+    public void setMail(){
+        sharedViewModelFunc.setUserEmail(btnAccount, userModel);
     }
 
     /**

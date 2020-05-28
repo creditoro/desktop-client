@@ -146,6 +146,7 @@ public class SharedControllerFunc {
         viewModelFactory.getProductionViewModel().setId(viewToOpen);
         viewModelFactory.getProductionViewModel().setChannelId(channelId);
         viewHandler.openView(Views.PRODUCTION);
+        viewModelFactory.getProductionViewModel().setAcountEmail();
     }
 
 
