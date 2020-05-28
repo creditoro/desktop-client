@@ -9,6 +9,7 @@ import dk.creditoro.client.model.crud.Production;
 import dk.creditoro.client.view.IViewController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
@@ -42,6 +43,8 @@ public class AddCreditController implements IViewController {
     private TextField emailTxtField;
     @FXML
     private ListView<Credit> listView;
+    @FXML
+    private Button btnAccountE;
 
 
     @Override
@@ -49,6 +52,7 @@ public class AddCreditController implements IViewController {
         this.viewHandler = viewHandler;
         this.viewModelFactory = viewModelFactory;
         addCreditViewModel = viewModelFactory.getAddCreditViewModel();
+        addCreditViewModel.setAccountBtn(btnAccountE);
         listView.setItems(addCreditViewModel.getCredits());
 
         // Getting persons from database

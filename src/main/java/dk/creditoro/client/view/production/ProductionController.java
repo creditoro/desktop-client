@@ -108,6 +108,7 @@ public class ProductionController implements IViewController {
         this.viewModelFactory.getAddCreditViewModel().setProductionTitle(productionViewModel.getTitle());
         this.viewModelFactory.getAddCreditViewModel().setCredits(productionViewModel.listPropertyProperty());
         viewHandler.openView(Views.ADD_CREDITS);
+        viewModelFactory.getAddCreditViewModel().setEmail();
     }
 
     /**
