@@ -16,7 +16,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
-import org.apache.xmlgraphics.java2d.ps.PSTextHandler;
 
 import java.beans.PropertyChangeEvent;
 import java.util.Comparator;
