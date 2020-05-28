@@ -68,7 +68,7 @@ public class ProductionViewModel {
         this.btnAddCredit = btnAddCredit;
     }
 
-    public void setAcountEmail(){
+    public void setAccountEmail(){
         if (userModel.getCurrentUser() != null){
             btnAddCredit.setVisible(true);
         }

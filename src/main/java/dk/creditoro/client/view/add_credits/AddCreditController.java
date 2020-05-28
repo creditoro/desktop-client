@@ -149,7 +149,7 @@ public class AddCreditController implements IViewController {
         clearFields();
         addCreditViewModel.finishCredits(deletedCredits);
         viewHandler.openView(Views.PRODUCTION);
-        viewModelFactory.getProductionViewModel().setAcountEmail();
+        viewModelFactory.getProductionViewModel().setAccountEmail();
     }
 
     /**
