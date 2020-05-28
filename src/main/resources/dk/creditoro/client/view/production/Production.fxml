@@ -47,7 +47,7 @@
                               <Font size="36.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="51.0" layoutY="148.0" onMouseClicked="#btnNewCredit" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0">
+                        <ImageView fx:id="btnAddCredit" fitHeight="50.0" fitWidth="50.0" layoutX="51.0" layoutY="148.0" onMouseClicked="#btnNewCredit" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0">
                            <image>
                               <Image url="@../../res/add.png" />
                            </image>

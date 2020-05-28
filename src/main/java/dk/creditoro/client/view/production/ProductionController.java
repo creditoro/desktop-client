@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -33,6 +34,8 @@ public class ProductionController implements IViewController {
     private Label title;
     @FXML
     private Button btnAccount;
+    @FXML
+    private ImageView btnAddCredit;
 
     @Override
     public void init(ViewModelFactory viewModelFactory, ViewHandler viewHandler) {
@@ -40,6 +43,8 @@ public class ProductionController implements IViewController {
         this.viewHandler = viewHandler;
         productionViewModel = viewModelFactory.getProductionViewModel();
         productionViewModel.setBtnAccount(btnAccount);
+        productionViewModel.setBtnAddCredit(btnAddCredit);
+        btnAddCredit.setVisible(false);
 
         //Add Listener to search area
         search.textProperty().bindBidirectional(productionViewModel.queryParamProperty());

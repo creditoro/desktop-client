@@ -12,6 +12,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ProductionViewModel {
 
     private ArrayList<Credit> cachedCredits = new ArrayList<>();
     private Button btnAccount;
+    private ImageView btnAddCredit;
     private Boolean whichView;
     private String id;
     private String channelId;
@@ -62,7 +64,14 @@ public class ProductionViewModel {
         this.btnAccount = btnAccount;
     }
 
+    public void setBtnAddCredit(ImageView btnAddCredit) {
+        this.btnAddCredit = btnAddCredit;
+    }
+
     public void setAcountEmail(){
+        if (userModel.getCurrentUser() != null){
+            btnAddCredit.setVisible(true);
+        }
         sharedViewModelFunc.setUserEmail(btnAccount, userModel);
     }
 
